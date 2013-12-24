@@ -1,0 +1,706 @@
+
+/*===================================================================================*/
+/*  FONTS                                                                            */
+/*===================================================================================*/
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+
+/*===================================================================================*/
+/*  BASIC                                                                            */
+/*===================================================================================*/
+
+#wrap {
+	width: 100%;
+}
+
+
+/*===================================================================================*/
+/*  TOP                                                                              */
+/*===================================================================================*/
+
+#top {
+	width: 100%;
+	background: #eee;
+	border-bottom: 1px solid #aaa;
+}
+
+#top .contents {
+	width: 980px;
+	margin: 0 auto;
+	text-align: center;
+	padding: 2px 0;
+}
+
+
+/*===================================================================================*/
+/*  HEADER                                                                           */
+/*===================================================================================*/
+
+#header {
+	width: 100%;
+	padding: 20px 0 10px 0;
+	border-bottom: 1px solid #f02a5b;
+}
+
+#header .contents {
+	width: 980px;
+	margin: 0 auto;
+}
+
+#header .logo {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#header ul#nav {
+	float: left;
+}
+
+	#header ul#nav li {
+		display: inline-block;
+		margin: 0 10px;
+		font-weight: 700;
+	}
+	
+	#header ul#nav a {
+		display: block;
+		font-size: 14px;
+		padding: 7px 0;
+		color: #575858;
+		text-decoration: none;
+	}
+	
+		#header ul#nav a:hover,#header ul#nav .on a,#header ul#nav a.on {
+			color: #f02a5b;
+		}
+
+#header .search-form-area {
+	width: 207px;
+	height: 27px;
+	background: url('../images/search.gif') no-repeat;
+	float: right;
+	margin-right: 10px;
+}
+
+	#header .search-form-area input[type="text"] {
+		width: 165px;
+		height: 19px;
+		float: left;
+		margin: 4px 0 0 10px;
+		border:0;
+	}
+	
+	#header .search-form-area input[type="button"] {
+		width: 20px;
+		height: 19px;
+		float: right;
+		margin: 4px 10px 0 0;
+		border: 0;
+		background: url('../images/search_btn.gif') 50% 50% no-repeat;
+	}
+
+
+/*===================================================================================*/
+/*  FOOTER                                                                           */
+/*===================================================================================*/
+
+#footer {
+	width: 100%;
+	padding: 20px 0;
+	margin: 20px 0;
+}
+
+	#footer .contents {
+		width:980px;
+		margin:0 auto;
+		text-align:center;
+	}
+
+	#footer .contents .span {
+		font-weight:bold;
+	}
+
+
+/*===================================================================================*/
+/*  SECTION COMMON                                                                   */
+/*===================================================================================*/
+
+[id*="section"] {
+	width: 100%;
+	position: relative;
+	margin-top: 10px;
+}
+
+[id*="section"] .container {
+	width: 980px;
+	margin: 0 auto;
+}
+
+
+/*===================================================================================*/
+/*  SECTION1                                                                         */
+/*===================================================================================*/
+
+.main-slide-gallery {
+	width: 650px;
+	height: 435px;
+	float: left;
+	border: 1px solid #b7b7b7;
+}
+
+	.main-slide-gallery img {
+		width: 648px;
+		height: 433px;
+	}
+
+.main-search-area {
+	width: 320px;
+	float: right;
+}
+
+	.main-search-area .powersearch img {
+		margin-bottom: 30px;
+	}
+
+
+.main-search-area h3 {
+	font-size: 22px;
+	font-weight: bold;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.main-search-area .speed-search-area {
+	height: 313px;
+	border: 1px solid #b7b7b7;
+	padding: 15px;
+}
+
+	body:first-of-type .main-search-area .speed-search-area {
+		height: 315px; /* 사파리, 크롬,  오페라, 파폭 핵 */
+	}
+
+	/* -- 테이블설정 ---------------------------------------- */
+	
+	.main-search-area .speed-search-area table {
+		margin-bottom: 15px;
+	}
+	
+	.main-search-area .speed-search-area table th,
+	.main-search-area .speed-search-area table td {
+		vertical-align: middle;
+		height: 30px;
+	}
+	
+	.main-search-area .speed-search-area table th {
+		width: 45px;
+	}
+
+
+	.main-search-area .speed-search-area table th span {
+		margin-top: 2px;
+		display: block;
+	}
+
+		body:first-of-type .main-search-area .speed-search-area table th span {
+			margin-top: 0; /* 사파리, 크롬,  오페라, 파폭 핵 */
+		}
+
+
+	.main-search-area .speed-search-area table td {
+		width: 100px;
+	}
+	
+	.main-search-area .speed-search-area table td.tbl_banner {
+		width: 148px;
+		vertical-align: top;
+		padding-left: 8px;
+	}
+	
+	/* -- ./ 테이블설정 ------------------------------------- */
+
+
+.main-search-area .speed-search-area select {
+	width: 100%;
+	vertical-align: middle;
+	border: 1px solid #666;
+	background: #fff;
+}
+
+
+		body:first-of-type .main-search-area .speed-search-area table th span {
+			margin-top: 0; /* 사파리, 크롬,  오페라, 파폭 핵 */
+		}
+
+.main-search-area .speed-search-area input[type="image"] {
+	vertical-align: middle;
+}
+
+
+/*===================================================================================*/
+/*  SECTION2                                                                         */
+/*===================================================================================*/
+
+.section2 .cols3 {
+	margin-right: 10px;
+	padding:10px;
+	border:1px solid #aaa;
+}
+
+.section2 .cols3+.cols3+.cols3 { /* ie8에선 선택자(last-child)가 적용되지 않는다. */
+	margin-right: 0;
+}
+
+.section2 .cols3 img {
+	width: 298px;
+}
+
+.section2 .cols3 h3,
+.section2 .cols3 h4 {
+	font-size: 16px;
+	color: #000;
+	margin-top:5px;
+}
+
+.section2 .cols3 h4 {
+	text-align: right;
+}
+
+.section2 .cols3 h5 {
+	font-size: 12px;
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #ccc;
+}
+
+
+/*===================================================================================*/
+/*  SECTION3                                                                         */
+/*===================================================================================*/
+
+.section3 {
+	margin-top: 50px;
+}
+
+.section3 .row {
+	padding-top: 10px;
+	background: url('../images/row_dot.gif') 50% 50% repeat-y;
+}
+
+.section3 .titles {
+	width: 100%;
+	height: 160px;
+	background: url('../images/section3_title_bg.gif') 50% 50% repeat-x;
+}
+
+.section3 .titles .container {
+	width:980px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.section3 .titles .container .title-img {
+	width: 160px;
+	height: 160px;
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -80px;
+	background: url('../images/section3_title_img.png') no-repeat;
+}
+
+.section3 .titles .container .tleft,
+.section3 .titles .container .tright {
+	width: 380px;
+	height: 100px;
+	float: left;
+	margin-top: 31px;
+}
+
+.section3 .titles .container .tright {
+	float: right;
+}
+
+.section3 .titles .container .tleft h3,
+.section3 .titles .container .tright h3 {
+	margin-top: 15px;
+	color: #d76060;
+	font-size: 40px;
+	text-align: right;
+	font-weight: 100;
+}
+
+.section3 .titles .container .tright h3 {
+	text-align: left;
+}
+
+.section3 .titles .container .tleft span,
+.section3 .titles .container .tright span {
+	display: block;
+	color: #000;
+	font-size: 16px;
+	text-align: right;
+	font-weight: bold;
+}
+
+.section3 .titles .container .tright span {
+	text-align: left;
+}
+
+
+.section3 .cols2 {
+	width: 460px;
+	margin: 0 15px;
+}
+
+.section3 .cols2 .left {
+	width: 270px;
+	float: left;
+}
+.section3 .cols2 .right {
+	width: 170px;
+	padding: 15px 10px 0 0;
+	float: right;
+}
+
+.section3 .cols2 .right h1 {
+	font-size: 24px;
+	color: #f02a5b;
+}
+
+.section3 .cols2 .right h3 {
+	font-size: 13px;
+	color: #000;
+}
+
+.section3 .cols2 .right h4 {
+	margin-top:20px;
+	font-size: 13px;
+	color: #000;
+	text-align: right;
+}
+
+.section3 .cols2 .right h5 {
+	margin: 10px 0;
+	font-size: 11px;
+}
+
+.section-group {
+	margin-top: 10px;
+	border: 1px solid #ddd;
+}
+
+.section-group:before, .section-group:after {
+	content: " ";
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
+
+.section-group:after {
+	clear: both;
+}
+
+.section-group {
+	zoom: 1;
+}
+
+
+/*===================================================================================*/
+/*  SECTION4                                                                         */
+/*===================================================================================*/
+
+.section4 {
+	margin: 30px 0;
+}
+
+.section4 .banner-bg {
+	width: 100%;
+	height: 8px;
+	line-height: 0;
+	font-size: 0;
+	background: url('../images/banner_line_bg.gif') repeat;
+	text-indent: -9999px;
+}
+
+.section4 .row {
+	padding: 30px 0;
+}
+
+.section4 .cols3 {
+	margin-right: 10px;
+	border:1px solid #aaa;
+}
+
+
+.section4 .cols3+.cols3+.cols3 { /* ie8에선 선택자(last-child)가 적용되지 않는다. */
+	margin-right: 0;
+}
+
+/*===================================================================================*/
+/*  SECTION5                                                                         */
+/*===================================================================================*/
+
+.section5 .cols3 {
+	margin-right: 10px;
+	padding:10px;
+	border:1px solid #aaa;
+}
+
+.section5 .cols3+.cols3+.cols3 { /* ie8에선 선택자(last-child)가 적용되지 않는다. */
+	margin-right: 0;
+}
+
+.section5 .cols3 img {
+	width: 298px;
+}
+
+.section5 .cols3 h3,
+.section5 .cols3 h4 {
+	font-size: 16px;
+	color: #000;
+	margin-top:5px;
+}
+
+.section5 .cols3 h4 {
+	text-align: right;
+}
+
+.section5 .cols3 h5 {
+	font-size: 12px;
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #ccc;
+}
+
+
+/*===================================================================================*/
+/*  SECTION6                                                                         */
+/*===================================================================================*/
+
+.section6 .cols2 {
+	margin-right: 10px;
+}
+
+	.section6 .cols2+.cols2 { /* ie8에선 선택자(last-child)가 적용되지 않는다. */
+		margin-right: 0;
+	}
+
+.section6 .cols2 .left {
+	width: 270px;
+	float: left;
+}
+.section6 .cols2 .right {
+	width: 195px;
+	padding: 15px 10px 0 0;
+	float: right;
+}
+
+.section6 .cols2 .right h1 {
+	font-size: 24px;
+	color: #f02a5b;
+}
+
+.section6 .cols2 .right h3 {
+	font-size: 13px;
+	color: #000;
+}
+
+.section6 .cols2 .right h4 {
+	margin-top:20px;
+	font-size: 13px;
+	color: #000;
+	text-align: right;
+}
+
+.section6 .cols2 .right h5 {
+	margin: 10px 0;
+	font-size: 11px;
+}
+
+
+/*===================================================================================*/
+/*  CUSTOMER                                                                         */
+/*===================================================================================*/
+
+.customer {
+	margin-top: 60px;
+	border-bottom: 2px solid #84cfd6;
+	padding-bottom: 20px;
+}
+
+.customer .titles {
+	margin-bottom: 30px;
+	background: url('../images/customer_title_bg.gif') 50% 50% repeat-x;
+	text-align: center;
+}
+
+.customer .cs-info {
+	width: 285px;
+	float: left;
+}
+
+.customer .latest {
+	width: 260px;
+	float: left;
+	margin-right: 30px;
+}
+
+	.customer .latest h3 {
+		height: 17px;
+		margin: 0;
+		padding: 0;
+	}
+
+	.customer .latest .contents {
+		height: 66px;
+		margin: 0;
+		padding: 0 10px;
+	}
+
+	.customer .latest .contents li {
+		font-size: 11px;
+		line-height: 150%;
+	}
+
+
+.customer .bank-info {
+	width: 375px;
+	float: right;
+}
+
+
+
+
+/*===================================================================================*/
+/*  SUB PAGE STYLE SHEET                                                             */
+/*===================================================================================*/
+
+
+/*===================================================================================*/
+/*  SUB SEARCH BAR                                                                   */
+/*===================================================================================*/
+
+.sub-search-bar {
+	height: 30px;
+	border-bottom: 1px solid #aaa;
+}
+
+.sub-search-bar h4,
+.sub-search-bar select,
+.sub-search-bar input {
+	float: left;
+	margin-left: 10px;
+	font-size: 12px;
+	color: #000;
+	vertical-align: middle;
+}
+
+.sub-search-bar select,
+.sub-search-bar input {
+	margin-right: 32px;
+}
+
+.sub-search-bar input {
+	margin-top: 2px;
+}
+
+	body:first-of-type .sub-search-bar select, .sub-search-bar input  {
+		margin-right: 31px; /* 사파리, 크롬,  오페라, 파폭 핵 */
+	}
+
+.sub-search-bar h4 {
+	margin-top: 3px;
+}
+
+	body:first-of-type .sub-search-bar h4 {
+		margin-top: 4px; /* 사파리, 크롬,  오페라, 파폭 핵 */
+	}
+	
+
+/*===================================================================================*/
+/*  SUB TABLE SETTING                                                                */
+/*===================================================================================*/
+
+.tbl {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: inherit;
+	margin-bottom: 10px;
+	font-size: 12px;
+}
+
+	.tbl td {
+		padding: 5px;
+		vertical-align: middle;
+		border: 1px solid #ddd;
+		line-height: 140%;
+	}
+	
+	.tbl td.gallery {
+		text-align: center;
+	}
+	
+		.tbl td.gallery a img {
+			width: 100%;
+			padding-bottom: 5px;
+			border-bottom: 1px solid #aaa;
+		}
+	
+		.tbl td.gallery a:hover img {
+			padding-bottom: 5px;
+			border-bottom: 1px solid #e23660;
+		}
+
+		.tbl td.gallery h3 {
+			margin-top: 5px;
+			font-size: 12px;
+		}
+
+		.tbl td.gallery span a {
+			width: 90%;
+			display: inline-block;
+			padding: 3px 0;
+			margin-top: 5px;
+			background: #f47a98;
+			border: 1px solid #e23660;
+			color: #fff;
+			font-size: 11px;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		.tbl td.gallery span a:hover {
+			background: #84cfd6;
+			border: 1px solid #00aebd;
+		}
+
+	.tbl td:last-child {
+		text-align: center;
+	}
+
+	.tbl td.last {
+		text-align: center;
+	}
+
+	.tbl tbody {
+		border-bottom: 2px solid #333;
+	}
+
+	.tbl th {
+		font-size: 12px;
+		font-weight: bold;
+		text-align: center;
+		color: #fff;
+		padding: 8px 0;
+		background: #51c3ca;
+		border: 1px solid #249ea6;
+	}
+
+
+
+/*===================================================================================*/
+/*  END STYLE SHEET CODING : BY HYEUK                                                */
+/*===================================================================================*/

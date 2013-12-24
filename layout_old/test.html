@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Pension Discount</title>
+
+<style>
+ul, dl {margin:0; padding:0; list-style:none;}
+#daily_best { overflow: hidden; position: relative; width: 1000px; margin-bottom: 15px; }
+#daily_best h2 { position: absolute; top: 0; left: 0; z-index: 500; }
+#daily_best ul { overflow: hidden; width: 1020px; }
+#daily_best ul li { float: left; height: 257px; }
+#daily_best ul li a img { margin-right: 20px; }
+#daily_best .bx-prev { display: none; position: absolute; top: 80px; left: 0; z-index: 500; }
+#daily_best .bx-next { display: none; position: absolute; top: 80px; right: 0; z-index: 500; }
+#daily_best ul li a { display: block; position: relative; width: 340px; color: #fff; cursor: pointer; }
+#daily_best ul li a:hover { text-decoration: none; }
+#daily_best ul li .img { display: block; text-align: center; }
+#daily_best ul li .desc { display: none; position: absolute; top: 0; left: 0; z-index: 300; width: 244px; height: 217px; padding: 38px 38px 0; }
+#daily_best ul li .bg { display: none; position: absolute; top: 0; left: 0; z-index: 200; width: 320px; height: 257px; background-color: #3dbcc4; filter: alpha(opacity=85); opacity: 0.85; }
+#daily_best ul li .checked { display: none; position: absolute; top: 0; left: 0; z-index: 300; width: 229px; height: 184px; cursor: pointer; }
+#daily_best ul li .checked.on { display: block; background: url(/images/sprite_port.png) no-repeat -980px -280px;  }
+#daily_best ul li #check_delete { visibility: hidden; }
+#daily_best ul li .desc > span { display: block; }
+#daily_best ul li .desc .category { margin-bottom: 31px; font-weight: 800; }
+#daily_best ul li .desc .subject { overflow: hidden; width: 244px; margin-bottom: 45px; font-weight: 900; font-size: 18px; font-family: "Nanum gothic", "나눔고딕"; text-transform: uppercase; white-space: nowrap; text-overflow: ellipsis; }
+#daily_best ul li .desc .data span { float: left; width: 122px; height: 25px; line-height: 25px; }
+#daily_best ul li .desc .data .value { color: #e3e469; font-weight: 900; font-size: 18px; font-family: "Nanum gothic"; text-align: right; }
+#daily_best ul li .showme { display: inline-block; position: absolute; top: 25px; right: 48px; z-index: 500; width: 21px; height: 21px; background: url(/images/icon_showme.png) no-repeat; }
+#daily_best ul li .showme.on { background: url(/images/icon_showme_on.png) no-repeat; }
+#daily_best ul li .msg_ok,
+#daily_best ul li .msg_cancel { display: none; position: absolute; top: 115px; left: 75px; z-index: 300; width: 171px; padding: 10px 0; border-radius: 20px; background-color: #000; background-color: rgba(0,0,0,0.4); font-family: Helvetica; text-align: center; }
+#daily_best .btn_delete { position: absolute; top: 8px; right: 15px; }
+#daily_best .btn_delete img[alt="취소"] { background: url(/images/sprite_port.png) no-repeat -790px -255px; margin-right: 14px; }
+#daily_best .btn_delete img[alt="삭제"] { background: url(/images/sprite_port.png) no-repeat -820px -255px; }
+#daily_best .btn_delete img[alt="삭제완료"] { background: url(/images/sprite_port.png) no-repeat -820px -255px; }
+</style>
+
+</head>
+ 
+<body>
+
+<div id="daily_best">
+    <h2><img src="/images/main/h2_daily_best.png" alt="daily best"></h2>
+    <ul>
+
+                                <li>
+            <a class="pt" href="#none" onmouseover="javascript: pt_over(this);" onmouseout="javascript: pt_out(this);" onclick="javascript: view(this, 'http://u.designshow.me/pong0823/104');" style="">
+                    <span class="img"><img src="http://img.cafenbanner.com/cnb_main/image/logosesang/64053" alt="" width="320" height="255"></span>
+                    <span class="desc hover">
+                        <span class="category">2D그래픽</span>
+                        <span class="subject">캘리그라피 전시</span>
+                        <span class="data">
+                            <span>show me</span>
+                            <span class="value pf_showme_104">1</span>
+                            <span>view</span>
+                            <span class="value">151</span>
+                            <span>comment</span>
+                            <span class="value">0</span>
+                        </span>
+                    </span>
+                    <span class="bg hover"></span>
+
+                    
+                    <span class="msg_ok msg_ok_104">SHOW ME</span>
+                    <span class="msg_cancel msg_cancel_104">CANCEL</span>
+                </a>
+            <a href="#"></a>
+        </li>
+                <li>
+            <a class="pt" href="#none" onmouseover="javascript: pt_over(this);" onmouseout="javascript: pt_out(this);" onclick="javascript: view(this, 'http://u.designshow.me/seoidea/77');" style="">
+                    <span class="img"><img src="http://img.cafenbanner.com/cnb_main/image/logosesang/64051" alt="" width="320" height="255"></span>
+                    <span class="desc hover">
+                        <span class="category">2D그래픽</span>
+                        <span class="subject">[Calligraphy] 조명:) </span>
+                        <span class="data">
+                            <span>show me</span>
+                            <span class="value pf_showme_77">2</span>
+                            <span>view</span>
+                            <span class="value">198</span>
+                            <span>comment</span>
+                            <span class="value">0</span>
+                        </span>
+                    </span>
+                    <span class="bg hover"></span>
+
+                    
+                    <span class="msg_ok msg_ok_77">SHOW ME</span>
+                    <span class="msg_cancel msg_cancel_77">CANCEL</span>
+                </a>
+            <a href="#"></a>
+        </li>
+                <li>
+            <a class="pt" href="#none" onmouseover="javascript: pt_over(this);" onmouseout="javascript: pt_out(this);" onclick="javascript: view(this, 'http://u.designshow.me/kz941124/92');" style="">
+                    <span class="img"><img src="http://img.cafenbanner.com/cnb_main/image/logosesang/64049" alt="" width="320" height="255"></span>
+                    <span class="desc hover">
+                        <span class="category">2D그래픽</span>
+                        <span class="subject">'HUVE' CI 로고디자인</span>
+                        <span class="data">
+                            <span>show me</span>
+                            <span class="value pf_showme_92">3</span>
+                            <span>view</span>
+                            <span class="value">256</span>
+                            <span>comment</span>
+                            <span class="value">0</span>
+                        </span>
+                    </span>
+                    <span class="bg hover"></span>
+
+                    
+                    <span class="msg_ok msg_ok_92">SHOW ME</span>
+                    <span class="msg_cancel msg_cancel_92">CANCEL</span>
+                </a>
+            <a href="#"></a>
+        </li>
+                <li>
+            <a class="pt" href="#none" onmouseover="javascript: pt_over(this);" onmouseout="javascript: pt_out(this);" onclick="javascript: view(this, 'http://u.designshow.me/kz941124/91');" style="">
+                    <span class="img"><img src="http://img.cafenbanner.com/cnb_main/image/logosesang/64050" alt="" width="320" height="255"></span>
+                    <span class="desc hover">
+                        <span class="category">2D그래픽</span>
+                        <span class="subject">Concept Car Design</span>
+                        <span class="data">
+                            <span>show me</span>
+                            <span class="value pf_showme_91">3</span>
+                            <span>view</span>
+                            <span class="value">186</span>
+                            <span>comment</span>
+                            <span class="value">2</span>
+                        </span>
+                    </span>
+                    <span class="bg hover"></span>
+
+                    
+                    <span class="msg_ok msg_ok_91">SHOW ME</span>
+                    <span class="msg_cancel msg_cancel_91">CANCEL</span>
+                </a>
+            <a href="#"></a>
+        </li>
+                <li>
+            <a class="pt" href="#none" onmouseover="javascript: pt_over(this);" onmouseout="javascript: pt_out(this);" onclick="javascript: view(this, 'http://u.designshow.me/pong0823/101');" style="">
+                    <span class="img"><img src="http://img.cafenbanner.com/cnb_main/image/logosesang/64052" alt="" width="320" height="255"></span>
+                    <span class="desc hover">
+                        <span class="category">편집/출판</span>
+                        <span class="subject">대한민국역사박물관 스토리텔링북커버 디자인</span>
+                        <span class="data">
+                            <span>show me</span>
+                            <span class="value pf_showme_101">2</span>
+                            <span>view</span>
+                            <span class="value">164</span>
+                            <span>comment</span>
+                            <span class="value">0</span>
+                        </span>
+                    </span>
+                    <span class="bg hover"></span>
+
+                    
+                    <span class="msg_ok msg_ok_101">SHOW ME</span>
+                    <span class="msg_cancel msg_cancel_101">CANCEL</span>
+                </a>
+            <a href="#"></a>
+        </li>
+            </ul>
+</div>
+
+</body>
+</html>

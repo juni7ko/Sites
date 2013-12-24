@@ -1,0 +1,156 @@
+/*===================================================================================*/
+/*  RESET                                                                            */ 
+/*===================================================================================*/
+
+* { outline: 0; }
+body { line-height: 1; margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; } 
+input[type=submit] { -webkit-appearance: none; }
+table { border-collapse: separate; border-spacing: 0; }
+caption, th, td { text-align: left; font-weight: normal; }
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+*, *:before, *:after {  -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+ul, li {margin: 0; padding: 0;}
+html, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, em, font, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+	margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline;
+}
+caption, .hide {display: none;}
+
+
+
+/*===================================================================================*/
+/*  BASIC                                                                            */ 
+/*===================================================================================*/
+
+body {
+    color: #888888;
+    font-family: dotum,'돋움', sans-serif;
+}
+
+
+/*===================================================================================*/
+/*  CLEAR                                                                            */ 
+/*===================================================================================*/
+
+.clearfix:before, .clearfix:after,
+.row:before, .row:after {
+	content:" ";
+	display:block;
+	height:0;
+	overflow:hidden;
+}
+
+.clear,
+.clearfix:after,
+.row:after {
+	clear:both;
+}
+
+.clearfix,
+.row {
+	zoom:1;
+}
+
+
+/*===================================================================================*/
+/*  FRAME-SIZE                                                                       */ 
+/*===================================================================================*/
+
+    .row { 
+        width: auto !important; 
+        max-width: none; 
+        min-width: 0;
+    }
+    
+    .row div.span3 {
+	    margin-left: 10px;
+    }
+    
+    .row div.span3 .gallery-area.mb10 {
+	    margin-bottom: 10px;
+    }
+
+    .row div.span4 {
+	    margin-left: 11px;
+    }
+    
+	    .row div.span4:first-child {
+		    margin-left: 0;
+	    }
+    
+    .row div.span6 {
+	    margin-left: 10px;
+    }
+    
+	    .row div.span6:first-child {
+		    margin-left: 0;
+	    }
+
+    [class*="span"] { 
+        float: left; 
+        min-height: 1px;
+        position: relative;
+    }
+
+    .span1  { width: 8.33333%; }
+    .span2  { width: 16.66667%; }
+    .span3  { width: 208px; }
+    .span4  { width: 326px; }
+    .span5  { width: 338px; }
+    .span6  { width: 495px; }
+    .span7  { width: 58.33333%; }
+    .span8  { width: 66.66667%; }
+    .span9  { width: 75%; }
+    .span10 { width: 83.33333%; }
+    .span11 { width: 91.66667%; }
+    .span12 { width: 100%; }
+
+    .span5_5 { width: 20%; }
+
+
+    .span10 { width: 10%; }
+    .span20 { width: 20%; }
+    .span30 { width: 30%; }
+    .span40 { width: 40%; }
+    .span50 { width: 50%; }
+    .span60 { width: 60%; }
+    .span70 { width: 70%; }
+    .span80 { width: 80%; }
+    .span90 { width: 90%; }
+    .span100 { width: 100%; }
+
+
+/*===================================================================================*/
+/*  TEXT COLOR                                                                       */ 
+/*===================================================================================*/
+
+    .red { color: #c00; }
+	.blue { color: #2da0e7; }
+	.green { color: #1cdfc3; }
+	.green-dark { color: #19926d; }
+	.pink { color:#f0244a; }
+
+
+/*===================================================================================*/
+/*  TEXT ALIGN                                                                       */ 
+/*===================================================================================*/
+
+.tleft { text-align: left }
+.tcenter { text-align: center }
+.tright { text-align: right }
+
+/*===================================================================================*/
+/*  TEXT ALIGN                                                                       */ 
+/*===================================================================================*/
+
+.t11 { font-size: 11px; }
+.t12 { font-size: 12px; }
+.t13 { font-size: 13px; }
+.t14 { font-size: 14px; }
+.t15 { font-size: 15px; }
+.t16 { font-size: 16px; }
+.t17 { font-size: 17px; }
+.t18 { font-size: 18px; }
+.t19 { font-size: 19px; }
+.t20 { font-size: 20px; }

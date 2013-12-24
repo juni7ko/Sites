@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1">
+<meta name="keywords" content="계곡/강/호수/산/스키장주변/등산/수목원/휴양림/커플전용/복층구조/계곡좋은/인터넷/예약시카드결제/바베큐장/세미나실/벽돌형/경기도/가평/추천/오픈마켓/가평/" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Pragma" content="no-cache" />
+
+	<!-- // : http https 공용으로 사용  https://developers.google.com/speed/libraries/devguide -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<!--script type="text/javascript" src="http://www.ddnayo.com/js/jquery-1.3.2-vsdoc.js"></script-->
+
+    <script type="text/javascript" src="http://www.ddnayo.com/js/common.js"></script>
+    <script type="text/javascript" src="http://www.ddnayo.com/js/ddnayo.js"></script>
+    <script type="text/javascript" src="http://www.ddnayo.com/js/ams.js"></script>
+    <script type="text/javascript" src="http://www.ddnayo.com/js/jquery.lazy.min.js"></script>
+
+
+    <!-- 펜션사랑에서 쓰는 플래쉬 스크립트 -->
+    <script type="text/javascript" src="http://www.ddnayo.com/js/AC_RunActiveContent.js"></script>
+
+	<link rel="StyleSheet" href="http://www.ddnayo.com/css/ddnayo.css" type="text/css" />
+	<link rel="StyleSheet" href="http://www.ddnayo.com/css/common.css" type="text/css" />
+
+<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=63eea2dfc6cf38ad4a3a5c91e00e31207925dcb2" charset="utf-8"></script>
+
+	<script type="text/javascript">
+
+		var map;
+		var icon;
+		var markers;
+		var pv_infow;
+		function initMap() {
+
+			map = new daum.maps.Map(document.getElementById('map'), {
+				center: new daum.maps.LatLng(37.566419230900905, 126.97787415510291),
+				scrollwheel: true
+			});
+
+
+			map.addControl(new daum.maps.MapTypeControl(), daum.maps.ControlPosition.RIGHT);
+			map.addControl(new daum.maps.ZoomControl(), daum.maps.ControlPosition.RIGHT);
+
+
+
+			// idle 에 연결하면. 창싸이즈 재조종시에 엄청나게 많이 발생하여 드레그랑 줌 변경되었을 때로 나누어 처리 (문제 처리완료)
+			daum.maps.event.addListener(map, "idle", function() {
+				if (pv_infow != null)
+					pv_infow.close();
+
+				GetListTime();
+			});
+
+
+			/*
+			daum.maps.event.addListener(map, "dragend", function() {
+			GetListTime();
+			});
+			daum.maps.event.addListener(map, "zoom_changed", function() {
+			GetListTime();
+			});
+			daum.maps.event.addListener(map, "dblclick", function() {
+			GetListTime();
+			});
+			*/
+
+
+			//icon = new daum.maps.MarkerImage('http://www.ddnayo.com/img/common/icon_man.png', new daum.maps.Size(28, 37));
+
+		}
+
+		function QuickArea(addr, level) {
+
+			if (level == null)
+				level = 9;
+
+			var turl = StringFormat("http://www.ddnayo.com/Common/MapDaumAddrPoint.ashx?addr={0}", encodeURI(addr));
+			$.ajax({
+				url: turl
+				, async: false
+				, dataType: "json"
+				, success: function(res) {
+
+					var res = res.channel;
+					if (res.totalCount == 0) {
+						return;
+					}
+					var lat = res.item[0].lat;
+					var lng = res.item[0].lng;
+
+					map.setCenter(new daum.maps.LatLng(lat, lng));
+					map.setLevel(level);
+
+					GetListTime();
+				}
+			});
+
+		}
+
+		var listTimer;
+
+		function GetListTime() {
+			if (listTimer != null) {
+				clearTimeout(listTimer);
+			}
+
+			LoadingView();
+			listTimer = setInterval(function() {
+
+				GetList();
+				clearTimeout(listTimer);
+
+			}, 1000);
+		}
+
+
+		function GetList() {
+
+
+			//기존마커 제거
+			if (markers != null) {
+				$.each(markers, function(idx, obj) {
+					obj.marker.setMap(null);
+				});
+
+				markers = null;
+			}
+
+
+			var area = map.getBounds();
+
+			var param = StringFormat("{0},{1},{2},{3}"
+			//남서
+				, area.getSouthWest().getLat()
+				, area.getSouthWest().getLng()
+
+			//북동
+				, area.getNorthEast().getLat()
+				, area.getNorthEast().getLng()
+			);
+
+			param = encodeURI(param);
+
+
+			var turl = StringFormat("http://www.ddnayo.com/Common/AjaxHandler.ashx?act=MapBoundHotel&param={0}", param);
+			$.ajax({
+				url: turl
+				, async: false
+				, dataType: "json"
+				, success: function(json) {
+
+					if (
+						json.res.length >= 100
+						&& $("#msg").text() == ""
+					) {
+						$("#msg").text("지도에서 한번에 볼수 있는 개체수는 100개로 제한되어 있으므로 적절히 확대/축소 하시기 바랍니다.")
+							.slideDown("slow")
+							.delay(10000)
+							.slideUp("slow", function() { $(this).text("") })
+					}
+
+					$.each(json.res, function(idx, obj) {
+
+						obj.marker = new daum.maps.Marker({
+							position: new daum.maps.LatLng(obj.map_x, obj.map_y),
+							image: icon
+						})
+
+						daum.maps.event.addListener(obj.marker, "mouseover", function() {
+							//pv_infow.open(map, obj.marker);
+						});
+						daum.maps.event.addListener(obj.marker, "mouseout", function() {
+							//pv_infow.close();
+						});
+						daum.maps.event.addListener(obj.marker, "click", function(pos) {
+
+
+							if (isLoading)
+								return;
+
+
+							$.ajax({
+								url: StringFormat("http://www.ddnayo.com/Common/AjaxHandler.ashx?act=GetHotelBaseInfo&id_hotel={0}", obj.id_hotel)
+								, async: false
+								, dataType: "json"
+								, success: function(json2) {
+
+									if (pv_infow != null)
+										pv_infow.close();
+
+
+									var dtl = json2.res[0];
+									var content = "<div class='mapMark'><center>"
+									+ "		<table cellspacing='0' cellpadding='0'>"
+									+ "			<tr>"
+									+ "				<td class='img'>"
+									+ "					<a  target='_blank' href='" + dtl.src + "'><img width='90' height='68' src='" + dtl.nm_file + "'></a>"
+									+ "				</td>"
+									+ "				<td class='title'>"
+									+ "					<div class='nm'>" + dtl.nm_hotel + "</div>"
+
+
+									content += "					<div class='addr'>" + dtl.addr1 + ' ' + dtl.addr2 + ' ' + dtl.addr3 + "</div>"
+									+ "		<div class='btn'>"
+									+ "					</div>"
+									+ "				</td>"
+									+ "			</tr>"
+									+ "		</table>"
+									+ "		<table cellspacing='0' cellpadding='0'>"
+									+ "			<tr>"
+									+ "				<td>"
+									+ "					<div class='ctt'>"
+									content += "			주중:<span class='su'>" + dtl.rate_wd.Comma() + "</span>원, 주말:<span class='su'>" + dtl.rate_we.Comma() + "</span>원"
+									+"					</div>"
+									+ "				</td>"
+									+ "			</tr>"
+									+ "		</table>"
+									+ "</center></div>";
+
+
+									pv_infow = new daum.maps.InfoWindow({
+										content: content,
+										removable: true,
+										disableAutoPan: true
+									});
+
+
+									//map.setCenter(obj.marker.getPosition());
+									pv_infow.open(map, obj.marker);
+
+									//기본정보 오픈
+									//WindowOpen('DetailViewParty.aspx?pageType=popup&id_shop=' + obj.id_shop, 'detail', '1000', '600', 'yes', 'yes');
+								}
+								, error: function(e) {
+									alert(e.statusText);
+									debugger;
+								}
+							});
+
+						});
+
+						obj.marker.setMap(map);
+
+					});
+
+					//차후 재 호출용도로 저장
+					markers = json.res;
+
+				}
+
+			});
+
+
+
+			//디버그
+			//alert(params);
+			var now = new Date();
+			var Seconds = now.getSeconds();
+			$("#res").val(turl);
+
+
+			LoadingHide();
+		}
+
+
+		var isLoading = false;
+		function LoadingView() {
+			isLoading = true;
+			var left = ($("#map").width() - $("#ing").width()) / 2;
+			var top = ($("#map").height() - $("#ing").height()) / 2;
+
+			var ing = $("#ing");
+			ing.css("top", top + 'px');
+			ing.css("left", left + 'px');
+			ing.css("opacity", 0.6);
+			ing.show();
+		}
+
+		function LoadingHide() {
+			$("#ing").hide();
+			isLoading = false;
+		}
+
+		//var zoomControl = new daum.maps.ZoomControl();
+		//map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+		$(document).ready(function() {
+			/* 메뉴창 제외한 실제사이즈를 지도싸이즈로 정한다. */
+			SetHeightMap();
+
+			initMap();
+
+			AddrRefresh();
+		});
+
+		//서버가따올때마다 재 셋팅 해줌
+		function AddrRefresh() {
+			QuickArea(jQuery("select[id$=quickAddr]").val());
+			$("select[id$=quickAddr]").change(function() {
+				QuickArea(jQuery(this).val());
+			});
+		}
+
+		$(window).resize(function() {
+			SetHeightMap();
+		});
+
+		function SetHeightMap() {
+			$("#map").height($(window).height() - $("#topmenu").height() - 50)
+		}
+
+	</script>
+
+<title>
+	최저가 실시간 펜션예약 떠나요닷컴
+</title></head>
+<body>
+    <form name="aspnetForm" method="post" action="SearchMap.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="http://www.ddnayo.com/WebResource.axd?d=mH9YYm4_7DzycmWgikBhMtQZGHyNUV2nmaDQX0eSs1Hw0oKQfIuDcdNrWPby16Gknyyp8fCn3WgjNjKY6cV7xdYukZk1&amp;t=635160314497753640" type="text/javascript"></script>
+
+
+<script src="http://www.ddnayo.com/ScriptResource.axd?d=mkqQf4FecgDSbqY9EX3wbf0-tYuX-l1xmz04oFF0BhVY_-0l1lm5K19lWdlopRVne6riLjcBcawg5DftSXvk6stT2LTBPdjXvuv4ZG-qZYdrepvi0&amp;t=ffffffff8599fd31" type="text/javascript"></script>
+<script src="http://www.ddnayo.com/ScriptResource.axd?d=h0dA8K-l-VNtk5LE-XyvxiudglqZWboSp0uGBwIvlwt10cvu2x4g5X18fsRYAwpfiBZOfVZaZ-i2fTiIvORff0-IxA07fty4nM03OSuJ5aQIu_lg0&amp;t=ffffffff8599fd31" type="text/javascript"></script>
+<script src="http://www.ddnayo.com/ScriptResource.axd?d=QXKm2kSFHELiAUeCHjylpVgVns8kngDTuWYPv-A2E6V5iFq-Asm5Iaxp_5ZC6ONBjGb_bd0Nbq6vOoXLgdeuXeTXVOKFFIg0YPee8jjvjU4p8Yzu0&amp;t=ffffffff8599fd31" type="text/javascript"></script>
+<script src="http://www.ddnayo.com/ScriptResource.axd?d=sTINS7v-P9af9t21sa7Il91ndlBlxENE71pOESVzmW0ahCIPw8b3KWFtJLHA8fhhegyW7NUCqtoMgDa8vmaHnj3pldEBrEAdYnOv4o2TB_cAxQ2_RM-Jr2aPe4qy765sCafHKSRwIo-E0ot5T9YTttpuhOlvtjK0fjA-KFtj9IzEmNiR0&amp;t=19aea017" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="http://www.ddnayo.com/ScriptResource.axd?d=nlPYVVPirDkSmCInDoyVR9OIKxPhaxOOUwYfrcMjfQfGpWITnHtYwko9nnT2bMdycGQ6ARLUNLaZduDPJawgJG1SX4gfChqtaj8Y7m4oj6D11P6EmtSZxTibDgf4-w2nkZLl5cqlNRLtBE8YeWc-bP1GojQjuEs_Zo0hYCgbAuk0KliU0&amp;t=19aea017" type="text/javascript"></script>
+
+	<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ctt$sm', document.getElementById('aspnetForm'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls([], [], [], 90);
+//]]>
+</script>
+
+
+
+	<div style="position:relative;">
+		<div id="map" style="width:100%; z-index:90;"></div>
+		<img id="ing" src="http://www.ddnayo.com/img/common/loading.gif" width="164" height="80" style="position:absolute; display:none; z-index:100;" />
+		<span id="msg" style="position:absolute; left:10px; top:10px; background-color:White; padding:10px; border:solid 1px gray; display:none; color:Red; z-index:200"></span>
+	</div>
+
+
+
+    <a id='ctl00_ctl06' style='display:none;'></a>
+
+
+
+
+
+
+	<!-- fah : search.daum -->
+
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+
+	#header ul#nav li {
+		display: inline; zoom: 1;
+	} /* IE7 이하의 브라우저에서 inline-block이 적용되지 않는다. */
+
+
+	/* 섹션별 넓이와 높이를 지정해준다. */
+	.section1 .main-slide-gallery	{ height: 433px; }
+	.section1 .speed-search-area	{ height: 282px; border: 1px solid #b7b7b7; padding: 15px; }
+	.section2 .cols3				{ width: 298px; }
+	.section3 .cols2 .left			{ height:180px; }
+	.section4 .cols3				{ height:108px; margin-right:0; border: 1px solid #fff; }
+	.section5 .cols3				{ width: 298px; }
+	.section6 .cols2 .left			{ width:480px; height:180px; margin-right:5px; margin-left:5px; }
+
+
+	/* 섹션별 이미지의 크기를 지정해준다. */
+	.section1 .main-slide-gallery img,
+	.section2 .cols3 img,
+	.section3 .cols2 .left img,
+	.section4 .cols3 img
+	.section5 .cols3 img
+	.section6 .cols2 .left img {
+		width: 100%;
+	}
+
+	.main-slide-gallery .contents {
+		bottom: 0;
+	}
+
+	.detail-search-area .speed-search-area {
+		padding:7px 15px 0 15px;
+	}
+	
+	.detail-readme {
+		width: 960px;
+	}

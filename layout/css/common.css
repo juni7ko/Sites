@@ -1,0 +1,133 @@
+/*===================================================================================*/
+/*  RESET                                                                            */ 
+/*===================================================================================*/
+
+* { outline: 0; }
+body { line-height: 1; margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; } 
+input[type=submit] { -webkit-appearance: none; }
+table { border-collapse: separate; border-spacing: 0; }
+caption, th, td { text-align: left; font-weight: normal; }
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+*, *:before, *:after {  -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+ul, li {margin: 0; padding: 0;}
+html, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, em, font, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+	margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline;
+}
+caption, .hide {display: none;}
+
+
+
+/*===================================================================================*/
+/*  BASIC                                                                            */ 
+/*===================================================================================*/
+
+body {
+	font-size: 0.75em;
+}
+
+body, table, th, td, span, p, div, select, input, form {
+    color: #888888;
+    font-family: 'Nanum Gothic','나눔고딕', dotum, '돋움', sans-serif;
+}
+
+/*===================================================================================*/
+/*  CLEAR                                                                            */ 
+/*===================================================================================*/
+
+.clearfix:before, .clearfix:after,
+.row:before, .row:after {
+	content:" ";
+	display:block;
+	height:0;
+	overflow:hidden;
+}
+
+.clear,
+.clearfix:after,
+.row:after {
+	clear:both;
+}
+
+.clearfix,
+.row {
+	zoom:1;
+}
+
+
+/*===================================================================================*/
+/*  FRAME-SIZE                                                                       */ 
+/*===================================================================================*/
+
+    .row { 
+        width: auto !important; 
+        max-width: none; 
+        min-width: 0;
+    }
+    
+
+    [class*="span"] { 
+        float: left; 
+        min-height: 1px;
+        position: relative;
+    }
+
+    .span1  { width: 8.33333%; }
+    .span2  { width: 16.66667%; }
+    .span3  { width: 208px; }
+    .span4  { width: 320px; }
+    .span5  { width: 338px; }
+    .span6  { width: 495px; }
+    .span7  { width: 58.33333%; }
+    .span8  { width: 66.66667%; }
+    .span9  { width: 75%; }
+    .span10 { width: 83.33333%; }
+    .span11 { width: 91.66667%; }
+    .span12 { width: 100%; }
+
+    .span5_5 { width: 20%; }
+
+
+    .span10 { width: 10%; }
+    .span20 { width: 20%; }
+    .span30 { width: 30%; }
+    .span40 { width: 40%; }
+    .span50 { width: 50%; }
+    .span60 { width: 60%; }
+    .span70 { width: 70%; }
+    .span80 { width: 80%; }
+    .span90 { width: 90%; }
+    .span100 { width: 100%; }
+
+
+    [class*="cols"] { 
+        float: left; 
+        min-height: 1px;
+        position: relative;
+    }
+
+    .cols  { width: 100%;  }
+    .cols1 { width: 980px; }
+    .cols2 { width: 485px; } /* 여백5px */
+    .cols3 { width: 320px; } /* 여백10px */
+    .cols4 { width: 239px; } /* 여백8px */
+    .cols50{ width: 50%;   }
+
+
+/*===================================================================================*/
+/*  TEXT COLOR                                                                       */ 
+/*===================================================================================*/
+
+    .pink {color: #f02a5b;}
+    .blue {color: #00aebd;}
+    .gray {color: #595959;}
+    .red  {color: #cc0000;}
+
+/*===================================================================================*/
+/*  TEXT ALIGN                                                                       */ 
+/*===================================================================================*/
+
+.tleft { text-align: left }
+.tcenter { text-align: center }
+.tright { text-align: right }

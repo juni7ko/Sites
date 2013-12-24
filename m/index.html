@@ -1,0 +1,34 @@
+<?php include_once "./_common.php";
+if($_GET['from'] == 'pc'){
+    set_session("frommoblie", "");
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>펜션할인 펜션다나와</title>
+</head>
+
+<body class="index">
+
+<div id="mobile-wrap" style="margin-bottom:0;">
+
+	<div id="visual" class="index-visual">
+		모바일홈페이지입니다.
+		<ul>
+			<li><a href="tel:0336552776" class="btn01">전화걸기</a></li>
+			<!-- <li><a href="<?=$g4['path']?>/bbs/board.php?bo_table=bbs34" class="btn02">예약하기</a></li> -->
+			<li><a href="<?=$g4['path']?>/m/1_1.php?bo_table=bbs34" class="btn02">예약하기</a></li>
+			<li><a href="index.php" class="btn03">SKIP</a></li>
+		</ul>
+	</div>
+</div><!-- /mobile-wrap -->
+
+<div class="footer-bottom">
+	<img src="images/footer.gif" alt="copyright" />
+</div>
+
+</body>
+</html>

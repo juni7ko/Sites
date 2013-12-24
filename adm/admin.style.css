@@ -1,0 +1,100 @@
+a:link, a:visited, a:active { text-decoration:none; color:#CD7444; }
+a:hover { text-decoration:underline; color:#C15B27; }
+
+.title { font-size:9pt; font-family:굴림; font-weight:bold; color:#616161; }
+
+.btn1 { background-color:#FBF8EE; } 
+
+.col1 { color:#616161; }
+.col2 { color:#868686; }
+
+.pad1 { padding:5px 10px 5px 10px; }
+.pad2 { padding:5px 0px 5px 0px; }
+
+.bgcol1 { background-color:#FBF8EE; padding:5px; }
+.bgcol2 { background-color:#F5F5F5; padding:5px; }
+
+.line1 { background-color:#CCCCCC; height:2px; }
+.line2 { background-color:#CCCCCC; height:1px; }
+
+.list0 { background-color:#FFFFFF; }
+.list1 { background-color:#F8F8F8; }
+
+.bold { font-weight:bold; }
+.center { text-align:center; }
+.right { text-align:right; }
+
+.w99 { width:99%; }
+.ht { height:30px; }
+
+
+.table-form {width:100%; margin-bottom:10px; font-size:.9em; }
+.table-form * {vertical-align:middle;}
+.table-form th,
+.table-form td {padding:10px; border-bottom:1px solid #ced4dd;}
+.table-form th {color:#37678d; background:#f9f9f9;}
+.table-form td {}
+.table-form p.help {padding:5px 0 0 0; color:#999; font-size:.9em;}
+.table-form span.help {color:#999; font-size:.9em;}
+.table-form p.caution {padding:5px 0 0 0; color:#e30808; font-size:.9em;}
+.table-form span.caution {color:#e30808; font-size:.9em;}
+.table-form input {height:18px;}
+
+
+
+
+/* 관리자 펜션조회 리스트 */
+
+.pen_adm_list {
+	width: 90%;
+	height: 300px;
+	overflow-y: auto;
+	border: 1px solid #ddd;
+}
+
+.pen_adm_list li {
+	width: 90%;
+	color:# 333;
+	padding: 5px 0 5px 7px;
+	border-top: 1px solid #ddd;
+}
+
+.pen_adm_list li:first-child {
+	margin-top: 5px;
+	border-top: 0;
+}
+
+.pen_adm_list li a{
+	color:# 333;
+	text-decoration: none;
+}
+
+.pen_adm_list li a:hover{
+	color:# c00;
+	text-decoration: none;
+}
+
+.pen_reg table {width:100%; font-size:12px; font-family:'돋움',dotum; border-collapse:collapse; border-spacing:0;}
+
+table.adm_navi td {color:#fff; text-align:center; border:1px solid #249ea6; background:#51c3ca;}
+table.adm_navi td a {display:block; width:100%; padding:15px 5px; color:#fff; text-decoration:none; font-weight:bold; background:#51c3ca;}
+table.adm_navi td a:hover {background:#35b0b8;}
+
+table.register td {padding:5px 5px; border-top:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0;}
+table.register th {width:110px; background:#333; color:#fff; padding:3px 10px; border-top:1px solid #111; border-bottom:1px solid #111;}
+
+table.check-table {margin-top:30px;}
+table.check-table td {padding:5px 5px;}
+table.check-table td .checkbox {vertical-align:-3px;}
+table.check-table caption {display:block; border-top:1px solid #249ea6; background:#51c3ca; padding:15px 0; color:#fff; font-size:13px; font-weight:bold; text-align:center;}
+table.check-table th {width:110px; padding:3px 10px; color:#fff; background:#51c3ca; border-top:1px solid #249ea6; border-bottom:1px solid #249ea6;}
+table.check-table td {padding:5px 5px; border-top:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0;}
+
+.register-btn-area {margin:30px 0 0 0; padding-bottom:50px; width:100%; text-align:center; font:12px '돋움' dotum; font-weight:bold;}
+.register-btn-area a {display:inline-block; padding:10px 20px; text-decoration:none; color:#fff;}
+.register-btn-area a.ok {margin-right:5px; border:1px solid #ba2e5c; background:#e15f8a;}
+.register-btn-area a.ok:hover {background:#d84c7a;}
+.register-btn-area a.del {margin-left:5px; border:1px solid #222; background:#555;height:35px;}
+.register-btn-area a.del:hover {background:#333;}
+
+.register-btn-area .ok {margin-right:5px; border:1px solid #ba2e5c; background:#e15f8a;color:#fff;padding:7px 20px;height:35px;font-weight:bold;cursor:pointer}

@@ -1,0 +1,43 @@
+<?php
+include_once "./_common.php";
+if($_GET['from'] == 'pc'){
+    set_session("frommoblie", "");
+}
+include_once './_head.php';
+?>
+
+
+
+
+	<div class="booking-navi">
+		<ul>
+			<?php $on3 = "class=\"on\"";
+				include_once "booking_menu.php";
+			?>
+		</ul>
+	</div>
+
+	<div class="mandatory">
+		<ul>
+			<li><span class="highlight-pink">인터넷이나 전화예약이 가능</span>합니다.</li>
+			<li>예약상담시간은<span class="highlight-pink">오전10시부터 오후10시까지</span>입니다.</li>
+			<li>예약하시고자 하는 방이 예약 완료 되었을 경우 게시판에 남겨 주시거나 전화 연락 주시면 예약 취소시 우선순위로 예약하여 드립니다.</li>
+			<li><span class="highlight-pink">예약 신청 후 예약금 전액을 24시간 이내에 지정 계좌로 입금 하셔야 예약이 완료</span>되며 <span class="highlight-blue">24시간 이내에 미 입금시 예약이 자동 취소</span>됩니다.</li>
+			<li>일주일 이내 <span class="highlight-blue">날짜 변경이나 취소가 불가</span>합니다.</li>
+			<li>예약당일 별도의 연락없이 <span class="highlight-blue">20시까지 입실하지 않을 시 자동 취소</span>됩니다.</li>
+			<li><span class="highlight-blue">기준 인원 초과시 1인에 1만원이 추가</span>됩니다.</li>
+			<li>보호자를 동반하지 않은 미성년자는 투숙할 수 없습니다.(미성년자 투숙 시 보호자의 동의나 동의서가 필요합니다.)</li>
+			<li>다른 분들의 편의와 건강, 위생을 위하여 <span class="highlight-blue">애완동물의 입실을 금지</span>합니다.</li>
+			<li>무분별한 음주, 고성방가등으로 다른 투숙객들에게 크게 불편을 준다고 판단될경우 주의를 줄 수 있으며, 시정 되지 않을경우 퇴실을 요구할 수 있습니다.</li>
+			<li>이용중 비치된 집기나 시설물을 파손시 반드시 말씀해주세요.</li>
+			<li>입실시간은 당일 <span class="highlight-pink">오후02:30분</span>부터이며 퇴실시간은 다음날 <span class="highlight-blue">오전11:00시</span>까지입니다.</li>
+			<li>객실정리 시간이 11:00시부터 14:30분까지이므로 14:30분 이전 입실은 어렵습니다.</li>
+			<li>다음 입실하실분을 위하여 퇴실 시간을 준수해 주시기 바랍니다.</li>
+		</ul>
+	</div>
+
+
+
+
+<?php include_once './_tail.php';
+?>

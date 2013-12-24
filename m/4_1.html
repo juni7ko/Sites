@@ -1,0 +1,49 @@
+<?php
+include_once "./_common.php";
+if($_GET['from'] == 'pc'){
+    set_session("frommoblie", "");
+}
+include_once './_head.php';
+?>
+
+	<div class="booking-navi">
+		<ul>
+			<?php $on4 = "class=\"on\"";
+				include_once "booking_menu.php";
+			?>
+		</ul>
+	</div>
+
+	<div class="mandatory">
+		<ul>
+			<li>취소 및 환불처리는 전화로 꼭 확인해 주시기 바랍니다.</li>
+			<li>취소시 10%의 환불 수수료가 부가되오니 신중히 생각하신 후 예약해주십시오.</li>
+			<li>예약 후 날짜 변경, 객실변경은 예약 취소 후 다시 예약하셔야 합니다. (환불수수료 적용)</li>
+			<li>날씨로 인한 예약변경이나 취소는 천재지변이 아니므로 환불기준대로 수수료 적용됩니다.</li>
+			<li>취소환불 수수료는 아래와 같습니다.</li>
+			<li class="no-bullet"><span class="highlight-blue">※ 여름 시즌 기간(7월~8월)중 환불 수수료</span>
+				<ul>
+					<li>· 이용일 <span class="highlight-pink">1주일내 환불 불가능</span></li>
+					<li>· 이용일 <span class="highlight-pink">1~2주 사이 50%</span> 환불</li>
+					<li>· 이용일 <span class="highlight-pink">2주 이상 90%</span> 환불</li>
+				</ul>
+			</li>
+			<li class="no-bullet"><span class="highlight-blue">※ 비수기중 환불 수수료</span>
+				<ul>
+					<li>· 이용당일 혹은 <span class="highlight-pink">하루전 환불 없음</span></li>
+					<li>· 이용일 <span class="highlight-pink">2일전 50%</span> 환불</li>
+					<li>· 이용일 <span class="highlight-pink">3일전 70%</span> 환불</li>
+					<li>· 이용일 <span class="highlight-pink">4일전 80%</span> 환불</li>
+					<li>· 이용일 <span class="highlight-pink">5일전 90%</span> 환불</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+
+
+
+
+
+<?php include_once './_tail.php';
+?>

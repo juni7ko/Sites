@@ -1,0 +1,43 @@
+<?php
+include_once "./_common.php";
+if($_GET['from'] == 'pc'){
+    set_session("frommoblie", "");
+}
+include_once './_head.php';
+?>
+
+
+	<div id="visual">
+
+
+
+
+
+    <div id="s_room_box">
+
+ <div id="subtitles">쇼) 럭셔리</div>
+    <div id="contents">객실수 : 10개<br />
+평형 : 13평 / 기준 : 2명, 최대 : 5명<br />
+객실가격은 실시간예약을  참조하시거나 전화문의하세요</div>
+
+
+<img src="./images/room/show_1_01.jpg" width="100%" /><br>
+<img src="./images/room/show_1_02.jpg" width="100%" /><br>
+<img src="./images/room/show_1_03.jpg" width="100%" /><br>
+<img src="./images/room/show_1_04.jpg" width="100%" />
+	</div>
+</div>
+
+
+
+
+
+
+
+
+	</div><!-- /visual -->
+	
+
+<?
+include_once './_tail.php';
+?>

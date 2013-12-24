@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>예약확인</title>
+</head>
+
+<body>
+
+<div id="mobile-wrap">
+
+	<h1 class="logo">쇼앤뉴그린</h1>
+
+	<nav id="gnb">
+		<ul>
+			<?php include_once "mtopmenu.php";?>
+		</ul>
+	</nav>
+
+	<div class="clear-bottom"></div>
+
+
+	<div class="booking-navi">
+		<ul>
+			<?php $on2 = "class=\"on\"";
+				include_once "booking_menu.php";
+			?>
+		</ul>
+	</div>
+
+	<table width="100%" cellpadding="0" cellspacing="0" class="booting-tbl">
+	<caption>예약확인</caption>
+	<thead>
+	<tr>
+		<th colspan="3">아래 항목을 모두 적어주십시오.</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>예약번호</td>
+		<td class="left"><input type="text" name='wr_number' size=30 maxlength=50 required itemname='이름' value=''></td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td class="left"><input type="text" name='wr_name' size=30 maxlength=20 required itemname='이름' value=''></td>
+	</tr>
+	<tr>
+		<td>휴대전화</td>
+		<td class="left">
+			<input name='tel1' value='' type='text' size='5' maxlength='3' onkeydown='onlyNumber(this);'  itemname='전화번호 첫번째자리' required> - 
+			<input name='tel2' value='' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 두번째자리' required> - 
+			<input name='tel3' value='' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 세번째자리' required>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+
+
+
+
+	<?php include "mfooter.php";?>
+
+
+
+</div><!-- /mobile-wrap -->
+
+
+</body>
+</html>

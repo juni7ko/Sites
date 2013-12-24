@@ -1,0 +1,38 @@
+caption {display:none;}
+.reservation-area {width:900px; margin:0 auto; font:12px 'Nanum Gothic'}
+.reservation-area .res-header {position:relative; margin-bottom:5px; background:#454545; color:#fff; height:60px;}
+.reservation-area .res-header .comment {padding:10px; line-height:160%;}
+.reservation-area .res-header .today {text-align:right; margin-bottom:10px; font-size:13px; padding-top:5px; margin-right:10px;}
+.reservation-area .res-header .res-btn-area {position:absolute; width:45%; left:10px; top:25px;}
+.reservation-area .res-header .res-btn-area li {display:inline-block; *display:inline; *zoom:0; margin:0 10px; float:left;}
+.reservation-area .res-header .res-btn-area li a {padding:3px 5px; border:1px solid #2fb6bc; background:#2fb6bc; color:#fff; text-decoration:none; font-weight:bold;}
+.reservation-area .res-header .res-btn-area li a:hover {border:1px solid #ff444f; background:#ff444f; color:#fff;}
+.reservation-area .res-header .res-select {position:absolute; width:45%; text-align:right; right:10px;}
+.reservation-area .res-contents {padding-bottom:30px; border-bottom:2px solid #333;}
+.reservation-area .res-contents table {border-spacing:0; border-collapse:collapse; width:100%; margin-top:10px;}
+.reservation-area .res-contents table th {border:1px solid #222; background:#353535; text-align:center; padding:3px; color:#fff;}
+.reservation-area .res-contents table td {border:1px solid #999; text-align:center; padding:5px; color:#454545;}
+.reservation-area .res-contents table th.first,
+.reservation-area .res-contents table td.first {border-left:none;}
+.reservation-area .res-contents table th.last,
+.reservation-area .res-contents table td.last {border-right:none;}
+.reservation-area .res-contents table td.left {text-align:left;}
+.reservation-area .res-contents .res-comment ul,
+.reservation-area .res-contents .res-comment ol {margin-top:20px;}
+.reservation-area .res-contents .res-comment ul li ol {list-style-type:disc; margin:0 25px; padding:0 0 0 0;}
+.reservation-area .res-contents .res-comment ul li ol.list-none {list-style-type:none; margin:0 10px;}
+.reservation-area .res-contents .res-comment ul li ol.list-none textarea {width:98%; padding:5px;}
+.reservation-area .res-contents .res-comment li {line-height:150%;}
+.reservation-area .res-contents .res-comment li h2 {font-size:15px; border-bottom:1px solid #ddd; padding-bottom:3px; margin-bottom:5px;}
+.reservation-area .res-contents .res-comment li.comment-ps {margin-top:10px; color:#2fb6bc; font-weight:700;}
+.reservation-area .res-footer {margin-top:30px; text-align:center;}
+.reservation-area .res-footer .res-footer-btn-area {margin:30px auto;}
+.reservation-area .res-footer .res-footer-btn-area .res-footer-btn {padding:8px 32px; background:#454545; border:1px solid #333; color:#fff; font-size:15px; font-weight:bold;}
+.reservation-area .res-footer .res-footer-btn-area .res-footer-btn:hover {background:#333; border:1px solid #000;color:#2fb6bc;}
+.w130 {width:130px;}
+.w100pp {width:100%;}
+
+.highlight-pink {color:#ff444f; font-weight:700;}
+.highlight-blue {color:#2fb6bc; font-weight:700;}
+
+.title .text {width:200px; padding:2px;}

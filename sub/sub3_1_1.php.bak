@@ -1,0 +1,73 @@
+<?
+$g4_path = ".."; // common.php 의 상대 경로
+include_once("$g4_path/common.php");
+
+//현재 페이지에서 사용될 스킨명 적음
+$skin_dirs = Array();
+$skin_dirs[] = 'latest/gp_slider';
+$background = "class=bg-ptn1";
+
+include_once("$g4[path]/head.php");
+$sub="3"
+?>
+
+<div id="container">
+	<div class="content-title">
+		<h1>PREVIEW</h1>
+		<span>쇼앤뉴그린 객실미리보기</span>
+	</div>
+	<div class="content-area">
+
+		<?$on1="on"?>
+		<?include("$g4[path]/sub/content_navi.php");?>
+
+		<div>
+		<?=latest("gp_slider", "preview1", 6, 26);?>
+		</div>
+
+
+		<div class="pension-info">
+			<table>
+			<caption>객실안내</caption>
+				<thead>
+				<tr>
+					<th width="120" class="border-left">객실명</th>
+					<th width="80">객실수</th>
+					<th width="80">평수</th>
+					<th width="140">수용인원</th>
+					<th class="border-right">객실요금(원)</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td class="border-left">VIP</td>
+					<td>2개</td>
+					<td>17평</td>
+					<td>기준 4명/최대 8명</td>
+					<td class="border-right">예약안내페이지에서 확인하세요.</span></td>
+				</tr>
+				</tbody>
+			</table><br/>
+
+			<div class="infomation">
+				<ul>
+					<li class="info-title"><h2>비품</h2></li>
+					<li>침대, 에어컨, TV, 냉장고, 드라이기, 컴퓨터, 티테이블, 삼푸, 치약, 비누, 수건</li>
+					<li></li>
+				 
+					<li class="f-red ps">※ 객실인테리어는 벽지나 바닥재의 차이로 사진과 조금씩 상이할 수 있습니다.</li>
+					<li class="f-red ps">※ 주중 : 월~목, 일요일  /  주말 : 금요일, 토요일, 공휴일 전일</li>
+					
+				</ul>
+			</div><!-- infomation -->
+		</div><!-- room-info -->
+
+	</div>
+</div><!-- container -->
+
+
+<?include("$g4[path]/sub/sub_footer.php");?>
+
+<?
+include_once("../tail.php"); 
+?> 

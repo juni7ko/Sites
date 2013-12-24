@@ -1,0 +1,95 @@
+<?
+$g4_path = ".."; // common.php 의 상대 경로
+include_once("$g4_path/common.php");
+include_once("$g4[path]/head.php");
+?>
+
+
+	
+
+<div class="sub-visual">
+	<div class="spot_sub">
+		<div class="spot_sub_images" id="mainImage">
+			<div id="spot_sub_image1" class="spot_sub_image1 mainshow"><div class="image"><div></div></div></div>
+			<div id="spot_sub_image2" class="spot_sub_image2"><div class="image"><div></div></div></div>
+			<div id="spot_sub_image3" class="spot_sub_image3"><div class="image"><div></div></div></div>
+		</div><!-- spot_sub_images -->
+		<div class="spot_sub_static">
+			<div class="page_sub">
+				<a id="main_image1" class="on" href="javascript:mainImg(1)"></a>
+				<a id="main_image2" href="javascript:mainImg(2)"></a>
+				<a id="main_image3" href="javascript:mainImg(3)"></a>
+			</div><!-- page -->
+		</div><!-- spot_static -->
+	</div><!-- spot -->
+</div>
+
+
+<div id="container" class="clearfix">
+	<div class="content-area">
+		
+		<!-- 좌측프레임 -->
+		<div class="snb-area">
+			
+			<div class="snb-title">
+				<img src="<?php echo $g4['path']?>/layout/images/snb_title_0<?=$sub?>.gif" alt="snb_title_0<?=$sub?>.gif" />
+			</div>
+
+
+			<!-- snb [좌측메뉴] -->
+
+				<?include("$g4[path]/sub/leftmenu.php");?>
+		
+			<!-- snb [좌측메뉴] -->
+	
+
+		</div><!-- 좌측프레임 -->
+
+
+		<div id="content">
+			<div class="content-top clearfix">
+				<div class="sub-title-area">
+					<div class="sub-title-ico"></div>
+					<div class="sub-title"><img src="<?php echo $g4['path']?>/layout/images/sub_title<?=$sub_title?>.gif" alt="sub_title<?=$sub_title?>.gif" /></div>
+				</div><!-- sub-title-area -->
+
+				<div class="location">
+					<ul>
+						<li><a href="<?=$g4['path']?>/">홈</a></li>
+						<li>&gt;</li>
+						<li <?if(!$location2) echo "class=\"lastcolor\""?>><?=$location1;?></li>
+						<?if($location2){?>
+						<li>&gt;</li>
+						<li class="lastcolor"><?=$location2;?></li>
+						<?}?>
+					</ul>
+				</div><!-- location -->
+
+			</div><!-- content-top -->
+
+
+			<!-- 내용 -->
+			<div class="contents">
+
+			<?
+			if($ct_id == 24){
+				include_once($sub_content.".php");
+			}else{
+				echo $replace_latest;	
+			}
+			?>
+			</div>
+			<!-- 내용 -->
+
+		</div><!-- content -->
+
+
+	</div><!-- content-area -->
+</div><!-- container -->
+
+
+
+
+<?
+include_once("../tail.php"); 
+?> 

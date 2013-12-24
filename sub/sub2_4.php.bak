@@ -1,0 +1,261 @@
+<?
+$g4_path = ".."; // common.php 의 상대 경로
+include_once("$g4_path/common.php");
+$background = "class=bg-ptn1";
+include_once("$g4[path]/head.php");
+$sub="2"
+?>
+
+<script type="text/javascript" src="js/jquery.livequery.js"></script>
+<script type="text/javascript" src="js/jquery.livesetting.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.livequery.css" />
+
+<div id="container">
+	<div class="content-title">
+		<h1>COFFEE &amp; RESTAURANT</h1>
+		<span>COURSE</span>
+	</div>
+	<div class="content-area">
+
+		<?$on4="on"?>
+		<?include("$g4[path]/sub/content_navi.php");?>
+
+
+		<!-- 상품 -->
+		<ul class="product-list-line">
+			<li id="1" class="open">
+				<img src="images/sub2/1.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.01</div>
+			</li>
+			
+			<li id="2" class="open">
+				<img src="images/sub2/2.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.02</div>
+			</li>
+			
+			<li id="3" class="open">
+				<img src="images/sub2/7.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.03</div>
+			</li>
+
+			<li id="4" class="open">
+				<img src="images/sub2/4.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.04</div>
+			</li>
+			
+			<li id="5" class="open">
+				<img src="images/sub2/5.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.05</div>
+			</li>
+		</ul>
+		<!-- 1단 VIEW -->
+		
+		<div class="detail-view" id="detail-1">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/1.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-2">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/2.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-3">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/7.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="detail-view" id="detail-4">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/4.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-5">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/5.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+		<!-- /1단 VIEW -->
+
+
+
+		<ul class="product-list-line">
+			<li id="6" class="open">
+				<img src="images/sub2/4.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.04</div>
+			</li>
+			
+			<li id="7" class="open">
+				<img src="images/sub2/5.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.05</div>
+			</li>
+			
+			<li id="8" class="open">
+				<img src="images/sub2/6.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.06</div>
+			</li>
+		</ul>
+		
+		<!-- 2단 VIEW -->
+		
+		<div class="detail-view" id="detail-6">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/4.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-7">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/5.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-8">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/6.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+		<!-- /2단 VIEW -->
+
+
+
+		<ul class="product-list-line">
+			<li id="9" class="open">
+				<img src="images/sub2/4.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.04</div>
+			</li>
+			
+			<li id="10" class="open">
+				<img src="images/sub2/5.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.05</div>
+			</li>
+			
+			<li id="11" class="open">
+				<img src="images/sub2/6.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.06</div>
+			</li>
+			
+			<li id="12" class="open">
+				<img src="images/sub2/6.jpg" class="items" alt="" />
+				<div>PORDUCT NUM.06</div>
+			</li>
+		</ul>
+		
+		<!-- 3단 VIEW -->
+		
+		<div class="detail-view" id="detail-9">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/4.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-10">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/5.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-11">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/6.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="detail-view" id="detail-12">
+			<div class="close" align="right"><a href="javascript:void(0)">CLOSE</a></div>
+			<img src="images/sub2/6.jpg" class="detail_images" width="340" height="310" alt="" />
+			<div class="detail_info">
+				<div class="detail-contents">
+					<h1>PORDUCT NUM.01</h1>
+					<div>내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 내용입니다 </div>
+				</div>
+			</div>
+		</div>
+
+		<!-- /3단 VIEW -->
+
+
+
+
+
+		<!-- /상품 -->
+
+
+	</div>
+</div><!-- container -->
+
+
+<?include("$g4[path]/sub/sub_footer.php");?>
+
+<?
+include_once("../tail.php"); 
+?>

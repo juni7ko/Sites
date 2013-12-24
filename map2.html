@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello, World!</title>
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no">
+<style type="text/css">
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#map { width: 100%; height: 100% }
+</style>
+<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=63eea2dfc6cf38ad4a3a5c91e00e31207925dcb2" charset="utf-8"></script>
+<script type="text/javascript"> 
+	var map;
+	function init() {
+		map = new daum.maps.Map(document.getElementById('map'), {
+			center: new daum.maps.LatLng(37.537123, 127.005523),
+			level: 4
+		});
+		var points = [
+   		  	new daum.maps.LatLng(37.538779843072824,127.00200500605618),
+   			new daum.maps.LatLng(37.538635699652154,127.00030778301571),
+   			new daum.maps.LatLng(37.537338259427315,126.9998325645435),
+   			new daum.maps.LatLng(37.53377026138633,127.00288736856231),
+   			new daum.maps.LatLng(37.534941239454476,127.00920075758009)
+   		];
+ 
+		var icon = new daum.maps.MarkerImage(
+			'http://localimg.daum-img.net/localimages/07/2009/map/icon/blog_icon01_on.png',
+			new daum.maps.Size(31, 34),
+			new daum.maps.Point(16,34),
+			"poly",
+			"1,20,1,9,5,2,10,0,21,0,27,3,30,9,30,20,17,33,14,33"
+		);
+		
+		for(var i = 0; i < points.length; i++)
+		{
+			new daum.maps.Marker({
+				position: points[i],
+				image: icon
+			}).setMap(map);
+
+			 var infowindow_only = new daum.maps.InfoWindow({
+				position: points[i],
+				content: '<p style="margin:7px 12px;font-size:12px">테스트 펜션</p>'
+			});
+			infowindow_only.open(map);
+
+
+
+
+		}		 
+		
+
+
+
+
+
+	}
+</script> 
+
+</head>
+<body onload="init()">
+
+<div id="map"></div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+body {background:#fff url('../../skin/layout/showmotel/images/main_ptn.gif') repeat;}
+
+.pay_info {width:100%; margin:30px auto;}
+.pay_info ul {height:36px;margin:0; padding:0; list-style:none; text-align:center;}
+.pay_info li {display:inline-block; *zoom:1; *display:inline; margin:2px 5px; color:#999;}
+.pay_info li a {display:block; font:14px 'Nanum Gothic'; font-weight:bold; text-decoration:none; color:#666;}
+.pay_info li a.on {color:#0cc9a8; text-decoration:underline; font-weight:bold;}
+.pay_info li a:hover,.pay_info li a.on:hover {color:#333;}
+
+.pay_info_tbl {width:100%;; border-collapse:collapse; border-spacing:0; margin:0 auto;}
+.pay_info_tbl th {background:#04ba9e; border:1px solid #0e8f7b; padding:5px 0; color:#fff; font:11px 돋움; font-weight:bold;text-align:center;}
+.pay_info_tbl td {background:#fff; border:1px solid #ddd; padding:5px 0; font:12px 돋움; text-align:center;}
+.pay_info_tbl tr.first td {border:1px solid #ddd; border-top:1px solid #0e8f7b;height:25px;}
+.pay_info_tbl tr.bg td {background:#fbfbfb;}
+.mb30 {margin-bottom:30px;}

@@ -1,0 +1,192 @@
+@charset "utf-8";
+img { border:0 }
+
+/* 게시물 라인 실선 사용시 (01) */
+.bo_line{width:3px; height:1px; background-image:url("./img/dot_line.gif"); }
+
+/* 게시판 타이틀 상,하 라인색상 */
+.m_tit_line  {background-color:#8CB096;}
+
+/* 리스트 타이틀 */ 
+.m_tit {color:#666666; font-weight:bold;}
+.m_bg  {background-color:#FFFFFF;} /*-- 타이블 제목배경 --*/
+
+/* 리스트 Total */ 
+.m_total { font-family:Tahoma; font-size:10px; color:#999999; }
+
+/* 리스트 게시물번호 */
+.m_num {font-size:11px; color:#666666;}
+.m_co  {font-size:10px; color:#666666;}
+
+/* 리스트 카테고리명 */
+.m_ca  {font-size:11px; color:#77A8AE;}
+a.m_ca:link, a.b_ca:visited, a.b_ca:active {font-size:11px; color:#666666;}
+a.m_ca:hover {font-size:11px; color:#FF6600; text-decoration:none;}
+
+/* 리스트 공지글 스타일 */
+a.m_sub_notice {font-family:돋움; font-size:12px; color:#555555; font-weight: bold;}
+a.m_sub_notice:hover {font-family:돋움; font-size:12px; color:#70BFE2; text-decoration:underline;}
+
+/* 리스트 게시물제목글 스타일 */
+a.m_sub {font-family:돋움; font-size:12px; color:#222222;}
+a.m_sub:hover {font-family:돋움; font-size:12px; color:#70BFE2; text-decoration:underline;}
+
+.m_sub_com  { font-family:Tahoma; font-size:10px; color:#FE5F07; }
+
+/* 리스트 게시물 {글쓴이,날짜,조회,추천,비추천등등} */
+.m2_name { font-family:돋움,Tahoma; font-size:12px; }
+.m2 { font-family:Tahoma; font-size:11px; color:#666666; }
+
+/* 뷰화면 본문글 */
+.lh {line-height: 150%;}
+.ct {color:#383838;line-height: 150%;} 
+
+/* 뷰화면 {파일,링크,조회수등등} 글꼴 */
+.v1  { font-family: "돋움"; font-size:11px; color:#666666; font-weight:bold}
+a.v1:link, a.v1:visited, a.v1:active {font-size:11px; color:#666666; text-decoration:none;}
+a.v1:hover {font-size:11px; color:#FF6600; text-decoration:none;}
+
+.v2  { font-family: "돋움"; font-size:11px; color:#666666;}
+a.v2:link, a.v2:visited, a.v2:active {font-size:11px; color:#666666; text-decoration:none;}
+a.v2:hover {font-size:11px; color:#FF6600; text-decoration:none;}
+
+/* 글쓰기/뷰화면 제목글 */
+.m_tit2 { font-family: "돋움"; font-size:11px; color:#888888;}
+.m_bg2 {background-color:#E7EBEF;} /*-- 쓰기 제목글 배경 --*/
+
+/* 회원/비회원 이름 */
+.member {font-weight:bold; color:#888888}
+.guest  {font-weight:normal; color:#888888}
+
+/*  폼관련 태그 */
+.ed { border:1px solid #aaaaaa; background-color:#ffffff; height:20px; } 
+.tx { border:1px solid #aaaaaa; background-color:#ffffff; } 
+.co { border:1px solid #CCCCCC; background-color:#ffffff; } /* --코멘트 입력박스-- */
+
+/* Juni7 */
+.ui-button { outline: 0; margin:0; padding: .3em .2em .2em; text-decoration:none;  !important; cursor:pointer; position: relative; text-align: center; }
+
+.ht { height:30px; }
+.center { text-align:center; }
+.no-board { border:none; }
+
+.btn1 { background-color:#FBF8EE; } 
+
+.col1 { color:#616161; }
+.col2 { color:#868686; }
+.col_r_name { color:#000000; }
+.col_wan { color:#ff3300; }
+.col_dae { color:#64ac14; }
+
+.pad1 { padding:5px 10px 5px 10px; }
+.pad2 { padding:5px 0px 5px 0px; }
+
+.bgcol1 { background-color:#FBF8EE; padding:5px; }
+.bgcol2 { background-color:#F5F5F5; padding:5px; }
+
+.line1 { background-color:#CCCCCC; height:2px; }
+.line2 { background-color:#CCCCCC; height:1px; }
+
+.list0 { background-color:#FFFFFF; }
+.list1 { background-color:#F8F8F8; }
+
+.bold { font-weight:bold; }
+.right { text-align:right; }
+
+.w99 { width:99%; }
+
+
+/*
+.week {
+	color: #636363;
+	font:tahoma;
+	font-weight:bold;
+	font-size:15px;
+}
+body {
+	font-family: "돋움";
+	font-size: 11px;
+	margin: 0px;
+}
+td {
+	font-family: "돋움";
+	font-size: 11px;
+	line-height: 140%;
+}
+*/
+.wsun {
+	border-right:solid 1px #FFFFFF;
+	background-color:#FF3300;
+	height:25px;
+	text-align:center;
+}
+.week {
+	border-right:solid 1px #FFFFFF;
+	background-color:#E3E3E3;
+	height:25px;
+	text-align:center;
+}
+.wfri {
+	border-right:solid 1px #FFFFFF;
+	background-color:#FF9900;
+	height:25px;
+	text-align:center;
+}
+.wsat {
+	background-color: #FF6600;
+	height: 25px;
+	text-align:center;
+}
+.day {
+	border-right:solid 1px #CCCCCC;
+	border-bottom:solid 1px #CCCCCC;
+	padding:5px;
+	font-family: "돋움";
+	font-size: 12px;
+	color: #000000;
+}
+.dsat {
+	padding: 5px;
+	border-bottom:solid 1px #CCCCCC;
+	font-family: "돋움";
+	font-size: 12px;
+}
+.sjbox {
+	font-family: "돋움";
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #9ACEF1;
+	border: 1px solid #5BADF0;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+.conbox {
+	font-family: "돋움";
+	font-size: 12px;
+	line-height: 140%;
+	color: #666666;
+	border: 1px solid #F2E4D0;
+	text-align:center;
+	margin-bottom: 20px;
+}
+.consjbox {
+	background-color:#f9ede5;
+	font-family: "돋움";
+	font-size: 12px;
+	color: #000000;
+	text-align:center;
+}
+.conbox2 {
+	border-bottom:dashed 1px #999999;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+.cal_sdate {
+	background:#f3f3f3;
+	padding:2px 4px;
+	font-weight:bold;
+}
+
+.n_list0 { background-color:#FFFFFF; }
+.n_list1 { background-color:#fbf8f6; }
