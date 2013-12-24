@@ -1,7 +1,6 @@
 <?php
 $background = "class=bg-ptn1";
 ?>
-테스트 작업중 - 머야 이거 바뀐것도 모르네 이러이..
 <link rel="stylesheet" type="text/css" href="<?=$g4[path]?>/sub/css/reservation.css">
 
 <form name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data" style="margin:0px;">
