@@ -1,5 +1,7 @@
 <?php
 include_once("view.skin.lib.php");
+if(!$_POST[checkRoom])
+	alert("객실을 선택해 주세요!");
 $background = "class=bg-ptn1";
 ?>
 <link rel="stylesheet" type="text/css" href="<?=$g4[path]?>/sub/css/reservation.css">
