@@ -1,20 +1,17 @@
 <?php
 include_once("view.skin.lib.php");
-if(!$_POST[checkRoom])
-	alert("객실을 선택해 주세요!");
 $background = "class=bg-ptn1";
 ?>
 <link rel="stylesheet" type="text/css" href="<?=$g4[path]?>/sub/css/reservation.css">
 
 <form name="resForm" method="post" enctype="multipart/form-data" style="margin:0px;" autocomplete="off">
 	<input type=hidden name=bo_table value="<?=$_POST[bo_table]?>" />
-	<input type=hidden name=wr_id    value="<?=$_POST[wr_id]?>" />
 	<input type=hidden name=pension_id value="<?=$_POST[pension_id]?>" />
 
 	<div id="container">
 		<div class="content-title">
 			<h1>RESERVATION</h1>
-			<span>예약 1단계</span>
+			<span>예약 2단계</span>
 		</div>
 		<div class="content-area">
 
@@ -23,7 +20,6 @@ $background = "class=bg-ptn1";
 					<div>
 						<ul>
 							<li>선택객실 목록</li>
-							<li>옵션을 추가하여 결제하실 수 있습니다.</li>
 						</ul>
 					</div>
 
@@ -44,9 +40,6 @@ $background = "class=bg-ptn1";
 						</thead>
 						<tbody>
 <?php
-$row = 0;
-$totalCost = 0;
-
 /*--------------------
 예약상태 값
 0010 : 예약대기
@@ -54,7 +47,12 @@ $totalCost = 0;
 0030 : 예약취소
 0040 : 관리자예약
 ----------------------*/
-foreach($_POST[checkRoom] as $chkData) :
+echo $roomCount;
+for($i=$roomCount; $i <= $roomCount; $i++)
+{
+//foreach($_POST[checkRoom] as $chkData) :
+
+
 	// checkRoom 값을 이용하여 해당일의 방 정보를 읽어온다.
 	$data = explode("_", $chkData);
 	$chkReser['r_info_id'] = $data[0];
@@ -112,7 +110,7 @@ foreach($_POST[checkRoom] as $chkData) :
 <?php
 	$totalCost += $viewDateCost['typeCost3'];
 	$row++;
-endforeach;
+};
 ?>
 							<tr>
 								<td class="first" colspan="8">객실요금 합계</td>

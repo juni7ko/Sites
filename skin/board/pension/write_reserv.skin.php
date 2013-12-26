@@ -8,7 +8,6 @@ $background = "class=bg-ptn1";
 
 <form name="resForm" method="post" enctype="multipart/form-data" style="margin:0px;" autocomplete="off">
 	<input type=hidden name=bo_table value="<?=$_POST[bo_table]?>" />
-	<input type=hidden name=wr_id    value="<?=$_POST[wr_id]?>" />
 	<input type=hidden name=pension_id value="<?=$_POST[pension_id]?>" />
 
 	<div id="container">
