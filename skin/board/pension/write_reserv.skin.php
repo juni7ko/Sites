@@ -52,44 +52,60 @@ $background = "class=bg-ptn1";
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach($_POST[checkRoom] as $chkData) : ?>
 <?php
-// checkRoom 값을 이용하여 해당일의 방 정보를 읽어온다.
-$data = explode("_", $chkData);
-$chkReser['r_info_id'] = $data[0];
-$chkReser['rDate'] = $data[1];
-$rDate = date("Y-m-d", $chkReser['rDate']);
-$weekChk = date("w", $chkReser['rDate']);
-$rWeek = GetDateWeek($weekChk);
-$rWeekType = pDateType2($chkReser['rDate']);
+$row = 0;
+$totalCost = 0;
 
-$r_info_sql = " SELECT * FROM {$write_table2}_r_info WHERE pension_id = '{$_POST['pension_id']}' AND r_info_id =  '{$chkReser['r_info_id']}' LIMIT 1 ";
-$r_info = sql_fetch($r_info_sql);
+/*--------------------
+예약상태 값
+0010 : 예약대기
+0020 : 예약완료
+0030 : 예약취소
+0040 : 관리자예약
+----------------------*/
+foreach($_POST[checkRoom] as $chkData) :
+	// checkRoom 값을 이용하여 해당일의 방 정보를 읽어온다.
+	$data = explode("_", $chkData);
+	$chkReser['r_info_id'] = $data[0];
+	$chkReser['rDate'] = $data[1];
 
-$viewDateType = viewDateType($_POST[pension_id], $chkReser['rDate']);
-$viewDateCost = viewCostRow($chkReser['r_info_id'], $_POST[pension_id], $rWeek, $chkReser['rDate']);
-$typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01)), -2 );
+	$rDate = date("Y-m-d", $chkReser['rDate']);
+	$weekChk = date("w", $chkReser['rDate']);
+	$rWeek = GetDateWeek($weekChk);
+	$rWeekType = pDateType2($chkReser['rDate']);
+
+	$r_info_sql = " SELECT * FROM {$write_table2}_r_info WHERE pension_id = '{$_POST['pension_id']}' AND r_info_id =  '{$chkReser['r_info_id']}' LIMIT 1 ";
+	$r_info = sql_fetch($r_info_sql);
+
+	$viewDateType = viewDateType($_POST[pension_id], $chkReser['rDate']);
+	$viewDateCost = viewCostRow($chkReser['r_info_id'], $_POST[pension_id], $rWeek, $chkReser['rDate']);
+	$typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01)), -2 );
 ?>
 								<tr>
 									<td class="first"><?=$r_info['r_info_name']?></td>
 									<td><?=$r_info['r_info_person1']?>명/<?=$r_info['r_info_person2']?>명</td>
-									<td><?=$rDate?>(<?=$rWeek?>)</td>
+									<td><span class="highlight-pink"><?=$rDate?>(<?=$rWeek?>)</span></td>
 									<td>
-										<select name="person_1">
+										<input type="hidden" name="pensin_id[<?=$row?>]" value="<?=$_POST['pension_id']?>" />
+										<input type="hidden" name="r_info_id[<?=$row?>]" value="<?=$chkReser['r_info_id']?>" />
+										<input type="hidden" name="rDate[<?=$row?>]" value="<?=$chkReser['rDate']?>" />
+										<input type="hidden" name="rResult[<?=$row?>]" value="0010" />
+										<input type="hidden" name="person_max[<?=$row?>]" value="$r_info['r_info_person3']" />
+										<select name="person1[<?=$row?>]">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"<?=($i == $r_info['r_info_person1']) ? " selected":NULL;?>><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="person_2">
+										<select name="person2[<?=$row?>]">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="person_3">
+										<select name="person3[<?=$row?>]">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
@@ -98,14 +114,27 @@ $typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 
 									<td><?=$viewDateType?>/<?=$rWeekType?></td>
 									<td>
 										<div>기본가 <?=number_format($viewDateCost['typeCost1'])?>원</div>
-										<div>기본 객실할인 - <?=number_format($typeCost2)?>원</div>
+										<div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($typeCost2)?>원</div>
 									</td>
 									<td class="last"><?=number_format($viewDateCost['typeCost3'])?>원</td>
 								</tr>
-							<?php endforeach; ?>
+<?php
+	$totalCost += $viewDateCost['typeCost3'];
+	$row++;
+endforeach;
+?>
 							<tr>
-								<td class="first">*</td>
-								<td>바베큐 그릴 신청</td>
+								<td class="first" colspan="8">객실요금 합계</td>
+								<td class="last">
+									<input type="hidden" name="roomCount" value="<?=$row?>" />
+									<input type="hidden" name="totalCost" value="<?=$totalCost?>" />
+									<?=number_format($totalCost)?>원
+								</td>
+							</tr>
+<?php
+/*
+							<tr>
+								<td class="first" colspan="2">바베큐 그릴 신청</td>
 								<td colspan="4">
 									<select name="person_1">
 										<option value="2">신청안함</option>
@@ -115,16 +144,94 @@ $typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 
 								</td>
 								<td colspan="3" class="last">바베큐 그릴,숯,석쇠 1세트</td>
 							</tr>
+*/
+?>
 						</tbody>
 					</table>
 
+					<table cellpadding="0" cellspacing="0">
+						<caption>예약자정보</caption>
+						<thead>
+							<tr>
+								<th class="first" colspan="2">예약정보를 입력해 주세요 *항목은 필수사항으로 입력하셔야 합니다.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="first">예약자명 *</td>
+								<td class="last left"><input name="wr_name" type="text" class="text w130" value="<?=$name?>" /></td>
+							</tr>
+							<tr>
+								<td class="first">비밀번호 *</td>
+								<td class="last left"><input name="wr_password" type="password" class="text w130" /></td>
+							</tr>
+							<tr>
+								<td class="first">연락처 *</td>
+								<td class="last left">
+									<select name="wr_tel1">
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+									</select>
+									<!-- <input name="wr_tel1" type="text" class="text" size="4" maxlength="4"/> -->
+									-
+									<input name="wr_tel2" type="text" class="text" size="4" maxlength="4"/>
+									-
+									<input name="wr_tel3" type="text" class="text" size="4" size="4" maxlength="4"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="first">이메일</td>
+								<td class="last left"><input name="wr_email" type="text" class="text w130" value="<?=$email?>" /></td>
+							</tr>
+							<tr>
+								<td class="first">출발지역</td>
+								<td class="last left">
+									<select name="wr_area">
+										<option value="">지역을 선택하세요.</option>
+										<option value="01">강원도</option>
+										<option value="02">경기도</option>
+										<option value="03">제주도</option>
+										<option value="04">충청남도</option>
+										<option value="05">충청북도</option>
+										<option value="06">경상남도</option>
+										<option value="07">경상북도</option>
+										<option value="08">전라남도</option>
+										<option value="09">전라북도</option>
+										<option value="10">서울특별시</option>
+										<option value="11">부산광역시</option>
+										<option value="12">인천광역시</option>
+										<option value="13">대전광역시</option>
+										<option value="14">대구광역시</option>
+										<option value="15">광주광역시</option>
+										<option value="16">울산광역시</option>
+										<option value="17">세종시</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="first">결제방법</td>
+								<td class="last left">
+									<label><input type="radio" name="paycheck" value="1">무통장입금</label>&nbsp;&nbsp;
+									<label><input type="radio" name="paycheck" value="2">실시간계좌이체</label>&nbsp;&nbsp;
+									<label><input type="radio" name="paycheck" value="3">신용카드</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="first">기타사항</td>
+								<td class="last left"><textarea name="wr_content" cols="50" rows="4" class="w100p"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
 
 					<div class="res-comment">
 						<ul>
-							<li class="title"><h2>환불규정</h2>
+							<li class="title"><h2>StayStore 이용시 유의사항</h2>
 								<ol>
-									<li><span class="highlight-pink">성수기는 여름 7월25일 ~ 8월15일 / 겨울 12월 20일 ~ 1월 31일까지 입니다</span>.</li>
-									<li>상기요금은 정원기준이며 추가인원 1인당 1만원의 추가요금임이 적용됨</li>
+									<li style="display:none;"><span class="highlight-pink">성수기는 여름 7월25일 ~ 8월15일 / 겨울 12월 20일 ~ 1월 31일까지 입니다</span>.</li>
+									<li>상기요금은 정원기준이며 추가인원 1인당 <?=number_format($r_info[r_info_person_add]);?>원의 추가요금임이 적용됨</li>
 									<li>주말요금은 금요일, 토요일 그리고 공휴일 전날에 적용함</li>
 									<li>TV, 냉장고, 전기밥솥, 가스렌지, 침구, 주방용구및 화장실, 샤워실 일체가 준비되어 있음</li>
 									<li>1회용삼푸, 린스, 칫솔, 면도기, 모기향, 석쇠, 공기숯은 펜션내 구입가능함</li>
@@ -210,3 +317,7 @@ $typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 
 		</div>
 	</div><!-- container -->
 </form>
+
+<script type="text/javascript">
+
+</script>
