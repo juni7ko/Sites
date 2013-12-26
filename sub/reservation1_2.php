@@ -42,7 +42,7 @@ include_once("$g4[path]/head.php");
 						<option value="10" >10</option>
 						<option value="11" >11</option>
 						<option value="12" >12</option>
-					</select>월 
+					</select>월
 					<select name="day">
 						<option value="1" >1</option>
 						<option value="2" >2</option>
@@ -76,7 +76,7 @@ include_once("$g4[path]/head.php");
 						<option value="30" selected>30</option>
 						<option value="31" >31</option>
 					</select>
-					일 ~ 
+					일 ~
 					<select name="stay">
 						<option value="1">1박2일</option>
 						<option value="2">2박3일</option>
@@ -102,9 +102,9 @@ include_once("$g4[path]/head.php");
 
 				</div>
 			</div>
-			
+
 			<div class="res-contents">
-				
+
 				<table cellpadding="0" cellspacing="0">
 				<caption>예약신청확인</caption>
 				<tr>
@@ -129,6 +129,7 @@ include_once("$g4[path]/head.php");
 							<option value="010">010</option>
 							<option value="011">011</option>
 							<option value="016">016</option>
+							<option value="017">017</option>
 							<option value="019">019</option>
 						</select>
 						<!-- <input name="wr_tel1" type="text" class="text" size="4" maxlength="4"/> -->
@@ -180,11 +181,11 @@ include_once("$g4[path]/head.php");
 					<td>도착일시</td>
 					<td class="last left">
 						<input name="arrive_year" type="text" class="text" value="2013" size="4" />
-						년 
+						년
 						<input name="arrive_month" type="text" value="5" class="text" size="2" />
-						월 
+						월
 						<input name="arrive_day" type="text" value="29" class="text" size="2" />
-						일 
+						일
 						<select name="arrive_time">
 							<option value="14">14</option>
 							<option value="15">15</option>
@@ -241,5 +242,5 @@ include_once("$g4[path]/head.php");
 
 <?php include("$g4[path]/sub/sub_footer.php");?>
 
-<?php include_once("../tail.php"); 
+<?php include_once("../tail.php");
 ?>
