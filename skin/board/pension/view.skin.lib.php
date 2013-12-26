@@ -1,5 +1,5 @@
 <?php
-$write_table = "g4_write_bbs34";
+$write_table2 = "g4_write_bbs34";
 // 날짜를 입력받아 요일을 리턴
 function GetDateWeek($week)
 {
@@ -35,7 +35,7 @@ function GetDateWeek($week)
 
 function viewDateRow($sDate, $eDate, $penID)
 {
-	global $write_table;
+	global $write_table2;
 
 	for($rowDate = $sDate, $i = 0; $rowDate <= $eDate; $rowDate += 86400, $i++)
 	{
@@ -50,7 +50,7 @@ function viewDateRow($sDate, $eDate, $penID)
 	}
 
 	// 방 정보 수집
-	$roomListSql = " SELECT * FROM {$write_table}_r_info WHERE pension_id = '$penID' ";
+	$roomListSql = " SELECT * FROM {$write_table2}_r_info WHERE pension_id = '$penID' ";
 	$resultList = sql_query($roomListSql);
 
 	for ($i=0; $roomList = sql_fetch_array($resultList); $i++)
@@ -87,18 +87,40 @@ function pDateType($time)
 	return $costType;
 }
 
+function pDateType2($time)
+{
+	$weekChk = date("w", $time);
+
+	switch($weekChk) {
+		case "5" :
+			$costType = "금요일"; //금요일
+			break;
+		case "6" :
+			$costType = "토요일"; // 토요일
+			break;
+		case "0" :
+			$costType = "일요일"; // 일요일
+			break;
+		default :
+			$costType = "평일"; //평일
+			break;
+	}
+
+	return $costType;
+}
+
 function viewDateType($penID, $pDate)
 {
-	global $write_table;
+	global $write_table2;
 
-	$dateInfoSql = " SELECT * FROM {$write_table}_r_date WHERE pension_id = '$penID' AND ('$pDate' BETWEEN r_date_sdate AND r_date_edate) LIMIT 1 ";
+	$dateInfoSql = " SELECT * FROM {$write_table2}_r_date WHERE pension_id = '$penID' AND ('$pDate' BETWEEN r_date_sdate AND r_date_edate) LIMIT 1 ";
 	$dateList = sql_fetch($dateInfoSql);
 	if($dateList)
 	{
 		$pDateTypeName = $dateList['r_date_name'];
 	} else {
 		// 공휴일인지 체크
-		$offInfoSql = " SELECT * FROM {$write_table}_r_off WHERE pension_id = '$penID' AND ('$pDate' BETWEEN r_off_date AND r_off_date2) LIMIT 1 ";
+		$offInfoSql = " SELECT * FROM {$write_table2}_r_off WHERE pension_id = '$penID' AND ('$pDate' BETWEEN r_off_date AND r_off_date2) LIMIT 1 ";
 		$offList = sql_fetch($offInfoSql);
 
 		if($offList)
@@ -115,21 +137,21 @@ function viewDateType($penID, $pDate)
 
 function viewCostRow($costID, $penID, $pDateType, $pDate)
 {
-	global $write_table;
+	global $write_table2;
 	$pDate2 = $pDate + 86400;
 
 	// 다음날이 공휴일인지를 체크
 	//$offInfoSql = " SELECT * FROM g4_write_bbs34_r_off WHERE pension_id = '$penID' AND r_off_date <= '$pDate2' AND r_off_date2 >= '$pDate2' LIMIT 1 ";
-	$offInfoSql = " SELECT * FROM {$write_table}_r_off WHERE pension_id = '$penID' AND ('$pDate2' BETWEEN r_off_date AND r_off_date2) LIMIT 1 ";
+	$offInfoSql = " SELECT * FROM {$write_table2}_r_off WHERE pension_id = '$penID' AND ('$pDate2' BETWEEN r_off_date AND r_off_date2) LIMIT 1 ";
 	$offList = sql_fetch($offInfoSql);
 	if($offList) $pDateType = 5;
 
 	// 기간별 요금이 있는지 체크하여 가격 계산
-	$dateInfoSql = " SELECT * FROM {$write_table}_r_date WHERE pension_id = '$penID' AND ('$pDate' BETWEEN r_date_sdate AND r_date_edate) LIMIT 1 ";
+	$dateInfoSql = " SELECT * FROM {$write_table2}_r_date WHERE pension_id = '$penID' AND ('$pDate' BETWEEN r_date_sdate AND r_date_edate) LIMIT 1 ";
 	$dateList = sql_fetch($dateInfoSql);
 	if($dateList)
 	{
-		$costInfoSql = " SELECT * FROM {$write_table}_r_date_cost WHERE r_date_idx = '$dateList[r_date_idx]'  AND r_info_id = '$costID' AND pension_id = '$penID' LIMIT 1 ";
+		$costInfoSql = " SELECT * FROM {$write_table2}_r_date_cost WHERE r_date_idx = '$dateList[r_date_idx]'  AND r_info_id = '$costID' AND pension_id = '$penID' LIMIT 1 ";
 		$costList = sql_fetch($costInfoSql);
 
 		switch($pDateType) {
@@ -161,7 +183,7 @@ function viewCostRow($costID, $penID, $pDateType, $pDate)
 		}
 	} else {
 		// 객실 가격 추출
-		$costInfoSql = " SELECT * FROM {$write_table}_r_cost WHERE r_info_id = '$costID' AND pension_id = '$penID' LIMIT 1 ";
+		$costInfoSql = " SELECT * FROM {$write_table2}_r_cost WHERE r_info_id = '$costID' AND pension_id = '$penID' LIMIT 1 ";
 		$costList = sql_fetch($costInfoSql);
 
 		switch($pDateType) {
@@ -198,14 +220,14 @@ function viewCostRow($costID, $penID, $pDateType, $pDate)
 
 function resCheck($penID, $pDate, $costID)
 {
-	global $write_table;
+	global $write_table2;
 	// 1. 예약불가인지 전화예약인지 판별
 	//   - 1순위 : 예약불가
 	//   - 2순위 : 예약 여부 체크
 	//   - 3순위 : 전화예약
 
 	// 예약불가 체크
-	$read_close_sql = " SELECT * FROM {$write_table}_r_close WHERE pension_id = '$penID' AND r_info_id = '$costID' AND ('$pDate' BETWEEN r_close_date AND r_close_date2) LIMIT 1";
+	$read_close_sql = " SELECT * FROM {$write_table2}_r_close WHERE pension_id = '$penID' AND r_info_id = '$costID' AND ('$pDate' BETWEEN r_close_date AND r_close_date2) LIMIT 1";
 	$read_close = sql_fetch($read_close_sql);
 	if($read_close)
 	{
@@ -215,7 +237,7 @@ function resCheck($penID, $pDate, $costID)
 	}
 
     // 예약 여부 체크 시작
-    $read_complete_sql = " SELECT * FROM {$write_table} WHERE pension_id = '$penID' AND r_info_id = '$costID' AND rDate = '$pDate' AND rResult = '0020' LIMIT 1 ";
+    $read_complete_sql = " SELECT * FROM {$write_table2} WHERE pension_id = '$penID' AND r_info_id = '$costID' AND rDate = '$pDate' AND rResult = '0020' LIMIT 1 ";
     $read_complete = sql_fetch($read_complete_sql);
     if($read_cmplete)
     {
@@ -223,7 +245,7 @@ function resCheck($penID, $pDate, $costID)
     }
 
 	// 전화예약 체크
-	$read_tel_sql = " SELECT * FROM {$write_table}_r_tel WHERE pension_id = '$penID' AND r_info_id = '$costID' AND ('$pDate' BETWEEN r_tel_date AND r_tel_date2) LIMIT 1";
+	$read_tel_sql = " SELECT * FROM {$write_table2}_r_tel WHERE pension_id = '$penID' AND r_info_id = '$costID' AND ('$pDate' BETWEEN r_tel_date AND r_tel_date2) LIMIT 1";
 	$read_tel = sql_fetch($read_tel_sql);
 	if($read_tel)
 	{

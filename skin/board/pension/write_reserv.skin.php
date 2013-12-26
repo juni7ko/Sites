@@ -1,4 +1,5 @@
 <?php
+include_once("view.skin.lib.php");
 $background = "class=bg-ptn1";
 ?>
 <link rel="stylesheet" type="text/css" href="<?=$g4[path]?>/sub/css/reservation.css">
@@ -52,38 +53,52 @@ $background = "class=bg-ptn1";
 							<?php foreach($_POST[checkRoom] as $chkData) : ?>
 <?php
 // checkRoom 값을 이용하여 해당일의 방 정보를 읽어온다.
+$data = explode("_", $chkData);
+$chkReser['r_info_id'] = $data[0];
+$chkReser['rDate'] = $data[1];
+$rDate = date("Y-m-d", $chkReser['rDate']);
+$weekChk = date("w", $chkReser['rDate']);
+$rWeek = GetDateWeek($weekChk);
+$rWeekType = pDateType2($chkReser['rDate']);
 
+$r_info_sql = " SELECT * FROM {$write_table2}_r_info WHERE pension_id = '{$_POST['pension_id']}' AND r_info_id =  '{$chkReser['r_info_id']}' LIMIT 1 ";
+$r_info = sql_fetch($r_info_sql);
 
-
+$viewDateType = viewDateType($_POST[pension_id], $chkReser['rDate']);
+$viewDateCost = viewCostRow($chkReser['r_info_id'], $_POST[pension_id], $rWeek, $chkReser['rDate']);
+$typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01)), -2 );
 ?>
 								<tr>
-									<td class="first"><?=$chkData?></td>
-									<td>3명/4명</td>
-									<td><?=$chkData?></td>
+									<td class="first"><?=$r_info['r_info_name']?></td>
+									<td><?=$r_info['r_info_person1']?>명/<?=$r_info['r_info_person2']?>명</td>
+									<td><?=$rDate?>(<?=$rWeek?>)</td>
 									<td>
 										<select name="person_1">
-											<?php for($i=1; $i<=12; $i++) { ?>
-											<option value="<?=$i?>"><?=$i?></option>
+											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
+											<option value="<?=$i?>"<?=($i == $r_info['r_info_person1']) ? " selected":NULL;?>><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
 										<select name="person_2">
-											<?php for($i=1; $i<=12; $i++) { ?>
+											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
 										<select name="person_3">
-											<?php for($i=1; $i<=12; $i++) { ?>
+											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
-									<td>비수기/금요일</td>
-									<td>이용요금</td>
-									<td class="last">100,000원</td>
+									<td><?=$viewDateType?>/<?=$rWeekType?></td>
+									<td>
+										<div>기본가 <?=number_format($viewDateCost['typeCost1'])?>원</div>
+										<div>기본 객실할인 - <?=number_format($typeCost2)?>원</div>
+									</td>
+									<td class="last"><?=number_format($viewDateCost['typeCost3'])?>원</td>
 								</tr>
 							<?php endforeach; ?>
 							<tr>
