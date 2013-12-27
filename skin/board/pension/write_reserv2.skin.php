@@ -6,7 +6,7 @@ $background = "class=bg-ptn1";
 
 <form name="resForm" method="post" enctype="multipart/form-data" style="margin:0px;" autocomplete="off">
 	<input type=hidden name=bo_table value="<?=$_POST[bo_table]?>" />
-	<input type=hidden name=pension_id value="<?=$_POST[pension_id]?>" />
+	<input type=hidden name=pension_id value="<?=$res_pension_id?>" />
 
 	<div id="container">
 		<div class="content-title">
@@ -47,8 +47,9 @@ $background = "class=bg-ptn1";
 0030 : 예약취소
 0040 : 관리자예약
 ----------------------*/
-for($row=0; $row < $roomCount; $row++)
+for($row=0; $row < $res1_roomCount; $row++)
 {
+	/*
 	$chkReser['r_info_id'] = $r_info_id[$row];
 	$chkReser['rDate'] = $rDate[$row];
 
@@ -63,33 +64,46 @@ for($row=0; $row < $roomCount; $row++)
 	$viewDateType = viewDateType($_POST[pension_id], $chkReser['rDate']);
 	$viewDateCost = viewCostRow($chkReser['r_info_id'], $_POST[pension_id], $rWeek, $chkReser['rDate']);
 	$typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01)), -2 );
+	*/
+	$res2[r_info_id][$row] = $res1_r_info_id[$row];
 ?>
 								<tr>
-									<td class="first"><?=$r_info['r_info_name']?></td>
-									<td><?=$r_info['r_info_person1']?>명/<?=$r_info['r_info_person2']?>명</td>
-									<td><span class="highlight-pink"><?=$rDate2?>(<?=$rWeek?>)</span></td>
+									<td class="first"><?=$res1_r_info_name[$row]?></td>
+									<td><?=$res1_r_info_person1[$row]?>명/<?=$res1_r_info_person2[$row]?>명</td>
+									<td><span class="highlight-pink"><?=$res1_rDate[$row]?>(<?=$res1_rWeek[$row]?>)</span></td>
 									<td>
-										<input type="hidden" name="r_info_id[<?=$row?>]" value="<?=$chkReser['r_info_id']?>" />
-										<input type="hidden" name="rDate[<?=$row?>]" value="<?=$chkReser['rDate']?>" />
-										<input type="hidden" name="rResult[<?=$row?>]" value="0010" />
-										<input type="hidden" name="person_max[<?=$row?>]" value="$r_info['r_info_person3']" />
-										<input type="hidden" name="person1[<?=$row?>]" value="<?=$person1[$row]?>" />
-										<?=$person1[$row]?> 명
+										<input type="hidden" name="res2_r_info_id[<?=$row?>]" value="<?=$res1_r_info_id[$row]?>" />
+										<input type="hidden" name="res2_r_info_name[<?=$row?>]" value="<?=$res1_r_info_name[$row]?>" />
+										<input type="hidden" name="res2_rDateTmp[<?=$row?>]" value="<?=$res1_rDateTmp[$row]?>" />
+										<input type="hidden" name="res2_rDate[<?=$row?>]" value="<?=$res1_rDate[$row]?>" />
+										<input type="hidden" name="res2_rWeek[<?=$row?>]" value="<?=$res1_rWeek[$row]?>" />
+										<input type="hidden" name="res2_rResult[<?=$row?>]" value="<?=$res1_rResult[$row]?>" />
+										<input type="hidden" name="res2_person_max[<?=$row?>]" value="<?=$res1_person_max[$row]?>" />
+										<input type="hidden" name="res2_typeCost1[<?=$row?>]" value="<?=$res1_typeCost1[$row]?>" />
+										<input type="hidden" name="res2_typeCost2[<?=$row?>]" value="<?=$res1_typeCost2[$row]?>" />
+										<input type="hidden" name="res2_typeCost3[<?=$row?>]" value="<?=$res1_typeCost3[$row]?>" />
+										<input type="hidden" name="res2_r_info_person1[<?=$row?>]" value="<?=$res1_r_info_person1[$row]?>" />
+										<input type="hidden" name="res2_r_info_person2[<?=$row?>]" value="<?=$res1_r_info_person2[$row]?>" />
+										<input type="hidden" name="res2_r_info_person3[<?=$row?>]" value="<?=$res1_r_info_person3[$row]?>" />
+										<input type="hidden" name="res2_person1[<?=$row?>]" value="<?=$res1_person1[$row]?>" />
+										<input type="hidden" name="res2_person2[<?=$row?>]" value="<?=$res1_person2[$row]?>" />
+										<input type="hidden" name="res2_person3[<?=$row?>]" value="<?=$res1_person3[$row]?>" />
+										<input type="hidden" name="res2_dateType[<?=$row?>]" value="<?=$res1_dateType[$row]?>" />
+										<input type="hidden" name="res2_weekType[<?=$row?>]" value="<?=$res1_weekType[$row]?>" />
+										<?=$res1_person1[$row]?> 명
 									</td>
 									<td>
-										<input type="hidden" name="person2[<?=$row?>]" value="<?=$person2[$row]?>" />
-										<?=$person2[$row]?> 명
+										<?=$res1_person2[$row]?> 명
 									</td>
 									<td>
-										<input type="hidden" name="person3[<?=$row?>]" value="<?=$person3[$row]?>" />
-										<?=$person3[$row]?> 명
+										<?=$res1_person3[$row]?> 명
 									</td>
-									<td><?=$viewDateType?>/<?=$rWeekType?></td>
+									<td><?=$res1_dateType[$row]?>/<?=$res1_weekType[$row]?></td>
 									<td>
-										<div>기본가 <?=number_format($viewDateCost['typeCost1'])?>원</div>
-										<div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($typeCost2)?>원</div>
+										<div>기본가 <?=number_format($res1_typeCost1[$row])?>원</div>
+										<div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($res1_typeCost2[$row])?>원</div>
 									</td>
-									<td class="last"><?=number_format($viewDateCost['typeCost3'])?>원</td>
+									<td class="last"><?=number_format($res1_typeCost3[$row])?>원</td>
 								</tr>
 <?php
 };

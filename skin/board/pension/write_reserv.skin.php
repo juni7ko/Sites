@@ -76,25 +76,36 @@ foreach($_POST[checkRoom] as $chkData) :
 									<td><?=$r_info['r_info_person1']?>명/<?=$r_info['r_info_person2']?>명</td>
 									<td><span class="highlight-pink"><?=$rDate?>(<?=$rWeek?>)</span></td>
 									<td>
-										<input type="hidden" name="r_info_id[<?=$row?>]" value="<?=$chkReser['r_info_id']?>" />
-										<input type="hidden" name="rDate[<?=$row?>]" value="<?=$chkReser['rDate']?>" />
-										<input type="hidden" name="rResult[<?=$row?>]" value="0010" />
-										<input type="hidden" name="person_max[<?=$row?>]" value="$r_info['r_info_person3']" />
-										<select name="person1[<?=$row?>]">
+										<input type="hidden" name="res1_r_info_id[<?=$row?>]" value="<?=$chkReser[r_info_id]?>" />
+										<input type="hidden" name="res1_r_info_name[<?=$row?>]" value="<?=$r_info[r_info_name]?>" />
+										<input type="hidden" name="res1_rDateTmp[<?=$row?>]" value="<?=$chkReser[rDate]?>" />
+										<input type="hidden" name="res1_rDate[<?=$row?>]" value="<?=$rDate?>" />
+										<input type="hidden" name="res1_rWeek[<?=$row?>]" value="<?=$rWeek?>" />
+										<input type="hidden" name="res1_rResult[<?=$row?>]" value="0010" />
+										<input type="hidden" name="res1_typeCost1[<?=$row?>]" value="<?=$viewDateCost[typeCost1]?>" />
+										<input type="hidden" name="res1_typeCost2[<?=$row?>]" value="<?=$typeCost2?>" />
+										<input type="hidden" name="res1_typeCost3[<?=$row?>]" value="<?=$viewDateCost[typeCost3]?>" />
+										<input type="hidden" name="res1_r_info_person1[<?=$row?>]" value="<?=$r_info[r_info_person1]?>" />
+										<input type="hidden" name="res1_r_info_person2[<?=$row?>]" value="<?=$r_info[r_info_person2]?>" />
+										<input type="hidden" name="res1_r_info_person3[<?=$row?>]" value="<?=$r_info[r_info_person3]?>" />
+										<input type="hidden" name="res1_dateType[$row]" value="<?=$viewDateType?>" />
+										<input type="hidden" name="res1_weekType[$row]" value="<?=$rWeekType?>" />
+
+										<select name="res1_person1[<?=$row?>]">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"<?=($i == $r_info['r_info_person1']) ? " selected":NULL;?>><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="person2[<?=$row?>]">
+										<select name="res1_person2[<?=$row?>]">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="person3[<?=$row?>]">
+										<select name="res1_person3[<?=$row?>]">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
@@ -115,8 +126,8 @@ endforeach;
 							<tr>
 								<td class="first" colspan="8">객실요금 합계</td>
 								<td class="last">
-									<input type="hidden" name="roomCount" value="<?=$row?>" />
-									<input type="hidden" name="totalCost" value="<?=$totalCost?>" />
+									<input type="hidden" name="res1_roomCount" value="<?=$row?>" />
+									<input type="hidden" name="res1_totalCost" value="<?=$totalCost?>" />
 									<?=number_format($totalCost)?>원
 								</td>
 							</tr>
