@@ -62,13 +62,14 @@ foreach($_POST[checkRoom] as $chkData) :
 	$rDate = date("Y-m-d", $chkReser['rDate']);
 	$weekChk = date("w", $chkReser['rDate']);
 	$rWeek = GetDateWeek($weekChk);
-	$rWeekType = pDateType2($chkReser['rDate']);
+	$rWeekType = pDateType($chkReser['rDate']);
+	$rWeekType2 = pDateType2($chkReser['rDate']);
 
 	$r_info_sql = " SELECT * FROM {$write_table2}_r_info WHERE pension_id = '{$_POST['pension_id']}' AND r_info_id =  '{$chkReser['r_info_id']}' LIMIT 1 ";
 	$r_info = sql_fetch($r_info_sql);
 
 	$viewDateType = viewDateType($_POST[pension_id], $chkReser['rDate']);
-	$viewDateCost = viewCostRow($chkReser['r_info_id'], $_POST[pension_id], $rWeek, $chkReser['rDate']);
+	$viewDateCost = viewCostRow($chkReser['r_info_id'], $_POST[pension_id], $rWeekType, $chkReser['rDate']);
 	$typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01)), -2 );
 ?>
 								<tr>
@@ -88,8 +89,9 @@ foreach($_POST[checkRoom] as $chkData) :
 										<input type="hidden" name="res1_r_info_person1[<?=$row?>]" value="<?=$r_info[r_info_person1]?>" />
 										<input type="hidden" name="res1_r_info_person2[<?=$row?>]" value="<?=$r_info[r_info_person2]?>" />
 										<input type="hidden" name="res1_r_info_person3[<?=$row?>]" value="<?=$r_info[r_info_person3]?>" />
-										<input type="hidden" name="res1_dateType[$row]" value="<?=$viewDateType?>" />
-										<input type="hidden" name="res1_weekType[$row]" value="<?=$rWeekType?>" />
+										<input type="hidden" name="res1_dateType[<?=$row?>]" value="<?=$viewDateType?>" />
+										<input type="hidden" name="res1_weekType2[<?=$row?>]" value="<?=$rWeekType2?>" />
+										<input type="hidden" name="res1_r_info_person_add[<?=$row?>]" value="<?=$r_info[r_info_person_add]?>" />
 
 										<select name="res1_person1[<?=$row?>]">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
@@ -111,10 +113,10 @@ foreach($_POST[checkRoom] as $chkData) :
 											<?php }?>
 										</select>명
 									</td>
-									<td><?=$viewDateType?>/<?=$rWeekType?></td>
+									<td><?=$viewDateType?>/<?=$rWeekType2?></td>
 									<td>
 										<div>기본가 <?=number_format($viewDateCost['typeCost1'])?>원</div>
-										<div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($typeCost2)?>원</div>
+										<?php if($typeCost2) { ?><div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($typeCost2)?>원</div><?php } ?>
 									</td>
 									<td class="last"><?=number_format($viewDateCost['typeCost3'])?>원</td>
 								</tr>
@@ -179,7 +181,7 @@ endforeach;
 									-
 									<input name="wr_tel2" type="text" class="text" size="4" maxlength="4"/>
 									-
-									<input name="wr_tel3" type="text" class="text" size="4" size="4" maxlength="4"/>
+									<input name="wr_tel3" type="text" class="text" size="4" maxlength="4"/>
 								</td>
 							</tr>
 							<tr>
@@ -214,12 +216,16 @@ endforeach;
 							<tr>
 								<td class="first">결제방법</td>
 								<td class="last left">
-									<label><input type="radio" name="paycheck" value="1" checked />무통장입금</label>&nbsp;&nbsp;
+									<label><input type="radio" name="paycheck" value="1" checked /> 무통장입금</label>&nbsp;&nbsp;
 									<!--
 									<label><input type="radio" name="paycheck" value="2" />실시간계좌이체</label>&nbsp;&nbsp;
 									<label><input type="radio" name="paycheck" value="3" />신용카드</label>
 									-->
 								</td>
+							</tr>
+							<tr>
+								<td class="first">결제자명</td>
+								<td class="last left"><input name="payName" type="text" class="text" size="10" /></td>
 							</tr>
 							<tr>
 								<td class="first">기타사항</td>
