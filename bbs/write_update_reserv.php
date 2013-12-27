@@ -1,5 +1,5 @@
 <?php
-$g4[title] = $wr_subject . "글입력";
+$g4[title] = $wr_subject . "예약입력";
 include_once("./_common.php");
 
 // 090710
@@ -11,21 +11,6 @@ if (substr_count($wr_content, "&#") > 50) {
 @include_once("$board_skin_path/write_update.head.skin.php");
 
 include_once("$g4[path]/lib/trackback.lib.php");
-
-/*
-$filters = explode(",", $config[cf_filter]);
-for ($i=0; $i<count($filters); $i++) {
-    $s = trim($filters[$i]); // 필터단어의 앞뒤 공백을 없앰
-    if (stristr($wr_subject, $s)) {
-        alert("제목에 금지단어(\'{$s}\')가 포함되어 있습니다.");
-        exit;
-    }
-    if (stristr($wr_content, $s)) {
-        alert("내용에 금지단어(\'{$s}\')가 포함되어 있습니다.");
-        exit;
-    }
-}
-*/
 
 $upload_max_filesize = ini_get('upload_max_filesize');
 
@@ -108,10 +93,10 @@ else if ($w == "r")
 } else
     alert("w 값이 제대로 넘어오지 않았습니다.");
 
-
+/*
 if ($w == "" || $w == "r")
 {
-	/*
+
     if ($_SESSION["ss_datetime"] >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_admin)
         alert("너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.");
 
@@ -123,12 +108,14 @@ if ($w == "" || $w == "r")
     $curr_md5 = md5($_SERVER[REMOTE_ADDR].$wr_subject.$wr_content);
     if ($row[prev_md5] == $curr_md5 && !$is_admin)
         alert("동일한 내용을 연속해서 등록할 수 없습니다.");
-*/
 }
+*/
 
 // 자동등록방지 검사
 //include_once ("./norobot_check.inc.php");
-if ($bo_table != "bbs34") {
+
+/*
+if ($bo_table != "pension") {
 	if (!$is_member) {
 		if ($w=='' || $w=='r') {
 			$key = get_session("captcha_keystring");
@@ -139,9 +126,40 @@ if ($bo_table != "bbs34") {
 		}
 	}
 }
+*/
 
-if (!isset($_POST[wr_subject]) || !trim($_POST[wr_subject]))
-    alert("제목을 입력하여 주십시오.");
+/* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
+## 시작
+*/
+// 방 갯수에 따라서 배열로 입력
+for($i=0; $i < $res2_roomCount; $i++)
+{
+    $wr_subject[$i] = $res2_rDate[$i] . " " . $wr_name . " " . $res2_r_info_name[$i]; // 제목설정
+    $ca_name[$i] = $res2_r_info_name[$i]; // 객실명
+    $wr_link1[$i] = date("Ymd", $res2_rDateTmp[$i]); // 날짜 저장
+    $wr_link2[$i] = $res2_rDateTmp[$i]; // 날짜 tmp 값 저장
+    $r_info_id[$i] = $res2_r_info_id[$i]; // 객실ID
+    $rResult[$i] = $res2_rResult[$i]; // 예약결과
+    $person1[$i] = $res2_person1[$i]; // 성인
+    $person2[$i] = $res2_person2[$i]; // 아동
+    $person3[$i] = $res2_person3[$i]; // 유아
+    $costType[$i] = $res2_dateType[$i] . "/" .  $res2_weekType2[$i]; // 요금타입
+    $cost1[$i] = $res2_typeCost1[$i]; // 기본가격
+    $cost2[$i] = $res2_typeCost2[$i]; // 할인가격
+    $cost3[$i] = $res2_typeCost3[$i]; // 결제가격
+    $overCount[$i] = $res2_personOver[$i]; // 추가인원
+    $overCost[$i] = $res2_personOverCost[$i]; // 추가가격
+    echo $overCount[$i] . "/" . $overCost[$i] . "/" . $cost3[$i] . "<br />";
+}
+
+/* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
+## 끝
+*/
+
+exit;
+
+
+
 
 // 디렉토리가 없다면 생성합니다. (퍼미션도 변경하구요.)
 @mkdir("$g4[path]/data/file/$bo_table", 0707);

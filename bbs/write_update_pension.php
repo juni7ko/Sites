@@ -1,4 +1,5 @@
-<?php $g4[title] = $wr_subject . "글입력";
+<?php
+$g4[title] = $wr_subject . "글입력";
 include_once("./_common.php");
 echo "<meta http-equiv='content-type' content='text/html; charset=utf-8'>";
 $write_table = "g4_write_pension_info";
@@ -44,7 +45,7 @@ $notice_array = explode("\n", trim($board[bo_notice]));
 if ($w == "u" || $w == "r") {
     $wr = get_write($write_table, $wr_id);
     if (!$wr[wr_id])
-        alert("글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동하였을 수 있습니다."); 
+        alert("글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동하였을 수 있습니다.");
 }
 
 // 외부에서 글을 등록할 수 있는 버그가 존재하므로 비밀글은 사용일 경우에만 가능해야 함
@@ -60,19 +61,19 @@ if ($w == "" || $w == "u") {
     // 김선용 1.00 : 글쓰기 권한과 수정은 별도로 처리되어야 함
     if($w =="u" && $member['mb_id'] && $wr['mb_id'] == $member['mb_id'])
         ;
-    else if ($member[mb_level] < $board[bo_write_level]) 
+    else if ($member[mb_level] < $board[bo_write_level])
         alert("글을 쓸 권한이 없습니다.");
 
 	// 외부에서 글을 등록할 수 있는 버그가 존재하므로 공지는 관리자만 등록이 가능해야 함
 	if (!$is_admin && $notice)
 		alert("관리자만 공지할 수 있습니다.");
-} 
-else if ($w == "r") 
+}
+else if ($w == "r")
 {
     if (in_array((int)$wr_id, $notice_array))
         alert("공지에는 답변 할 수 없습니다.");
 
-    if ($member[mb_level] < $board[bo_reply_level]) 
+    if ($member[mb_level] < $board[bo_reply_level])
         alert("글을 답변할 권한이 없습니다.");
 
     // 게시글 배열 참조
@@ -105,14 +106,14 @@ else if ($w == "r")
         $reply_char = chr(ord($row[reply]) + $reply_number);
 
     $reply = $reply_array[wr_reply] . $reply_char;
-} else 
-    alert("w 값이 제대로 넘어오지 않았습니다."); 
+} else
+    alert("w 값이 제대로 넘어오지 않았습니다.");
 
 
-if ($w == "" || $w == "r") 
+if ($w == "" || $w == "r")
 {
 	/*
-    if ($_SESSION["ss_datetime"] >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_admin) 
+    if ($_SESSION["ss_datetime"] >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_admin)
         alert("너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.");
 
     set_session("ss_datetime", $g4[server_time]);
@@ -124,7 +125,7 @@ if ($w == "" || $w == "r")
     if ($row[prev_md5] == $curr_md5 && !$is_admin)
         alert("동일한 내용을 연속해서 등록할 수 없습니다.");
 */
-} 
+}
 
 // 자동등록방지 검사
 //include_once ("./norobot_check.inc.php");
@@ -140,8 +141,8 @@ if ($bo_table != "pension_info") {
 	}
 }
 
-if (!isset($_POST[wr_subject]) || !trim($_POST[wr_subject])) 
-    alert("제목을 입력하여 주십시오."); 
+if (!isset($_POST[wr_subject]) || !trim($_POST[wr_subject]))
+    alert("제목을 입력하여 주십시오.");
 
 // 디렉토리가 없다면 생성합니다. (퍼미션도 변경하구요.)
 @mkdir("$g4[path]/data/file/$bo_table", 0707);
@@ -157,10 +158,10 @@ $chars_array = array_merge(range(0,9), range('a','z'), range('A','Z'));
 // 가변 파일 업로드
 $file_upload_msg = "";
 $upload = array();
-for ($i=0; $i<count($_FILES[bf_file][name]); $i++) 
+for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
 {
     // 삭제에 체크가 되어있다면 파일을 삭제합니다.
-    if ($_POST[bf_file_del][$i]) 
+    if ($_POST[bf_file_del][$i])
     {
         $upload[$i][del_check] = true;
 
@@ -190,10 +191,10 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
         }
     }
 
-    if (is_uploaded_file($tmp_file)) 
+    if (is_uploaded_file($tmp_file))
     {
         // 관리자가 아니면서 설정한 업로드 사이즈보다 크다면 건너뜀
-        if (!$is_admin && $filesize > $board[bo_upload_size]) 
+        if (!$is_admin && $filesize > $board[bo_upload_size])
         {
             $file_upload_msg .= "\'{$filename}\' 파일의 용량(".number_format($filesize)." 바이트)이 게시판에 설정(".number_format($board[bo_upload_size])." 바이트)된 값보다 크므로 업로드 하지 않습니다.\\n";
             continue;
@@ -207,7 +208,7 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
         $timg = @getimagesize($tmp_file);
         // image type
         if ( preg_match("/\.($config[cf_image_extension])$/i", $filename) ||
-             preg_match("/\.($config[cf_flash_extension])$/i", $filename) ) 
+             preg_match("/\.($config[cf_flash_extension])$/i", $filename) )
         {
             if ($timg[2] < 1 || $timg[2] > 16)
             {
@@ -236,14 +237,14 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
 
         // 접미사를 붙인 파일명
         //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.urlencode($filename);
-        // 달빛온도님 수정 : 한글파일은 urlencode($filename) 처리를 할경우 '%'를 붙여주게 되는데 '%'표시는 미디어플레이어가 인식을 못하기 때문에 재생이 안됩니다. 그래서 변경한 파일명에서 '%'부분을 빼주면 해결됩니다. 
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.str_replace('%', '', urlencode($filename)); 
+        // 달빛온도님 수정 : 한글파일은 urlencode($filename) 처리를 할경우 '%'를 붙여주게 되는데 '%'표시는 미디어플레이어가 인식을 못하기 때문에 재생이 안됩니다. 그래서 변경한 파일명에서 '%'부분을 빼주면 해결됩니다.
+        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.str_replace('%', '', urlencode($filename));
         shuffle($chars_array);
         $shuffle = implode("", $chars_array);
 
         // 첨부파일 첨부시 첨부파일명에 공백이 포함되어 있으면 일부 PC에서 보이지 않거나 다운로드 되지 않는 현상이 있습니다. (길상여의 님 090925)
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename)); 
-        $upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename))); 
+        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename));
+        $upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename)));
 
         $dest_file = "$g4[path]/data/file/$bo_table/" . $upload[$i][file];
 
@@ -258,17 +259,17 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
     }
 }
 
-if ($w == "" || $w == "r") 
+if ($w == "" || $w == "r")
 {
-    if ($member[mb_id]) 
+    if ($member[mb_id])
     {
   //      $mb_id = $member[mb_id];
   //      $wr_name = $board[bo_use_name] ? $member[mb_name] : $member[mb_nick];
  //       $wr_password = $member[mb_password];
  //       $wr_email = $member[mb_email];
  //       $wr_homepage = $member[mb_homepage];
-    } 
-    else 
+    }
+    else
     {
         $mb_id = "";
         // 비회원의 경우 이름이 누락되는 경우가 있음
@@ -278,17 +279,17 @@ if ($w == "" || $w == "r")
         $wr_password = sql_password($wr_password);
     }
 
-    if ($w == "r") 
+    if ($w == "r")
     {
         // 답변의 원글이 비밀글이라면 패스워드는 원글과 동일하게 넣는다.
-        if ($secret) 
+        if ($secret)
             $wr_password = $wr[wr_password];
 
         $wr_id = $wr_id . $reply;
         $wr_num = $write[wr_num];
         $wr_reply = $reply;
-    } 
-    else 
+    }
+    else
     {
         $wr_num = get_next_num($write_table);
         $wr_reply = "";
@@ -328,7 +329,7 @@ if ($w == "" || $w == "r")
                     wr_8 = '$wr_8',
                     wr_9 = '$wr_9',
                     wr_10 = '$wr_10',
-					
+
                     pre_name = '$pre_name',
                     sale_number = '$sale_number',
 	                mb_zip1 = '$mb_zip1',
@@ -355,77 +356,77 @@ if ($w == "" || $w == "r")
                     cf3 = '$cf3',
                     cf4 = '$cf4',
                     cf5 = '$cf5',
-	               
+
 					cf11 = '$cf11',
                     cf12 = '$cf12',
-                    cf13 = '$cf13',							
-                    cf14 = '$cf14',							
-                    cf15 = '$cf15',				
-					cf16 = '$cf16',							
-                    cf17 = '$cf17',							
-                    cf18 = '$cf18',							
-                    cf19 = '$cf19',							
-                    cf20 = '$cf20',				
-					cf21 = '$cf21',							
-                    cf22 = '$cf22',							
-                    cf23 = '$cf23',							
-                    cf24 = '$cf24',							
-                    cf25 = '$cf25',				
-					cf26 = '$cf26',							
-                    cf27 = '$cf27',							
-                    cf28 = '$cf28',							
-                    cf29 = '$cf29',							
-                    cf30 = '$cf30',				
-					cf31 = '$cf31',							
-                    cf32 = '$cf32',							
-                    cf33 = '$cf33',							
-                    cf34 = '$cf34',							
-                    cf35 = '$cf35',				
-					cf36 = '$cf36',							
-                    cf37 = '$cf37',							
-                    cf38 = '$cf38',							
-                    cf39 = '$cf39',							
-                    cf40 = '$cf40',				
-										
+                    cf13 = '$cf13',
+                    cf14 = '$cf14',
+                    cf15 = '$cf15',
+					cf16 = '$cf16',
+                    cf17 = '$cf17',
+                    cf18 = '$cf18',
+                    cf19 = '$cf19',
+                    cf20 = '$cf20',
+					cf21 = '$cf21',
+                    cf22 = '$cf22',
+                    cf23 = '$cf23',
+                    cf24 = '$cf24',
+                    cf25 = '$cf25',
+					cf26 = '$cf26',
+                    cf27 = '$cf27',
+                    cf28 = '$cf28',
+                    cf29 = '$cf29',
+                    cf30 = '$cf30',
+					cf31 = '$cf31',
+                    cf32 = '$cf32',
+                    cf33 = '$cf33',
+                    cf34 = '$cf34',
+                    cf35 = '$cf35',
+					cf36 = '$cf36',
+                    cf37 = '$cf37',
+                    cf38 = '$cf38',
+                    cf39 = '$cf39',
+                    cf40 = '$cf40',
 
-					cf51 = '$cf51',							
-                    cf52 = '$cf52',							
-                    cf53 = '$cf53',							
-                    cf54 = '$cf54',							
-                    cf55 = '$cf55',				
-					cf56 = '$cf56',							
-                    cf57 = '$cf57',							
-                    cf58 = '$cf58',							
-                    cf59 = '$cf59',							
-                    cf60 = '$cf60',				
-					cf61 = '$cf61',							
-                    cf62 = '$cf62',							
-                    cf63 = '$cf63',							
-                    cf64 = '$cf64',							
-                    cf65 = '$cf65',				
-					cf66 = '$cf66',							
-                    cf67 = '$cf67',							
-                    cf68 = '$cf68',							
-                    cf69 = '$cf69',	
-					
-					cf71 = '$cf71',							
-                    cf72 = '$cf72',							
-                    cf73 = '$cf73',							
-                    cf74 = '$cf74',							
-                    cf75 = '$cf75',				
-					cf76 = '$cf76',							
-                    cf77 = '$cf77',							
-                    cf78 = '$cf78',							
-                    cf79 = '$cf79',							
-                    cf80 = '$cf80',		
-					cf81 = '$cf81',							
-                    cf82 = '$cf82',			
 
-					cf91 = '$cf91',							
-                    cf92 = '$cf92',							
-                    cf93 = '$cf93',							
+					cf51 = '$cf51',
+                    cf52 = '$cf52',
+                    cf53 = '$cf53',
+                    cf54 = '$cf54',
+                    cf55 = '$cf55',
+					cf56 = '$cf56',
+                    cf57 = '$cf57',
+                    cf58 = '$cf58',
+                    cf59 = '$cf59',
+                    cf60 = '$cf60',
+					cf61 = '$cf61',
+                    cf62 = '$cf62',
+                    cf63 = '$cf63',
+                    cf64 = '$cf64',
+                    cf65 = '$cf65',
+					cf66 = '$cf66',
+                    cf67 = '$cf67',
+                    cf68 = '$cf68',
+                    cf69 = '$cf69',
+
+					cf71 = '$cf71',
+                    cf72 = '$cf72',
+                    cf73 = '$cf73',
+                    cf74 = '$cf74',
+                    cf75 = '$cf75',
+					cf76 = '$cf76',
+                    cf77 = '$cf77',
+                    cf78 = '$cf78',
+                    cf79 = '$cf79',
+                    cf80 = '$cf80',
+					cf81 = '$cf81',
+                    cf82 = '$cf82',
+
+					cf91 = '$cf91',
+                    cf92 = '$cf92',
+                    cf93 = '$cf93',
                     cf94 = '$cf94',
-					
+
 					area_id = '$area_id',
 					lowPrice = '$lowPrice',
 					mainPrint = '$mainPrint',
@@ -451,7 +452,7 @@ if ($w == "" || $w == "r")
     sql_query("update $g4[board_table] set bo_count_write = bo_count_write + 1 where bo_table = '$bo_table'");
 
     // 쓰기 포인트 부여
-    if ($w == '') 
+    if ($w == '')
     {
         if ($notice)
         {
@@ -461,14 +462,14 @@ if ($w == "" || $w == "r")
 
         insert_point($member[mb_id], $board[bo_write_point], "$board[bo_subject] $wr_id 글쓰기", $bo_table, $wr_id, '쓰기');
     }
-    else 
+    else
     {
         // 답변은 코멘트 포인트를 부여함
         // 답변 포인트가 많은 경우 코멘트 대신 답변을 하는 경우가 많음
         insert_point($member[mb_id], $board[bo_comment_point], "$board[bo_subject] $wr_id 글답변", $bo_table, $wr_id, '쓰기');
     }
-} 
-else if ($w == "u") 
+}
+else if ($w == "u")
 {
     if (get_session('ss_bo_table') != $_POST['bo_table'] || get_session('ss_wr_id') != $_POST['wr_id']) {
       //  alert('올바른 방법으로 수정하여 주십시오.');
@@ -497,16 +498,16 @@ else if ($w == "u")
         }
     }
 
-    if ($member[mb_id]) 
+    if ($member[mb_id])
     {
         // 자신의 글이라면
-        if ($member[mb_id] == $wr[mb_id]) 
+        if ($member[mb_id] == $wr[mb_id])
         {
      //       $mb_id = $member[mb_id];
     //        $wr_name = $board[bo_use_name] ? $member[mb_name] : $member[mb_nick];
     //        $wr_email = $member[mb_email];
     //        $wr_homepage = $member[mb_homepage];
-        } 
+        }
         else
         {
     //        $mb_id = $wr[mb_id];
@@ -514,8 +515,8 @@ else if ($w == "u")
     //       $wr_email = $wr[wr_email];
      //       $wr_homepage = $wr[wr_homepage];
         }
-    } 
-    else 
+    }
+    else
     {
         $mb_id = "";
         // 비회원의 경우 이름이 누락되는 경우가 있음
@@ -549,104 +550,104 @@ else if ($w == "u")
                     wr_8 = '$wr_8',
                     wr_9 = '$wr_9',
                     wr_10 = '$wr_10',
-					
-                    pre_name = '$pre_name',					
-                    sale_number = '$sale_number',							
-	                mb_zip1 = '$mb_zip1',					
-                    mb_zip2 = '$mb_zip2',							
-	                business_num = '$business_num',					
-                    mb_addr1 = '$mb_addr1',						
-		            mb_addr2 = '$mb_addr2',		
-		            location1 = '$location1',			
-					location2 = '$location2',							
-                    wr_phone1 = '$wr_phone1',		
-                    wr_phone2 = '$wr_phone2',		
-                    wr_phone3 = '$wr_phone3',		
-                    wr_phone4 = '$wr_phone4',		
-                    wr_phone5 = '$wr_phone5',	
-                    domain_name = '$domain_name',	
-	                wr_fax = '$wr_fax',					
-                    bank_name = '$bank_name',		
-	                bank_number = '$bank_number',					
-                    bank_username = '$bank_username',		
+
+                    pre_name = '$pre_name',
+                    sale_number = '$sale_number',
+	                mb_zip1 = '$mb_zip1',
+                    mb_zip2 = '$mb_zip2',
+	                business_num = '$business_num',
+                    mb_addr1 = '$mb_addr1',
+		            mb_addr2 = '$mb_addr2',
+		            location1 = '$location1',
+					location2 = '$location2',
+                    wr_phone1 = '$wr_phone1',
+                    wr_phone2 = '$wr_phone2',
+                    wr_phone3 = '$wr_phone3',
+                    wr_phone4 = '$wr_phone4',
+                    wr_phone5 = '$wr_phone5',
+                    domain_name = '$domain_name',
+	                wr_fax = '$wr_fax',
+                    bank_name = '$bank_name',
+	                bank_number = '$bank_number',
+                    bank_username = '$bank_username',
 	                discount = '$discount',
 
-                    cf1 = '$cf1',							
-                    cf2 = '$cf2',							
-                    cf3 = '$cf3',							
-                    cf4 = '$cf4',							
-                    cf5 = '$cf5',							
-	               
-					cf11 = '$cf11',							
-                    cf12 = '$cf12',							
-                    cf13 = '$cf13',							
-                    cf14 = '$cf14',							
-                    cf15 = '$cf15',				
-					cf16 = '$cf16',							
-                    cf17 = '$cf17',							
-                    cf18 = '$cf18',							
-                    cf19 = '$cf19',							
-                    cf20 = '$cf20',				
-					cf21 = '$cf21',							
-                    cf22 = '$cf22',							
-                    cf23 = '$cf23',							
-                    cf24 = '$cf24',							
-                    cf25 = '$cf25',				
-					cf26 = '$cf26',							
-                    cf27 = '$cf27',							
-                    cf28 = '$cf28',							
-                    cf29 = '$cf29',							
-                    cf30 = '$cf30',				
-					cf31 = '$cf31',							
-                    cf32 = '$cf32',							
-                    cf33 = '$cf33',							
-                    cf34 = '$cf34',							
-                    cf35 = '$cf35',				
-					cf36 = '$cf36',							
-                    cf37 = '$cf37',							
-                    cf38 = '$cf38',							
-                    cf39 = '$cf39',							
-                    cf40 = '$cf40',				
-										
+                    cf1 = '$cf1',
+                    cf2 = '$cf2',
+                    cf3 = '$cf3',
+                    cf4 = '$cf4',
+                    cf5 = '$cf5',
 
-					cf51 = '$cf51',							
-                    cf52 = '$cf52',							
-                    cf53 = '$cf53',							
-                    cf54 = '$cf54',							
-                    cf55 = '$cf55',				
-					cf56 = '$cf56',							
-                    cf57 = '$cf57',							
-                    cf58 = '$cf58',							
-                    cf59 = '$cf59',							
-                    cf60 = '$cf60',				
-					cf61 = '$cf61',							
-                    cf62 = '$cf62',							
-                    cf63 = '$cf63',							
-                    cf64 = '$cf64',							
-                    cf65 = '$cf65',				
-					cf66 = '$cf66',							
-                    cf67 = '$cf67',							
-                    cf68 = '$cf68',							
-                    cf69 = '$cf69',	
-					
-					cf71 = '$cf71',							
-                    cf72 = '$cf72',							
-                    cf73 = '$cf73',							
-                    cf74 = '$cf74',							
-                    cf75 = '$cf75',				
-					cf76 = '$cf76',							
-                    cf77 = '$cf77',							
-                    cf78 = '$cf78',							
-                    cf79 = '$cf79',							
-                    cf80 = '$cf80',		
-					cf81 = '$cf81',							
-                    cf82 = '$cf82',			
+					cf11 = '$cf11',
+                    cf12 = '$cf12',
+                    cf13 = '$cf13',
+                    cf14 = '$cf14',
+                    cf15 = '$cf15',
+					cf16 = '$cf16',
+                    cf17 = '$cf17',
+                    cf18 = '$cf18',
+                    cf19 = '$cf19',
+                    cf20 = '$cf20',
+					cf21 = '$cf21',
+                    cf22 = '$cf22',
+                    cf23 = '$cf23',
+                    cf24 = '$cf24',
+                    cf25 = '$cf25',
+					cf26 = '$cf26',
+                    cf27 = '$cf27',
+                    cf28 = '$cf28',
+                    cf29 = '$cf29',
+                    cf30 = '$cf30',
+					cf31 = '$cf31',
+                    cf32 = '$cf32',
+                    cf33 = '$cf33',
+                    cf34 = '$cf34',
+                    cf35 = '$cf35',
+					cf36 = '$cf36',
+                    cf37 = '$cf37',
+                    cf38 = '$cf38',
+                    cf39 = '$cf39',
+                    cf40 = '$cf40',
 
-					cf91 = '$cf91',							
-                    cf92 = '$cf92',							
-                    cf93 = '$cf93',							
+
+					cf51 = '$cf51',
+                    cf52 = '$cf52',
+                    cf53 = '$cf53',
+                    cf54 = '$cf54',
+                    cf55 = '$cf55',
+					cf56 = '$cf56',
+                    cf57 = '$cf57',
+                    cf58 = '$cf58',
+                    cf59 = '$cf59',
+                    cf60 = '$cf60',
+					cf61 = '$cf61',
+                    cf62 = '$cf62',
+                    cf63 = '$cf63',
+                    cf64 = '$cf64',
+                    cf65 = '$cf65',
+					cf66 = '$cf66',
+                    cf67 = '$cf67',
+                    cf68 = '$cf68',
+                    cf69 = '$cf69',
+
+					cf71 = '$cf71',
+                    cf72 = '$cf72',
+                    cf73 = '$cf73',
+                    cf74 = '$cf74',
+                    cf75 = '$cf75',
+					cf76 = '$cf76',
+                    cf77 = '$cf77',
+                    cf78 = '$cf78',
+                    cf79 = '$cf79',
+                    cf80 = '$cf80',
+					cf81 = '$cf81',
+                    cf82 = '$cf82',
+
+					cf91 = '$cf91',
+                    cf92 = '$cf92',
+                    cf93 = '$cf93',
                     cf94 = '$cf94',
-					
+
 					area_id = '$area_id',
 					lowPrice = '$lowPrice',
 					mainPrint = '$mainPrint',
@@ -656,7 +657,7 @@ else if ($w == "u")
 					checkin = '$checkin',
 					checkout = '$checkout',
 					pickup = '$pickup'
-					
+
                     $sql_ip
                     $sql_password
               where wr_id = '$wr[wr_id]' ";
@@ -667,16 +668,16 @@ else if ($w == "u")
     $sql = " update $write_table set ca_name = '$ca_name' where wr_parent = '$wr[wr_id]' ";
     sql_query($sql);
 
-    if ($notice) 
+    if ($notice)
     {
-        //if (!preg_match("/[^0-9]{0,1}{$wr_id}[\r]{0,1}/",$board[bo_notice])) 
+        //if (!preg_match("/[^0-9]{0,1}{$wr_id}[\r]{0,1}/",$board[bo_notice]))
         if (!in_array((int)$wr_id, $notice_array))
         {
             $bo_notice = $wr_id . '\n' . $board[bo_notice];
             sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
         }
-    } 
-    else 
+    }
+    else
     {
         $bo_notice = '';
         for ($i=0; $i<count($notice_array); $i++)
@@ -692,18 +693,18 @@ else if ($w == "u")
 //------------------------------------------------------------------------------
 // 가변 파일 업로드
 // 나중에 테이블에 저장하는 이유는 $wr_id 값을 저장해야 하기 때문입니다.
-for ($i=0; $i<count($upload); $i++) 
+for ($i=0; $i<count($upload); $i++)
 {
     if (!get_magic_quotes_gpc()) {
         $upload[$i]['source'] = addslashes($upload[$i]['source']);
     }
 
     $row = sql_fetch(" select count(*) as cnt from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
-    if ($row[cnt]) 
+    if ($row[cnt])
     {
         // 삭제에 체크가 있거나 파일이 있다면 업데이트를 합니다.
         // 그렇지 않다면 내용만 업데이트 합니다.
-        if ($upload[$i][del_check] || $upload[$i][file]) 
+        if ($upload[$i][del_check] || $upload[$i][file])
         {
             $sql = " update $g4[board_file_table]
                         set bf_source = '{$upload[$i][source]}',
@@ -718,18 +719,18 @@ for ($i=0; $i<count($upload); $i++)
                         and wr_id = '$wr_id'
                         and bf_no = '$i' ";
             sql_query($sql);
-        } 
-        else 
+        }
+        else
         {
             $sql = " update $g4[board_file_table]
-                        set bf_content = '{$bf_content[$i]}' 
+                        set bf_content = '{$bf_content[$i]}'
                       where bo_table = '$bo_table'
                         and wr_id = '$wr_id'
                         and bf_no = '$i' ";
             sql_query($sql);
         }
-    } 
-    else 
+    }
+    else
     {
         $sql = " insert into $g4[board_file_table]
                     set bo_table = '$bo_table',
@@ -751,7 +752,7 @@ for ($i=0; $i<count($upload); $i++)
 // 업로드된 파일 내용에서 가장 큰 번호를 얻어 거꾸로 확인해 가면서
 // 파일 정보가 없다면 테이블의 내용을 삭제합니다.
 $row = sql_fetch(" select max(bf_no) as max_bf_no from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ");
-for ($i=(int)$row[max_bf_no]; $i>=0; $i--) 
+for ($i=(int)$row[max_bf_no]; $i>=0; $i--)
 {
     $row2 = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
 
@@ -764,11 +765,11 @@ for ($i=(int)$row[max_bf_no]; $i>=0; $i--)
 //------------------------------------------------------------------------------
 
 // 비밀글이라면 세션에 비밀글의 아이디를 저장한다. 자신의 글은 다시 패스워드를 묻지 않기 위함
-if ($secret) 
+if ($secret)
     set_session("ss_secret_{$bo_table}_{$wr_num}", TRUE);
 
 // 메일발송 사용 (수정글은 발송하지 않음)
-if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email]) 
+if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
 {
     // 관리자의 정보를 얻고
     $super_admin = get_admin("super");
@@ -834,7 +835,7 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
 @include_once ("$board_skin_path/write_update.skin.php");
 
 // 트랙백 주소가 있다면
-if (($w != "u" && $wr_trackback) || ($w=="u" && $wr_trackback && $re_trackback)) 
+if (($w != "u" && $wr_trackback) || ($w=="u" && $wr_trackback && $re_trackback))
 {
     $trackback_url = "$g4[url]/$g4[bbs]/tb.php/$bo_table/$wr_id";
     $msg = "";

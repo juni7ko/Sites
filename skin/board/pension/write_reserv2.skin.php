@@ -78,6 +78,8 @@ $background = "class=bg-ptn1";
 									<input type="hidden" name="res2_person3[<?=$row?>]"        value="<?=$res1_person3[$row]?>" />
 									<input type="hidden" name="res2_dateType[<?=$row?>]"       value="<?=$res1_dateType[$row]?>" />
 									<input type="hidden" name="res2_weekType2[<?=$row?>]"      value="<?=$res1_weekType2[$row]?>" />
+									<input type="hidden" name="res2_personOver[<?=$row?>]"     value="<?=$overCount[$row]?>" />
+									<input type="hidden" name="res2_personOverCost[<?=$row?>]"  value="<?=$addCost[$row]?>" />
 									<?=$res1_person1[$row]?> 명
 								</td>
 								<td>
@@ -189,7 +191,7 @@ function resForm_submit()
 	f = document.resForm;
 
 	if(!f.agree.checked) {
-		alert("유의사항과 환불기준에 동의하셔야 합니다.");
+		alert("예약내용 확인에 체크해 주세요!");
 		return false;
 	}
 
