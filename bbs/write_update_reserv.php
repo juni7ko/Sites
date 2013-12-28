@@ -2,6 +2,11 @@
 $g4[title] = $wr_subject . "예약입력";
 include_once("./_common.php");
 
+$write_table = $write_table2;
+$secret = "secret";
+
+echo "pass:".$_POST[res2_wr_password]."<br />";
+
 // 090710
 if (substr_count($wr_content, "&#") > 50) {
     alert("내용에 올바르지 않은 코드가 다수 포함되어 있습니다.");
@@ -33,8 +38,8 @@ if ($w == "u" || $w == "r") {
 }
 
 // 외부에서 글을 등록할 수 있는 버그가 존재하므로 비밀글은 사용일 경우에만 가능해야 함
-if (!$is_admin && !$board[bo_use_secret] && $secret)
-	alert("비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다.");
+//if (!$is_admin && !$board[bo_use_secret] && $secret)
+//	alert("비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다.");
 
 // 외부에서 글을 등록할 수 있는 버그가 존재하므로 비밀글 무조건 사용일때는 관리자를 제외(공지)하고 무조건 비밀글로 등록
 if (!$is_admin && $board[bo_use_secret] == 2) {
@@ -128,42 +133,6 @@ if ($bo_table != "pension") {
 }
 */
 
-/* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
-## 시작
-*/
-// 방 갯수에 따라서 배열로 입력
-$wr_3 = $res2_r_info_id[0] . mktime(); // 예약코드
-
-for($i=0; $i < $res2_roomCount; $i++)
-{
-    $wr_subject[$i] = $res2_rDate[$i] . " " . $wr_name . " " . $res2_r_info_name[$i]; // 제목설정
-    $ca_name[$i] = $res2_r_info_name[$i]; // 객실명
-    $wr_link1[$i] = date("Ymd", $res2_rDateTmp[$i]); // 날짜 저장
-    $wr_link2[$i] = $res2_rDateTmp[$i]; // 날짜 tmp 값 저장
-    $r_info_id[$i] = $res2_r_info_id[$i]; // 객실ID
-    $rResult[$i] = $res2_rResult[$i]; // 예약결과
-    $person1[$i] = $res2_person1[$i]; // 성인
-    $person2[$i] = $res2_person2[$i]; // 아동
-    $person3[$i] = $res2_person3[$i]; // 유아
-    $costType[$i] = $res2_dateType[$i] . "/" .  $res2_weekType2[$i]; // 요금타입
-    $cost1[$i] = $res2_typeCost1[$i]; // 기본가격
-    $cost2[$i] = $res2_typeCost2[$i]; // 할인가격
-    $cost3[$i] = $res2_typeCost3[$i]; // 결제가격
-    $overCount[$i] = $res2_personOver[$i]; // 추가인원
-    $overCost[$i] = $res2_personOverCost[$i]; // 추가가격
-
-
-    echo $overCount[$i] . "/" . $overCost[$i] . "/" . $cost3[$i] . "<br />";
-}
-/* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
-## 끝
-*/
-
-exit;
-
-
-
-
 // 디렉토리가 없다면 생성합니다. (퍼미션도 변경하구요.)
 @mkdir("$g4[path]/data/file/$bo_table", 0707);
 @chmod("$g4[path]/data/file/$bo_table", 0707);
@@ -175,129 +144,43 @@ exit;
 $chars_array = array_merge(range(0,9), range('a','z'), range('A','Z'));
 //print_r2($chars_array); exit;
 
-// 가변 파일 업로드
-$file_upload_msg = "";
-$upload = array();
-for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
-{
-    // 삭제에 체크가 되어있다면 파일을 삭제합니다.
-    if ($_POST[bf_file_del][$i])
-    {
-        $upload[$i][del_check] = true;
-
-        $row = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
-        @unlink("$g4[path]/data/file/$bo_table/$row[bf_file]");
-    }
-    else
-        $upload[$i][del_check] = false;
-
-    $tmp_file  = $_FILES[bf_file][tmp_name][$i];
-    $filesize  = $_FILES[bf_file][size][$i];
-    $filename  = $_FILES[bf_file][name][$i];
-    $filename  = preg_replace('/(\s|\<|\>|\=|\(|\))/', '_', $filename);
-
-    // 서버에 설정된 값보다 큰파일을 업로드 한다면
-    if ($filename)
-    {
-        if ($_FILES[bf_file][error][$i] == 1)
-        {
-            $file_upload_msg .= "\'{$filename}\' 파일의 용량이 서버에 설정($upload_max_filesize)된 값보다 크므로 업로드 할 수 없습니다.\\n";
-            continue;
-        }
-        else if ($_FILES[bf_file][error][$i] != 0)
-        {
-            $file_upload_msg .= "\'{$filename}\' 파일이 정상적으로 업로드 되지 않았습니다.\\n";
-            continue;
-        }
-    }
-
-    if (is_uploaded_file($tmp_file))
-    {
-        // 관리자가 아니면서 설정한 업로드 사이즈보다 크다면 건너뜀
-        if (!$is_admin && $filesize > $board[bo_upload_size])
-        {
-            $file_upload_msg .= "\'{$filename}\' 파일의 용량(".number_format($filesize)." 바이트)이 게시판에 설정(".number_format($board[bo_upload_size])." 바이트)된 값보다 크므로 업로드 하지 않습니다.\\n";
-            continue;
-        }
-
-        //=================================================================\
-        // 090714
-        // 이미지나 플래시 파일에 악성코드를 심어 업로드 하는 경우를 방지
-        // 에러메세지는 출력하지 않는다.
-        //-----------------------------------------------------------------
-        $timg = @getimagesize($tmp_file);
-        // image type
-        if ( preg_match("/\.($config[cf_image_extension])$/i", $filename) ||
-             preg_match("/\.($config[cf_flash_extension])$/i", $filename) )
-        {
-            if ($timg[2] < 1 || $timg[2] > 16)
-            {
-                //$file_upload_msg .= "\'{$filename}\' 파일이 이미지나 플래시 파일이 아닙니다.\\n";
-                continue;
-            }
-        }
-        //=================================================================
-
-        $upload[$i][image] = $timg;
-
-        // 4.00.11 - 글답변에서 파일 업로드시 원글의 파일이 삭제되는 오류를 수정
-        if ($w == 'u')
-        {
-            // 존재하는 파일이 있다면 삭제합니다.
-            $row = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
-            @unlink("$g4[path]/data/file/$bo_table/$row[bf_file]");
-        }
-
-        // 프로그램 원래 파일명
-        $upload[$i][source] = $filename;
-        $upload[$i][filesize] = $filesize;
-
-        // 아래의 문자열이 들어간 파일은 -x 를 붙여서 웹경로를 알더라도 실행을 하지 못하도록 함
-        $filename = preg_replace("/\.(php|phtm|htm|cgi|pl|exe|jsp|asp|inc)/i", "$0-x", $filename);
-
-        // 접미사를 붙인 파일명
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.urlencode($filename);
-        // 달빛온도님 수정 : 한글파일은 urlencode($filename) 처리를 할경우 '%'를 붙여주게 되는데 '%'표시는 미디어플레이어가 인식을 못하기 때문에 재생이 안됩니다. 그래서 변경한 파일명에서 '%'부분을 빼주면 해결됩니다.
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.str_replace('%', '', urlencode($filename));
-        shuffle($chars_array);
-        $shuffle = implode("", $chars_array);
-
-        // 첨부파일 첨부시 첨부파일명에 공백이 포함되어 있으면 일부 PC에서 보이지 않거나 다운로드 되지 않는 현상이 있습니다. (길상여의 님 090925)
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename));
-        $upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename)));
-
-        $dest_file = "$g4[path]/data/file/$bo_table/" . $upload[$i][file];
-
-        // 업로드가 안된다면 에러메세지 출력하고 죽어버립니다.
-        $error_code = move_uploaded_file($tmp_file, $dest_file) or die($_FILES[bf_file][error][$i]);
-
-        // 올라간 파일의 퍼미션을 변경합니다.
-        chmod($dest_file, 0606);
-
-        //$upload[$i][image] = @getimagesize($dest_file);
-
-    }
-}
-
 if ($w == "" || $w == "r")
 {
     if ($member[mb_id])
     {
         $mb_id = $member[mb_id];
-        $wr_name = $board[bo_use_name] ? $member[mb_name] : $member[mb_nick];
-        $wr_password = $member[mb_password];
-        $wr_email = $member[mb_email];
         $wr_homepage = $member[mb_homepage];
+        //$wr_password = $member[mb_password];
     }
     else
     {
         $mb_id = "";
-        // 비회원의 경우 이름이 누락되는 경우가 있음
-        $wr_name = strip_tags(mysql_escape_string($_POST['wr_name']));
         if (!trim($wr_name))
             alert("이름은 필히 입력하셔야 합니다.");
-        $wr_password = sql_password($wr_password);
+        //$wr_password = sql_password('$res2_wr_password');
     }
+
+    /* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
+    ## 시작
+    */
+    // 공통 내용 정리
+    $pension_id = $pension_id;
+    $roomCount = $res2_roomCount; // 객실 갯수
+    $wr_name = strip_tags(mysql_escape_string($_POST['res2_wr_name']));; // 예약자명
+    $wr_password = sql_password('$res2_wr_password'); // 비밀번호
+    $wr_email = $res2_wr_email; // 이메일
+    $wr_tel1 = $wr_tel1; // 전화번호
+    $wr_tel2 = $wr_tel2; // 전화번호
+    $wr_tel3 = $wr_tel3; // 전화번호
+    $wr_2 = $wr_tel1 . "-" . $wr_tel2 . "-" . $wr_tel3; // 전화번호
+    $wr_3 = $res2_r_info_id[0] . mktime(); // 예약코드
+    $wr_5 = $wr_area; // 출발지역
+    $wr_6 = $res2_wr_password; // 비밀번호
+    $wr_7 = $payCheck; // 결제방법
+    $wr_8 = $payName; // 결제자명
+    $wr_10 = $res2_totalCost; // 총 결제금액
+    $rResult = $res2_rResult; // 진행상태
+    $wr_content = $wr_content; // 기타사항
 
     if ($w == "r")
     {
@@ -311,75 +194,117 @@ if ($w == "" || $w == "r")
     }
     else
     {
-        $wr_num = get_next_num($write_table);
+        $wr_num = get_next_num($write_table); // Juni7
         $wr_reply = "";
     }
 
-    $sql = " insert into $write_table
-                set wr_num = '$wr_num',
-                    wr_reply = '$wr_reply',
-                    wr_comment = 0,
-                    ca_name = '$ca_name',
-                    wr_option = '$html,$secret,$mail',
-                    wr_subject = '$wr_subject',
-                    wr_content = '$wr_content',
-                    wr_link1 = '$wr_link1',
-                    wr_link2 = '$wr_link2',
-                    wr_link1_hit = 0,
-                    wr_link2_hit = 0,
-
-                    wr_hit = 0,
-                    wr_good = 0,
-                    wr_nogood = 0,
-                    mb_id = '$member[mb_id]',
-                    wr_password = '$wr_password',
-                    wr_name = '$wr_name',
-                    wr_email = '$wr_email',
-                    wr_homepage = '$wr_homepage',
-                    wr_datetime = '$g4[time_ymdhis]',
-                    wr_last = '$g4[time_ymdhis]',
-                    wr_ip = '$_SERVER[REMOTE_ADDR]',
-                    wr_1 = '$wr_1',
-                    wr_2 = '$wr_2',
-                    wr_3 = '$wr_3',
-                    wr_4 = '$wr_4',
-                    wr_5 = '$wr_5',
-                    wr_6 = '$wr_6',
-                    wr_7 = '$wr_7',
-                    wr_8 = '$wr_8',
-                    wr_9 = '$wr_9',
-                    wr_10 = '$wr_10' ";
-    sql_query($sql);
-
-    $wr_id = mysql_insert_id();
-
-    // 부모 아이디에 UPDATE
-    sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
-
-    // 새글 INSERT
-    //sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]' ) ");
-    sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]' ) ");
-
-    // 게시글 1 증가
-    sql_query("update $g4[board_table] set bo_count_write = bo_count_write + 1 where bo_table = '$bo_table'");
-
-    // 쓰기 포인트 부여
-    if ($w == '')
+    // 객실 개별 내용 정리
+    for($i=0; $i < $res2_roomCount; $i++)
     {
-        if ($notice)
+        $wr_subject[$i] = $res2_rDate[$i] . "(" . $res2_rWeek[$i] . ") " . $wr_name . " " . $res2_r_info_name[$i]; // 제목설정
+        $ca_name[$i] = $res2_r_info_name[$i]; // 객실명
+        $wr_link1[$i] = date("Ymd", $res2_rDateTmp[$i]); // 날짜 저장
+        $wr_link2[$i] = $res2_rDateTmp[$i]; // 날짜 tmp 값 저장
+        $r_info_id[$i] = $res2_r_info_id[$i]; // 객실ID
+        $person1[$i] = $res2_person1[$i]; // 성인
+        $person2[$i] = $res2_person2[$i]; // 아동
+        $person3[$i] = $res2_person3[$i]; // 유아
+        $wr_1[$i] = $person1[$i] + $person2[$i] + $person3[$i]; // 객실 예약인원
+        $costType[$i] = $res2_dateType[$i] . "/" .  $res2_weekType2[$i]; // 요금타입
+        $cost1[$i] = $res2_typeCost1[$i]; // 기본가격
+        $cost2[$i] = $res2_typeCost2[$i]; // 할인가격
+        $cost3[$i] = $res2_typeCost3[$i]; // 결제가격
+        $overCount[$i] = $res2_personOver[$i]; // 추가인원
+        $overCost[$i] = $res2_personOverCost[$i]; // 추가가격
+
+
+        $sql = " insert into $write_table
+                    set wr_num = '$wr_num',
+                        wr_reply = '$wr_reply',
+                        wr_comment = 0,
+                        ca_name = '$ca_name[$i]',
+                        wr_option = '$html,$secret,$mail',
+                        wr_subject = '$wr_subject[$i]',
+                        wr_content = '$wr_content',
+                        wr_link1 = '$wr_link1[$i]',
+                        wr_link2 = '$wr_link2[$i]',
+                        wr_link1_hit = 0,
+                        wr_link2_hit = 0,
+
+                        wr_hit = 0,
+                        wr_good = 0,
+                        wr_nogood = 0,
+                        mb_id = '$member[mb_id]',
+                        wr_password = '$wr_password',
+                        wr_name = '$wr_name',
+                        wr_email = '$wr_email',
+                        wr_homepage = '$wr_homepage',
+                        wr_datetime = '$g4[time_ymdhis]',
+                        wr_last = '$g4[time_ymdhis]',
+                        wr_ip = '$_SERVER[REMOTE_ADDR]',
+                        wr_1 = '$wr_1[$i]',
+                        wr_2 = '$wr_2',
+                        wr_3 = '$wr_3',
+                        wr_4 = '$wr_4',
+                        wr_5 = '$wr_5',
+                        wr_6 = '$wr_6',
+                        wr_7 = '$wr_7',
+                        wr_8 = '$wr_8',
+                        wr_9 = '$wr_9',
+                        wr_10 = '$wr_10',
+
+                        pension_id = '$pension_id',
+                        r_info_id = '$r_info_id[$i]',
+                        rResult = '$rResult',
+                        person1 = '$person1[$i]',
+                        person2 = '$person2[$i]',
+                        person3 = '$person3[$i]',
+                        costType = '$costType[$i]',
+                        cost1 = '$cost1[$i]',
+                        cost2 = '$cost2[$i]',
+                        cost3 = '$cost3[$i]',
+                        overCount = '$overCount[$i]',
+                        overCost = '$overCost[$i]' ";
+        echo $sql;
+        exit;
+        sql_query($sql);
+
+        $wr_id = mysql_insert_id();
+
+        // 부모 아이디에 UPDATE
+        sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
+
+        // 새글 INSERT
+        //sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]' ) ");
+        sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]' ) ");
+
+        // 게시글 1 증가
+        sql_query("update $g4[board_table] set bo_count_write = bo_count_write + 1 where bo_table = '$bo_table'");
+
+        // 쓰기 포인트 부여
+        if ($w == '')
         {
-            $bo_notice = $wr_id . "\n" . $board[bo_notice];
-            sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+            if ($notice)
+            {
+                $bo_notice = $wr_id . "\n" . $board[bo_notice];
+                sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+            }
+
+            insert_point($member[mb_id], $board[bo_write_point], "$board[bo_subject] $wr_id 글쓰기", $bo_table, $wr_id, '쓰기');
+        }
+        else
+        {
+            // 답변은 코멘트 포인트를 부여함
+            // 답변 포인트가 많은 경우 코멘트 대신 답변을 하는 경우가 많음
+            insert_point($member[mb_id], $board[bo_comment_point], "$board[bo_subject] $wr_id 글답변", $bo_table, $wr_id, '쓰기');
         }
 
-        insert_point($member[mb_id], $board[bo_write_point], "$board[bo_subject] $wr_id 글쓰기", $bo_table, $wr_id, '쓰기');
     }
-    else
-    {
-        // 답변은 코멘트 포인트를 부여함
-        // 답변 포인트가 많은 경우 코멘트 대신 답변을 하는 경우가 많음
-        insert_point($member[mb_id], $board[bo_comment_point], "$board[bo_subject] $wr_id 글답변", $bo_table, $wr_id, '쓰기');
-    }
+    /* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
+    ## 끝
+    */
+
+exit;
 }
 else if ($w == "u")
 {
