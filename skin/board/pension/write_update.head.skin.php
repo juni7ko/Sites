@@ -19,7 +19,6 @@
 			$errCode = 1;
 			break;
 		}
-		echo $errCode . "<br />";
 	}
 
 	if($errCode)
