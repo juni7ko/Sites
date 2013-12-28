@@ -5,8 +5,7 @@ include_once("./_common.php");
 $write_table = $write_table2;
 $secret = "secret";
 
-echo "pass:".$_POST[res2_wr_password]."<br />";
-
+echo "pass:" . $res2_wr_password . "<br />";
 // 090710
 if (substr_count($wr_content, "&#") > 50) {
     alert("내용에 올바르지 않은 코드가 다수 포함되어 있습니다.");
@@ -155,7 +154,7 @@ if ($w == "" || $w == "r")
     else
     {
         $mb_id = "";
-        if (!trim($wr_name))
+        if (!trim($res2_wr_name))
             alert("이름은 필히 입력하셔야 합니다.");
         //$wr_password = sql_password('$res2_wr_password');
     }
@@ -167,7 +166,7 @@ if ($w == "" || $w == "r")
     $pension_id = $pension_id;
     $roomCount = $res2_roomCount; // 객실 갯수
     $wr_name = strip_tags(mysql_escape_string($_POST['res2_wr_name']));; // 예약자명
-    $wr_password = sql_password('$res2_wr_password'); // 비밀번호
+    $wr_password = sql_password($res2_wr_password); // 비밀번호
     $wr_email = $res2_wr_email; // 이메일
     $wr_tel1 = $wr_tel1; // 전화번호
     $wr_tel2 = $wr_tel2; // 전화번호

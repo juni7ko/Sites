@@ -78,7 +78,7 @@ $background = "class=bg-ptn1";
 									<input type="hidden" name="res2_dateType[<?=$row?>]"       value="<?=$res1_dateType[$row]?>" />
 									<input type="hidden" name="res2_weekType2[<?=$row?>]"      value="<?=$res1_weekType2[$row]?>" />
 									<input type="hidden" name="res2_personOver[<?=$row?>]"     value="<?=$overCount[$row]?>" />
-									<input type="hidden" name="res2_personOverCost[<?=$row?>]"  value="<?=$addCost[$row]?>" />
+									<input type="hidden" name="res2_personOverCost[<?=$row?>]" value="<?=$addCost[$row]?>" />
 									<?=$res1_person1[$row]?> 명
 								</td>
 								<td>
@@ -102,19 +102,19 @@ $background = "class=bg-ptn1";
 						</tbody>
 					</table>
 
-					<input type="hidden" name="res2_roomCount" value="<?=$res1_roomCount?>" />
-					<input type="hidden" name="res2_totalCost" value="<?=$res2_totalCost?>" />
-					<input type="hidden" name="res2_wr_name"        value="<?=$wr_name?>" />
-					<input type="hidden" name="res2_wr_password"    vlaue="<?=$wr_password?>" />
-					<input type="hidden" name="wr_tel1"        value="<?=$wr_tel1?>" />
-					<input type="hidden" name="wr_tel2"        value="<?=$wr_tel2?>" />
-					<input type="hidden" name="wr_tel3"        value="<?=$wr_tel3?>" />
-					<input type="hidden" name="res2_wr_email"       value="<?=$wr_email?>" />
-					<input type="hidden" name="wr_area"        value="<?=$wr_area?>" />
-					<input type="hidden" name="paycheck"       value="<?=$paycheck?>" />
-					<input type="hidden" name="payName"        value="<?=$payName?>" />
-					<input type="hidden" name="wr_content"     value="<?=$wr_content?>" />
-					<input type="hidden" name="res2_rResult"   value="0010" />
+					<input type="hidden" name="res2_roomCount"   value="<?=$res1_roomCount?>" />
+					<input type="hidden" name="res2_totalCost"   value="<?=$res2_totalCost?>" />
+					<input type="hidden" name="res2_wr_name"     value="<?=$wr_name?>" />
+					<input type="hidden" name="res2_wr_password" value="<?=$wr_password?>" />
+					<input type="hidden" name="wr_tel1"          value="<?=$wr_tel1?>" />
+					<input type="hidden" name="wr_tel2"          value="<?=$wr_tel2?>" />
+					<input type="hidden" name="wr_tel3"          value="<?=$wr_tel3?>" />
+					<input type="hidden" name="res2_wr_email"    value="<?=$wr_email?>" />
+					<input type="hidden" name="wr_area"          value="<?=$wr_area?>" />
+					<input type="hidden" name="paycheck"         value="<?=$paycheck?>" />
+					<input type="hidden" name="payName"          value="<?=$payName?>" />
+					<input type="hidden" name="wr_content"       value="<?=$wr_content?>" />
+					<input type="hidden" name="res2_rResult"     value="0010" />
 					<div class="res-comment">
 						<ul>
 							<li class="title"><h2>예약자명</h2>
