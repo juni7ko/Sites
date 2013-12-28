@@ -128,7 +128,7 @@ $background = "class=bg-ptn1";
 						<ul>
 							<li class="title"><h2>결제금액</h2>
 								<ol>
-									<li>총 <?=number_format($res2_totalCost)?>원</li>
+									<li>총 <span class="highlight-blue"><?=number_format($res2_totalCost)?></span> 원</li>
 								</ol>
 							</li>
 						</ul>

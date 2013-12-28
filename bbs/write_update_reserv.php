@@ -132,6 +132,8 @@ if ($bo_table != "pension") {
 ## 시작
 */
 // 방 갯수에 따라서 배열로 입력
+$wr_3 = $res2_r_info_id[0] . mktime(); // 예약코드
+
 for($i=0; $i < $res2_roomCount; $i++)
 {
     $wr_subject[$i] = $res2_rDate[$i] . " " . $wr_name . " " . $res2_r_info_name[$i]; // 제목설정
@@ -149,9 +151,10 @@ for($i=0; $i < $res2_roomCount; $i++)
     $cost3[$i] = $res2_typeCost3[$i]; // 결제가격
     $overCount[$i] = $res2_personOver[$i]; // 추가인원
     $overCost[$i] = $res2_personOverCost[$i]; // 추가가격
+
+
     echo $overCount[$i] . "/" . $overCost[$i] . "/" . $cost3[$i] . "<br />";
 }
-
 /* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
 ## 끝
 */
