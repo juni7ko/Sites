@@ -204,16 +204,16 @@ if ($w == "" || $w == "r")
         $wr_link1[$i] = date("Ymd", $res2_rDateTmp[$i]); // 날짜 저장
         $wr_link2[$i] = $res2_rDateTmp[$i]; // 날짜 tmp 값 저장
         $r_info_id[$i] = $res2_r_info_id[$i]; // 객실ID
-        $person1[$i] = $res2_person1[$i]; // 성인
-        $person2[$i] = $res2_person2[$i]; // 아동
-        $person3[$i] = $res2_person3[$i]; // 유아
-        $wr_1[$i] = $person1[$i] + $person2[$i] + $person3[$i]; // 객실 예약인원
+        $person1[$i] = (int)$res2_person1[$i]; // 성인
+        $person2[$i] = (int)$res2_person2[$i]; // 아동
+        $person3[$i] = (int)$res2_person3[$i]; // 유아
+        $wr_1[$i] = (int)$person1[$i] + (int)$person2[$i] + (int)$person3[$i]; // 객실 예약인원
         $costType[$i] = $res2_dateType[$i] . "/" .  $res2_weekType2[$i]; // 요금타입
-        $cost1[$i] = $res2_typeCost1[$i]; // 기본가격
-        $cost2[$i] = $res2_typeCost2[$i]; // 할인가격
-        $cost3[$i] = $res2_typeCost3[$i]; // 결제가격
-        $overCount[$i] = $res2_personOver[$i]; // 추가인원
-        $overCost[$i] = $res2_personOverCost[$i]; // 추가가격
+        $cost1[$i] = (int)$res2_typeCost1[$i]; // 기본가격
+        $cost2[$i] = (int)$res2_typeCost2[$i]; // 할인가격
+        $cost3[$i] = (int)$res2_typeCost3[$i]; // 결제가격
+        $overCount[$i] = (int)$res2_personOver[$i]; // 추가인원
+        $overCost[$i] = (int)$res2_personOverCost[$i]; // 추가가격
 
 
         $sql = " insert into $write_table
@@ -263,7 +263,8 @@ if ($w == "" || $w == "r")
                         cost2 = '$cost2[$i]',
                         cost3 = '$cost3[$i]',
                         overCount = '$overCount[$i]',
-                        overCost = '$overCost[$i]' ";
+                        overCost = '$overCost[$i]' ; ";
+
         sql_query($sql);
 
         $wr_id = mysql_insert_id();
@@ -300,8 +301,6 @@ if ($w == "" || $w == "r")
     /* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
     ## 끝
     */
-
-exit;
 }
 else if ($w == "u")
 {
