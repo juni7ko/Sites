@@ -66,7 +66,6 @@ $background = "class=bg-ptn1";
 									<input type="hidden" name="res2_rDateTmp[<?=$row?>]"       value="<?=$res1_rDateTmp[$row]?>" />
 									<input type="hidden" name="res2_rDate[<?=$row?>]"          value="<?=$res1_rDate[$row]?>" />
 									<input type="hidden" name="res2_rWeek[<?=$row?>]"          value="<?=$res1_rWeek[$row]?>" />
-									<input type="hidden" name="res2_rResult[<?=$row?>]"        value="<?=$res1_rResult[$row]?>" />
 									<input type="hidden" name="res2_typeCost1[<?=$row?>]"      value="<?=$res1_typeCost1[$row]?>" />
 									<input type="hidden" name="res2_typeCost2[<?=$row?>]"      value="<?=$res1_typeCost2[$row]?>" />
 									<input type="hidden" name="res2_typeCost3[<?=$row?>]"      value="<?=$res1_typeCost3[$row]?>" />
@@ -105,17 +104,17 @@ $background = "class=bg-ptn1";
 
 					<input type="hidden" name="res2_roomCount" value="<?=$res1_roomCount?>" />
 					<input type="hidden" name="res2_totalCost" value="<?=$res2_totalCost?>" />
-					<input type="hidden" name="wr_name"        value="<?=$wr_name?>" />
-					<input type="hidden" name="wr_password"    vlaue="<?=$wr_password?>" />
+					<input type="hidden" name="res2_wr_name"        value="<?=$wr_name?>" />
+					<input type="hidden" name="res2_wr_password"    vlaue="<?=$wr_password?>" />
 					<input type="hidden" name="wr_tel1"        value="<?=$wr_tel1?>" />
 					<input type="hidden" name="wr_tel2"        value="<?=$wr_tel2?>" />
 					<input type="hidden" name="wr_tel3"        value="<?=$wr_tel3?>" />
-					<input type="hidden" name="wr_email"       value="<?=$email?>" />
+					<input type="hidden" name="res2_wr_email"       value="<?=$wr_email?>" />
 					<input type="hidden" name="wr_area"        value="<?=$wr_area?>" />
 					<input type="hidden" name="paycheck"       value="<?=$paycheck?>" />
 					<input type="hidden" name="payName"        value="<?=$payName?>" />
 					<input type="hidden" name="wr_content"     value="<?=$wr_content?>" />
-
+					<input type="hidden" name="res2_rResult"   value="0010" />
 					<div class="res-comment">
 						<ul>
 							<li class="title"><h2>예약자명</h2>
