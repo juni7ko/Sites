@@ -82,7 +82,6 @@ foreach($_POST[checkRoom] as $chkData) :
 										<input type="hidden" name="res1_rDateTmp[<?=$row?>]" value="<?=$chkReser[rDate]?>" />
 										<input type="hidden" name="res1_rDate[<?=$row?>]" value="<?=$rDate?>" />
 										<input type="hidden" name="res1_rWeek[<?=$row?>]" value="<?=$rWeek?>" />
-										<input type="hidden" name="res1_rResult[<?=$row?>]" value="0010" />
 										<input type="hidden" name="res1_typeCost1[<?=$row?>]" value="<?=$viewDateCost[typeCost1]?>" />
 										<input type="hidden" name="res1_typeCost2[<?=$row?>]" value="<?=$typeCost2?>" />
 										<input type="hidden" name="res1_typeCost3[<?=$row?>]" value="<?=$viewDateCost[typeCost3]?>" />
