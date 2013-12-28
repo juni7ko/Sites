@@ -239,7 +239,7 @@ function resCheck($penID, $pDate, $costID)
     // 예약 여부 체크 시작
     $read_complete_sql = " SELECT * FROM {$write_table2} WHERE pension_id = '$penID' AND r_info_id = '$costID' AND wr_link2 = '$pDate' AND rResult = '0020' LIMIT 1 ";
     $read_complete = sql_fetch($read_complete_sql);
-    if($read_cmplete)
+    if($read_complete)
     {
     	$resCheck['rResult'] = 1;
     }

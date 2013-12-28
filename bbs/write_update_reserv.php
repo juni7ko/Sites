@@ -578,8 +578,12 @@ if ($g4[https_url])
 else
     $https_url = ".";
 
+/*
 if ($file_upload_msg)
     alert($file_upload_msg, "{$https_url}/board.php?bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr);
 else
     goto_url("{$https_url}/board.php?bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr);
+*/
+// 예약완료후 페이지 이동
+goto_url("$https_url");
 ?>
