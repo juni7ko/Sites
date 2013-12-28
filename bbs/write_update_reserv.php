@@ -5,7 +5,6 @@ include_once("./_common.php");
 $write_table = $write_table2;
 $secret = "secret";
 
-echo "pass:" . $res2_wr_password . "<br />";
 // 090710
 if (substr_count($wr_content, "&#") > 50) {
     alert("내용에 올바르지 않은 코드가 다수 포함되어 있습니다.");
@@ -222,7 +221,7 @@ if ($w == "" || $w == "r")
                         wr_reply = '$wr_reply',
                         wr_comment = 0,
                         ca_name = '$ca_name[$i]',
-                        wr_option = '$html,$secret,$mail',
+                        wr_option = '$secret',
                         wr_subject = '$wr_subject[$i]',
                         wr_content = '$wr_content',
                         wr_link1 = '$wr_link1[$i]',
@@ -251,6 +250,7 @@ if ($w == "" || $w == "r")
                         wr_8 = '$wr_8',
                         wr_9 = '$wr_9',
                         wr_10 = '$wr_10',
+                        wr_reserv = '$wr_reserv',
 
                         pension_id = '$pension_id',
                         r_info_id = '$r_info_id[$i]',
@@ -264,8 +264,6 @@ if ($w == "" || $w == "r")
                         cost3 = '$cost3[$i]',
                         overCount = '$overCount[$i]',
                         overCost = '$overCost[$i]' ";
-        echo $sql;
-        exit;
         sql_query($sql);
 
         $wr_id = mysql_insert_id();
@@ -285,7 +283,7 @@ if ($w == "" || $w == "r")
         {
             if ($notice)
             {
-                $bo_notice = $wr_id . "\n" . $board[bo_notice];
+                $bo_notice = $wr_id[$i] . "\n" . $board[bo_notice];
                 sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
             }
 

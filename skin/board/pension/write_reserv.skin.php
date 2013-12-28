@@ -215,10 +215,10 @@ endforeach;
 							<tr>
 								<td class="first">결제방법</td>
 								<td class="last left">
-									<label><input type="radio" name="paycheck" value="1" checked /> 무통장입금</label>&nbsp;&nbsp;
+									<label><input type="radio" name="payCheck" value="1" checked /> 무통장입금</label>&nbsp;&nbsp;
 									<!--
-									<label><input type="radio" name="paycheck" value="2" />실시간계좌이체</label>&nbsp;&nbsp;
-									<label><input type="radio" name="paycheck" value="3" />신용카드</label>
+									<label><input type="radio" name="payCheck" value="2" />실시간계좌이체</label>&nbsp;&nbsp;
+									<label><input type="radio" name="payCheck" value="3" />신용카드</label>
 									-->
 								</td>
 							</tr>

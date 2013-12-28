@@ -111,7 +111,7 @@ $background = "class=bg-ptn1";
 					<input type="hidden" name="wr_tel3"          value="<?=$wr_tel3?>" />
 					<input type="hidden" name="res2_wr_email"    value="<?=$wr_email?>" />
 					<input type="hidden" name="wr_area"          value="<?=$wr_area?>" />
-					<input type="hidden" name="paycheck"         value="<?=$paycheck?>" />
+					<input type="hidden" name="payCheck"         value="<?=$payCheck?>" />
 					<input type="hidden" name="payName"          value="<?=$payName?>" />
 					<input type="hidden" name="wr_content"       value="<?=$wr_content?>" />
 					<input type="hidden" name="res2_rResult"     value="0010" />
