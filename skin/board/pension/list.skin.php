@@ -1,4 +1,4 @@
-<?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+<?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 include_once('../search.php');   // 검색 include
 
@@ -37,28 +37,28 @@ if ($is_nogood) $colspan++;
 <table width="980" cellspacing="0" cellpadding="0" border=0 style="margin:0 auto;">
 	<tr height="27">
 		<td align="left">
-<?php if ($is_category) { ?> 
-<?php if (!$wr_id) {  ?> 
-<?php $cnt_bo_1 = $bo_1[0] ? $bo_1[0] : 10; // 한줄당 분류 갯수(현재:10) 
-	$cnt = 1; 
-	$cnt0 = 0; 
-	$bb_s=""; $bb_e=""; 
-	$b_s=""; $b_e=""; 
-	$arr = explode("|", $board[bo_category_list]); // 구분자가 , 로 되어 있음 
-	$str = "&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;"; 
-	for ($i=0; $i<count($arr); $i++) 
-		if (trim($arr[$i]))  { 
-		if ($sca == $arr[$i]) { $cnt0++; $b_s="<b>"; $b_e="</b>"; } else {$b_s=""; $b_e="";} 
-			$str .= " <a href='./board.php?bo_table=$bo_table&sca=".urlencode($arr[$i])."'>$b_s$arr[$i]$b_e</a>&nbsp;&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;"; 
-	if ($cnt == $cnt_bo_1) { $cnt = 0; $str .= "<br>"; } 
-	$cnt++; 
-	} 
-	if ($cnt0 == 0 ) { $bb_s="<b>"; $bb_e="</b>"; } 
-?> 
+<?php if ($is_category) { ?>
+<?php if (!$wr_id) {  ?>
+<?php $cnt_bo_1 = $bo_1[0] ? $bo_1[0] : 10; // 한줄당 분류 갯수(현재:10)
+	$cnt = 1;
+	$cnt0 = 0;
+	$bb_s=""; $bb_e="";
+	$b_s=""; $b_e="";
+	$arr = explode("|", $board[bo_category_list]); // 구분자가 , 로 되어 있음
+	$str = "&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;";
+	for ($i=0; $i<count($arr); $i++)
+		if (trim($arr[$i]))  {
+		if ($sca == $arr[$i]) { $cnt0++; $b_s="<b>"; $b_e="</b>"; } else {$b_s=""; $b_e="";}
+			$str .= " <a href='./board.php?bo_table=$bo_table&sca=".urlencode($arr[$i])."'>$b_s$arr[$i]$b_e</a>&nbsp;&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;";
+	if ($cnt == $cnt_bo_1) { $cnt = 0; $str .= "<br>"; }
+	$cnt++;
+	}
+	if ($cnt0 == 0 ) { $bb_s="<b>"; $bb_e="</b>"; }
+?>
 </td>
-	<?php } ?> 
 	<?php } ?>
-		<td align="right"><span style="font-size:8pt;"><font face="Tahoma" color="#999999">Total. <?=number_format($total_count)?></font></span> 
+	<?php } ?>
+		<td align="right"><span style="font-size:8pt;"><font face="Tahoma" color="#999999">Total. <?=number_format($total_count)?></font></span>
 		 <?php if ($rss_href) { ?><a href='<?=$rss_href?>'><img src='<?=$board_skin_path?>/img/btn_rss.gif' border=0 align=absmiddle></a><?php }?>
 			<?php if ($admin_href) { ?><a href="<?=$admin_href?>"><img src="<?=$board_skin_path?>/img/admin_button.gif" title="관리자" border="0" align="absmiddle"></a><?php }?></td>
 	</tr>
@@ -96,8 +96,8 @@ if ($is_nogood) $colspan++;
 			<tbody>
 <!-- 목록 -->
 
-<?php for ($i=0; $i<count($list); $i++) 
-{ 
+<?php for ($i=0; $i<count($list); $i++)
+{
 	$img = "<img src='$board_skin_path/img/noimage.gif' border=0 width='$img_width' height='$img_height' title='이미지 없음' align=left style='border:1 solid #cccccc; padding:0px;'>";
 	$thumb = $thumb_path.'/'.$list[$i][wr_id];
 	// 썸네일 이미지가 존재하지 않는다면
@@ -158,7 +158,7 @@ $r_cost = sql_fetch($sql_cost);
 							<?php echo "<a href='{$list[$i][href]}' alt='{$list[$i][wr_subject]}' >";
 								echo $img;
 								echo "</a>";
-							?>		
+							?>
 					<h3><?php echo  $list[$i]['mb_addr1'] ." ". $list[$i]['mb_addr2'];?> </h3>
 
 						<?php
@@ -174,7 +174,7 @@ $r_cost = sql_fetch($sql_cost);
 				</td>
 
 <?php $sql_r2 = mysql_query($sql_r);
-	while ($r_info2 = sql_fetch_array($sql_r2)){	
+	while ($r_info2 = sql_fetch_array($sql_r2)){
 
 ?>
 <tr  onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''">
@@ -205,7 +205,7 @@ $r_cost = sql_fetch($sql_cost);
 
 
 
-	 
+
 	<?php }?>
 
 	<?php if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
@@ -229,8 +229,8 @@ $r_cost = sql_fetch($sql_cost);
 	<?php } ?>
 	</div>
 
-	<div style="float:right;">
-		<?php if ($write_href) { ?><a href="<?=$write_href?>"><img src="<?=$board_skin_path?>/img/btn_write.gif" border='0'></a><?php } ?> 
+	<div style="float:right; display:none;">
+		<?php if ($write_href) { ?><a href="<?=$write_href?>"><img src="<?=$board_skin_path?>/img/btn_write.gif" border='0'></a><?php } ?>
 	</div>
 
 <?php }?>
@@ -243,7 +243,7 @@ $r_cost = sql_fetch($sql_cost);
 
 <!-- 페이지 -->
 <table width="100%" cellspacing="0" cellpadding="0">
-	<tr> 
+	<tr>
 		<td width="100%"  height="36" align="center" valign="top">
 		<?php if ($prev_part_href) { echo "<a href='$prev_part_href'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
 		<?php
@@ -279,7 +279,7 @@ $r_cost = sql_fetch($sql_cost);
 		<input name="stx" class="stx" maxlength="28" itemname="검색어" required value='<?=stripslashes($stx)?>'>
 		<input type="image" src="<?=$board_skin_path?>/img/btn_search.gif" border='0' align="absmiddle">
 		<input type="hidden" name="sop" value="or">
-		</form>		
+		</form>
 		</td>
 	</tr>
 </table>
@@ -347,7 +347,7 @@ function select_copy(sw) {
 		str = "복사";
 	else
 		str = "이동";
-						 
+
 	if (!check_confirm(str))
 		return;
 
