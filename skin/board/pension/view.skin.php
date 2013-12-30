@@ -86,7 +86,113 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 						<?php }?>
 						<tr>
 							<th>서비스</th>
-							<td>스파, 강/바다</td>
+							<td>
+<?php
+echo $view[cf1] ? "바다. " : NULL;
+echo $view[cf2] ? "계곡. " : NULL;
+echo $view[cf3] ? "강/호수. " : NULL;
+echo $view[cf4] ? "산. " : NULL;
+echo $view[cf5] ? "섬. " : NULL;
+echo $view[cf21] ? "해수욕장. " : NULL;
+echo $view[cf22] ? "레프팅. " : NULL;
+echo $view[cf23] ? "MT/워크샵. " : NULL;
+echo $view[cf24] ? "갯벌. " : NULL;
+echo $view[cf25] ? "스키장. " : NULL;
+echo $view[cf26] ? "수상레저. " : NULL;
+echo $view[cf27] ? "스파. " : NULL;
+echo $view[cf28] ? "풍산/수목원/휴양림. " : NULL;
+echo $view[cf29] ? "낚시. " : NULL;
+echo $view[cf31] ? "골프장주변. " : NULL;
+echo $view[cf32] ? "커플전용. " : NULL;
+echo $view[cf33] ? "전망(바다/강). " : NULL;
+echo $view[cf34] ? "복층구조. " : NULL;
+echo $view[cf35] ? "독채. " : NULL;
+echo $view[cf36] ? "소규모(10인이상). " : NULL;
+echo $view[cf37] ? "대규모(50인이상). " : NULL;
+echo $view[cf38] ? "계곡주변. " : NULL;
+echo $view[cf51] ? "매점. " : NULL;
+echo $view[cf52] ? "식사가능. " : NULL;
+echo $view[cf53] ? "애완견동반. " : NULL;
+echo $view[cf54] ? "파티/이벤트. " : NULL;
+echo $view[cf55] ? "보드게임. " : NULL;
+echo $view[cf56] ? "픽업가능. " : NULL;
+echo $view[cf57] ? "인터넷. " : NULL;
+echo $view[cf58] ? "영화관람. " : NULL;
+echo $view[cf59] ? "카페. " : NULL;
+echo $view[cf60] ? "셔틀버스. " : NULL;
+echo $view[cf71] ? "간이축구장. " : NULL;
+echo $view[cf72] ? "족구장. " : NULL;
+echo $view[cf73] ? "바베큐장. " : NULL;
+echo $view[cf74] ? "캠프파이어. " : NULL;
+echo $view[cf75] ? "노래방. " : NULL;
+echo $view[cf76] ? "수영장. " : NULL;
+echo $view[cf77] ? "농구장. " : NULL;
+echo $view[cf78] ? "세미나실. " : NULL;
+echo $view[cf79] ? "스파. " : NULL;
+echo $view[cf80] ? "자전거. " : NULL;
+echo $view[cf81] ? "4륜오토바이. " : NULL;
+echo $view[cf82] ? "서바이벌. " : NULL;
+echo $view[cf91] ? "목조형. " : NULL;
+echo $view[cf92] ? "통나무형. " : NULL;
+echo $view[cf93] ? "황토형. " : NULL;
+echo $view[cf94] ? "벽돌형. " : NULL;
+/*
+if($view[cf1]) $cfArr[] = "바다";
+if($view[cf2]) $cfArr[] = "계곡";
+if($view[cf3]) $cfArr[] = "강/호수";
+if($view[cf4]) $cfArr[] = "산";
+if($view[cf5]) $cfArr[] = "섬";
+if($view[cf21]) $cfArr[] = "해수욕장";
+if($view[cf22]) $cfArr[] = "레프팅";
+if($view[cf23]) $cfArr[] = "MT/워크샵";
+if($view[cf24]) $cfArr[] = "갯벌";
+if($view[cf25]) $cfArr[] = "스키장";
+if($view[cf26]) $cfArr[] = "수상레저";
+if($view[cf27]) $cfArr[] = "스파";
+if($view[cf28]) $cfArr[] = "풍산/수목원/휴양림";
+if($view[cf29]) $cfArr[] = "낚시";
+if($view[cf31]) $cfArr[] = "골프장주변";
+if($view[cf32]) $cfArr[] = "커플전용";
+if($view[cf33]) $cfArr[] = "전망(바다/강)";
+if($view[cf34]) $cfArr[] = "복층구조";
+if($view[cf35]) $cfArr[] = "독채";
+if($view[cf36]) $cfArr[] = "소규모(10인이상)";
+if($view[cf37]) $cfArr[] = "대규모(50인이상)";
+if($view[cf38]) $cfArr[] = "계곡주변";
+if($view[cf51]) $cfArr[] = "매점";
+if($view[cf52]) $cfArr[] = "식사가능";
+if($view[cf53]) $cfArr[] = "애완견동반";
+if($view[cf54]) $cfArr[] = "파티/이벤트";
+if($view[cf55]) $cfArr[] = "보드게임";
+if($view[cf56]) $cfArr[] = "픽업가능";
+if($view[cf57]) $cfArr[] = "인터넷";
+if($view[cf58]) $cfArr[] = "영화관람";
+if($view[cf59]) $cfArr[] = "카페";
+if($view[cf60]) $cfArr[] = "셔틀버스";
+if($view[cf71]) $cfArr[] = "간이축구장";
+if($view[cf72]) $cfArr[] = "족구장";
+if($view[cf73]) $cfArr[] = "바베큐장";
+if($view[cf74]) $cfArr[] = "캠프파이어";
+if($view[cf75]) $cfArr[] = "노래방";
+if($view[cf76]) $cfArr[] = "수영장";
+if($view[cf77]) $cfArr[] = "농구장";
+if($view[cf78]) $cfArr[] = "세미나실";
+if($view[cf79]) $cfArr[] = "스파";
+if($view[cf80]) $cfArr[] = "자전거";
+if($view[cf81]) $cfArr[] = "4륜오토바이";
+if($view[cf82]) $cfArr[] = "서바이벌";
+if($view[cf91]) $cfArr[] = "목조형";
+if($view[cf92]) $cfArr[] = "통나무형";
+if($view[cf93]) $cfArr[] = "황토형";
+if($view[cf94]) $cfArr[] = "벽돌형";
+
+echo "cfArr = " . count($cfArr[]);
+foreach($cfArr[] as $cfValue) :
+	echo $cfValue . ", ";
+endforeach;
+*/
+?>
+							</td>
 						</tr>
 					</table>
 
