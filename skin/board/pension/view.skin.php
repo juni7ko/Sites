@@ -1,20 +1,40 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 ?>
+<script type="text/javascript">
+function viewGallery(n) {
+    for(var i = 0; i <= <?=count($view[file])?>; i++) {
+        obj = document.getElementById('viewGallery'+i);
+        if ( n == i ) {
+            obj.style.display = "block";
+        } else {
+            obj.style.display = "none";
+        }
+    }
+}
+</script>
 <!-- 게시글 보기 시작 -->
 <div id="section">
 	<div class="row">
 		<div class="container">
 
 			<div class="detail-gallery-area">
-				<?php echo $view[file][0][view_big]; // 큰 파일 ?>
+				<?php
+				// 파일 출력
+				echo "<div id='viewGallery0' style='display:block;'>" .$view[file][0][view_big] . "</div>";
+				for ($i=1; $i<=count($view[file]); $i++) {
+					if ($view[file][$i][view_big])
+					echo "<div id='viewGallery{$i}' style='display:none;'>" .$view[file][$i][view_big] . "</div>";
+				}
+				?>
+
 				<div class="small-thumb-area">
 					<ul>
 					<?php
 					// 파일 출력
-					for ($i=1; $i<=count($view[file]); $i++) {
+					for ($i=0; $i<=count($view[file]); $i++) {
 						if ($view[file][$i][view_small])
-						echo "<li>" .$view[file][$i][view_small] . "</li>";
+						echo "<li onClick='viewGallery({$i});'>" .$view[file][$i][view_small] . "</li>";
 					}
 					?>
 					</ul>

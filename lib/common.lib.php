@@ -221,8 +221,8 @@ function get_file($bo_table, $wr_id)
         $file[$no][content] = get_text($row[bf_content]);
         //$file[$no][view] = view_file_link($row[bf_file], $file[$no][content]);
         $file[$no][view] = view_file_link($row[bf_file], $row[bf_width], $row[bf_height], $file[$no][content]);
-        $file[$no][view_big] = view_file_link($row[bf_file], 370, 246, $file[$no][content]);
-        $file[$no][view_small] = view_file_link($row[bf_file], 70, 47, $file[$no][content]);
+        $file[$no][view_big] = view_file_link2($row[bf_file], 370, 246, $file[$no][content]);
+        $file[$no][view_small] = view_file_link3($row[bf_file], 70, 47, $file[$no][content]);
         $file[$no][file] = $row[bf_file];
         // prosper 님 제안
         //$file[$no][imgsize] = @getimagesize("{$file[$no][path]}/$row[bf_file]");
@@ -467,13 +467,13 @@ function conv_content($content, $html)
             $content .= "</table>";
         }
 
-        $content = preg_replace_callback("/<([^>]+)>/s", 'bad130128', $content); 
+        $content = preg_replace_callback("/<([^>]+)>/s", 'bad130128', $content);
 
         $content = preg_replace($source, $target, $content);
 
         // XSS (Cross Site Script) 막기
         // 완벽한 XSS 방지는 없다.
-        
+
         // 이런 경우를 방지함 <IMG STYLE="xss:expr/*XSS*/ession(alert('XSS'))">
         //$content = preg_replace("#\/\*.*\*\/#iU", "", $content);
         // 위의 정규식이 아래와 같은 내용을 통과시키므로 not greedy(비탐욕수량자?) 옵션을 제거함. ignore case 옵션도 필요 없으므로 제거
@@ -517,9 +517,9 @@ function conv_content($content, $html)
         $pattern .= "(o|&#(x6f|111);?)";
         $pattern .= "(n|&#(x6e|110);?)";
         //$content = preg_replace("/".$pattern."/i", "__EXPRESSION__", $content);
-        $content = preg_replace("/<[^>]*".$pattern."/i", "__EXPRESSION__", $content); 
+        $content = preg_replace("/<[^>]*".$pattern."/i", "__EXPRESSION__", $content);
         // <IMG STYLE="xss:e\xpression(alert('XSS'))"></IMG> 와 같은 코드에 취약점이 있어 수정함. 121213
-        $content = preg_replace("/(?<=style)(\s*=\s*[\"\']?xss\:)/i", '="__XSS__', $content); 
+        $content = preg_replace("/(?<=style)(\s*=\s*[\"\']?xss\:)/i", '="__XSS__', $content);
         $content = bad_tag_convert($content);
     }
     else // text 이면
@@ -1023,10 +1023,10 @@ function cut_str($str, $len, $suffix="…")
     global $g4;
 
     if (strtoupper($g4['charset']) == 'UTF-8') {
-        $c = substr(str_pad(decbin(ord($str{$len})),8,'0',STR_PAD_LEFT),0,2); 
-        if ($c == '10') 
-            for (;$c != '11' && $c{0} == 1;$c = substr(str_pad(decbin(ord($str{--$len})),8,'0',STR_PAD_LEFT),0,2)); 
-        return substr($str,0,$len) . (strlen($str)-strlen($suffix) >= $len ? $suffix : ''); 
+        $c = substr(str_pad(decbin(ord($str{$len})),8,'0',STR_PAD_LEFT),0,2);
+        if ($c == '10')
+            for (;$c != '11' && $c{0} == 1;$c = substr(str_pad(decbin(ord($str{--$len})),8,'0',STR_PAD_LEFT),0,2));
+        return substr($str,0,$len) . (strlen($str)-strlen($suffix) >= $len ? $suffix : '');
     } else {
         $s = substr($str, 0, $len);
         $cnt = 0;
@@ -1514,26 +1514,26 @@ function check_token()
 
 // 문자열에 utf8 문자가 들어 있는지 검사하는 함수
 // 코드 : http://in2.php.net/manual/en/function.mb-check-encoding.php#95289
-function is_utf8($str) 
-{ 
-    $len = strlen($str); 
+function is_utf8($str)
+{
+    $len = strlen($str);
     for($i = 0; $i < $len; $i++) {
-        $c = ord($str[$i]); 
-        if ($c > 128) { 
-            if (($c > 247)) return false; 
-            elseif ($c > 239) $bytes = 4; 
-            elseif ($c > 223) $bytes = 3; 
-            elseif ($c > 191) $bytes = 2; 
-            else return false; 
-            if (($i + $bytes) > $len) return false; 
-            while ($bytes > 1) { 
-                $i++; 
-                $b = ord($str[$i]); 
-                if ($b < 128 || $b > 191) return false; 
-                $bytes--; 
-            } 
-        } 
-    } 
-    return true; 
+        $c = ord($str[$i]);
+        if ($c > 128) {
+            if (($c > 247)) return false;
+            elseif ($c > 239) $bytes = 4;
+            elseif ($c > 223) $bytes = 3;
+            elseif ($c > 191) $bytes = 2;
+            else return false;
+            if (($i + $bytes) > $len) return false;
+            while ($bytes > 1) {
+                $i++;
+                $b = ord($str[$i]);
+                if ($b < 128 || $b > 191) return false;
+                $bytes--;
+            }
+        }
+    }
+    return true;
 }
 ?>
