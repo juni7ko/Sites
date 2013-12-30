@@ -21,16 +21,16 @@ function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options="")
     $sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_num limit 0, $rows ";
     //explain($sql);
     $result = sql_query($sql);
-    for ($i=0; $row = sql_fetch_array($result); $i++) 
+    for ($i=0; $row = sql_fetch_array($result); $i++)
         $list[$i] = get_list($row, $board, $latest_skin_path, $subject_len);
-    
+
     ob_start();
     include "$latest_skin_path/latest.skin.php";
     $content = ob_get_contents();
     ob_end_clean();
 
     return $content;
-} 
+}
 
 
 
@@ -740,8 +740,8 @@ function ConvertBMP2GD($src, $dest = false) {
         $p1 = chr($byte >> 4);
         $p2 = chr($byte & 0x0F);
         $gd_scan_line .= "$p1$p2";
-      } 
-      
+      }
+
       $gd_scan_line = substr($gd_scan_line, 0, $width);
     }
     else if($bits == 1) {
@@ -760,7 +760,7 @@ function ConvertBMP2GD($src, $dest = false) {
         $p7 = chr((int) (($byte & 0x02) != 0));
         $p8 = chr((int) (($byte & 0x01) != 0));
         $gd_scan_line .= "$p1$p2$p3$p4$p5$p6$p7$p8";
-      } 
+      }
       $gd_scan_line = substr($gd_scan_line, 0, $width);
     }
 
@@ -782,7 +782,7 @@ function imagecreatefrombmp($filename) {
     $img = imagecreatefromgd($tmp_name);
     unlink($tmp_name);
     return $img;
-  } 
+  }
   return false;
 }
 
@@ -1001,7 +1001,7 @@ function allow_file_type($file_type, $allow_type){
 
 
 // PHP암호화 함수
-function hd_encrypt($data,$k) { 
+function hd_encrypt($data,$k) {
   $encrypt_these_chars = "1234567890ABCDEFGHIJKLMNOPQRTSUVWXYZabcdefghijklmnopqrstuvwxyz.,/?!$@^*()_+-=:;~{}";
   $t = $data;
   $result2;
@@ -1017,8 +1017,8 @@ function hd_encrypt($data,$k) {
     if ($ki >= $keylength) {
       $ki = 0;
     }
-    $dbg_inp += "["+$ti+"]="+strpos($encrypt_these_chars, substr($t, $ti,1))+" ";  
-    $dbg_key += "["+$ki+"]="+strpos($encrypt_these_chars, substr($k, $ki,1))+" ";  
+    $dbg_inp += "["+$ti+"]="+strpos($encrypt_these_chars, substr($t, $ti,1))+" ";
+    $dbg_key += "["+$ki+"]="+strpos($encrypt_these_chars, substr($k, $ki,1))+" ";
     $dbg_sum += "["+$ti+"]="+strpos($encrypt_these_chars, substr($k, $ki,1))+ strpos($encrypt_these_chars, substr($t, $ti,1)) % $modulo +" ";
     $c = strpos($encrypt_these_chars, substr($t, $ti,1));
     $d;
@@ -1072,27 +1072,61 @@ function hd_decrypt($key2,$secret) {
 
 
 // filesize는 KB 단위로 저장
-function hd_filesize2bytes($str) { 
-    $bytes = 0; 
+function hd_filesize2bytes($str) {
+    $bytes = 0;
 
-    $bytes_array = array( 
-        'B' => 1, 
-        'KB' => 1024, 
-        'MB' => 1024 * 1024, 
-        'GB' => 1024 * 1024 * 1024, 
-        'TB' => 1024 * 1024 * 1024 * 1024, 
-        'PB' => 1024 * 1024 * 1024 * 1024 * 1024, 
-    ); 
+    $bytes_array = array(
+        'B' => 1,
+        'KB' => 1024,
+        'MB' => 1024 * 1024,
+        'GB' => 1024 * 1024 * 1024,
+        'TB' => 1024 * 1024 * 1024 * 1024,
+        'PB' => 1024 * 1024 * 1024 * 1024 * 1024,
+    );
 
-    $bytes = floatval($str); 
+    $bytes = floatval($str);
 
-    if (preg_match('#([KMGTP]?B)$#si', $str, $matches) && !empty($bytes_array[$matches[1]])) { 
-        $bytes *= $bytes_array[$matches[1]]; 
-    } 
+    if (preg_match('#([KMGTP]?B)$#si', $str, $matches) && !empty($bytes_array[$matches[1]])) {
+        $bytes *= $bytes_array[$matches[1]];
+    }
 
-    $bytes = intval(round($bytes, 2)); 
+    $bytes = intval(round($bytes, 2));
 
-    return $bytes; 
+    return $bytes;
+}
+
+function latest2($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options="")
+{
+    global $g4;
+
+    if ($skin_dir)
+        $latest_skin_path = "$g4[path]/skin/latest/$skin_dir";
+    else
+        $latest_skin_path = "$g4[path]/skin/latest/basic";
+
+    $list = array();
+
+    $sql = " select * from $g4[board_table] where bo_table = '$bo_table'";
+    $board = sql_fetch($sql);
+
+    $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
+    //$sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_id desc limit 0, $rows ";
+    // 위의 코드 보다 속도가 빠름
+    if($options)
+      $sql = " select * from $tmp_write_table where wr_is_comment = 0 $options order by wr_num limit 0, $rows ";
+    else
+      $sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_num limit 0, $rows ";
+    //explain($sql);
+    $result = sql_query($sql);
+    for ($i=0; $row = sql_fetch_array($result); $i++)
+        $list[$i] = get_list($row, $board, $latest_skin_path, $subject_len);
+
+    ob_start();
+    include "$latest_skin_path/latest.skin.php";
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    return $content;
 }
 
 function hotSale($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options="")
@@ -1110,15 +1144,15 @@ function hotSale($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options=""
     $board = sql_fetch($sql);
 
     $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
-    
+
     //explain($sql);
 	// 1. 할인율 최대값을 구한다.
 	$sql = " select * from $tmp_write_table where wr_is_comment = 0 order by discount desc limit 0, $rows ";
 
 	$result = sql_query($sql);
-    for ($i=0; $row = sql_fetch_array($result); $i++) 
+    for ($i=0; $row = sql_fetch_array($result); $i++)
         $list[$i] = get_list($row, $board, $latest_skin_path, $subject_len);
-    
+
     ob_start();
     include "$latest_skin_path/latest.skin.php";
     $content = ob_get_contents();
@@ -1142,14 +1176,14 @@ function newStay($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options=""
     $board = sql_fetch($sql);
 
     $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
-    
+
     //explain($sql);
 	$sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_num limit 0, $rows ";
 
 	$result = sql_query($sql);
-    for ($i=0; $row = sql_fetch_array($result); $i++) 
+    for ($i=0; $row = sql_fetch_array($result); $i++)
         $list[$i] = get_list($row, $board, $latest_skin_path, $subject_len);
-    
+
     ob_start();
     include "$latest_skin_path/latest.skin.php";
     $content = ob_get_contents();

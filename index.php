@@ -28,7 +28,7 @@ include_once('./head.index.php');
 	<div class="row">
 		<div class="container">
 			<div class="main-slide-gallery">
-<?php echo latest("section1", pension_info, 5, 25); ?>
+<?php echo latest2("section1", pension_info, 5, 25, "AND mainPrint = 1"); ?>
 			</div><!-- ./main-slide-gallery -->
 
 			<div class="main-search-area">
