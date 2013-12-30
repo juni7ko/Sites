@@ -297,7 +297,7 @@ if ($w == "" || $w == "r")
             insert_point($member[mb_id], $board[bo_comment_point], "$board[bo_subject] $wr_id 글답변", $bo_table, $wr_id, '쓰기');
         }
 
-    }
+    } // end for
     /* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
     ## 끝
     */
@@ -585,5 +585,5 @@ else
     goto_url("{$https_url}/board.php?bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr);
 */
 // 예약완료후 페이지 이동
-goto_url("$https_url");
+goto_url("{$g4[url]}/");
 ?>
