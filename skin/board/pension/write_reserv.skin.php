@@ -253,6 +253,19 @@ endforeach;
 
 						<ul>
 							<li class="title"><h2>주의사항</h2>
+<?php
+// 펜션 주의사항이 있다면 내용을 출력하고 없다면 공통된 내용이 출력되도록 함.
+$content2_sql = " SELECT wr_option, wr_content2 FROM $write_table WHERE pension_id = '$pension_id' LIMIT 1; ";
+$content2 = sql_fetch($content2_sql);
+
+if($content2[wr_content2]) {
+?>
+<!-- 내용 출력 -->
+				<span id="writeContents"><?=$content2[wr_content2]?></span>
+
+				<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
+				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
+<?php } else { ?>
 								<ol>
 									<li>기준인원 초과 시 1인에 10,000원이 추가됩니다.</li>
 									<li>입실시간은 오후2시부터입니다. 객실청소가 12~14시까지이기 때문에 오전입실이 어려우나 전날 사용하지 않은 객실의 오전 입실은 전화로 상담 받습니다.</li>
@@ -266,6 +279,7 @@ endforeach;
 									<li>애완견은 입실이 불가능합니다.</li>
 									<li>입실시간 PM 14:00, 퇴실시간 AM 11:00</li>
 								</ol>
+<?php } ?>
 							</li>
 							<li class="comment-ps">* 예약 취소에 따른 환불규정은 당콘도의 규정사항이므로 예약해지시 신중히 검토 예약하시길 바랍니다. *</li>
 						</ul>

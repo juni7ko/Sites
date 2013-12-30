@@ -122,7 +122,7 @@ $resCheck = resCheck($pension_id, $viewDateRow['pDate'][$i], $costID);
 	} else if($resCheck['close']['r_close_name']) {// 1차 예약불가 검사
 		echo "완료";
 	} else if($resCheck['rResult']) {
-		echo "예완";
+		echo "완료";
 	} else if($resCheck['tel']['r_tel_name']) { // 3차 전화예약 검사
 		echo "전화";
 	} else {
