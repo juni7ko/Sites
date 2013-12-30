@@ -1,22 +1,22 @@
-if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(COMMON_JS) == 'undefined') { // í•œë²ˆë§Œ ì‹¤í–‰
     var COMMON_JS = true;
 
-    // Àü¿ª º¯¼ö
+    // ì „ì—­ ë³€ìˆ˜
     var errmsg = "";
     var errfld;
 
-    // ÇÊµå °Ë»ç
-    function check_field(fld, msg) 
+    // í•„ë“œ ê²€ì‚¬
+    function check_field(fld, msg)
     {
-        if ((fld.value = trim(fld.value)) == "") 			   
+        if ((fld.value = trim(fld.value)) == "")
             error_field(fld, msg);
         else
             clear_field(fld);
         return;
     }
 
-    // ÇÊµå ¿À·ù Ç¥½Ã
-    function error_field(fld, msg) 
+    // í•„ë“œ ì˜¤ë¥˜ í‘œì‹œ
+    function error_field(fld, msg)
     {
         if (msg != "")
             errmsg += msg + "\n";
@@ -24,8 +24,8 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         fld.style.background = "#BDDEF7";
     }
 
-    // ÇÊµå¸¦ ±ú²ıÇÏ°Ô
-    function clear_field(fld) 
+    // í•„ë“œë¥¼ ê¹¨ë—í•˜ê²Œ
+    function clear_field(fld)
     {
         fld.style.background = "#FFFFFF";
     }
@@ -39,7 +39,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         {
             if (s.charAt(i) == ' ')
                 continue;
-            else 
+            else
             {
                 from_pos = i;
                 break;
@@ -50,40 +50,40 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         {
             if (s.charAt(i-1) == ' ')
                 continue;
-            else 
+            else
             {
                 to_pos = i;
                 break;
             }
-        }	
+        }
 
         t = s.substring(from_pos, to_pos);
         //				alert(from_pos + ',' + to_pos + ',' + t+'.');
         return t;
     }
 
-    // ÀÚ¹Ù½ºÅ©¸³Æ®·Î PHPÀÇ number_format Èä³»¸¦ ³¿
-    // ¼ıÀÚ¿¡ , ¸¦ Ãâ·Â
-    function number_format(data) 
+    // ìë°”ìŠ¤í¬ë¦½íŠ¸ë¡œ PHPì˜ number_format í‰ë‚´ë¥¼ ëƒ„
+    // ìˆ«ìì— , ë¥¼ ì¶œë ¥
+    function number_format(data)
     {
-        
+
         var tmp = '';
         var number = '';
         var cutlen = 3;
         var comma = ',';
         var i;
-       
+
         len = data.length;
         mod = (len % cutlen);
         k = cutlen - mod;
-        for (i=0; i<data.length; i++) 
+        for (i=0; i<data.length; i++)
         {
             number = number + data.charAt(i);
-            
-            if (i < data.length - 1) 
+
+            if (i < data.length - 1)
             {
                 k++;
-                if ((k % cutlen) == 0) 
+                if ((k % cutlen) == 0)
                 {
                     number = number + comma;
                     k = 0;
@@ -94,21 +94,21 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         return number;
     }
 
-    // »õ Ã¢
+    // ìƒˆ ì°½
     function popup_window(url, winname, opt)
     {
         window.open(url, winname, opt);
     }
 
 
-    // Æû¸ŞÀÏ Ã¢
+    // í¼ë©”ì¼ ì°½
     function popup_formmail(url)
     {
         opt = 'scrollbars=yes,width=417,height=385,top=10,left=20';
         popup_window(url, "wformmail", opt);
     }
 
-    // , ¸¦ ¾ø¾Ø´Ù.
+    // , ë¥¼ ì—†ì•¤ë‹¤.
     function no_comma(data)
     {
         var tmp = '';
@@ -123,19 +123,19 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         return tmp;
     }
 
-    // »èÁ¦ °Ë»ç È®ÀÎ
-    function del(href) 
+    // ì‚­ì œ ê²€ì‚¬ í™•ì¸
+    function del(href)
     {
-        if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
-            if (g4_charset.toUpperCase() == 'EUC-KR') 
+        if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+            if (g4_charset.toUpperCase() == 'EUC-KR')
                 document.location.href = href;
             else
                 document.location.href = encodeURI(href);
         }
     }
 
-    // ÄíÅ° ÀÔ·Â
-    function set_cookie(name, value, expirehours, domain) 
+    // ì¿ í‚¤ ì…ë ¥
+    function set_cookie(name, value, expirehours, domain)
     {
         var today = new Date();
         today.setTime(today.getTime() + (60*60*1000*expirehours));
@@ -145,8 +145,8 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         }
     }
 
-    // ÄíÅ° ¾òÀ½
-    function get_cookie(name) 
+    // ì¿ í‚¤ ì–»ìŒ
+    function get_cookie(name)
     {
         var find_sw = false;
         var start, end;
@@ -157,14 +157,14 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
             start = i;
             end = start + name.length;
 
-            if(document.cookie.substring(start, end) == name) 
+            if(document.cookie.substring(start, end) == name)
             {
                 find_sw = true
                 break
             }
         }
 
-        if (find_sw == true) 
+        if (find_sw == true)
         {
             start = end + 1;
             end = document.cookie.indexOf(";", start);
@@ -177,8 +177,8 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         return "";
     }
 
-    // ÄíÅ° Áö¿ò
-    function delete_cookie(name) 
+    // ì¿ í‚¤ ì§€ì›€
+    function delete_cookie(name)
     {
         var today = new Date();
 
@@ -188,122 +188,122 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
             document.cookie = name + "=" + value + "; path=/; expires=" + today.toGMTString();
     }
 
-    // ÀÌ¹ÌÁöÀÇ Å©±â¿¡ µû¶ó »õÃ¢ÀÇ Å©±â°¡ º¯°æµË´Ï´Ù.
-    // zzzz´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù. 2005/04/12
+    // ì´ë¯¸ì§€ì˜ í¬ê¸°ì— ë”°ë¼ ìƒˆì°½ì˜ í¬ê¸°ê°€ ë³€ê²½ë©ë‹ˆë‹¤.
+    // zzzzë‹˜ê»˜ì„œ ì•Œë ¤ì£¼ì…¨ìŠµë‹ˆë‹¤. 2005/04/12
     function image_window(img)
     {
         var w = img.tmp_width;   //
         var h = img.tmp_height; //
 
-        var w = img.width + 300; 
-        var h = img.height + 300; 
+        var w = img.width + 300;
+        var h = img.height + 300;
 
-        var winl = (screen.width-w)/2; 
-        var wint = (screen.height-h)/3; 
+        var winl = (screen.width-w)/2;
+        var wint = (screen.height-h)/3;
 
-        if (w >= screen.width) { 
-            winl = 0; 
-            h = (parseInt)(w * (h / w)); 
-        } 
+        if (w >= screen.width) {
+            winl = 0;
+            h = (parseInt)(w * (h / w));
+        }
 
-        if (h >= screen.height) { 
-            wint = 0; 
-            w = (parseInt)(h * (w / h)); 
-        } 
+        if (h >= screen.height) {
+            wint = 0;
+            w = (parseInt)(h * (w / h));
+        }
 
-        var js_url = "<script type='text/javascript'> \n"; 
-            js_url += "<!-- \n"; 
-            js_url += "var ie=document.all; \n"; 
-            js_url += "var nn6=document.getElementById&&!document.all; \n"; 
-            js_url += "var isdrag=false; \n"; 
-            js_url += "var x,y; \n"; 
-            js_url += "var dobj; \n"; 
-            js_url += "function movemouse(e) \n"; 
-            js_url += "{ \n"; 
-            js_url += "  if (isdrag) \n"; 
-            js_url += "  { \n"; 
-            js_url += "    dobj.style.left = nn6 ? tx + e.clientX - x : tx + event.clientX - x; \n"; 
-            js_url += "    dobj.style.top  = nn6 ? ty + e.clientY - y : ty + event.clientY - y; \n"; 
-            js_url += "    return false; \n"; 
-            js_url += "  } \n"; 
-            js_url += "} \n"; 
-            js_url += "function selectmouse(e) \n"; 
-            js_url += "{ \n"; 
-            js_url += "  var fobj      = nn6 ? e.target : event.srcElement; \n"; 
-            js_url += "  var topelement = nn6 ? 'HTML' : 'BODY'; \n"; 
-            js_url += "  while (fobj.tagName != topelement && fobj.className != 'dragme') \n"; 
-            js_url += "  { \n"; 
-            js_url += "    fobj = nn6 ? fobj.parentNode : fobj.parentElement; \n"; 
-            js_url += "  } \n"; 
-            js_url += "  if (fobj.className=='dragme') \n"; 
-            js_url += "  { \n"; 
-            js_url += "    isdrag = true; \n"; 
-            js_url += "    dobj = fobj; \n"; 
-            js_url += "    tx = parseInt(dobj.style.left+0); \n"; 
-            js_url += "    ty = parseInt(dobj.style.top+0); \n"; 
-            js_url += "    x = nn6 ? e.clientX : event.clientX; \n"; 
-            js_url += "    y = nn6 ? e.clientY : event.clientY; \n"; 
-            js_url += "    document.onmousemove=movemouse; \n"; 
-            js_url += "    return false; \n"; 
-            js_url += "  } \n"; 
-            js_url += "} \n"; 
-            js_url += "document.onmousedown=selectmouse; \n"; 
-            js_url += "document.onmouseup=new Function('isdrag=false'); \n"; 
-            js_url += "//--> \n"; 
-            js_url += "</"+"script> \n"; 
+        var js_url = "<script type='text/javascript'> \n";
+            js_url += "<!-- \n";
+            js_url += "var ie=document.all; \n";
+            js_url += "var nn6=document.getElementById&&!document.all; \n";
+            js_url += "var isdrag=false; \n";
+            js_url += "var x,y; \n";
+            js_url += "var dobj; \n";
+            js_url += "function movemouse(e) \n";
+            js_url += "{ \n";
+            js_url += "  if (isdrag) \n";
+            js_url += "  { \n";
+            js_url += "    dobj.style.left = nn6 ? tx + e.clientX - x : tx + event.clientX - x; \n";
+            js_url += "    dobj.style.top  = nn6 ? ty + e.clientY - y : ty + event.clientY - y; \n";
+            js_url += "    return false; \n";
+            js_url += "  } \n";
+            js_url += "} \n";
+            js_url += "function selectmouse(e) \n";
+            js_url += "{ \n";
+            js_url += "  var fobj      = nn6 ? e.target : event.srcElement; \n";
+            js_url += "  var topelement = nn6 ? 'HTML' : 'BODY'; \n";
+            js_url += "  while (fobj.tagName != topelement && fobj.className != 'dragme') \n";
+            js_url += "  { \n";
+            js_url += "    fobj = nn6 ? fobj.parentNode : fobj.parentElement; \n";
+            js_url += "  } \n";
+            js_url += "  if (fobj.className=='dragme') \n";
+            js_url += "  { \n";
+            js_url += "    isdrag = true; \n";
+            js_url += "    dobj = fobj; \n";
+            js_url += "    tx = parseInt(dobj.style.left+0); \n";
+            js_url += "    ty = parseInt(dobj.style.top+0); \n";
+            js_url += "    x = nn6 ? e.clientX : event.clientX; \n";
+            js_url += "    y = nn6 ? e.clientY : event.clientY; \n";
+            js_url += "    document.onmousemove=movemouse; \n";
+            js_url += "    return false; \n";
+            js_url += "  } \n";
+            js_url += "} \n";
+            js_url += "document.onmousedown=selectmouse; \n";
+            js_url += "document.onmouseup=new Function('isdrag=false'); \n";
+            js_url += "//--> \n";
+            js_url += "</"+"script> \n";
 
         var settings;
 
         if (g4_is_gecko) {
-            settings  ='width='+(w+10)+','; 
-            settings +='height='+(h+10)+','; 
+            settings  ='width='+(w+10)+',';
+            settings +='height='+(h+10)+',';
         } else {
-            settings  ='width='+w+','; 
-            settings +='height='+h+','; 
+            settings  ='width='+w+',';
+            settings +='height='+h+',';
         }
-        settings +='top='+wint+','; 
-        settings +='left='+winl+','; 
-        settings +='scrollbars=no,'; 
-        settings +='resizable=yes,'; 
-        settings +='status=no'; 
+        settings +='top='+wint+',';
+        settings +='left='+winl+',';
+        settings +='scrollbars=no,';
+        settings +='resizable=yes,';
+        settings +='status=no';
 
 
-        win=window.open("","image_window",settings); 
-        win.document.open(); 
-        win.document.write ("<html><head> \n<meta http-equiv='imagetoolbar' CONTENT='no'> \n<meta http-equiv='content-type' content='text/html; charset="+g4_charset+"'>\n"); 
-        var size = "ÀÌ¹ÌÁö »çÀÌÁî : "+w+" x "+h;
-        win.document.write ("<title>"+size+"</title> \n"); 
-        if(w >= screen.width || h >= screen.height) { 
-            win.document.write (js_url); 
-            var click = "ondblclick='window.close();' style='cursor:move' title=' "+size+" \n\n ÀÌ¹ÌÁö »çÀÌÁî°¡ È­¸éº¸´Ù Å®´Ï´Ù. \n ¿ŞÂÊ ¹öÆ°À» Å¬¸¯ÇÑ ÈÄ ¸¶¿ì½º¸¦ ¿òÁ÷¿©¼­ º¸¼¼¿ä. \n\n ´õºí Å¬¸¯ÇÏ¸é ´İÇô¿ä. '"; 
-        } 
-        else 
-            var click = "onclick='window.close();' style='cursor:pointer' title=' "+size+" \n\n Å¬¸¯ÇÏ¸é ´İÇô¿ä. '"; 
-        win.document.write ("<style>.dragme{position:relative;}</style> \n"); 
-        win.document.write ("</head> \n\n"); 
-        win.document.write ("<body leftmargin=0 topmargin=0 bgcolor=#dddddd style='cursor:arrow;'> \n"); 
+        win=window.open("","image_window",settings);
+        win.document.open();
+        win.document.write ("<html><head> \n<meta http-equiv='imagetoolbar' CONTENT='no'> \n<meta http-equiv='content-type' content='text/html; charset="+g4_charset+"'>\n");
+        var size = "ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ : "+w+" x "+h;
+        win.document.write ("<title>"+size+"</title> \n");
+        if(w >= screen.width || h >= screen.height) {
+            win.document.write (js_url);
+            var click = "ondblclick='window.close();' style='cursor:move' title=' "+size+" \n\n ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆê°€ í™”ë©´ë³´ë‹¤ í½ë‹ˆë‹¤. \n ì™¼ìª½ ë²„íŠ¼ì„ í´ë¦­í•œ í›„ ë§ˆìš°ìŠ¤ë¥¼ ì›€ì§ì—¬ì„œ ë³´ì„¸ìš”. \n\n ë”ë¸” í´ë¦­í•˜ë©´ ë‹«í˜€ìš”. '";
+        }
+        else
+            var click = "onclick='window.close();' style='cursor:pointer' title=' "+size+" \n\n í´ë¦­í•˜ë©´ ë‹«í˜€ìš”. '";
+        win.document.write ("<style>.dragme{position:relative;}</style> \n");
+        win.document.write ("</head> \n\n");
+        win.document.write ("<body leftmargin=0 topmargin=0 bgcolor=#dddddd style='cursor:arrow;'> \n");
         win.document.write ("<table width=100% height=100% cellpadding=0 cellspacing=0><tr><td align=center valign=middle><img src='"+img.src+"' width='"+w+"' height='"+h+"' border=0 class='dragme' "+click+"></td></tr></table>");
-        win.document.write ("</body></html>"); 
-        win.document.close(); 
+        win.document.write ("</body></html>");
+        win.document.close();
 
-        if(parseInt(navigator.appVersion) >= 4){win.window.focus();} 
+        if(parseInt(navigator.appVersion) >= 4){win.window.focus();}
     }
 
-    // a ÅÂ±×¿¡¼­ onclick ÀÌº¥Æ®¸¦ »ç¿ëÇÏÁö ¾Ê±â À§ÇØ
+    // a íƒœê·¸ì—ì„œ onclick ì´ë²¤íŠ¸ë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šê¸° ìœ„í•´
     function win_open(url, name, option)
     {
         var popup = window.open(url, name, option);
         popup.focus();
     }
 
-    // ¿ìÆí¹øÈ£ Ã¢
+    // ìš°í¸ë²ˆí˜¸ ì°½
     function win_zip(frm_name, frm_zip1, frm_zip2, frm_addr1, frm_addr2)
     {
         url = g4_path + "/" + g4_bbs + "/zip.php?frm_name="+frm_name+"&frm_zip1="+frm_zip1+"&frm_zip2="+frm_zip2+"&frm_addr1="+frm_addr1+"&frm_addr2="+frm_addr2;
         win_open(url, "winZip", "left=50,top=50,width=616,height=460,scrollbars=1");
     }
 
-    // ÂÊÁö Ã¢
+    // ìª½ì§€ ì°½
     function win_memo(url)
     {
         if (!url)
@@ -311,13 +311,13 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         win_open(url, "winMemo", "left=50,top=50,width=620,height=460,scrollbars=1");
     }
 
-    // Æ÷ÀÎÆ® Ã¢
+    // í¬ì¸íŠ¸ ì°½
     function win_point(url)
     {
         win_open(g4_path + "/" + g4_bbs + "/point.php", "winPoint", "left=20, top=20, width=616, height=635, scrollbars=1");
     }
 
-    // ½ºÅ©·¦ Ã¢
+    // ìŠ¤í¬ë© ì°½
     function win_scrap(url)
     {
         if (!url)
@@ -325,25 +325,25 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         win_open(url, "scrap", "left=20, top=20, width=616, height=500, scrollbars=1");
     }
 
-    // »õ·Î¿î ÆĞ½º¿öµå ºĞ½Ç Ã¢ : 100902
+    // ìƒˆë¡œìš´ íŒ¨ìŠ¤ì›Œë“œ ë¶„ì‹¤ ì°½ : 100902
     function win_password_lost()
     {
         win_open(g4_path + "/" + g4_bbs + "/password_lost.php", 'winPasswordLost', 'left=50, top=50, width=617, height=330, scrollbars=1');
     }
 
-    // ÆĞ½º¿öµå ºĞ½Ç Ã¢
+    // íŒ¨ìŠ¤ì›Œë“œ ë¶„ì‹¤ ì°½
     function win_password_forget()
     {
         win_open(g4_path + "/" + g4_bbs + "/password_forget.php", 'winPasswordForget', 'left=50, top=50, width=616, height=500, scrollbars=1');
     }
 
-    // ÄÚ¸àÆ® Ã¢
+    // ì½”ë©˜íŠ¸ ì°½
     function win_comment(url)
     {
         win_open(url, "winComment", "left=50, top=50, width=800, height=600, scrollbars=1");
     }
 
-    // Æû¸ŞÀÏ Ã¢
+    // í¼ë©”ì¼ ì°½
     function win_formmail(mb_id, name, email)
     {
 		if (g4_charset.toLowerCase() == 'euc-kr')
@@ -352,7 +352,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
 	        win_open(g4_path+"/" + g4_bbs + "/formmail.php?mb_id="+mb_id+"&name="+encodeURIComponent(name)+"&email="+email, "winFormmail", "left=50, top=50, width=600, height=480, scrollbars=0");
     }
 
-    // ´Ş·Â Ã¢
+    // ë‹¬ë ¥ ì°½
     function win_calendar(fld, cur_date, delimiter, opt)
     {
         if (!opt)
@@ -360,7 +360,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         win_open(g4_path+"/" + g4_bbs + "/calendar.php?fld="+fld+"&cur_date="+cur_date+"&delimiter="+delimiter, "winCalendar", opt);
     }
 
-    // ¼³¹®Á¶»ç Ã¢
+    // ì„¤ë¬¸ì¡°ì‚¬ ì°½
     function win_poll(url)
     {
         if (!url)
@@ -368,7 +368,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         win_open(url, "winPoll", "left=50, top=50, width=616, height=500, scrollbars=1");
     }
 
-    // ÀÚ±â¼Ò°³ Ã¢
+    // ìê¸°ì†Œê°œ ì°½
     function win_profile(mb_id)
     {
         win_open(g4_path+"/" + g4_bbs + "/profile.php?mb_id="+mb_id, 'winProfile', 'left=50,top=50,width=620,height=510,scrollbars=1');
@@ -407,7 +407,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         document.getElementById(id).rows += row;
     }
 
-    // ±Û¼ıÀÚ °Ë»ç
+    // ê¸€ìˆ«ì ê²€ì‚¬
     function check_byte(content, target)
     {
         var i = 0;
@@ -423,13 +423,13 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
                 cnt += 1;
             }
         }
-        // ¼ıÀÚ¸¦ Ãâ·Â
+        // ìˆ«ìë¥¼ ì¶œë ¥
         document.getElementById(target).innerHTML = cnt;
 
         return cnt;
     }
 
-    // ºê¶ó¿ìÀú¿¡¼­ ¿ÀºêÁ§Æ®ÀÇ ¿ŞÂÊ ÁÂÇ¥
+    // ë¸Œë¼ìš°ì €ì—ì„œ ì˜¤ë¸Œì íŠ¸ì˜ ì™¼ìª½ ì¢Œí‘œ
     function get_left_pos(obj)
     {
         var parentObj = null;
@@ -446,7 +446,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
         return left;
     }
 
-    // ºê¶ó¿ìÀú¿¡¼­ ¿ÀºêÁ§Æ®ÀÇ »ó´Ü ÁÂÇ¥
+    // ë¸Œë¼ìš°ì €ì—ì„œ ì˜¤ë¸Œì íŠ¸ì˜ ìƒë‹¨ ì¢Œí‘œ
     function get_top_pos(obj)
     {
         var parentObj = null;
@@ -466,7 +466,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     function flash_movie(src, ids, width, height, wmode)
     {
         var wh = "";
-        if (parseInt(width) && parseInt(height)) 
+        if (parseInt(width) && parseInt(height))
             wh = " width='"+width+"' height='"+height+"' ";
         return "<object classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0' "+wh+" id="+ids+"><param name=wmode value="+wmode+"><param name=movie value="+src+"><param name=quality value=high><embed src="+src+" quality=high wmode="+wmode+" type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/shockwave/download/index.cgi?p1_prod_version=shockwaveflash' "+wh+"></embed></object>";
     }
@@ -474,7 +474,7 @@ if (typeof(COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     function obj_movie(src, ids, width, height, autostart)
     {
         var wh = "";
-        if (parseInt(width) && parseInt(height)) 
+        if (parseInt(width) && parseInt(height))
             wh = " width='"+width+"' height='"+height+"' ";
         if (!autostart) autostart = false;
         return "<embed src='"+src+"' "+wh+" autostart='"+autostart+"'></embed>";
