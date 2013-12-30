@@ -86,7 +86,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 						<?php }?>
 						<tr>
 							<th>서비스</th>
-							<td>
+							<td><span style="">
 <?php
 echo $view[cf1] ? "바다. " : NULL;
 echo $view[cf2] ? "계곡. " : NULL;
@@ -192,6 +192,7 @@ foreach($cfArr[] as $cfValue) :
 endforeach;
 */
 ?>
+								</span>
 							</td>
 						</tr>
 					</table>
