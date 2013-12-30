@@ -1,0 +1,23 @@
+body {background:#fff url('../../skin/layout/showmotel/images/main_ptn.gif') repeat;}
+
+.pay_info {width:800px; margin:8px auto;}
+.pay_info ul {height:36px;margin:0; padding:0; list-style:none; text-align:center;  background:url('../../skin/layout/showmotel/images/table_bg.png') center bottom no-repeat;}
+.pay_info li {display:inline-block; *zoom:1; *display:inline; margin:0 15px;}
+.pay_info li a {display:block; font:14px 'Nanum Gothic'; font-weight:bold; text-decoration:none; color:#0b98b1;}
+.pay_info li a.on {color:#0cc9a8;}
+.pay_info li a:hover,.pay_info li a.on:hover {color:#333;}
+
+.pay_info_tbl {width:800px; border-collapse:collapse; border-spacing:0; margin:0 auto;}
+.pay_info_tbl th {background:#19d1f2; border:1px solid #0b98b1; padding:5px 0; color:#fff; font:11px 돋움; font-weight:bold;text-align:center;}
+.pay_info_tbl td {background:#fff; border:1px solid #ddd; padding:5px 0; font:12px 돋움; text-align:center;}
+.pay_info_tbl tr.first td {border:1px solid #ddd; border-top:1px solid #0b98b1;height:25px;}
+.pay_info_tbl tr.bg td {background:#fbfbfb;}
+.mb30 {margin-bottom:30px;}
+
+
+
+.pay_info_tbl2 {width:960px; border-collapse:collapse; border-spacing:0; margin:0 auto;}
+.pay_info_tbl2 th {background:#19d1f2; border:1px solid #0b98b1; padding:5px 0; color:#fff; font:11px 돋움; font-weight:bold;text-align:center;}
+.pay_info_tbl2 td {background:#fff; border:1px solid #ddd; padding:5px 0; font:12px 돋움; text-align:center;}
+.pay_info_tbl2 tr.first td {border:1px solid #ddd; border-top:1px solid #0b98b1;height:25px;}
+.pay_info_tbl2 tr.bg td {background:#fbfbfb;}

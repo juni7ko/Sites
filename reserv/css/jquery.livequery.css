@@ -1,0 +1,73 @@
+html, body{margin:0;padding:0;border:0;outline:0;}
+
+.detail-view {
+    border: 1px solid #E2E2E2;
+    border-top: 1px solid #E2E2E2;
+    left: 0;
+	height:380px;
+    overflow: hidden;
+	clear:both;
+	display:none;
+	width:900px;
+	margin:0 auto;
+	background:#fff;
+}
+.detail-view:after{content:"";display:block;clear:both}
+
+.product-list-line {width:100%; height:170px; overflow: hidden; position:relative; clear:both; background:url('../images/porduct_bg.png') center 114px no-repeat;}
+.product-list-line:after{content:"";display:block;clear:both}
+
+.product-list-line .open {text-align:center; font-size:0; line-height:0;}
+.product-list-line .open img {margin-bottom:15px; height:100px;}
+
+
+.detail-view {text-align:center;}
+.detail-view .close{ text-align:right; width:98%; margin:5px; }
+.close a{ padding:6px; height:10px; width:20px; color:#525049; }
+.detail-view .detail_images{float:left; width:340px;}
+
+.detail-view .detail_info{ 
+	float:right;
+	font-family: 'Nanum Gothic',"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,sans-serif; 
+	color:#525049;
+	margin-top:30px;
+	text-align:justify;
+	width:550px;
+	font-size:12px;
+}
+
+.detail-view .detail_info .detail-contents {width:90%; line-height:150%; font-size:14px;}
+.detail-view .detail_info .detail-contents h1 {width:100%; font-size:22px; display:block; margin-bottom:2px; padding-bottom:5px; border-bottom:1px solid #ddd;}
+
+.product-list-line li{
+ 	list-style-type:none; 
+	height:146px; 
+	width:180px; 
+	margin:0 5px 15px 5px; 
+	float:left;
+	padding:15px 0px 0px 0px;
+	font-family:"LubalGraphBdBTBold",Tahoma;
+	font-size:2em;
+	overflow:hidden;
+}
+
+.product-list-line li:hover{}
+
+.product-list-line li.title {cursor:default; position:absolute;right:0;top:0; background-position:0 15px;}
+.product-list-line li.t-01 {background:url('../images/sub2/food_title_01.png') no-repeat;}
+.product-list-line li.t-02 {background:url('../images/sub2/food_title_02.png') no-repeat;}
+.product-list-line li.t-03 {background:url('../images/sub2/food_title_03.png') no-repeat;}
+.product-list-line li.t-04 {background:url('../images/sub2/food_title_04.png') no-repeat;}
+.product-list-line li.title h2 {display:none;}
+
+.product-list-line div{ 
+	text-align:center;
+	width:160px;
+	margin-top:5px;
+	font-size:11px;
+	height:30px;
+	line-height:120%;
+	color:#666;
+}
+
+.product-list-line li { cursor:pointer;}
