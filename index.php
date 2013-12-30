@@ -176,7 +176,7 @@ include_once('./head.index.php');
 <div id="section" class="section2">
 	<div class="row">
 		<div class="container">
-<?php echo latest("section2", pension_info, 3, 25); ?>
+<?php echo latest2("section2", pension_info, 3, 25, "AND mainPrint = 2"); ?>
 		</div><!-- ./container -->
 	</div><!-- ./row -->
 </div>
@@ -258,7 +258,7 @@ include_once('./head.index.php');
 <div id="section" class="section5">
 	<div class="row">
 		<div class="container">
-<?php echo latest("section2", pension_info, 3, 25); ?>
+<?php echo latest2("section2", pension_info, 3, 25, "AND mainPrint = 3"); ?>
 		</div><!-- ./container -->
 	</div><!-- ./row -->
 </div>
@@ -273,13 +273,13 @@ include_once('./head.index.php');
 
 			<!-- Left Pension Latest -->
 			<div class="cols2">
-<?php echo latest("section3", pension_info, 3, 25); ?>
+<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 4"); ?>
 			</div><!-- ./cols2 -->
 			<!-- ./Left Pension Latest -->
 
 			<!-- Right Pension Latest -->
 			<div class="cols2">
-<?php echo latest("section3", pension_info, 3, 25); ?>
+<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 5"); ?>
 			</div><!-- ./cols2 -->
 			<!-- ./Right Pension Latest -->
 
