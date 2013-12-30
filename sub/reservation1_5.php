@@ -18,9 +18,9 @@ include_once("$g4[path]/head.php");
 				<div class="today">오늘 : 2013년 5월 28일 (화요일)</div>
 				<div class="res-btn-area">
 					<ul>
-						<li><a href="reservation1_4.php">예약확인</a></li>
-						<li><a href="reservation1_5.php">예약수정</a></li>
-						<li><a href="reservation1_6.php">예약취소</a></li>
+						<li><a href="<?=$g4['path']?>/reserv/chkReservForm.php">예약확인</a></li>
+						<li><a href="<?=$g4['path']?>/sub/reservation1_5.php">예약수정</a></li>
+						<li><a href="<?=$g4['path']?>/sub/reservation1_6.php">예약취소</a></li>
 					</ul>
 				</div>
 				<div class="res-select">
@@ -42,7 +42,7 @@ include_once("$g4[path]/head.php");
 						<option value="10" >10</option>
 						<option value="11" >11</option>
 						<option value="12" >12</option>
-					</select>월 
+					</select>월
 					<select name="day">
 						<option value="1" >1</option>
 						<option value="2" >2</option>
@@ -76,7 +76,7 @@ include_once("$g4[path]/head.php");
 						<option value="30" selected>30</option>
 						<option value="31" >31</option>
 					</select>
-					일 ~ 
+					일 ~
 					<select name="stay">
 						<option value="1">1박2일</option>
 						<option value="2">2박3일</option>
@@ -102,9 +102,9 @@ include_once("$g4[path]/head.php");
 
 				</div>
 			</div>
-			
+
 			<div class="res-contents">
-				
+
 				<div class="res-comment">
 					<ul>
 						<li class="title"><h2>예약자명</h2>
@@ -132,7 +132,7 @@ include_once("$g4[path]/head.php");
 							</ol>
 						</li>
 					</ul>
-	
+
 				</div><!-- /res-comment -->
 
 			</div><!-- /res-contents -->
@@ -152,5 +152,5 @@ include_once("$g4[path]/head.php");
 
 <?php include("$g4[path]/sub/sub_footer.php");?>
 
-<?php include_once("../tail.php"); 
+<?php include_once("../tail.php");
 ?>

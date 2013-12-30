@@ -3,6 +3,67 @@ $g4_path = ".."; // common.php 의 상대 경로
 include_once("$g4_path/common.php");
 $background = "class=bg-ptn1";
 include_once("$g4[path]/head.php");
+
+function alert_and_back($msg){
+        echo("<script language=javascript>
+                <!--
+                        alert('$msg');
+                        history.back();
+                //-->
+                </script>");
+}
+
+// 예약내용이 있는지 확인
+if($type == "code") {
+	$query = "select * from $write_table WHERE wr_3 = '$wr_3' ORDER BY wr_id ASC";
+} else if($type == "id") {
+	$query = "select * from $write_table WHERE 	mb_id = '$wr_3' ORDER BY wr_id ASC LIMIT 1";
+} else {
+	$res_error = 1;
+}
+
+//$query = "select * from $write_table WHERE wr_3 = '$wr_3' ORDER BY wr_id ASC";
+$result = mysql_query($query);
+$tmp_total = mysql_num_rows($result);
+//echo $tmp_total."<br>";
+if($tmp_total == 0){
+  $res_error = 1;
+} else {
+	for($i = 0; $i < $tmp_total; $i++){
+		$rows = mysql_fetch_array($result);
+
+		if($type == "code") {
+			if($wr_3 == $rows[wr_3] && $wr_6 == $rows[wr_6]) {
+					goto_url("./board.php?bo_table=$bo_table&wr_id=$rows[wr_id]" . $qstr);
+			} else {
+					$res_error = 1;
+			}
+		} else if($type == "id") {
+			if($wr_3 == $rows[mb_id] && $wr_6 == $rows[wr_6]) {
+					goto_url("./board.php?bo_table=$bo_table&wr_id=$rows[wr_id]" . $qstr);
+			} else {
+					$res_error = 1;
+			}
+		}
+/*
+		if($wr_3 == $rows[wr_3] && $wr_6 == $rows[wr_6]) {
+				//echo $rows[wr_id]."<br>";
+				//echo $bo_table."<br>";
+				//echo "./view.php?bo_table=".$bo_table."&wr_id=".$rows[wr_id];
+				goto_url("./board.php?bo_table=$bo_table&wr_id=$rows[wr_id]" . $qstr);
+		} else {
+				$res_error = 1;
+		}
+*/
+	}
+}
+if($res_error){
+    $msg = '검색하신 것과 일치하는 예약내용이 없습니다. \n\n다시 확인해 주십시오. \n\n확인을 누르시면 뒤로 돌아갑니다';
+    alert_and_back($msg);
+    exit;
+}
+
+
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/reservation.css">
@@ -19,9 +80,9 @@ include_once("$g4[path]/head.php");
 				<div class="today">오늘 : 2013년 5월 28일 (화요일)</div>
 				<div class="res-btn-area">
 					<ul>
-						<li><a href="reservation1_4.php">예약확인</a></li>
-						<li><a href="reservation1_5.php">예약수정</a></li>
-						<li><a href="reservation1_6.php">예약취소</a></li>
+						<li><a href="<?=$g4['path']?>/reserv/chkReserv.php">예약확인</a></li>
+						<li><a href="<?=$g4['path']?>/sub/reservation1_5.php">예약수정</a></li>
+						<li><a href="<?=$g4['path']?>/sub/reservation1_6.php">예약취소</a></li>
 					</ul>
 				</div>
 				<div class="res-select">
