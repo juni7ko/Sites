@@ -1,5 +1,5 @@
 <?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
 // 선택옵션으로 인해 셀합치기가 가변적으로 변함
 $colspan = 6;
 if ($is_category) $colspan++;
@@ -36,8 +36,8 @@ if ($is_checkbox) $colspan++;
                                     <?php if ($is_checkbox) echo "<td><INPUT onclick='if (this.checked) all_checked(true); else all_checked(false);' type=checkbox></td>"; ?>
                                     <td>예약번호</td>
                                     <?php if ($is_category) echo "<td>객실명</td>";?>
-                                    <td>예약기간</td>
-                                    <td width="90">연락처</td>
+                                    <td>예약일</td>
+                                    <td width="100">연락처</td>
                                     <td width="90">예약자명</td>
                                     <td width="70">예약상태</td>
                                     <td width="80">작성일자</td>
@@ -55,7 +55,7 @@ if ($is_checkbox) $colspan++;
 }
 ?></td>
 <?php if ($is_category) {
-	echo "<td><a href='{$list[$i][ca_name_href]}&view_mode=list'><span class=small style='color:blue;'>{$list[$i][ca_name]}</span></a>";
+	echo "<td><a href='{$list[$i][ca_name_href]}&view_mode=list&pension_id={$pension_id}'><span class=small style='color:blue;'>{$list[$i][ca_name]}</span></a>";
 	echo ($list[$i][wr_9] > 1) ? "<span class=small>x".$list[$i][wr_9]."</span>" : "";
 	echo "</td>";
 }
@@ -63,24 +63,13 @@ if ($is_checkbox) $colspan++;
 $sdy = substr($list[$i][wr_link1],0,4);
 $sdm = substr($list[$i][wr_link1],4,2);
 $sdd = substr($list[$i][wr_link1],6,2);
-$edy = substr($list[$i][wr_link2],0,4);
-$edm = substr($list[$i][wr_link2],4,2);
-$edd = substr($list[$i][wr_link2],6,2);
 
 $day1 = $sdy."-".$sdm."-".$sdd;
-$day2 = $edy."-".$edm."-".$edd;
 
 $c_day1 = strtotime($day1);
-$c_day2 = strtotime($day2);
-
-$gap = $c_day2 - $c_day1;
-
-$sleep_day = (int)($gap / 86400); 
-$sleep_day_2 = $sleep_day++;
 ?>
-                                    <td style="word-break:break-all;"><a href='<?=$list[$i][href]?>' class='m_sub'>
-                                        <?=$day1." ~ ".$day2;?>
-                                        (<?=$list[$i][wr_8]."박";?>)</a></td>
+                                    <td style="word-break:break-all;"><a href="<?=$list[$i][href]?>&pension_id=<?=$pension_id?>" class="m_sub">
+                                        <?=$day1?>(<?=$list[$i][wr_1]."명";?>)</a></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_2]?></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_name]?></td>
                                     <td class="m2_name" align="center" style="color:#FF0000;"><?=$list[$i][wr_4]?></td>
@@ -94,7 +83,7 @@ $sleep_day_2 = $sleep_day++;
                         <?php if (count($list)) { ?>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td width="100%" height="30" align="center" valign=bottom><?php if ($prev_part_href) { echo "<a href='{$prev_part_href}&view_mode=list'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
+                                <td width="100%" height="30" align="center" valign=bottom><?php if ($prev_part_href) { echo "<a href='{$prev_part_href}&view_mode=list&pension_id={$pension_id}'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
                                     <?php
 // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 이미지로도 출력할 수 있습니다.
 //echo $write_pages;
@@ -108,7 +97,7 @@ $write_pages2 = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family
 //$write_pages2 = str_replace($bo_table, $bo_table."&view_mode=list", $write_pages2);
 ?>
                                     <?=$write_pages2?>
-                                    <?php if ($next_part_href) { echo "<a href='$next_part_href&view_mode=list'><img src='$board_skin_path/img/btn_search_next.gif' border=0 align=absmiddle title='다음검색'></a>"; } ?></td>
+                                    <?php if ($next_part_href) { echo "<a href='$next_part_href&view_mode=list&pension_id={$pension_id}'><img src='$board_skin_path/img/btn_search_next.gif' border=0 align=absmiddle title='다음검색'></a>"; } ?></td>
                             </tr>
                         </table>
                         <?php } ?>
@@ -120,7 +109,7 @@ $write_pages2 = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td width="50%"><?php if ($list_href) { ?>
-                                        <a href="<?=$list_href?>&view_mode=list"><img src="<?=$board_skin_path?>/img/btn_list.gif" border="0"></a>
+                                        <a href="<?=$list_href?>&view_mode=list&pension_id=<?=$pension_id?>"><img src="<?=$board_skin_path?>/img/btn_list.gif" border="0"></a>
                                         <?php } ?>
                                         <?php if ($is_checkbox) { ?>
                                         <a href="javascript:select_delete();"><img src='<?=$board_skin_path?>/img/btn_select_delete.gif' border=0></a>

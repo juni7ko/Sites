@@ -1,5 +1,5 @@
 <?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
 // 선택옵션으로 인해 셀합치기가 가변적으로 변함
 $colspan = 6;
 if ($is_category) $colspan++;
@@ -36,7 +36,7 @@ if ($is_checkbox) $colspan++;
                                     <?php if ($is_checkbox) echo "<td><INPUT onclick='if (this.checked) all_checked(true); else all_checked(false);' type=checkbox></td>"; ?>
                                     <td>예약번호</td>
                                     <?php if ($is_category) echo "<td>객실명</td>";?>
-                                    <td>예약기간</td>
+                                    <td>예약일</td>
                                     <td width="90">연락처</td>
                                     <td width="90">예약자명</td>
                                     <td width="70">예약상태</td>
@@ -75,28 +75,28 @@ $c_day2 = strtotime($day2);
 
 $gap = $c_day2 - $c_day1;
 
-$sleep_day = (int)($gap / 86400); 
+$sleep_day = (int)($gap / 86400);
 $sleep_day_2 = $sleep_day++;
 ?>
                                     <td style="word-break:break-all;"><a href='<?=$list[$i][href]?>' class='m_sub'>
-                                        <?=$day1." ~ ".$day2;?>
-                                        (<?=$list[$i][wr_8]."박";?>)</a></td>
+                                        <?=$list[$i][wr_link1]?>
+                                        (<?=$list[$i][wr_1]."명";?>)</a></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_2]?></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_name]?></td>
 <?
-switch ($list[$i][wr_4]) {
-	case "예약완료" :
+switch ($list[$i][rResult]) {
+	case "0020" :
 		$wr4_color = "red";
 		break;
-	case "예약취소" :
+	case "0030" :
 		$wr4_color = "blue";
 		break;
-	default : 
+	default :
 		$wr4_color = "green";
 		break;
 }
 ?>
-                                    <td class="m2_name" align="center" style="color:<?=$wr4_color?>;"><?=$list[$i][wr_4]?></td>
+                                    <td class="m2_name" align="center" style="color:<?=$wr4_color?>;"><?=$list[$i][rResult]?></td>
                                     <td align=center class="m2"><?=$list[$i][datetime]?></td>
                                 </tr>
                                 <?php }?>
