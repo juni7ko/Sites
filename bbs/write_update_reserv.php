@@ -221,7 +221,7 @@ if ($w == "" || $w == "r")
                         wr_reply = '$wr_reply',
                         wr_comment = 0,
                         ca_name = '$ca_name[$i]',
-                        wr_option = '$secret',
+                        wr_option = '$html,$secret,$mail',
                         wr_subject = '$wr_subject[$i]',
                         wr_content = '$wr_content',
                         wr_link1 = '$wr_link1[$i]',
