@@ -126,13 +126,17 @@ $nav_sql = mysql_query($area_sql);
 		<td>
 			<div>
 			<!--<input type="text" name="mb_zip1" maxlength="3" size="3" value="<?=$write['mb_zip1']?>">-<input type="text" name="mb_zip2" maxlength="3" size="3" value="<?=$write['mb_zip2']?>"><input type="button" name="serch" value="주소검색" ><br>-->
-			<input type="text" name="mb_addr1" alt="기본주소" size=40 value="<?=$write['mb_addr1']?>">
+			기본주소 + 상세주소로 펜션정보에 표시<br />
+			기본주소 : <input type="text" name="mb_addr1" alt="기본주소" size=30 value="<?=$write['mb_addr1']?>">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			상세주소 : <input type="text" name="mb_addr2" alt="상세주소" size=30 value="<?=$write['mb_addr2']?>">
+			</div>
+			<div>
 			시/도 <input type="text" name="location1" alt="시도" value="<?=$write['location1']?>">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			지역 <input type="text" name="location2" alt="지역" value="<?=$write['location2']?>">
 			<br>
-			<input type="text" name="mb_addr2" alt="상세주소" value="<?=$write['mb_addr2']?>">
+
 			</div>
 		</td>
 	</tr>
