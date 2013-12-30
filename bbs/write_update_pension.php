@@ -440,7 +440,7 @@ if ($w == "" || $w == "r")
 					checkin = '$checkin',
 					checkout = '$checkout',
 					pickup = '$pickup',
-                    wr_content2 = '$wr_content2',
+                    wr_content2 = '$wr_content2'
 					";
     sql_query($sql);
 

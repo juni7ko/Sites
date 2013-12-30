@@ -1,4 +1,5 @@
-<?php include_once("./_common.php");
+<?php
+include_once("./_common.php");
 include_once("../lib/common.lib.php");
 
 if ($board[bo_use_dhtml_editor] && $member[mb_level] >= $board[bo_html_level])
@@ -22,7 +23,7 @@ $file = get_file($bo_table, $pension_id);
 $file_script = "";
 $file_length = -1;
 // 수정의 경우 파일업로드 필드가 가변적으로 늘어나야 하고 삭제 표시도 해주어야 합니다.
-$w = "u";
+if($pension_id) $w = "u";
 if ($w == "u")
 {
     for ($i=0; $i<$file[count]; $i++)
@@ -32,16 +33,13 @@ if ($w == "u")
         $row = sql_fetch($fsql);
         if ($row[bf_file])
         {
-
             $file_script .= "add_file(\" <input type='checkbox' name='bf_file_del[$i]' value='1'>  <img src=../data/file/".$bo_table."/".$row[bf_file]." width=80> <a href='{$file[$i][href]}'>{$file[$i][source]}({$file[$i][size]})</a>  파일 삭제 ";
-
 
             if ($is_file_content)
                 //$file_script .= "<br><input type='text' class=ed size=50 name='bf_content[$i]' value='{$row[bf_content]}' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
                 // 첨부파일설명에서 ' 또는 " 입력되면 오류나는 부분 수정
                 $file_script .= "<br><input type='text' class=ed size=50 name='bf_content[$i]' value='".addslashes(get_text($row[bf_content]))."' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
             $file_script .= "\");\n";
-
         }
         else
             $file_script .= "add_file('');\n";
@@ -57,14 +55,7 @@ if ($file_length < 0)
 //--------------------------------------------------------------------------
 
 ?>
-
-
-
 <div class="pen_reg">
-
-
-
-
 
 <form id="fwrite" name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data" style="margin:0px;">
 <input type=hidden name=null>
@@ -100,7 +91,7 @@ if ($file_length < 0)
 		<td><input type="text" name="mainPrint" value="<?=$write['mainPrint']?>"></td>
 	</tr>
 	<tr>
-		<th>펜션이름</th>
+		<th>* 펜션이름</th>
 		<td><input type="text" name="wr_subject" value="<?=$write['wr_subject']?>" required=""></td>
 	</tr>
 	<tr>
@@ -136,24 +127,18 @@ $nav_sql = mysql_query($area_sql);
 			<div>
 			<input type="text" name="mb_zip1" maxlength="3" size="3" value="<?=$write['mb_zip1']?>">-<input type="text" name="mb_zip2" maxlength="3" size="3" value="<?=$write['mb_zip2']?>"><input type="button" name="serch" value="주소검색" ><br>
 			<input type="text" name="mb_addr1" alt="기본주소" size=40 value="<?=$write['mb_addr1']?>">
-
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			시/도 <input type="text" name="location1" alt="시도" value="<?=$write['location1']?>">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			지역 <input type="text" name="location2" alt="지역" value="<?=$write['location2']?>">
-
-
-
 			<br>
 			<input type="text" name="mb_addr2" alt="상세주소" value="<?=$write['mb_addr2']?>">
-
-
 			</div>
 		</td>
 	</tr>
 	<tr>
 		<th>핸드폰</th>
-		<td><input type="text" name="wr_phone1" alt="문자 송/수신" value="<?=$write['wr_phone1']?>">  (문자 송/수신 번호입니다) </td>
+		<td><input type="text" name="wr_phone1" alt="문자 송/수신" value="<?=$write['wr_phone1']?>"> (문자 송/수신 번호입니다) ex : 011-1234-5678</td>
 	</tr>
 	<tr>
 		<th>전화번호1</th>
@@ -235,15 +220,12 @@ $nav_sql = mysql_query($area_sql);
         <?php } ?>
     </td>
 </tr>
-
 <tr>
-
 	<th>
 		사진등록
 		<span onclick="add_file();" style="cursor:pointer;"><img src="../skin/board/basic/img/btn_file_add.gif"></span>
 		<span onclick="del_file();" style="cursor:pointer;"><img src="../skin/board/basic/img/btn_file_minus.gif"></span>
 	</th>
-
     <td style='padding:5 0 5 0;'><table id="variableFiles" cellpadding=0 cellspacing=0>&nbsp;&nbsp;첫번째 사진은 메인에 표시 됩니다</table><?php
 // print_r2($file); ?>
         <script type="text/javascript">
@@ -303,7 +285,7 @@ $nav_sql = mysql_query($area_sql);
 </tr>
 
 <tr>
-		<th>주의사항</th>
+	<th>주의사항</th>
     <td class='write_head' style='padding:5 0 5 10;'>
         <?php if ($is_dhtml_editor) { ?>
             <?=cheditor2('wr_content2', $write['wr_content2']);?>
