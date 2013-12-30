@@ -8,6 +8,10 @@ if (substr_count($wr_content, "&#") > 50) {
     alert("내용에 올바르지 않은 코드가 다수 포함되어 있습니다.");
     exit;
 }
+if (substr_count($wr_content2, "&#") > 50) {
+    alert("내용에 올바르지 않은 코드가 다수 포함되어 있습니다.");
+    exit;
+}
 
 @include_once("$board_skin_path/write_update.head.skin.php");
 
@@ -435,7 +439,8 @@ if ($w == "" || $w == "r")
 					payment3 = '$payment3',
 					checkin = '$checkin',
 					checkout = '$checkout',
-					pickup = '$pickup'
+					pickup = '$pickup',
+                    wr_content2 = '$wr_content2',
 					";
     sql_query($sql);
 
@@ -656,7 +661,8 @@ else if ($w == "u")
 					payment3 = '$payment3',
 					checkin = '$checkin',
 					checkout = '$checkout',
-					pickup = '$pickup'
+					pickup = '$pickup',
+                    wr_content2 = '$wr_content2'
 
                     $sql_ip
                     $sql_password
@@ -785,6 +791,8 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
         $tmp_html = 2;
 
     $wr_content = conv_content(stripslashes($wr_content), $tmp_html);
+    $wr_content2 = conv_content(stripslashes($wr_content2), $tmp_html);
+
 
     $warr = array( ""=>"입력", "u"=>"수정", "r"=>"답변", "c"=>"코멘트", "cu"=>"코멘트 수정" );
     $str = $warr[$w];

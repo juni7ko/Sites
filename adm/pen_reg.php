@@ -11,6 +11,7 @@ if ($is_dhtml_editor) {
     include_once ("../lib/cheditor4.lib.php");
     echo "<script src='../cheditor5/cheditor.js'></script>";
     echo cheditor1('wr_content', '100%', '250');
+    echo cheditor1('wr_content2', '100%', '250');
 }
 
 //--------------------------------------------------------------------------
@@ -31,16 +32,16 @@ if ($w == "u")
         $row = sql_fetch($fsql);
         if ($row[bf_file])
         {
-		
+
             $file_script .= "add_file(\" <input type='checkbox' name='bf_file_del[$i]' value='1'>  <img src=../data/file/".$bo_table."/".$row[bf_file]." width=80> <a href='{$file[$i][href]}'>{$file[$i][source]}({$file[$i][size]})</a>  파일 삭제 ";
-			
+
 
             if ($is_file_content)
                 //$file_script .= "<br><input type='text' class=ed size=50 name='bf_content[$i]' value='{$row[bf_content]}' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
                 // 첨부파일설명에서 ' 또는 " 입력되면 오류나는 부분 수정
                 $file_script .= "<br><input type='text' class=ed size=50 name='bf_content[$i]' value='".addslashes(get_text($row[bf_content]))."' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
             $file_script .= "\");\n";
-			
+
         }
         else
             $file_script .= "add_file('');\n";
@@ -66,7 +67,7 @@ if ($file_length < 0)
 
 
 <form id="fwrite" name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data" style="margin:0px;">
-<input type=hidden name=null> 
+<input type=hidden name=null>
 <input type=hidden name=w        value="<?=$w?>">
 <input type=hidden name=bo_table value="pension_info">
 <input type=hidden name=wr_id    value="<?=$pension_id?>">
@@ -134,15 +135,15 @@ $nav_sql = mysql_query($area_sql);
 		<td>
 			<div>
 			<input type="text" name="mb_zip1" maxlength="3" size="3" value="<?=$write['mb_zip1']?>">-<input type="text" name="mb_zip2" maxlength="3" size="3" value="<?=$write['mb_zip2']?>"><input type="button" name="serch" value="주소검색" ><br>
-			<input type="text" name="mb_addr1" alt="기본주소" size=40 value="<?=$write['mb_addr1']?>"> 
-			
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			시/도 <input type="text" name="location1" alt="시도" value="<?=$write['location1']?>"> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;					
-			지역 <input type="text" name="location2" alt="지역" value="<?=$write['location2']?>"> 
+			<input type="text" name="mb_addr1" alt="기본주소" size=40 value="<?=$write['mb_addr1']?>">
 
-			
-			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			시/도 <input type="text" name="location1" alt="시도" value="<?=$write['location1']?>">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			지역 <input type="text" name="location2" alt="지역" value="<?=$write['location2']?>">
+
+
+
 			<br>
 			<input type="text" name="mb_addr2" alt="상세주소" value="<?=$write['mb_addr2']?>">
 
@@ -228,7 +229,7 @@ $nav_sql = mysql_query($area_sql);
         <?php if ($is_dhtml_editor) { ?>
             <?=cheditor2('wr_content', $write['wr_content']);?>
         <?php } else { ?>
-        <textarea id="wr_content" name="wr_content" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="내용" required 
+        <textarea id="wr_content" name="wr_content" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="내용" required
         <?php if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?php }?>><?=$write['wr_content']?></textarea>
         <?php if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?php }?>
         <?php } ?>
@@ -238,8 +239,8 @@ $nav_sql = mysql_query($area_sql);
 <tr>
 
 	<th>
-		사진등록 
-		<span onclick="add_file();" style="cursor:pointer;"><img src="../skin/board/basic/img/btn_file_add.gif"></span> 
+		사진등록
+		<span onclick="add_file();" style="cursor:pointer;"><img src="../skin/board/basic/img/btn_file_add.gif"></span>
 		<span onclick="del_file();" style="cursor:pointer;"><img src="../skin/board/basic/img/btn_file_minus.gif"></span>
 	</th>
 
@@ -297,8 +298,21 @@ $nav_sql = mysql_query($area_sql);
 
 		add_file();
         </script>
-		
+
 		</td>
+</tr>
+
+<tr>
+		<th>주의사항</th>
+    <td class='write_head' style='padding:5 0 5 10;'>
+        <?php if ($is_dhtml_editor) { ?>
+            <?=cheditor2('wr_content2', $write['wr_content2']);?>
+        <?php } else { ?>
+        <textarea id="wr_content2" name="wr_content2" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="내용" required
+        <?php if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content2', 'char_count');"<?php }?>><?=$write['wr_content2']?></textarea>
+        <?php if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content2', 'char_count'); </script><?php }?>
+        <?php } ?>
+    </td>
 </tr>
 
 </table>
@@ -384,7 +398,7 @@ $nav_sql = mysql_query($area_sql);
 <div class="register-btn-area">
 <a onclick="reset();" class="del">내용 삭제</a>
 <!-- <a href="#" onclick="document.fwrite.submit();" class="ok" style="cursor:pointer">펜션 등록</a> -->
-<input type=submit  id="btn_submit" value="<?php if($w)  echo '펜션수정'; else echo '펜션 등록' ;?>" class="ok" /> 
+<input type=submit  id="btn_submit" value="<?php if($w)  echo '펜션수정'; else echo '펜션 등록' ;?>" class="ok" />
 <!-- <input type=image id="btn_submit" src="../skin/board/pension/img/btn_write.gif" border=0 class="ok"> -->
 </div>
 
@@ -400,7 +414,7 @@ $nav_sql = mysql_query($area_sql);
 
 <script type="text/javascript">
 
-function fwrite_submit(f) 
+function fwrite_submit(f)
 {
     /*
     var s = "";
@@ -421,7 +435,7 @@ function fwrite_submit(f)
             if (char_min > 0 && char_min > cnt) {
                 alert("내용은 "+char_min+"글자 이상 쓰셔야 합니다.");
                 return false;
-            } 
+            }
             else if (char_max > 0 && char_max < cnt) {
                 alert("내용은 "+char_max+"글자 이하로 쓰셔야 합니다.");
                 return false;
@@ -431,7 +445,11 @@ function fwrite_submit(f)
 
 
 
-    <?php if ($is_dhtml_editor) echo cheditor3('wr_content');
+    <?php
+    if ($is_dhtml_editor) {
+    	echo cheditor3('wr_content');
+    	echo cheditor3('wr_content2');
+    }
     ?>
 
 
@@ -443,7 +461,7 @@ function fwrite_submit(f)
     else
         echo "f.action = '../bbs/write_update_pension.php';";
     ?>
-    
+
     return true;
 }
 </script>
