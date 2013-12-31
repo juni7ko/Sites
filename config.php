@@ -63,6 +63,7 @@ $g4['visit_table']         = $g4['table_prefix'] . "visit";         // 방문자
 $g4['visit_sum_table']     = $g4['table_prefix'] . "visit_sum";     // 방문자 합계 테이블
 $g4['token_table']         = $g4['table_prefix'] . "token";         // 토큰 테이블
 
+$g4['pensoin_file_table']    = $g4['table_prefix'] . "pension_file";    // 게시판 첨부파일 테이블
 //
 // 기타
 //

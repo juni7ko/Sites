@@ -24,24 +24,7 @@ function view_file_link2($file, $width, $height, $content="")
         $attr = "";
 
     if (preg_match("/\.($config[cf_image_extension])$/i", $file))
-        // 이미지에 속성을 주지 않는 이유는 이미지 클릭시 원본 이미지를 보여주기 위한것임
-        // 게시판설정 이미지보다 크다면 스킨의 자바스크립트에서 이미지를 줄여준다
         return "<img src='$g4[path]/data/file/$board[bo_table]/".urlencode($file)."' ".$attr."  name='target_resize_image[]'  onclick='image_window(this);' style='cursor:pointer;' title='$content'>";
-    /*
-    // 110106 : FLASH XSS 공격으로 인하여 코드 자체를 막음
-    else if (preg_match("/\.($config[cf_flash_extension])$/i", $file))
-        //return "<embed src='$g4[path]/data/file/$board[bo_table]/$file' $attr></embed>";
-        return "<script>doc_write(flash_movie('$g4[path]/data/file/$board[bo_table]/$file', '_g4_{$ids}', '$width', '$height', 'transparent'));</script>";
-    */
-    //=============================================================================================
-    // 동영상 파일에 악성코드를 심는 경우를 방지하기 위해 경로를 노출하지 않음
-    //---------------------------------------------------------------------------------------------
-    /*
-    else if (preg_match("/\.($config[cf_movie_extension])$/i", $file))
-        //return "<embed src='$g4[path]/data/file/$board[bo_table]/$file' $attr></embed>";
-        return "<script>doc_write(obj_movie('$g4[path]/data/file/$board[bo_table]/$file', '_g4_{$ids}', '$width', '$height'));</script>";
-    */
-    //=============================================================================================
 }
 
 function view_file_link3($file, $width, $height, $content="")
@@ -69,23 +52,43 @@ function view_file_link3($file, $width, $height, $content="")
         $attr = "";
 
     if (preg_match("/\.($config[cf_image_extension])$/i", $file))
-        // 이미지에 속성을 주지 않는 이유는 이미지 클릭시 원본 이미지를 보여주기 위한것임
-        // 게시판설정 이미지보다 크다면 스킨의 자바스크립트에서 이미지를 줄여준다
         return "<img src='$g4[path]/data/file/$board[bo_table]/".urlencode($file)."' ".$attr."  name='target_resize_image[]' style='cursor:pointer;' title='$content'>";
-    /*
-    // 110106 : FLASH XSS 공격으로 인하여 코드 자체를 막음
-    else if (preg_match("/\.($config[cf_flash_extension])$/i", $file))
-        //return "<embed src='$g4[path]/data/file/$board[bo_table]/$file' $attr></embed>";
-        return "<script>doc_write(flash_movie('$g4[path]/data/file/$board[bo_table]/$file', '_g4_{$ids}', '$width', '$height', 'transparent'));</script>";
-    */
-    //=============================================================================================
-    // 동영상 파일에 악성코드를 심는 경우를 방지하기 위해 경로를 노출하지 않음
-    //---------------------------------------------------------------------------------------------
-    /*
-    else if (preg_match("/\.($config[cf_movie_extension])$/i", $file))
-        //return "<embed src='$g4[path]/data/file/$board[bo_table]/$file' $attr></embed>";
-        return "<script>doc_write(obj_movie('$g4[path]/data/file/$board[bo_table]/$file', '_g4_{$ids}', '$width', '$height'));</script>";
-    */
-    //=============================================================================================
+}
+
+function get_file_room($bo_table, $wr_id)
+{
+    global $g4, $qstr;
+
+    $file["count"] = 0;
+    $sql = " select * from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by bf_no ";
+    $result = sql_query($sql);
+    while ($row = sql_fetch_array($result))
+    {
+        $no = $row[bf_no];
+        $file[$no][href] = "./download.php?bo_table=$bo_table&wr_id=$wr_id&no=$no" . $qstr;
+        $file[$no][download] = $row[bf_download];
+        // 4.00.11 - 파일 path 추가
+        $file[$no][path] = "$g4[path]/data/file/$bo_table";
+        //$file[$no][size] = get_filesize("{$file[$no][path]}/$row[bf_file]");
+        $file[$no][size] = get_filesize($row[bf_filesize]);
+        //$file[$no][datetime] = date("Y-m-d H:i:s", @filemtime("$g4[path]/data/file/$bo_table/$row[bf_file]"));
+        $file[$no][datetime] = $row[bf_datetime];
+        $file[$no][source] = addslashes($row[bf_source]);
+        $file[$no][bf_content] = $row[bf_content];
+        $file[$no][content] = get_text($row[bf_content]);
+        //$file[$no][view] = view_file_link($row[bf_file], $file[$no][content]);
+        $file[$no][view] = view_file_link($row[bf_file], $row[bf_width], $row[bf_height], $file[$no][content]);
+        $file[$no][view_big] = view_file_link2($row[bf_file], 370, 246, $file[$no][content]);
+        $file[$no][view_small] = view_file_link3($row[bf_file], 70, 47, $file[$no][content]);
+        $file[$no][file] = $row[bf_file];
+        // prosper 님 제안
+        //$file[$no][imgsize] = @getimagesize("{$file[$no][path]}/$row[bf_file]");
+        $file[$no][image_width] = $row[bf_width] ? $row[bf_width] : 640;
+        $file[$no][image_height] = $row[bf_height] ? $row[bf_height] : 480;
+        $file[$no][image_type] = $row[bf_type];
+        $file["count"]++;
+    }
+
+    return $file;
 }
 ?>
