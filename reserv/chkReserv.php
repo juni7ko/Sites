@@ -4,66 +4,55 @@ include_once("$g4_path/common.php");
 $background = "class=bg-ptn1";
 include_once("$g4[path]/head.php");
 
+$wr_password = sql_password($wr_password);
+
 function alert_and_back($msg){
-        echo("<script language=javascript>
-                <!--
-                        alert('$msg');
-                        history.back();
-                //-->
-                </script>");
+    echo("<script language=javascript>
+        <!--
+            alert('$msg');
+            history.back();
+        //-->
+        </script>");
 }
 
-// 예약내용이 있는지 확인
-if($type == "code") {
-	$query = "select * from $write_table WHERE wr_3 = '$wr_3' ORDER BY wr_id ASC";
-} else if($type == "id") {
-	$query = "select * from $write_table WHERE 	mb_id = '$wr_3' ORDER BY wr_id ASC LIMIT 1";
-} else {
-	$res_error = 1;
+function getRoomName($r_info_id) {
+	global $write_table;
+	$sql = " SELECT * FROM {$write_table}_r_info WHERE r_info_id = '$r_info_id' LIMIT 1; ";
+	$result = sql_fetch($sql);
+	return $result;
 }
 
-//$query = "select * from $write_table WHERE wr_3 = '$wr_3' ORDER BY wr_id ASC";
-$result = mysql_query($query);
-$tmp_total = mysql_num_rows($result);
-//echo $tmp_total."<br>";
-if($tmp_total == 0){
-  $res_error = 1;
-} else {
-	for($i = 0; $i < $tmp_total; $i++){
-		$rows = mysql_fetch_array($result);
-
-		if($type == "code") {
-			if($wr_3 == $rows[wr_3] && $wr_6 == $rows[wr_6]) {
-					goto_url("./board.php?bo_table=$bo_table&wr_id=$rows[wr_id]" . $qstr);
-			} else {
-					$res_error = 1;
-			}
-		} else if($type == "id") {
-			if($wr_3 == $rows[mb_id] && $wr_6 == $rows[wr_6]) {
-					goto_url("./board.php?bo_table=$bo_table&wr_id=$rows[wr_id]" . $qstr);
-			} else {
-					$res_error = 1;
-			}
-		}
-/*
-		if($wr_3 == $rows[wr_3] && $wr_6 == $rows[wr_6]) {
-				//echo $rows[wr_id]."<br>";
-				//echo $bo_table."<br>";
-				//echo "./view.php?bo_table=".$bo_table."&wr_id=".$rows[wr_id];
-				goto_url("./board.php?bo_table=$bo_table&wr_id=$rows[wr_id]" . $qstr);
-		} else {
-				$res_error = 1;
-		}
-*/
+function GetDateWeek($week)
+{
+	switch($week) {
+		case "1" :
+			$weekP = "월";
+			break;
+		case "2" :
+			$weekP = "화";
+			break;
+		case "3" :
+			$weekP = "수";
+			break;
+		case "4" :
+			$weekP = "목";
+			break;
+		case "5" :
+			$weekP = "금";
+			break;
+		case "6" :
+			$weekP = "토";
+			break;
+		case "0" :
+			$weekP = "일";
+			break;
+		default :
+			$weekP = "";
+			break;
 	}
-}
-if($res_error){
-    $msg = '검색하신 것과 일치하는 예약내용이 없습니다. \n\n다시 확인해 주십시오. \n\n확인을 누르시면 뒤로 돌아갑니다';
-    alert_and_back($msg);
-    exit;
-}
 
-
+	return $weekP;
+}
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/reservation.css">
@@ -85,107 +74,160 @@ if($res_error){
 						<li><a href="<?=$g4['path']?>/sub/reservation1_6.php">예약취소</a></li>
 					</ul>
 				</div>
-				<div class="res-select">
-					<select name="year">
-						<option value="2012" >2012년</option>
-						<option value="2013" selected>2013년</option>
-						<option value="2014" >2014년</option>
-					</select>년
-					<select name="month">
-						<option value="1" >1</option>
-						<option value="2" >2</option>
-						<option value="3" >3</option>
-						<option value="4" >4</option>
-						<option value="5" selected>5</option>
-						<option value="6" >6</option>
-						<option value="7" >7</option>
-						<option value="8" >8</option>
-						<option value="9" >9</option>
-						<option value="10" >10</option>
-						<option value="11" >11</option>
-						<option value="12" >12</option>
-					</select>월
-					<select name="day">
-						<option value="1" >1</option>
-						<option value="2" >2</option>
-						<option value="3" >3</option>
-						<option value="4" >4</option>
-						<option value="5" >5</option>
-						<option value="6" >6</option>
-						<option value="7" >7</option>
-						<option value="8" >8</option>
-						<option value="9" >9</option>
-						<option value="10" >10</option>
-						<option value="11" >11</option>
-						<option value="12" >12</option>
-						<option value="13" >13</option>
-						<option value="14" >14</option>
-						<option value="15" >15</option>
-						<option value="16" >16</option>
-						<option value="17" >17</option>
-						<option value="18" >18</option>
-						<option value="19" >19</option>
-						<option value="20" >20</option>
-						<option value="21" >21</option>
-						<option value="22" >22</option>
-						<option value="23" >23</option>
-						<option value="24" >24</option>
-						<option value="25" >25</option>
-						<option value="26" >26</option>
-						<option value="27" >27</option>
-						<option value="28" >28</option>
-						<option value="29" >29</option>
-						<option value="30" selected>30</option>
-						<option value="31" >31</option>
-					</select>
-					일 ~
-					<select name="stay">
-						<option value="1">1박2일</option>
-						<option value="2">2박3일</option>
-						<option value="3">3박4일</option>
-						<option value="4">4박5일</option>
-						<option value="5">5박6일</option>
-						<option value="6">6박7일</option>
-						<option value="7">7박8일</option>
-						<option value="8">8박9일</option>
-						<option value="9">9박10일</option>
-						<option value="10">10박11일</option>
-						<option value="11">11박12일</option>
-						<option value="12">12박13일</option>
-						<option value="13">13박14일</option>
-						<option value="14">14박15일</option>
-						<option value="15">15박16일</option>
-						<option value="16">16박17일</option>
-						<option value="17">17박18일</option>
-						<option value="18">18박19일</option>
-						<option value="19">19박20일</option>
-						<option value="20">20박21일</option>
-					</select>
-
-				</div>
 			</div>
 
 			<div class="res-contents">
 
 				<div class="res-comment">
-					<ul>
-						<li class="title"><h2>예약자명</h2>
-							<ol class="list-none">
-								<li>예약시 신청하신 예약자 성함을 입력하세요</li>
-								<li><input name="wr_name" type="text" class="text" /></li>
-							</ol>
-						</li>
-					</ul>
+					<table cellpadding="0" cellspacing="0">
+					<caption>예약신청</caption>
+					<thead>
+						<tr>
+							<th class="first">객실명</th>
+							<th>기준/최대</th>
+							<th>이용일</th>
+							<th>성인</th>
+							<th>아동</th>
+							<th>유아</th>
+							<th>요금타입</th>
+							<th>이용요금</th>
+							<th class="last">결제액</th>
+						</tr>
+					</thead>
+					<tbody>
 
-					<ul>
-						<li class="title"><h2>예약번호</h2>
-							<ol class="list-none">
-								<li>메일또는 문자메시지로 통보된 예약번호를 입력하세요</li>
-								<li><input name="wr_password" type="text" class="text" /></li>
-							</ol>
-						</li>
-					</ul>
+<?php
+// 예약내용이 있는지 확인
+if($type == "code") {
+	$query = " SELECT * from $write_table WHERE wr_3 = '$wr_3' AND wr_name = '$wr_name' AND wr_password = '$wr_password' ORDER BY wr_link1 ASC ";
+} else {
+	$res_error = 1;
+}
 
+$resultList = sql_query($query);
+
+for ($i=0; $rList = sql_fetch_array($resultList); $i++)
+{
+	$rList2[$i] = getRoomName($rList['r_info_id']);
+	$rList2['wr_name'] = $rList['wr_name'];
+	$rList2['wr_10'] = $rList['wr_10'];
+	$rList2['wr_2'] = $rList['wr_2'];
+	$rList2['wr_8'] = $rList['wr_8']
+?>
+							<tr>
+								<td class="first"><?=$rList2[$i][r_info_name]?></td>
+								<td><?=$rList2[$i][r_info_person1]?>명/<?=$rList2[$i][r_info_person2]?>명</td>
+								<td><span class="highlight-pink"><?=date("Y-m-d", $rList['wr_link2']);?>(<?=GetDateWeek(date("w", $rList['wr_link2']))?>)</span></td>
+								<td>
+									<?=$rList['person1']?> 명
+								</td>
+								<td>
+									<?=$rList['person2']?> 명
+								</td>
+								<td>
+									<?=$rList['person3']?> 명
+								</td>
+								<td><?=$rList['costType']?></td>
+								<td>
+									<div>기본가 <?=number_format($rList['cost1'])?>원</div>
+									<?php if($rList['cost2']) { ?><div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($rList['cost2'])?>원</div><?php } ?>
+									<?php if($rList['overCount']) { ?><div><span class="highlight-blue">추가인원 <?=$rList['overCount']?> +</span> <?=number_format($rList['overCost'])?>원</div><?php } ?>
+								</td>
+								<td class="last"><?=number_format($rList['cost3'] + $rList['overCost'])?>원</td>
+							</tr>
+
+
+<?php
+}
+if(!$i) $res_error = 1;
+
+if($res_error){
+    $msg = '검색하신 것과 일치하는 예약내용이 없습니다. \n\n다시 확인해 주십시오. \n\n확인을 누르시면 뒤로 돌아갑니다';
+    alert_and_back($msg);
+    exit;
+}
+
+switch ($rList2['rResult']) {
+	case '0010':
+		$rResult = "예약대기";
+		break;
+	case '0020':
+		$rResult = "예약완료";
+		break;
+	case '0030':
+		$rResult = "예약취소";
+		break;
+	case '0040':
+		$rResult = "관리자예약";
+		break;
+
+	default:
+		$rResult = "예약대기";
+		break;
+}
+?>
+						</tbody>
+					</table>
+					<div class="res-comment">
+						<ul>
+							<li class="title"><h2>진행상태</h2>
+								<ol>
+									<li><span class="highlight-pink"><?=$rResult?></span></li>
+								</ol>
+							</li>
+						</ul>
+
+						<ul>
+							<li class="title"><h2>예약자명</h2>
+								<ol>
+									<li><?=$rList2['wr_name']?></li>
+								</ol>
+							</li>
+						</ul>
+
+						<ul>
+							<li class="title"><h2>결제금액</h2>
+								<ol>
+									<li>총 <span class="highlight-blue"><?=number_format($rList2['wr_10'])?></span> 원</li>
+								</ol>
+							</li>
+						</ul>
+<?php if($rList2['wr_8']) { ?>
+						<ul>
+							<li class="title"><h2>결제자명</h2>
+								<ol>
+									<li><?=$rList2['wr_8']?></li>
+								</ol>
+							</li>
+						</ul>
+<?php } ?>
+						<ul>
+							<li class="title"><h2>연락전화번호</h2>
+								<ol>
+									<li><?=$rList2['wr_2']?></li>
+								</ol>
+							</li>
+						</ul>
+
+						<ul>
+							<li class="title"><h2>입금계좌</h2>
+								<ol>
+									<li>농협 301-0081-3040-81 조용만</li>
+								</ol>
+							</li>
+						</ul>
+
+						<ul>
+							<li class="title"><h2>입금시간안내</h2>
+								<ol>
+									<li>2013년 05월 29일 22시 30분까지 (예약후 24시간 이내)</li>
+									<li>지정된 시간까지 입금되지 않으면 자동으로 예약취소됩니다.</li>
+									<li>입금시간후 입금하셨을 경우에는 확인절차를 거쳐 환불처리 됩니다.</li>
+									<li>1일전예약 또는 당일예약일 경우는 예약후 바로 입금하셔야 예약완료가 됩니다. </li>
+								</ol>
+							</li>
+						</ul>
+					</div><!-- /res-comment -->
 				</div><!-- /res-comment -->
 
 			</div><!-- /res-contents -->
@@ -193,7 +235,7 @@ if($res_error){
 
 			<div class="res-footer">
 				<div class="res-footer-btn-area">
-					<a href="reservation1_1.php" class="res-footer-btn">예약확인</a>
+					<a href="<?=$g4[url]?>/" class="res-footer-btn">홈으로</a>
 				</div>
 			</div>
 
@@ -203,7 +245,7 @@ if($res_error){
 </div><!-- container -->
 
 
-<?php include("$g4[path]/sub/sub_footer.php");?>
-
-<?php include_once("../tail.php");
+<?php
+include("$g4[path]/sub/sub_footer.php");
+include_once("../tail.php");
 ?>
