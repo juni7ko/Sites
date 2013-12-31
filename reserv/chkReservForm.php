@@ -39,7 +39,7 @@ function resform_submit(f)
 	<div class="content-area">
 
 		<div class="reservation-area">
-			<div class="res-header">
+			<div class="res-header" style="display:none;">
 				<div class="today">오늘 : 2013년 5월 28일 (화요일)</div>
 				<div class="res-btn-area">
 					<ul>
