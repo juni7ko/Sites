@@ -206,71 +206,8 @@ if($u == "add") {
 	if($r_info[r_info_multi] == "O") echo " selected";
 	echo ">O</option></select></td>";
 	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
-	echo "<td rowspan=2><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
+	echo "<td><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
 	echo "</tr>";
-?>
-	<td>
-		객실사진<br>
-		<span onclick="add_file();" style="cursor:pointer;"><img src="<?=$g4[path]?>/skin/board/basic/img/btn_file_add.gif"></span>
-		<span onclick="del_file();" style="cursor:pointer;"><img src="<?=$g4[path]?>/skin/board/basic/img/btn_file_minus.gif"></span>
-	</td>
-	<td colspan="9" style='padding:5 0 5 0;'>
-		<table id="variableFiles" cellpadding=0 cellspacing=0></table><?php // print_r2($file); ?>
-        <script type="text/javascript">
-        var flen = 0;
-        function add_file(delete_code)
-        {
-            var upload_count = 10;
-            if (upload_count && flen >= upload_count)
-            {
-                alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
-                return;
-            }
-
-            var objTbl;
-            var objRow;
-            var objCell;
-            if (document.getElementById)
-                objTbl = document.getElementById("variableFiles");
-            else
-                objTbl = document.all["variableFiles"];
-
-            objRow = objTbl.insertRow(objTbl.rows.length);
-            objCell = objRow.insertCell(0);
-
-            objCell.innerHTML = " <input type='file' class='ed' name='bf_file[]' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능'>";
-            if (delete_code)
-                objCell.innerHTML += delete_code;
-            else
-            {
-                <?php if ($is_file_content) { ?>
-                objCell.innerHTML += "<br> <input type='text' class='ed' size=50 name='bf_content[]' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
-                <?php } ?>
-                ;
-            }
-
-            flen++;
-        }
-
-        <?=$file_script; //수정시에 필요한 스크립트?>
-
-        function del_file()
-        {
-            // file_length 이하로는 필드가 삭제되지 않아야 합니다.
-            var file_length = <?=(int)$file_length?>;
-            var objTbl = document.getElementById("variableFiles");
-            if (objTbl.rows.length - 1 > file_length)
-            {
-                objTbl.deleteRow(objTbl.rows.length - 1);
-                flen--;
-            }
-        }
-
-		add_file();
-        </script>
-
-		</td>
-<?php
 	echo "</table>";
 } else if($u == "edit") {
 	## 업데이트 리스트
@@ -566,7 +503,7 @@ if($u == "add") {
 		                      where bo_table = '$bo_table3'
 		                        and wr_id = '$id'
 		                        and bf_no = '$i' ";
-		            sql_query($sql);
+		            //sql_query($sql);
 		        }
 		    }
 		    else
