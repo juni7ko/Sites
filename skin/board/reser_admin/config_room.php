@@ -14,14 +14,44 @@ if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 
 $upload_max_filesize = ini_get('upload_max_filesize');
+$bo_table3 = "bbs34_r_info";
 
-$file = get_file_room("bbs34_r_info", $id);
+$file = get_file_room($bo_table3, $id);
 
 // 가변 파일
 $file_script = "";
 $file_length = -1;
 
 if($id) $w = "u";
+
+if ($w == "u")
+{
+    for ($i=0; $i<$file[count]; $i++)
+    {
+		$fsql = " select bf_file, bf_content from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ";
+
+        $row = sql_fetch($fsql);
+        if ($row[bf_file])
+        {
+            $file_script .= "add_file(\" <input type='checkbox' name='bf_file_del[$i]' value='1'>  <img src={$g4[path]}/data/file/roomFile/".$row[bf_file]." width=80> <a href='{$file[$i][href]}'>{$file[$i][source]}({$file[$i][size]})</a>  파일 삭제 ";
+
+            if ($is_file_content)
+                //$file_script .= "<br><input type='text' class=ed size=50 name='bf_content[$i]' value='{$row[bf_content]}' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
+                // 첨부파일설명에서 ' 또는 " 입력되면 오류나는 부분 수정
+                $file_script .= "<br><input type='text' class=ed size=50 name='bf_content[$i]' value='".addslashes(get_text($row[bf_content]))."' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
+            $file_script .= "\");\n";
+        }
+        else
+            $file_script .= "add_file('');\n";
+    }
+    $file_length = $file[count] - 1;
+}
+
+if ($file_length < 0)
+{
+    $file_script .= "add_file('');\n";
+    $file_length = 0;
+}
 ?>
 <link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.css" type="text/css">
 <link rel="stylesheet" href="<?=$board_skin_path?>/mstyle.css" type="text/css">
@@ -134,7 +164,7 @@ function Process(u,id) {
 }
 -->
 </script>
-<form name="process" method="POST" style="margin:0; padding:0;">
+<form name="process" method="POST" enctype="multipart/form-data" style="margin:0; padding:0;">
 <input type="hidden" name="bo_table" value="<?=$bo_table?>" />
 <input type="hidden" name="u" value="">
 <input type="hidden" name="id" value="">
@@ -176,7 +206,7 @@ if($u == "add") {
 	if($r_info[r_info_multi] == "O") echo " selected";
 	echo ">O</option></select></td>";
 	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
-	echo "<td><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
+	echo "<td rowspan=2><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
 	echo "</tr>";
 ?>
 	<td>
@@ -403,7 +433,7 @@ if($u == "add") {
 		    {
 		        $upload[$i][del_check] = true;
 
-		        $row = sql_fetch(" select bf_file from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$id' and bf_no = '$i' ");
+		        $row = sql_fetch(" select bf_file from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ");
 		        @unlink("$g4[path]/data/file/roomFile/$row[bf_file]");
 		    }
 		    else
@@ -462,7 +492,7 @@ if($u == "add") {
 		        if ($w == 'u')
 		        {
 		            // 존재하는 파일이 있다면 삭제합니다.
-		            $row = sql_fetch(" select bf_file from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$id' and bf_no = '$i' ");
+		            $row = sql_fetch(" select bf_file from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ");
 		            @unlink("$g4[path]/data/file/roomFile/$row[bf_file]");
 		        }
 
@@ -507,9 +537,8 @@ if($u == "add") {
 		        $upload[$i]['source'] = addslashes($upload[$i]['source']);
 		    }
 
-		    $row = sql_fetch(" select count(*) as cnt from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$id' and bf_no = '$i' ");
+		    $row = sql_fetch(" select count(*) as cnt from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ");
 
-		    exit;
 		    if ($row[cnt])
 		    {
 		        // 삭제에 체크가 있거나 파일이 있다면 업데이트를 합니다.
@@ -525,7 +554,7 @@ if($u == "add") {
 		                            bf_height = '{$upload[$i][image][1]}',
 		                            bf_type = '{$upload[$i][image][2]}',
 		                            bf_datetime = '$g4[time_ymdhis]'
-		                      where bo_table = '$bo_table'
+		                      where bo_table = '$bo_table3'
 		                        and wr_id = '$id'
 		                        and bf_no = '$i' ";
 		            sql_query($sql);
@@ -534,7 +563,7 @@ if($u == "add") {
 		        {
 		            $sql = " update $g4[pensoin_file_table]
 		                        set bf_content = '{$bf_content[$i]}'
-		                      where bo_table = '$bo_table'
+		                      where bo_table = '$bo_table3'
 		                        and wr_id = '$id'
 		                        and bf_no = '$i' ";
 		            sql_query($sql);
@@ -543,7 +572,7 @@ if($u == "add") {
 		    else
 		    {
 		        $sql = " insert into $g4[pension_file_table]
-		                    set bo_table = '$bo_table',
+		                    set bo_table = '$bo_table3',
 		                        wr_id = '$id',
 		                        bf_no = '$i',
 		                        bf_source = '{$upload[$i][source]}',
@@ -561,16 +590,16 @@ if($u == "add") {
 
 		// 업로드된 파일 내용에서 가장 큰 번호를 얻어 거꾸로 확인해 가면서
 		// 파일 정보가 없다면 테이블의 내용을 삭제합니다.
-		$row = sql_fetch(" select max(bf_no) as max_bf_no from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$id' ");
+		$row = sql_fetch(" select max(bf_no) as max_bf_no from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' ");
 		for ($i=(int)$row[max_bf_no]; $i>=0; $i--)
 		{
-		    $row2 = sql_fetch(" select bf_file from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$id' and bf_no = '$i' ");
+		    $row2 = sql_fetch(" select bf_file from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ");
 
 		    // 정보가 있다면 빠집니다.
 		    if ($row2[bf_file]) break;
 
 		    // 그렇지 않다면 정보를 삭제합니다.
-		    sql_query(" delete from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$id' and bf_no = '$i' ");
+		    sql_query(" delete from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ");
 		}
 		//------------------------------------------------------------------------------
 

@@ -61,6 +61,7 @@ function get_file_room($bo_table, $wr_id)
 
     $file["count"] = 0;
     $sql = " select * from $g4[pension_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by bf_no ";
+
     $result = sql_query($sql);
     while ($row = sql_fetch_array($result))
     {
@@ -68,7 +69,7 @@ function get_file_room($bo_table, $wr_id)
         $file[$no][href] = "./download.php?bo_table=$bo_table&wr_id=$wr_id&no=$no" . $qstr;
         $file[$no][download] = $row[bf_download];
         // 4.00.11 - 파일 path 추가
-        $file[$no][path] = "$g4[path]/data/file/$bo_table";
+        $file[$no][path] = "$g4[path]/data/file/roomFile";
         //$file[$no][size] = get_filesize("{$file[$no][path]}/$row[bf_file]");
         $file[$no][size] = get_filesize($row[bf_filesize]);
         //$file[$no][datetime] = date("Y-m-d H:i:s", @filemtime("$g4[path]/data/file/$bo_table/$row[bf_file]"));
