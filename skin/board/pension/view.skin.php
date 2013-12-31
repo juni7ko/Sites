@@ -39,7 +39,7 @@ function viewGallery(n) {
 					?>
 					</ul>
 				</div>
-				<div class="gallery-view-btn"><a href="#" class="btn">상세보기</a></div>
+				<div class="gallery-view-btn"><a href="#detail" class="btn">상세보기</a></div>
 			</div><!-- ./detail-slide-gallery -->
 
 			<div class="detail-pension-info">
@@ -369,7 +369,7 @@ endforeach;
 
 <div id="section">
 	<div class="container">
-		<div class="detail-readme">
+	<div class="detail-readme">
 			<span class="red">예약완료(결제완료)시 예약자 휴대폰으로 예약내역 및 펜션주연락처가 자동 전송되며, 동시에 펜션주의 휴대폰으로도 예약내역 및 예약자정보(연락처)가 자동 전송됩니다.</span><br />
 			픽업 및 찾아가는길은 예약후 전송된 펜션연락처로 전화하셔서 시간 약속 잡으시면 됩니다.<br />
 			예약취소시 취소수수료가 존재합니다. 신중하게 예약하세요. <a href="#">취소수수료보기</a><br />
@@ -420,15 +420,95 @@ endforeach;
 				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
 			</div>
 		</div>
+<a name="detail" />
+		<div class="cols">
+			<div class="row title-bg">
+				<h3 class="cal-title">객실 사진 및 소개</h3>
+				<div class="tright t12"></div>
+			</div><!-- row -->
+		</div>
+		<div>
+			<div class="detail-readme">
+<?php
+	foreach($viewDateRow['rInfoIdRow'] as $i) :
+		echo "<label><input type='radio' onClick='viewGallery2({$i});' name='rInfoName' /> {$viewDateRow['rInfoName'][$i]}</label>&nbsp;&nbsp;";
+	endforeach;
+
+	foreach($viewDateRow['rInfoIdRow'] as $j) :
+		$id = $viewDateRow['rInfoId'][$j];
+		$file2 = get_file_room('bbs3_r_info', $id);
+
+		echo $file2[count];
+
+		for ($i=0; $i<$file2[count]; $i++)
+	    {
+			$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs3_r_info' and wr_id = '$id' and bf_no = '$i' ";
+			echo $fsql;
+
+	        $row = sql_fetch($fsql);
+	        if ($row[bf_file])
+	        {
+	            $imgList[$i] = "<img src={$g4[path]}/data/file/roomFile/".$row[bf_file]." width=80>";
+	        }
+	    }
+?>
+<div id='viewGallery2<?=$j?>' style='display:none;'>
+	<table>
+	<tr>
+		<td><?=$imgList[$j]?></td>
+		<td>
+			<?php
+			for($i=1; $i <= count($file2); $i++) {
+				echo $imgList[$i];
+			}
+			?>
+		</td>
+	</tr>
+	</table>
+</div>
+<?php
+	endforeach;
+?>
+			</div>
+		</div>
 	</div>
 </div>
-<!-- 게시글 보기 끝 -->
 
+<script type="text/javascript">
+function viewGallery2(n) {
+    for(var i = 0; i < <?=count($viewDateRow['rInfoIdRow'])?>; i++) {
+        obj = document.getElementById('viewGallery2'+i);
+        if ( n == i ) {
+            obj.style.display = "block";
+        } else {
+            obj.style.display = "none";
+        }
+    }
+}
+
+function viewGallery3(n) {
+    for(var i = 0; i < <?=count($viewDateRow['rInfoIdRow'])?>; i++) {
+        obj = document.getElementById('viewGallery3'+i);
+        if ( n == i ) {
+            obj.style.display = "block";
+        } else {
+            obj.style.display = "none";
+        }
+    }
+}
+<?php if(count($viewDateRow['rInfoIdRow'])) { ?>
+// 첫번째 방 이미지들이 보이도록 설정
+obj = document.getElementById('viewGallery20');
+obj.style.display = "block";
+<?php } ?>
+</script>
+
+<!-- 게시글 보기 끝 -->
 <?php if($member['mb_level'] >= 9 ){?>
 <div style="clear:both; height:30px;text-align:center;">
     <!-- 링크 버튼 -->
     <!-- <?php echo "<a href=\"$list_href\"><img src='$board_skin_path/img/btn_list.gif' border='0' align='absmiddle'></a> "; ?> -->
-    <?php if ($update_href) { echo "<a href=\"$update_href\"><img src='$board_skin_path/img/btn_modify.gif' border='0' align='absmiddle'></a> "; } ?>
+    <?php //if ($update_href) { echo "<a href=\"$update_href\"><img src='$board_skin_path/img/btn_modify.gif' border='0' align='absmiddle'></a> "; } ?>
     <!-- <?php if ($delete_href) { echo "<a href=\"$delete_href\"><img src='$board_skin_path/img/btn_delete.gif' border='0' align='absmiddle'></a> "; } ?> -->
     <!-- <?php if ($write_href) { echo "<a href=\"$write_href\"><img src='$board_skin_path/img/btn_write.gif' border='0' align='absmiddle'></a> "; } ?> -->
 </div>
