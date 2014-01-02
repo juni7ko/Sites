@@ -220,7 +220,7 @@ endforeach;
 
 					<ul class="pension-info-btn">
 						<li class="cols50 cart-add"><a href="#" class="btn">관심등록</a></li>
-						<li class="cols50 fav-add"><a href="#" class="btn">즐겨찾기</a></li>
+						<li class="cols50 fav-add"><a href="#" onClick="window.external.AddFavorite('http://pension.interfo.com/', 'Stay Store')" class="btn">즐겨찾기</a></li>
 					</ul>
 
 			</div>
