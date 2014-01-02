@@ -432,35 +432,31 @@ endforeach;
 			<div class="detail-readme">
 <?php
 	foreach($viewDateRow['rInfoIdRow'] as $i) :
-		echo "<label><input type='radio' onClick='viewGallery2({$i});' name='rInfoName' /> {$viewDateRow['rInfoName'][$i]}</label>&nbsp;&nbsp;";
+		echo "<label><input type='radio' onClick='viewGallery2({$i});' name='rInfoName' />&nbsp;{$viewDateRow['rInfoName'][$i]}</label>&nbsp;&nbsp;&nbsp;";
 	endforeach;
 
 	foreach($viewDateRow['rInfoIdRow'] as $j) :
 		$id = $viewDateRow['rInfoId'][$j];
-		$file2 = get_file_room('bbs3_r_info', $id);
-
-		echo $file2[count];
+		$file2 = get_file_room('bbs34_r_info', $id);
 
 		for ($i=0; $i<$file2[count]; $i++)
 	    {
-			$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs3_r_info' and wr_id = '$id' and bf_no = '$i' ";
-			echo $fsql;
-
+			$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$i' ";
 	        $row = sql_fetch($fsql);
 	        if ($row[bf_file])
 	        {
-	            $imgList[$i] = "<img src={$g4[path]}/data/file/roomFile/".$row[bf_file]." width=80>";
+	            $imgList[$i] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
 	        }
 	    }
 ?>
 <div id='viewGallery2<?=$j?>' style='display:none;'>
-	<table>
+	<table width="100%" border="0" cellpadding="3" align="center">
 	<tr>
-		<td><?=$imgList[$j]?></td>
+		<td><img id="viewGallery3<?=$j?>" width="532" style="display: inline;" src="<?=$imgList[0]?>" /></td>
 		<td>
 			<?php
-			for($i=1; $i <= count($file2); $i++) {
-				echo $imgList[$i];
+			for($i=0; $i < $file2[count]; $i++) {
+				echo "<img id='smallImg' src='$imgList[$i]' width='70' height='44' onClick='viewGallery3('3{$j}',{$imgList[$i]})' />";
 			}
 			?>
 		</td>
@@ -487,15 +483,19 @@ function viewGallery2(n) {
     }
 }
 
-function viewGallery3(n) {
-    for(var i = 0; i < <?=count($viewDateRow['rInfoIdRow'])?>; i++) {
-        obj = document.getElementById('viewGallery3'+i);
-        if ( n == i ) {
-            obj.style.display = "block";
-        } else {
-            obj.style.display = "none";
-        }
-    }
+$(function(){
+	$('#smallImg')[0].onmouseover = function(event) {
+		say('Whee!');
+	}
+});
+
+function say(text) {
+	$('#console').append('<div>'+new Date()+' '+text+'</div>');
+}
+
+function viewGallery3(n, href2) {
+    obj = document.getElementById('viewGallery3'+n);
+    obj.src = href2;
 }
 <?php if(count($viewDateRow['rInfoIdRow'])) { ?>
 // 첫번째 방 이미지들이 보이도록 설정
