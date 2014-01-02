@@ -217,7 +217,13 @@ if (!($board[bo_use_comment] && $cwin)) {
     // 전체목록보이기 사용이 "예" 또는 wr_id 값이 없다면 목록을 보임
     //if ($board[bo_use_list_view] || empty($wr_id))
     if ($member[mb_level] >= $board[bo_list_level] && $board[bo_use_list_view] || empty($wr_id))
-        include_once ("./list.php");
+    {
+    	if($bo_table == "pension_info") {  // 펜션정보를 볼때 노출여부 체크한 리스트만 가져 오도록 수정
+    		include_once ("./list_pension.php");
+    	} else {
+    		include_once ("./list.php");
+    	}
+    }
 
     include_once("./board_tail.php");
 }

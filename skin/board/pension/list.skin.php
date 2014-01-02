@@ -284,15 +284,6 @@ $r_cost = sql_fetch($sql_cost);
 	</tr>
 </table>
 
-
-
-
-
-
-
-
-
-
 <script language="JavaScript">
 if ('<?=$sca?>') document.fcategory.sca.value = '<?=$sca?>';
 </script>
