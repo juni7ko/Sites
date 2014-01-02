@@ -87,8 +87,12 @@ if ($file_length < 0)
 
 <?php }?>
 	<tr>
-		<th>메인출력</th>
-		<td><input type="text" name="mainPrint" value="<?=$write['mainPrint']?>"></td>
+		<th>노출 여부</th>
+		<td><label><input type="checkbox" name="mainUse" value="1" <?=($write['mainUse']) ? "checked" : NULL;?>> 노출 여부</label></td>
+	</tr>
+	<tr>
+		<th>메인출력 위치</th>
+		<td><input type="text" name="mainPrint" size="3" value="<?=$write['mainPrint']?>"> 1~5 숫자에 따라 출력 위치 결정</td>
 	</tr>
 	<tr>
 		<th>* 펜션이름</th>
@@ -387,16 +391,8 @@ $nav_sql = mysql_query($area_sql);
 <input type=submit  id="btn_submit" value="<?php if($w)  echo '펜션수정'; else echo '펜션 등록' ;?>" class="ok" />
 <!-- <input type=image id="btn_submit" src="../skin/board/pension/img/btn_write.gif" border=0 class="ok"> -->
 </div>
-
-
 </form>
-
-
 </div>
-
-
-
-
 
 <script type="text/javascript">
 
