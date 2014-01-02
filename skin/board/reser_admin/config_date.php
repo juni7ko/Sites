@@ -373,7 +373,7 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 		$ed = substr($r_date_edate,6,2);
 		$edate = mktime(12,0,0,$em,$ed,$ey);
 
-		$chk_date = sql_fetch( " SELECT * FROM {$write_table}_r_date WHERE ( r_date_idx != '$id' AND pension_id = '$pension_id' ) AND ( ($sdate BETWEEN r_date_sdate AND r_date_edate) OR ($edate BETWEEN r_date_sdate AND r_date_edate) )" );
+		$chk_date = sql_fetch( " SELECT * FROM {$write_table}_r_date WHERE ( r_date_idx != '$id' AND pension_id = '$pension_id' ) AND ( ($sdate BETWEEN r_date_sdate AND r_date_edate) OR ($edate BETWEEN r_date_sdate AND r_date_edate) ) LIMIT 1" );
 		if($chk_date) alert("중복되는 기간이 있습니다. 기간을 확인해 주세요!!");
 
 		$sql = "UPDATE {$write_table}_r_date SET
@@ -472,8 +472,9 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 		$edate = mktime(12,0,0,$em,$ed,$ey);
 
 		$chk_date = sql_fetch("SELECT * FROM {$write_table}_r_date WHERE
-			($sdate BETWEEN r_date_sdate AND r_date_edate) OR
-			($edate BETWEEN r_date_sdate AND r_date_edate)");
+			pension_id = '$pension_id' AND
+			( ($sdate BETWEEN r_date_sdate AND r_date_edate) OR
+			($edate BETWEEN r_date_sdate AND r_date_edate) ) LIMIT 1");
 		if($chk_date) alert("중복되는 기간이 있습니다. 기간을 확인해 주세요!!");
 
 		$sql = " INSERT INTO {$write_table}_r_date (
