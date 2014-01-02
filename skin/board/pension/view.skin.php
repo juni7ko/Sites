@@ -35,6 +35,7 @@ function viewGallery(n) {
 					for ($i=0; $i<=count($view[file]); $i++) {
 						if ($view[file][$i][view_small])
 						echo "<li onClick='viewGallery({$i});'>" .$view[file][$i][view_small] . "</li>";
+						if($i >= 4) break;
 					}
 					?>
 					</ul>
