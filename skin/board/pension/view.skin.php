@@ -435,34 +435,60 @@ endforeach;
 		echo "<label><input type='radio' onClick='viewGallery2({$i});' name='rInfoName' />&nbsp;{$viewDateRow['rInfoName'][$i]}</label>&nbsp;&nbsp;&nbsp;";
 	endforeach;
 
-	foreach($viewDateRow['rInfoIdRow'] as $j) :
-		$id = $viewDateRow['rInfoId'][$j];
-		$file2 = get_file_room('bbs34_r_info', $id);
+	$countMax = 0;
+	foreach($viewDateRow['rInfoIdRow'] as $i) :
+		$id = $viewDateRow['rInfoId'][$i];
+		$file2[$i] = get_file_room('bbs34_r_info', $id);
+		$fileCount[$i] = $file2[$i][count];
 
-		for ($i=0; $i<$file2[count]; $i++)
+		if($countMax < $fileCount[$i])
+			$countMax = $fileCount[$i];
+
+		for ($q=0; $q < $fileCount[$i]; $q++)
 	    {
-			$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$i' ";
+			$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$q' order by bf_no ";
 	        $row = sql_fetch($fsql);
 	        if ($row[bf_file])
-	        {
-	            $imgList[$i] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
-	        }
+	            $imgList[$i][$q] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
 	    }
 ?>
-<div id='viewGallery2<?=$j?>' style='display:none;'>
-	<table width="100%" border="0" cellpadding="3" align="center">
-	<tr>
-		<td><img id="viewGallery3<?=$j?>" width="532" style="display: inline;" src="<?=$imgList[0]?>" /></td>
-		<td>
-			<?php
-			for($i=0; $i < $file2[count]; $i++) {
-				echo "<img id='smallImg' src='$imgList[$i]' width='70' height='44' onClick='viewGallery3('3{$j}',{$imgList[$i]})' />";
-			}
-			?>
-		</td>
-	</tr>
-	</table>
-</div>
+				<div id='viewGallery2<?=$i?>' style='display:none;'>
+					<table width="100%" border="0" cellpadding="3" align="center">
+					<tr>
+						<td>
+							<div id="inGall_<?=$i?>_0" style="display:block;"><img width='532' src="<?=$imgList[$i][0]?>" /></div>
+							<?php
+							for ($j=1; $j < $fileCount[$i]; $j++)
+						    {
+								$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$j' order by bf_no ";
+						        $row = sql_fetch($fsql);
+						        if ($row[bf_file]) {
+						            $imgList[$i][$j] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
+									echo "<div id='inGall_{$i}_{$j}' style='display:none;'>";
+									echo "<img width='532' src='{$imgList[$i][$j]}'";
+									echo "</div>";
+								}
+							}
+							?>
+											</td>
+											<td valign="top">
+							<?php
+							for ($k=0; $k < $fileCount[$i]; $k++)
+						    {
+								$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$k' order by bf_no ";
+						        $row = sql_fetch($fsql);
+						        if ($row[bf_file]) {
+						            $imgList[$i][$k] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
+									echo "<div style='float;left;'>";
+									echo "<img src='{$imgList[$i][$k]}' width='70' height='44' onClick='inGall($i,$k);' />";
+									echo "</div>";
+								}
+							}
+							?>
+						</td>
+					</tr>
+					</table>
+				</div>
 <?php
 	endforeach;
 ?>
@@ -470,6 +496,7 @@ endforeach;
 		</div>
 	</div>
 </div>
+
 
 <script type="text/javascript">
 function viewGallery2(n) {
@@ -483,20 +510,18 @@ function viewGallery2(n) {
     }
 }
 
-$(function(){
-	$('#smallImg')[0].onmouseover = function(event) {
-		say('Whee!');
-	}
-});
-
-function say(text) {
-	$('#console').append('<div>'+new Date()+' '+text+'</div>');
+function inGall(n, j) {
+    for(var i = 0; i < <?=$countMax?>; i++) {
+        obj = document.getElementById('inGall_'+n+'_'+i+);
+        if ( j == i ) {
+            obj.style.display = "block";
+        } else {
+            obj.style.display = "none";
+        }
+    }
 }
 
-function viewGallery3(n, href2) {
-    obj = document.getElementById('viewGallery3'+n);
-    obj.src = href2;
-}
+
 <?php if(count($viewDateRow['rInfoIdRow'])) { ?>
 // 첫번째 방 이미지들이 보이도록 설정
 obj = document.getElementById('viewGallery20');

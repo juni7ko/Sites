@@ -2,7 +2,6 @@
 
 include_once('../search.php');   // 검색 include
 
-
 $img_width = 220;
 $img_height = 180;
 $img_quality = 95;
@@ -173,9 +172,10 @@ $r_cost = sql_fetch($sql_cost);
 					<span><a href="<?=$list[$i][href]?>">미리보기</a></span>
 				</td>
 
-<?php $sql_r2 = mysql_query($sql_r);
-	while ($r_info2 = sql_fetch_array($sql_r2)){
-
+<?php
+$sql_r2 = mysql_query($sql_r);
+	while ($r_info2 = sql_fetch_array($sql_r2))
+	{
 ?>
 <tr  onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''">
 				<td>
@@ -183,35 +183,26 @@ $r_cost = sql_fetch($sql_cost);
 				</td>
 				<td>
 					<?=$r_info2['r_info_area']?>평(<?=$r_info2['r_info_area'] * 3.3?>㎡)<br />
-					<?=$r_info2['r_info_type']?><br />
-					<font color=#777777><?=cut_str(strip_tags($list[$i][wr_content]),210,"…")?></font>
+					<?=$r_info2['r_info_type']?>
 				</td>
 				<td>
 					기준<?=$r_info2['r_info_person1']?>명<br />
 					최대<?=$r_info2['r_info_person2']?>명
 				</td>
 				<td>
-					<?=$r_info2['r_info_person2']?>명초과시<br />
-					인원당<?=$r_info2['r_info_person_add']?>원
+					<?=$r_info2['r_info_person1']?>명 초과시<br />
+					인원당 <?=number_format($r_info2['r_info_person_add'])?>원
 				</td>
 				<td class="last">
-					<?=$r_cost['r_cost_11']?>
+					<?=number_format($r_cost['r_cost_11'])?>원
 				</td>
 			</tr>
-<?php }  // while?>
+<?php
+	}
+}
 
-
-
-
-
-
-
-	<?php }?>
-
-	<?php if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
-
-
-
+if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; }
+?>
 		</tbody>
 
 </table>
