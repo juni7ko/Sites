@@ -161,7 +161,7 @@ include_once ("./admin.head.php");
 </tr>
 <tr class='ht'>
     <td>LINK TARGET</td>
-    <td><input type=text class=ed name='cf_link_target' size='10' value='<?=$config[cf_link_target]?>'> 
+    <td><input type=text class=ed name='cf_link_target' size='10' value='<?=$config[cf_link_target]?>'>
         <?=help("게시판 내용중 자동으로 링크되는 창의 타켓을 지정합니다.\n\n_self, _top, _blank, _new 를 주로 지정합니다.")?></td>
     <td>검색 단위</td>
     <td><input type=text class=ed name='cf_search_part' size='10' itemname='검색 단위' value='<?=$config[cf_search_part]?>'> 건 단위로 검색</td>
@@ -269,7 +269,7 @@ include_once ("./admin.head.php");
 <tr class='ht'>
     <td>회원아이콘 사용</td>
     <td>
-        <select name='cf_use_member_icon'> 
+        <select name='cf_use_member_icon'>
         <option value='0'>미사용
         <option value='1'>아이콘만 표시
         <option value='2'>아이콘+이름 표시
@@ -382,6 +382,19 @@ include_once ("./admin.head.php");
 
 <tr class='ht'>
     <td colspan=4>
+
+<?php
+$is_dhtml_editor = true;
+
+if ($is_dhtml_editor) {
+    include_once ("../lib/cheditor4.lib.php");
+    echo "<script src='../cheditor5/cheditor.js'></script>";
+    echo cheditor1('cf_3', '100%', '250');
+    echo cheditor1('cf_4', '100%', '250');
+    echo cheditor1('cf_5', '100%', '250');
+}
+?>
+
 	<table class="table-form">
 		<!-- <?php for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
 		<tr>
@@ -391,16 +404,51 @@ include_once ("./admin.head.php");
 			<td><input type='text' name='cf_<?php echo $k?>' class='iText w90' value='<?php echo $config["cf_$k"]?>' title='여분필드 <?php echo $k?> 설정값' /></td>
 		</tr>
 		<?php } ?> -->
-<tr class='ht'><th width="20%">계좌번호</th><td><input type='text' name='cf_1' value='<?=get_text($config['cf_1'])?>' title='계좌번호' style='text-align:right;font-weight:bolod;' size='30' class=ed></td>
-<th width="20%">전화번호</th><td><input type='text' name='cf_2' value='<?=get_text($config['cf_2'])?>' title='전화번호' style='text-align:right;' size='30' class=ed></td></tr>
-<tr class='ht'><th width="20%">관리 이메일</th><td><input type='text' name='cf_6' value='<?=get_text($config['cf_6'])?>' title='관리 이메일' style='text-align:right;font-weight:bolod;' size='30' ></td>
-<th width="20%">SMS 발신/수신 번호</th><td><input type='text' name='cf_7' value='<?=get_text($config['cf_7'])?>' style='text-align:right' size='30' > <br>010-1234-5678  &nbsp;&nbsp;- 사용</td></tr>
-<tr><th width="20%">예약종합안내 비고란</th><td colspan="3">
-<textarea class=ed name='cf_3' rows='12' style='width:99%;'><?=$config['cf_3']?></textarea></td></tr>
-<tr><th width="20%">유의사항</th><td colspan="3"><textarea class=ed name='cf_4' rows='12' style='width:99%;'><?=$config['cf_4']?></textarea></td></tr>
-<tr><th width="20%">환불기준</th><td colspan="3"><textarea class=ed name='cf_5' rows='12' style='width:99%;'><?=$config['cf_5']?></textarea></td></tr>
-
-
+        <tr class='ht'>
+            <th width="20%">계좌번호</th>
+            <td><input type='text' name='cf_1' value='<?=get_text($config['cf_1'])?>' title='계좌번호' style='text-align:right;font-weight:bolod;' size='30' class=ed></td>
+            <th width="20%">전화번호</th>
+            <td><input type='text' name='cf_2' value='<?=get_text($config['cf_2'])?>' title='전화번호' style='text-align:right;' size='30' class=ed></td>
+        </tr>
+        <tr class='ht'>
+            <th width="20%">관리 이메일</th>
+            <td><input type='text' name='cf_6' value='<?=get_text($config['cf_6'])?>' title='관리 이메일' style='text-align:right;font-weight:bolod;' size='30' ></td>
+            <th width="20%">SMS 발신/수신 번호</th>
+            <td><input type='text' name='cf_7' value='<?=get_text($config['cf_7'])?>' style='text-align:right' size='30' > <br>010-1234-5678  &nbsp;&nbsp;- 사용</td>
+        </tr>
+        <tr>
+            <th width="20%">유의사항</th>
+            <!--<td colspan="3"><textarea class=ed name='cf_3' rows='12' style='width:99%;'><?=$config['cf_3']?></textarea></td>-->
+            <td colspan="3" style='padding:5 0 5 10;'>
+                <?php if ($is_dhtml_editor) { ?>
+                    <?=cheditor2('cf_3', $config['cf_3']);?>
+                <?php } else { ?>
+                <textarea id="cf_3" name="cf_3" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="유의사항" required><?=$config['cf_3']?></textarea>
+                <?php } ?>
+            </td>
+        </tr>
+        <tr>
+            <th width="20%">주의사항</th>
+            <!--<td colspan="3"><textarea class=ed name='cf_4' rows='12' style='width:99%;'><?=$config['cf_4']?></textarea></td>-->
+            <td colspan="3" style='padding:5 0 5 10;'>
+                <?php if ($is_dhtml_editor) { ?>
+                    <?=cheditor2('cf_4', $config['cf_4']);?>
+                <?php } else { ?>
+                <textarea id="cf_4" name="cf_4" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="주의사항" required><?=$config['cf_4']?></textarea>
+                <?php } ?>
+            </td>
+        </tr>
+        <tr>
+            <th width="20%">환불기준</th>
+            <!--<td colspan="3"><textarea class=ed name='cf_5' rows='12' style='width:99%;'><?=$config['cf_5']?></textarea></td>-->
+            <td colspan="3" style='padding:5 0 5 10;'>
+                <?php if ($is_dhtml_editor) { ?>
+                    <?=cheditor2('cf_5', $config['cf_5']);?>
+                <?php } else { ?>
+                <textarea id="cf_5" name="cf_5" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="환불기준" required><?=$config['cf_5']?></textarea>
+                <?php } ?>
+            </td>
+        </tr>
 	</table>
 
 
@@ -437,6 +485,14 @@ include_once ("./admin.head.php");
 <script type="text/javascript">
 function fconfigform_submit(f)
 {
+    <?php
+    if ($is_dhtml_editor) {
+        echo cheditor3('cf_3');
+        echo cheditor3('cf_4');
+        echo cheditor3('cf_5');
+    }
+    ?>
+
     f.action = "./config_form_update.php";
     return true;
 }

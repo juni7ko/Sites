@@ -236,6 +236,8 @@ endforeach;
 					<div class="res-comment">
 						<ul>
 							<li class="title"><h2>StayStore 이용시 유의사항</h2>
+								<?=$config[cf_3]?>
+<?php /*
 								<ol>
 									<li style="display:none;"><span class="highlight-pink">성수기는 여름 7월25일 ~ 8월15일 / 겨울 12월 20일 ~ 1월 31일까지 입니다</span>.</li>
 									<li>상기요금은 정원기준이며 추가인원 1인당 <?=number_format($r_info[r_info_person_add]);?>원의 추가요금임이 적용됨</li>
@@ -248,6 +250,7 @@ endforeach;
 									<li>주중요금 : 일요일 ~ 목요일</li>
 									<li>주말요금 : 금요일, 토요일, 공휴일 전날</li>
 								</ol>
+*/ ?>
 							</li>
 						</ul>
 
@@ -265,7 +268,12 @@ if($content2[wr_content2]) {
 
 				<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
 				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
-<?php } else { ?>
+<?php
+} else {
+	echo $config[cf_4];
+}
+?>
+<?php /*
 								<ol>
 									<li>기준인원 초과 시 1인에 10,000원이 추가됩니다.</li>
 									<li>입실시간은 오후2시부터입니다. 객실청소가 12~14시까지이기 때문에 오전입실이 어려우나 전날 사용하지 않은 객실의 오전 입실은 전화로 상담 받습니다.</li>
@@ -279,13 +287,15 @@ if($content2[wr_content2]) {
 									<li>애완견은 입실이 불가능합니다.</li>
 									<li>입실시간 PM 14:00, 퇴실시간 AM 11:00</li>
 								</ol>
-<?php } ?>
+*/ ?>
 							</li>
 							<li class="comment-ps">* 예약 취소에 따른 환불규정은 당콘도의 규정사항이므로 예약해지시 신중히 검토 예약하시길 바랍니다. *</li>
 						</ul>
 
 						<ul>
-							<li class="title"><h2>환불규정</h2>
+							<li class="title"><h2>환불기준</h2>
+								<?=$config[cf_5]?>
+<?php /*
 								<ol>
 									<li>이용일 6일전 취소시 80% 환불</li>
 									<li>이용일 5일전 취소시 70% 환불</li>
@@ -295,6 +305,7 @@ if($content2[wr_content2]) {
 									<li>이용일 1일전,당일 환불안됨</li>
 									<li>모든환불금은 수수료 공제후 송금됩니다.</li>
 								</ol>
+*/ ?>
 							</li>
 						</ul>
 
