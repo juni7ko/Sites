@@ -1,42 +1,41 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 ?>
+<script type="text/javascript" src="<?=$g4[path]?>/js/jquery.photomatic.js"></script>
 <script type="text/javascript">
-function viewGallery(n) {
-    for(var i = 0; i <= <?=count($view[file])?>; i++) {
-        obj = document.getElementById('viewGallery'+i);
-        if ( n == i ) {
-            obj.style.display = "block";
-        } else {
-            obj.style.display = "none";
-        }
-    }
-}
+$(function(){
+	$('#thumbnails img').photomatic({
+		photoElement: '#photo',
+		previousControl: '#previousButton',
+		nextControl: '#nextButton',
+		firstControl: '#firstButton',
+		lastControl: '#lastButton'
+	});
+});
 </script>
+<style type="text/css">
+#photo {
+	width:370px;
+	height:246px;
+}
+</style>
 <!-- 게시글 보기 시작 -->
 <div id="section">
 	<div class="row">
 		<div class="container">
 
 			<div class="detail-gallery-area">
-				<?php
-				// 파일 출력
-				echo "<div id='viewGallery0' style='display:block;'>" .$view[file][0][view_big] . "</div>";
-				for ($i=1; $i<=count($view[file]); $i++) {
-					if ($view[file][$i][view_big])
-					echo "<div id='viewGallery{$i}' style='display:none;'>" .$view[file][$i][view_big] . "</div>";
-				}
-				?>
-
+				<div id="photoContainer">
+					<img id="photo" src=""/>
+				</div>
 				<div class="small-thumb-area">
-					<ul>
+					<ul id="thumbnails">
 					<?php
-					// 파일 출력
-					for ($i=0; $i<=count($view[file]); $i++) {
-						if ($view[file][$i][view_small])
-						echo "<li onClick='viewGallery({$i});'>" .$view[file][$i][view_small] . "</li>";
-						if($i >= 4) break;
-					}
+						for ($i=0; $i<=count($view[file]); $i++) {
+							if ($view[file][$i][view_small])
+							echo "<li>" . $view[file][$i][view_small] . "</li>";
+							if($i >= 4) break;
+						}
 					?>
 					</ul>
 				</div>
@@ -432,7 +431,7 @@ endforeach;
 			<div class="detail-readme">
 <?php
 	foreach($viewDateRow['rInfoIdRow'] as $i) :
-		echo "<label><input type='radio' onClick='viewGallery2({$i});' name='rInfoName' />&nbsp;{$viewDateRow['rInfoName'][$i]}</label>&nbsp;&nbsp;&nbsp;";
+		echo "<label><input type='radio' onClick='galList({$i});' name='rInfoName' />&nbsp;{$viewDateRow['rInfoName'][$i]}</label>&nbsp;&nbsp;&nbsp;";
 	endforeach;
 
 	$countMax = 0;
@@ -440,54 +439,36 @@ endforeach;
 		$id = $viewDateRow['rInfoId'][$i];
 		$file2[$i] = get_file_room('bbs34_r_info', $id);
 		$fileCount[$i] = $file2[$i][count];
-
-		if($countMax < $fileCount[$i])
-			$countMax = $fileCount[$i];
+?>
+<script type="text/javascript">
+function roomView<?=$i?>(i, uri) {
+	$("#roomView"+i).src = uri;
+	//obj = document.getElementById("roomView<?=$i?>");
+	//obj.src = uri;
+}
+</script>
+				<div id='viewGallery<?=$i?>' style='display:none;'>
+<?php
+		if($fileCount[$i]) {
+			$fsql = " SELECT bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '0' order by bf_no LIMIT 1 ";
+        	$row = sql_fetch($fsql);
+        	if ($row[bf_file]) {
+	            $imgList[$i][0] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
+	            echo "<div style='margin-bottom:5px;'><img id='roomView{$i}' src='" . $imgList[$i][0] . "' width='532' /></div>";
+	        }
+        }
 
 		for ($q=0; $q < $fileCount[$i]; $q++)
 	    {
-			$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$q' order by bf_no ";
-	        $row = sql_fetch($fsql);
-	        if ($row[bf_file])
+			$fsql2 = " SELECT bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$q' order by bf_no ";
+	        $row = sql_fetch($fsql2);
+	        if ($row[bf_file]) {
 	            $imgList[$i][$q] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
+	            echo "<img src='" . $imgList[$i][$q] . "' width='77' height='41' onClick=\"roomView{$i}({$i},'". $imgList[$i][$q] ."')\" />";
+
+	        }
 	    }
 ?>
-				<div id='viewGallery2<?=$i?>' style='display:none;'>
-					<table width="100%" border="0" cellpadding="3" align="center">
-					<tr>
-						<td>
-							<div id="inGall_<?=$i?>_0" style="display:block;"><img width='532' src="<?=$imgList[$i][0]?>" /></div>
-							<?php
-							for ($j=1; $j < $fileCount[$i]; $j++)
-						    {
-								$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$j' order by bf_no ";
-						        $row = sql_fetch($fsql);
-						        if ($row[bf_file]) {
-						            $imgList[$i][$j] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
-									echo "<div id='inGall_{$i}_{$j}' style='display:none;'>";
-									echo "<img width='532' src='{$imgList[$i][$j]}'";
-									echo "</div>";
-								}
-							}
-							?>
-											</td>
-											<td valign="top">
-							<?php
-							for ($k=0; $k < $fileCount[$i]; $k++)
-						    {
-								$fsql = " select bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$k' order by bf_no ";
-						        $row = sql_fetch($fsql);
-						        if ($row[bf_file]) {
-						            $imgList[$i][$k] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
-									echo "<div style='float;left;'>";
-									echo "<img src='{$imgList[$i][$k]}' width='70' height='44' onClick='inGall($i,$k);' />";
-									echo "</div>";
-								}
-							}
-							?>
-						</td>
-					</tr>
-					</table>
 				</div>
 <?php
 	endforeach;
@@ -499,33 +480,19 @@ endforeach;
 
 
 <script type="text/javascript">
-function viewGallery2(n) {
-    for(var i = 0; i < <?=count($viewDateRow['rInfoIdRow'])?>; i++) {
-        obj = document.getElementById('viewGallery2'+i);
-        if ( n == i ) {
-            obj.style.display = "block";
-        } else {
-            obj.style.display = "none";
-        }
-    }
+function galList(n) {
+	for(var i = 0; i < <?=count($viewDateRow['rInfoIdRow'])?>; i++) {
+		if ( n == i ) {
+			$("div#viewGallery"+i).show();
+		} else {
+			$("div#viewGallery"+i).hide();
+		}
+	}
 }
-
-function inGall(n, j) {
-    for(var i = 0; i < <?=$countMax?>; i++) {
-        obj = document.getElementById('inGall_'+n+'_'+i+);
-        if ( j == i ) {
-            obj.style.display = "block";
-        } else {
-            obj.style.display = "none";
-        }
-    }
-}
-
 
 <?php if(count($viewDateRow['rInfoIdRow'])) { ?>
 // 첫번째 방 이미지들이 보이도록 설정
-obj = document.getElementById('viewGallery20');
-obj.style.display = "block";
+	$("div#viewGallery0").show();
 <?php } ?>
 </script>
 
