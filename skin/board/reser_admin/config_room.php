@@ -96,12 +96,12 @@ function show_list() {
 		<td>기본인원</td>
 		<td>최대인원</td>
 		<td>추가요금</td>
-		<td>객실수</td>
-
+		<!--<td>객실수</td>-->
 		<td>설명</td>
-
-		<td>복수접수</td>
-		<td>다중예약</td>
+		<td>방수</td>
+		<td>화장실수</td>
+		<!--<td>복수접수</td>
+		<td>다중예약</td>-->
 		<td>출력순서</td>
 		<td>관리</td>
 		</tr>";
@@ -115,12 +115,12 @@ function show_list() {
 		echo "<td>" . number_format($r_info[r_info_person1]) . "</td>";
 		echo "<td>" . number_format($r_info[r_info_person2]) . "</td>";
 		echo "<td>" . number_format($r_info[r_info_person_add]) . "</td>";
-		echo "<td>" . number_format($r_info[r_info_cnt]) . "</td>";
-
+		//echo "<td>" . number_format($r_info[r_info_cnt]) . "</td>";
 		echo "<td>" . $r_info[r_info_type] . "</td>";
-
-		echo "<td>" . $r_info[r_info_over] . "</td>";
-		echo "<td>" . $r_info[r_info_multi] . "</td>";
+		echo "<td>" . $r_info[r_info_rCnt] . "</td>";
+		echo "<td>" . $r_info[r_info_tCnt] . "</td>";
+		//echo "<td>" . $r_info[r_info_over] . "</td>";
+		//echo "<td>" . $r_info[r_info_multi] . "</td>";
 		echo "<td>" . number_format($r_info[r_info_order]) . "</td>";
 		echo "<td><input type=button class='$css[btn]' value='요금' onClick=\"Process('cost',{$r_info[r_info_id]}); return false;\">
 			<input type=button class='$css[btn]' value='수정' onClick=\"Process('edit',{$r_info[r_info_id]}); return false;\">
@@ -173,9 +173,9 @@ function Process(u,id) {
 
 <?php
 if($u == "add") {
-	echo "<input type=hidden name=r_info_over value='X' />";
-	echo "<input type=hidden name=r_info_multi value='X' />";
-	echo "<input type=hidden name=r_info_cnt value='1'>";
+	echo "<input type=hidden name=r_info_over value='X' />"; //복수접수
+	echo "<input type=hidden name=r_info_multi value='X' />"; // 다중예약
+	echo "<input type=hidden name=r_info_cnt value='1'>"; // 객실수
 	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
 	echo "<tr class='$css[tr]'>
 			<td>객실명</td>
@@ -202,46 +202,7 @@ if($u == "add") {
 	echo "<td><input type=text size=20 name=r_info_type value='" . $r_info[r_info_type] . "'></td>";
 	echo "<td><input type=input size=3 name=r_info_rCnt value='" . $r_info[r_info_rCnt] . "'></td>"; // 방수
 	echo "<td><input type=input size=3 name=r_info_tCnt value='" . $r_info[r_info_tCnt] . "'></td>"; // 화장실수
-	//echo "<td><select name=r_info_over><option value='X'";
-	//if($r_info[r_info_over] == "X" || !$r_info[r_info_over]) echo " selected";
-	//echo ">X</option><option value='O'";
-	//if($r_info[r_info_over] == "O") echo " selected";
-	//echo ">O</option></select></td>";
-	//echo "<td><select name=r_info_multi><option value='X'";
-	//if($r_info[r_info_multi] == "X" || !$r_info[r_info_multi]) echo " selected";
-	//echo ">X</option><option value='O'";
-	//if($r_info[r_info_multi] == "O") echo " selected";
-	//echo ">O</option></select></td>";
-	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
-	echo "<td><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
-	echo "</tr>";
-	echo "</table>";
-} else if($u == "edit") {
-	## 업데이트 리스트
-	$r_info = sql_fetch(" SELECT * FROM {$write_table}_r_info WHERE r_info_id='$id' ");
-
-	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
-	echo "<tr class='$css[tr]'>
-			<td>객실명</td>
-			<td>평수</td>
-			<td>기본인원</td>
-			<td>최대인원</td>
-			<td>추가요금</td>
-			<td>객실수</td>
-			<td>설명</td>
-			<td>복수접수</td>
-			<td>다중예약</td>
-			<td>출력순서</td>
-			<td align=center>관리</td>
-		</tr>";
-	echo "<tr class='ht center'>";
-	echo "<td><input type=input size=20 name=r_info_name required value='" . $r_info[r_info_name] . "'></td>";
-	echo "<td><input type=input size=8 name=r_info_area value='" . $r_info[r_info_area] . "'></td>";
-	echo "<td><input type=input size=3 name=r_info_person1 value='" . $r_info[r_info_person1] . "'></td>";
-	echo "<td><input type=input size=3 name=r_info_person2 value='" . $r_info[r_info_person2] . "'></td>";
-	echo "<td><input type=input size=6 name=r_info_person_add value='" . $r_info[r_info_person_add] . "'></td>";
-	echo "<td><input type=input size=3 name=r_info_cnt value='" . $r_info[r_info_cnt] . "'></td>";
-	echo "<td><input type=text size=20 name=r_info_type value='" . $r_info[r_info_type] . "'></td>";
+/*
 	echo "<td><select name=r_info_over><option value='X'";
 	if($r_info[r_info_over] == "X" || !$r_info[r_info_over]) echo " selected";
 	echo ">X</option><option value='O'";
@@ -252,6 +213,55 @@ if($u == "add") {
 	echo ">X</option><option value='O'";
 	if($r_info[r_info_multi] == "O") echo " selected";
 	echo ">O</option></select></td>";
+*/
+	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
+	echo "<td><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
+	echo "</tr>";
+	echo "</table>";
+} else if($u == "edit") {
+	## 업데이트 리스트
+	$r_info = sql_fetch(" SELECT * FROM {$write_table}_r_info WHERE r_info_id='$id' ");
+	echo "<input type=hidden name=r_info_cnt value='" . $r_info[r_info_cnt] . "' />";
+	echo "<input type=hidden name=r_info_over value='" . $r_info[r_info_over] . "' />";
+	echo "<input type=hidden name=r_info_multi value='" . $r_info[r_info_multi] . "' />";
+	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
+	echo "<tr class='$css[tr]'>
+			<td>객실명</td>
+			<td>평수</td>
+			<td>기본인원</td>
+			<td>최대인원</td>
+			<td>추가요금</td>
+			<!--<td>객실수</td>-->
+			<td>설명</td>
+			<td>방수</td>
+			<td>화장실수</td>
+			<!--<td>복수접수</td>
+			<td>다중예약</td>-->
+			<td>출력순서</td>
+			<td align=center>관리</td>
+		</tr>";
+	echo "<tr class='ht center'>";
+	echo "<td><input type=input size=20 name=r_info_name required value='" . $r_info[r_info_name] . "'></td>";
+	echo "<td><input type=input size=8 name=r_info_area value='" . $r_info[r_info_area] . "'></td>";
+	echo "<td><input type=input size=3 name=r_info_person1 value='" . $r_info[r_info_person1] . "'></td>";
+	echo "<td><input type=input size=3 name=r_info_person2 value='" . $r_info[r_info_person2] . "'></td>";
+	echo "<td><input type=input size=6 name=r_info_person_add value='" . $r_info[r_info_person_add] . "'></td>";
+	//echo "<td><input type=input size=3 name=r_info_cnt value='" . $r_info[r_info_cnt] . "'></td>";
+	echo "<td><input type=text size=20 name=r_info_type value='" . $r_info[r_info_type] . "'></td>";
+	echo "<td><input type=text size=3 name=r_info_rCnt value='" . $r_info[r_info_rCnt] . "'></td>";
+	echo "<td><input type=text size=3 name=r_info_tCnt value='" . $r_info[r_info_tCnt] . "'></td>";
+/*
+	echo "<td><select name=r_info_over><option value='X'";
+	if($r_info[r_info_over] == "X" || !$r_info[r_info_over]) echo " selected";
+	echo ">X</option><option value='O'";
+	if($r_info[r_info_over] == "O") echo " selected";
+	echo ">O</option></select></td>";
+	echo "<td><select name=r_info_multi><option value='X'";
+	if($r_info[r_info_multi] == "X" || !$r_info[r_info_multi]) echo " selected";
+	echo ">X</option><option value='O'";
+	if($r_info[r_info_multi] == "O") echo " selected";
+	echo ">O</option></select></td>";
+*/
 	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
 	echo "<td rowspan='2'><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('update',$id); return false;\"></td>";
 	echo "</tr>";
@@ -343,18 +353,20 @@ if($u == "add") {
 	} else if($u == "update") {
 		$r_info_person3 = $r_info_person2 - $r_info_person1;
 		$sql = "UPDATE {$write_table}_r_info SET r_info_name = '$r_info_name',
-			r_info_area = '$r_info_area',
-			r_info_person1 = '$r_info_person1',
-			r_info_person2 = '$r_info_person2',
-			r_info_person3 = '$r_info_person3',
-			r_info_person_add = '$r_info_person_add',
-			r_info_cnt = '$r_info_cnt',
-			r_info_type = '$r_info_type',
-			r_info_over = '$r_info_over',
-			r_info_order = '$r_info_order',
-			r_info_multi = '$r_info_multi',
-			pension_id = '$pension_id'
-			WHERE r_info_id ='$id' LIMIT 1 ;";
+					r_info_area = '$r_info_area',
+					r_info_person1 = '$r_info_person1',
+					r_info_person2 = '$r_info_person2',
+					r_info_person3 = '$r_info_person3',
+					r_info_person_add = '$r_info_person_add',
+					r_info_cnt = '$r_info_cnt',
+					r_info_type = '$r_info_type',
+					r_info_over = '$r_info_over',
+					r_info_order = '$r_info_order',
+					r_info_multi = '$r_info_multi',
+					pension_id = '$pension_id',
+					r_info_rCnt = '$r_info_rCnt',
+					r_info_tCnt = '$r_info_tCnt'
+				WHERE r_info_id ='$id' LIMIT 1 ;";
 
 		$result = sql_query($sql);
 
