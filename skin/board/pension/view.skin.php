@@ -70,7 +70,11 @@ $(function(){
 							</td>
 						</tr>
 						<?php }?>
-						<?php if($view[payment1] == "1") {?>
+						<tr>
+							<th>무통장계좌</th>
+							<td><?=get_text($config[cf_1])?></td>
+						</tr>
+						<?php /*if($view[payment1] == "1") {?>
 						<tr>
 							<th>무통장계좌</th>
 							<td>
@@ -79,7 +83,7 @@ $(function(){
 								<?=$view[bank_username]?>
 							</td>
 						</tr>
-						<?php }?>
+						<?php } */ ?>
 						<?php if($view[checkin]) {?>
 						<tr>
 							<th>입실안내</th>
