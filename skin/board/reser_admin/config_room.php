@@ -173,6 +173,9 @@ function Process(u,id) {
 
 <?php
 if($u == "add") {
+	echo "<input type=hidden name=r_info_over value='X' />";
+	echo "<input type=hidden name=r_info_multi value='X' />";
+	echo "<input type=hidden name=r_info_cnt value='1'>";
 	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
 	echo "<tr class='$css[tr]'>
 			<td>객실명</td>
@@ -180,10 +183,12 @@ if($u == "add") {
 			<td>기본인원</td>
 			<td>최대인원</td>
 			<td>추가요금</td>
-			<td>객실수</td>
+			<!--<td>객실수</td>-->
 			<td>설명</td>
-			<td>복수접수</td>
-			<td>다중예약</td>
+			<td>방수</td>
+			<td>화장실수</td>
+			<!--<td>복수접수</td>
+			<td>다중예약</td>-->
 			<td>출력순서</td>
 			<td>관리</td>
 		</tr>";
@@ -193,18 +198,20 @@ if($u == "add") {
 	echo "<td><input type=input size=3 name=r_info_person1 value='" . $r_info[r_info_person1] . "'></td>";
 	echo "<td><input type=input size=3 name=r_info_person2 value='" . $r_info[r_info_person2] . "'></td>";
 	echo "<td><input type=input size=6 name=r_info_person_add value='" . $r_info[r_info_person_add] . "'></td>";
-	echo "<td><input type=input size=3 name=r_info_cnt value='" . $r_info[r_info_cnt] . "'></td>";
+	//echo "<td><input type=input size=3 name=r_info_cnt value='" . $r_info[r_info_cnt] . "'></td>"; // 객실수
 	echo "<td><input type=text size=20 name=r_info_type value='" . $r_info[r_info_type] . "'></td>";
-	echo "<td><select name=r_info_over><option value='X'";
-	if($r_info[r_info_over] == "X" || !$r_info[r_info_over]) echo " selected";
-	echo ">X</option><option value='O'";
-	if($r_info[r_info_over] == "O") echo " selected";
-	echo ">O</option></select></td>";
-	echo "<td><select name=r_info_multi><option value='X'";
-	if($r_info[r_info_multi] == "X" || !$r_info[r_info_multi]) echo " selected";
-	echo ">X</option><option value='O'";
-	if($r_info[r_info_multi] == "O") echo " selected";
-	echo ">O</option></select></td>";
+	echo "<td><input type=input size=3 name=r_info_rCnt value='" . $r_info[r_info_rCnt] . "'></td>"; // 방수
+	echo "<td><input type=input size=3 name=r_info_tCnt value='" . $r_info[r_info_tCnt] . "'></td>"; // 화장실수
+	//echo "<td><select name=r_info_over><option value='X'";
+	//if($r_info[r_info_over] == "X" || !$r_info[r_info_over]) echo " selected";
+	//echo ">X</option><option value='O'";
+	//if($r_info[r_info_over] == "O") echo " selected";
+	//echo ">O</option></select></td>";
+	//echo "<td><select name=r_info_multi><option value='X'";
+	//if($r_info[r_info_multi] == "X" || !$r_info[r_info_multi]) echo " selected";
+	//echo ">X</option><option value='O'";
+	//if($r_info[r_info_multi] == "O") echo " selected";
+	//echo ">O</option></select></td>";
 	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
 	echo "<td><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
 	echo "</tr>";
@@ -545,7 +552,37 @@ if($u == "add") {
 // File Upload ->
 	} else if($u == "insert") {
 		$r_info_person3 = $r_info_person2 - $r_info_person1;
-		$sql = "INSERT INTO {$write_table}_r_info (r_info_name, r_info_area, r_info_person1, r_info_person2, r_info_person3, r_info_person_add, r_info_cnt,r_info_type, r_info_over, r_info_order, r_info_multi, pension_id) VALUES ('$r_info_name', '$r_info_area', '$r_info_person1', '$r_info_person2', '$r_info_person3', '$r_info_person_add', '$r_info_cnt', '$r_info_type', '$r_info_over', '$r_info_order', '$r_info_multi', '$pension_id');";
+		$sql = "INSERT INTO {$write_table}_r_info (
+					r_info_name,
+					r_info_area,
+					r_info_person1,
+					r_info_person2,
+					r_info_person3,
+					r_info_person_add,
+					r_info_cnt,
+					r_info_type,
+					r_info_over,
+					r_info_order,
+					r_info_multi,
+					pension_id,
+					r_info_rCnt,
+					r_info_tCnt
+				) VALUES (
+					'$r_info_name',
+					'$r_info_area',
+					'$r_info_person1',
+					'$r_info_person2',
+					'$r_info_person3',
+					'$r_info_person_add',
+					'$r_info_cnt',
+					'$r_info_type',
+					'$r_info_over',
+					'$r_info_order',
+					'$r_info_multi',
+					'$pension_id',
+					'$r_info_rCnt',
+					'$r_info_tCnt'
+				);";
 		sql_query($sql);
 		Up_Cate($bo_table);
 	}
