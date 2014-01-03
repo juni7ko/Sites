@@ -322,10 +322,10 @@ if($content2[wr_content2]) {
 						</ul>
 
 						<ul>
-							<li class="title"><h2>환불규정</h2>
+							<li class="title"><h2>입금계좌 및 문의</h2>
 								<ol>
-									<li>입금계좌: 농협 301-0081-3040-81 (조용만)</li>
-									<li>문의 : 033-642-6718</li>
+									<li>입금계좌: <?=get_text($config[cf_1])?></li>
+									<li>문의 : <?=get_text($config[cf_2])?></li>
 								</ol>
 							</li>
 						</ul>
