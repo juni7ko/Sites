@@ -144,11 +144,6 @@ $cnt = $r_cnt['cnt'];
 
 $sql_r = "select * from g4_write_bbs34_r_info where pension_id = '{$list[$i][pension_id]}' ";
 $r_info = sql_fetch($sql_r);
-
-//$sql_cost = "select * from g4_write_bbs34_r_cost  where pension_id = '{$list[$i][pension_id]}' and  r_info_id = '$r_info[r_info_id]' ";
-$sql_cost = "select * from g4_write_bbs34_r_cost  where pension_id = '{$list[$i][pension_id]}' ";
-//echo $sql_cost;
-$r_cost = sql_fetch($sql_cost);
 ?>
 
 			 <tr>
@@ -194,7 +189,30 @@ $sql_r2 = mysql_query($sql_r);
 					인원당 <?=number_format($r_info2['r_info_person_add'])?>원
 				</td>
 				<td class="last">
-					<?=number_format($r_cost['r_cost_11'])?>원
+<?php
+$sql_cost = "select * from g4_write_bbs34_r_cost  where pension_id = '{$list[$i][pension_id]}' and  r_info_id = '$r_info2[r_info_id]' ";
+$r_cost = sql_fetch($sql_cost);
+
+$minCost1 = $r_cost['r_cost_11'];
+$minCost2 = $r_cost['r_cost_21'];
+$minCost3 = $r_cost['r_cost_31'];
+for($mc = 1; $mc <= 5; $mc++) {
+	$diffCost1 = "r_cost_1" . $mc;
+	$diffCost2 = "r_cost_2" . $mc;
+	$diffCost3 = "r_cost_3" . $mc;
+	if($minCost3 > $r_cost[$diffCost3]) {
+		$minCost1 = $r_cost[$diffCost1];
+		$minCost2 = $r_cost[$diffCost2];
+		$minCost3 = $r_cost[$diffCost3];
+	}
+}
+if($minCost2) {
+?>
+					<div class='blue'>할인 <?=number_format($minCost2)?>%</div>
+					<span style="text-decoration: line-through;"><?=number_format($minCost1)?>원</span> → <span class="pink"><?=number_format($minCost3)?>원</span>
+<?php } else { ?>
+					<span class="pink"><?=number_format($minCost3)?>원</span>
+<?php } ?>
 				</td>
 			</tr>
 <?php
