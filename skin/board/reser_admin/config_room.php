@@ -11,6 +11,7 @@ if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
 if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
 if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
+$is_dhtml_editor = true;
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 
 $upload_max_filesize = ini_get('upload_max_filesize');
@@ -58,10 +59,10 @@ if ($file_length < 0)
 <script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery.js"></script>
 <script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.js"></script>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr><td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) left top;"></td>
-<td bgcolor="#ffffff">&nbsp;</td>
-<td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) right top;"></td></tr>
-<tr>
+	<tr><td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) left top;"></td>
+		<td bgcolor="#ffffff">&nbsp;</td>
+		<td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) right top;"></td></tr>
+	<tr>
         <td colspan="3" valign="top" style="background:#FFF; padding:10px;">
 <?php
 include_once("{$board_skin_path}/inc_top_menu.php");
@@ -133,37 +134,13 @@ function show_list() {
 	echo "<div style='margin-top:5px; text-align:right;'><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('add',0); return false;\"></div>";
 ## 리스트 끝
 }
-?>
-<script type="text/javascript">
-<!--
-function Process(u,id) {
-	f = document.process;
-	if(u == "del") {
-		var Result = confirm("자료가 영구히 삭제됩니다. 정말로 삭제하시겠습니까?");
-		if(Result)
-			f.action = "<?=$this_page?>";
-		else
-			return false;
-	}
 
-	if(u == "cost") {
-		f.action = "<?=$board_skin_path?>/config_cost.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>";
-	} else {
-		f.action = "<?=$this_page?>&pension_id=<?=$pension_id?>";
-	}
-
-	if((u == "update" || u == "insert") && !f.r_info_name.value) {
-		alert("객실명을 입력해 주세요!!");
-		f.r_info_name.focus();
-		return false;
-	}
-
-	f.u.value = u;
-	f.id.value = id;
-	f.submit();
+if ($is_dhtml_editor) {
+    include_once ("{$g4[path]}/lib/cheditor4.lib.php");
+    echo "<script src='{$g4[path]}/cheditor5/cheditor.js'></script>";
+    echo cheditor1('r_info_content', '100%', '250');
 }
--->
-</script>
+?>
 <form name="process" method="POST" enctype="multipart/form-data" style="margin:0; padding:0;">
 <input type="hidden" name="bo_table" value="<?=$bo_table?>" />
 <input type="hidden" name="u" value="">
@@ -190,7 +167,6 @@ if($u == "add") {
 			<!--<td>복수접수</td>
 			<td>다중예약</td>-->
 			<td>출력순서</td>
-			<td>관리</td>
 		</tr>";
 	echo "<tr class='ht center'>";
 	echo "<td><input type=input size=20 name=r_info_name required value='" . $r_info[r_info_name] . "'></td>";
@@ -215,9 +191,23 @@ if($u == "add") {
 	echo ">O</option></select></td>";
 */
 	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
-	echo "<td><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('insert',0); return false;\"></td>";
 	echo "</tr>";
-	echo "</table>";
+?>
+	<tr>
+		<td>객실정보</td>
+        <td colspan="8" style='padding:5 0 5 10;'>
+            <?php if ($is_dhtml_editor) { ?>
+                <?=cheditor2('r_info_content', $r_info['r_info_content']);?>
+            <?php } else { ?>
+            <textarea id="r_info_content" name="r_info_content" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="객실정보" required><?=$r_info['r_info_content']?></textarea>
+            <?php } ?>
+        </td>
+	</tr>
+</table>
+<div style="text-align:right; margin-top:10px;">
+	<input type=button class="<?=$css[btn]?>" value="추가" onClick="Process('insert',0); return false;">
+</div>
+<?php
 } else if($u == "edit") {
 	## 업데이트 리스트
 	$r_info = sql_fetch(" SELECT * FROM {$write_table}_r_info WHERE r_info_id='$id' ");
@@ -238,7 +228,6 @@ if($u == "add") {
 			<!--<td>복수접수</td>
 			<td>다중예약</td>-->
 			<td>출력순서</td>
-			<td align=center>관리</td>
 		</tr>";
 	echo "<tr class='ht center'>";
 	echo "<td><input type=input size=20 name=r_info_name required value='" . $r_info[r_info_name] . "'></td>";
@@ -263,74 +252,86 @@ if($u == "add") {
 	echo ">O</option></select></td>";
 */
 	echo "<td><input type=input size=3 name=r_info_order value='" . $r_info[r_info_order] . "'></td>";
-	echo "<td rowspan='2'><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('update',$id); return false;\"></td>";
 	echo "</tr>";
-	echo "<tr>";
 ?>
-	<td>
-		객실사진<br>
-		<span onclick="add_file();" style="cursor:pointer;"><img src="<?=$g4[path]?>/skin/board/basic/img/btn_file_add.gif"></span>
-		<span onclick="del_file();" style="cursor:pointer;"><img src="<?=$g4[path]?>/skin/board/basic/img/btn_file_minus.gif"></span>
-	</td>
-	<td colspan="9" style='padding:5 0 5 0;'>
-		<table id="variableFiles" cellpadding=0 cellspacing=0></table><?php // print_r2($file); ?>
-        <script type="text/javascript">
-        var flen = 0;
-        function add_file(delete_code)
-        {
-            var upload_count = 10;
-            if (upload_count && flen >= upload_count)
-            {
-                alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
-                return;
-            }
-
-            var objTbl;
-            var objRow;
-            var objCell;
-            if (document.getElementById)
-                objTbl = document.getElementById("variableFiles");
-            else
-                objTbl = document.all["variableFiles"];
-
-            objRow = objTbl.insertRow(objTbl.rows.length);
-            objCell = objRow.insertCell(0);
-
-            objCell.innerHTML = " <input type='file' class='ed' name='bf_file[]' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능'>";
-            if (delete_code)
-                objCell.innerHTML += delete_code;
-            else
-            {
-                <?php if ($is_file_content) { ?>
-                objCell.innerHTML += "<br> <input type='text' class='ed' size=50 name='bf_content[]' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
-                <?php } ?>
-                ;
-            }
-
-            flen++;
-        }
-
-        <?=$file_script; //수정시에 필요한 스크립트?>
-
-        function del_file()
-        {
-            // file_length 이하로는 필드가 삭제되지 않아야 합니다.
-            var file_length = <?=(int)$file_length?>;
-            var objTbl = document.getElementById("variableFiles");
-            if (objTbl.rows.length - 1 > file_length)
-            {
-                objTbl.deleteRow(objTbl.rows.length - 1);
-                flen--;
-            }
-        }
-
-		add_file();
-        </script>
-
+	<tr>
+		<td>객실정보</td>
+        <td colspan="8" style='padding:5 0 5 10;'>
+            <?php if ($is_dhtml_editor) { ?>
+                <?=cheditor2('r_info_content', $r_info['r_info_content']);?>
+            <?php } else { ?>
+            <textarea id="r_info_content" name="r_info_content" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="객실정보" required><?=$r_info['r_info_content']?></textarea>
+            <?php } ?>
+        </td>
+	</tr>
+	<tr>
+		<td>
+			객실사진<br>
+			<span onclick="add_file();" style="cursor:pointer;"><img src="<?=$g4[path]?>/skin/board/basic/img/btn_file_add.gif"></span>
+			<span onclick="del_file();" style="cursor:pointer;"><img src="<?=$g4[path]?>/skin/board/basic/img/btn_file_minus.gif"></span>
 		</td>
+		<td colspan="9" style='padding:5 0 5 0;'>
+			<table id="variableFiles" cellpadding=0 cellspacing=0></table><?php // print_r2($file); ?>
+	        <script type="text/javascript">
+	        var flen = 0;
+	        function add_file(delete_code)
+	        {
+	            var upload_count = 10;
+	            if (upload_count && flen >= upload_count)
+	            {
+	                alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
+	                return;
+	            }
+
+	            var objTbl;
+	            var objRow;
+	            var objCell;
+	            if (document.getElementById)
+	                objTbl = document.getElementById("variableFiles");
+	            else
+	                objTbl = document.all["variableFiles"];
+
+	            objRow = objTbl.insertRow(objTbl.rows.length);
+	            objCell = objRow.insertCell(0);
+
+	            objCell.innerHTML = " <input type='file' class='ed' name='bf_file[]' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능'>";
+	            if (delete_code)
+	                objCell.innerHTML += delete_code;
+	            else
+	            {
+	                <?php if ($is_file_content) { ?>
+	                objCell.innerHTML += "<br> <input type='text' class='ed' size=50 name='bf_content[]' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
+	                <?php } ?>
+	                ;
+	            }
+
+	            flen++;
+	        }
+
+	        <?=$file_script; //수정시에 필요한 스크립트?>
+
+	        function del_file()
+	        {
+	            // file_length 이하로는 필드가 삭제되지 않아야 합니다.
+	            var file_length = <?=(int)$file_length?>;
+	            var objTbl = document.getElementById("variableFiles");
+	            if (objTbl.rows.length - 1 > file_length)
+	            {
+	                objTbl.deleteRow(objTbl.rows.length - 1);
+	                flen--;
+	            }
+	        }
+
+			add_file();
+	        </script>
+
+			</td>
+		</tr>
+	</table>
+	<div style="text-align:right; margin-top:10px;">
+		<input type=button class="<?=$css[btn]?>" value="수정" onClick="Process('update',<?=$id?>); return false;">
+	</div>
 <?php
-	echo "</tr>";
-	echo "</table>";
 	## 업데이트 리스트 끝
 } else {
 	if($u == "del") {
@@ -365,7 +366,8 @@ if($u == "add") {
 					r_info_multi = '$r_info_multi',
 					pension_id = '$pension_id',
 					r_info_rCnt = '$r_info_rCnt',
-					r_info_tCnt = '$r_info_tCnt'
+					r_info_tCnt = '$r_info_tCnt',
+					r_info_content = '$r_info_content'
 				WHERE r_info_id ='$id' LIMIT 1 ;";
 
 		$result = sql_query($sql);
@@ -578,7 +580,8 @@ if($u == "add") {
 					r_info_multi,
 					pension_id,
 					r_info_rCnt,
-					r_info_tCnt
+					r_info_tCnt,
+					r_info_content
 				) VALUES (
 					'$r_info_name',
 					'$r_info_area',
@@ -593,7 +596,8 @@ if($u == "add") {
 					'$r_info_multi',
 					'$pension_id',
 					'$r_info_rCnt',
-					'$r_info_tCnt'
+					'$r_info_tCnt',
+					'$r_info_content'
 				);";
 		sql_query($sql);
 		Up_Cate($bo_table);
@@ -609,6 +613,40 @@ if($u == "add") {
 <td bgcolor="#ffffff">&nbsp;</td>
 <td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) right bottom;"></td></tr>
 </table>
+
+<script type="text/javascript">
+function Process(u,id) {
+	f = document.process;
+	if(u == "del") {
+		var Result = confirm("자료가 영구히 삭제됩니다. 정말로 삭제하시겠습니까?");
+		if(Result)
+			f.action = "<?=$this_page?>";
+		else
+			return false;
+	}
+
+	if(u == "cost") {
+		f.action = "<?=$board_skin_path?>/config_cost.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>";
+	} else {
+		f.action = "<?=$this_page?>&pension_id=<?=$pension_id?>";
+	}
+
+	if((u == "update" || u == "insert") && !f.r_info_name.value) {
+		alert("객실명을 입력해 주세요!!");
+		f.r_info_name.focus();
+		return false;
+	}
+
+	f.u.value = u;
+	f.id.value = id;
+	<?php
+	    if ($is_dhtml_editor and ($u == "add" or $u == "edit")) {
+        	echo cheditor3('r_info_content');
+	    }
+    ?>
+	f.submit();
+}
+</script>
 <?php
 ############# 푸터
 if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
