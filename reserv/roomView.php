@@ -55,18 +55,45 @@ if($file[count]) {
 <?php
 }
 
-$csql = " SELECT r_info_content FROM g4_write_bbs34_r_info WHERE r_info_id = '$r_info_id' LIMIT 1 ";
-$crow = sql_fetch($csql);
-if($crow[r_info_content]) {
+$csql = " SELECT * FROM g4_write_bbs34_r_info WHERE r_info_id = '$r_info_id' LIMIT 1 ";
+$rInfo = sql_fetch($csql);
+if($rInfo[r_info_content]) {
 ?>
 	<div id="roomContent" style="margin-top:5px;">
-		<!-- 내용 출력 -->
-		<span id="writeContents"><?=$crow[r_info_content];?></span>
+		<table class="tbl">
+			<caption>객실정보</caption>
+			<tr>
+				<th width="150">객실명</th>
+				<td class="alignLeft"><?=$rInfo[r_info_name];?></td>
+			</tr>
+			<tr>
+				<th>구조/넓이</th>
+				<td class="alignLeft">
+					<?=$rInfo['r_info_area']?>평(<?=$rInfo['r_info_area'] * 3.3?>㎡)<br />
+					<?=$rInfo['r_info_type']?>
+				</td>
+			</tr>
+			<tr>
+				<th>기준인원</th>
+				<td class="alignLeft">
+					기준<?=$rInfo['r_info_person1']?>명<br />
+					최대<?=$rInfo['r_info_person2']?>명
+				</td>
+			</tr>
+			<tr>
+				<th>특이사항</th>
+				<td class="alignLeft">
+					<!-- 내용 출력 -->
+					<span id="writeContents"><?=$rInfo[r_info_content];?></span>
 
-		<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
-		<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
+					<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
+					<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
+				</td>
+			</tr>
+		</table>
 	</div>
 <?php
 }
+
 include_once("$g4[path]/tail.sub.php");
 ?>

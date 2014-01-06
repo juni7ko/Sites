@@ -4,3 +4,7 @@ function Process() {
 	f.action = "./write_reserv.php";
 	f.submit();
 }
+
+function roomFrame(i, uri) {
+	$("#roomFrame"+i).attr("src",uri);
+}

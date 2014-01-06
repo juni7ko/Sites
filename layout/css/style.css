@@ -776,6 +776,10 @@
 		background: #51c3ca;
 		border: 1px solid #249ea6;
 	}
+	.tbl td.alignLeft {
+		text-align: left;
+		padding-left:5px;
+	}
 
 
 #section.search-value-btn {

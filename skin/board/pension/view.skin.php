@@ -425,11 +425,6 @@ endforeach;
 			</div>
 		</div>
 <a name="detail" />
-<script type="text/javascript">
-function roomFrame(i, uri) {
-	$("#roomFrame"+i).attr("src",uri);
-}
-</script>
 		<div class="cols">
 			<div class="row title-bg">
 				<h3 class="cal-title">객실 사진 및 소개</h3>
@@ -444,6 +439,22 @@ function roomFrame(i, uri) {
 				<iframe id="roomFrame0" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][0]?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
+
+		<div class="cols">
+			<div class="row title-bg">
+				<h3 class="cal-title">게시판</h3>
+				<div class="tright t12"></div>
+			</div><!-- row -->
+		</div>
+		<div>
+			<div class="detail-readme">
+			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
+				<label><input type="radio" onClick="roomFrame(1,'<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][$i]?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
+			<?php endforeach; ?>
+				<iframe id="roomFrame1" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][0]?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
+			</div>
+		</div>
+
 	</div>
 </div>
 
