@@ -425,6 +425,11 @@ endforeach;
 			</div>
 		</div>
 <a name="detail" />
+<script type="text/javascript">
+function roomFrame(i, uri) {
+	$("#roomFrame"+i).attr("src",uri);
+}
+</script>
 		<div class="cols">
 			<div class="row title-bg">
 				<h3 class="cal-title">객실 사진 및 소개</h3>
@@ -433,72 +438,14 @@ endforeach;
 		</div>
 		<div>
 			<div class="detail-readme">
-<?php
-	foreach($viewDateRow['rInfoIdRow'] as $i) :
-		echo "<label><input type='radio' onClick='galList({$i});' name='rInfoName' />&nbsp;{$viewDateRow['rInfoName'][$i]}</label>&nbsp;&nbsp;&nbsp;";
-	endforeach;
-
-	$countMax = 0;
-	foreach($viewDateRow['rInfoIdRow'] as $i) :
-		$id = $viewDateRow['rInfoId'][$i];
-		$file2[$i] = get_file_room('bbs34_r_info', $id);
-		$fileCount[$i] = $file2[$i][count];
-?>
-<script type="text/javascript">
-function roomView<?=$i?>(i, uri) {
-	$("#roomView"+i).src = uri;
-	//obj = document.getElementById("roomView<?=$i?>");
-	//obj.src = uri;
-}
-</script>
-				<div id='viewGallery<?=$i?>' style='display:none;'>
-<?php
-		if($fileCount[$i]) {
-			$fsql = " SELECT bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '0' order by bf_no LIMIT 1 ";
-        	$row = sql_fetch($fsql);
-        	if ($row[bf_file]) {
-	            $imgList[$i][0] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
-	            echo "<div style='margin-bottom:5px;'><img id='roomView{$i}' src='" . $imgList[$i][0] . "' width='532' /></div>";
-	        }
-        }
-
-		for ($q=0; $q < $fileCount[$i]; $q++)
-	    {
-			$fsql2 = " SELECT bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$id' and bf_no = '$q' order by bf_no ";
-	        $row = sql_fetch($fsql2);
-	        if ($row[bf_file]) {
-	            $imgList[$i][$q] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
-	            echo "<img src='" . $imgList[$i][$q] . "' width='77' height='41' onClick=\"roomView{$i}({$i},'". $imgList[$i][$q] ."')\" />";
-
-	        }
-	    }
-?>
-				</div>
-<?php
-	endforeach;
-?>
+			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
+				<label><input type="radio" onClick="roomFrame(0,'<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][$i]?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
+			<?php endforeach; ?>
+				<iframe id="roomFrame0" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][0]?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-<script type="text/javascript">
-function galList(n) {
-	for(var i = 0; i < <?=count($viewDateRow['rInfoIdRow'])?>; i++) {
-		if ( n == i ) {
-			$("div#viewGallery"+i).show();
-		} else {
-			$("div#viewGallery"+i).hide();
-		}
-	}
-}
-
-<?php if(count($viewDateRow['rInfoIdRow'])) { ?>
-// 첫번째 방 이미지들이 보이도록 설정
-	$("div#viewGallery0").show();
-<?php } ?>
-</script>
 
 <!-- 게시글 보기 끝 -->
 <?php if($member['mb_level'] >= 9 ){?>

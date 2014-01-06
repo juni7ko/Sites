@@ -484,4 +484,38 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     {
         document.write(cont);
     }
+
+    function resizeFrame(iframeObj) {
+        if (typeof (iframeObj) == "string") {
+            iframeObj = document.getElementById(iframeObj);
+        }
+
+        if (iframeObj.contentWindow == null)
+            return;
+
+        var doc = iframeObj.contentWindow.document;
+        var innerBody = doc.body;
+        if(innerBody != null)
+        {
+            var innerHeight = innerBody.scrollHeight + (innerBody.offsetHeight - innerBody.clientHeight);
+            iframeObj.style.height = innerHeight + 'px';
+
+            if (CheckImageStateCompleted(doc)) {
+
+                resizeOldEvent = innerBody.onresize;
+                innerBody.onresize = function() {
+                    resizeFrame(iframeObj); resizeOldEvent;
+                }
+
+                /* onresize 를 잘 인지하지 못하여. onclick 와 같이 사용함 */
+                clickOldEvent = innerBody.onclick;
+                innerBody.onclick = function() {
+                    resizeFrame(iframeObj); clickOldEvent;
+                };
+            }
+            else {
+                setTimeout(function() { resizeFrame(iframeObj); }, 300);
+            }
+        }
+    }
 }
