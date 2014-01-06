@@ -1,6 +1,7 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 ?>
+<script type="text/javascript" src="<?=$board_skin_path?>/view.skin.js"></script>
 <script type="text/javascript" src="<?=$g4[path]?>/js/jquery.photomatic.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -388,7 +389,6 @@ endforeach;
 					예약할 객실을 체크하고 이용인원을 입력한후 예약하기 버튼을 클릭하세요.
 				</div>
 			</div><!-- row -->
-<script type="text/javascript" src="<?=$board_skin_path?>/view.skin.js"></script>
 			<form name="formLoadReser" method="post" style="margin:0px;">
 			<?php include_once("view.skin.ajax.php"); ?>
 			<input type="hidden" name="bo_table" value="<?=$bo_table?>" />
@@ -434,24 +434,24 @@ endforeach;
 		<div>
 			<div class="detail-readme">
 			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
-				<label><input type="radio" onClick="roomFrame(0,'<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][$i]?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="roomFrame(0,'<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][$i]?>&pId=<?=$pension_id?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
 			<?php endforeach; ?>
-				<iframe id="roomFrame0" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][0]?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
+				<iframe id="roomFrame0" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][0]?>&pId=<?=$pension_id?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
 
 		<div class="cols">
 			<div class="row title-bg">
-				<h3 class="cal-title">게시판</h3>
+				<h3 class="cal-title">지도</h3>
 				<div class="tright t12"></div>
 			</div><!-- row -->
 		</div>
 		<div>
 			<div class="detail-readme">
 			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
-				<label><input type="radio" onClick="roomFrame(1,'<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][$i]?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="roomFrame(1,'<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][$i]?>&pId=<?=$pension_id?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
 			<?php endforeach; ?>
-				<iframe id="roomFrame1" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][0]?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
+				<iframe id="roomFrame1" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][0]?>&pId=<?=$pension_id?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
 

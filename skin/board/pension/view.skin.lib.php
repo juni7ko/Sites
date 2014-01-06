@@ -50,7 +50,7 @@ function viewDateRow($sDate, $eDate, $penID)
 	}
 
 	// 방 정보 수집
-	$roomListSql = " SELECT * FROM {$write_table2}_r_info WHERE pension_id = '$penID' ";
+	$roomListSql = " SELECT * FROM {$write_table2}_r_info WHERE pension_id = '$penID' ORDER BY r_info_order ASC";
 	$resultList = sql_query($roomListSql);
 
 	for ($i=0; $roomList = sql_fetch_array($resultList); $i++)

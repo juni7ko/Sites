@@ -3,9 +3,11 @@ $g4_path = ".."; // common.php 의 상대 경로
 include_once("$g4_path/common.php");
 include_once($g4['path'].'/head.sub.php');
 
-if(!$r_info_id) alert("잘못된 접근입니다.");
-
-$file = get_file_room('bbs34_r_info', $r_info_id);
+if(!$rid && $pId) alert("잘못된 접근입니다.");
+?>
+<script type="text/javascript" src="<?=$board_skin_path?>/view.skin.js"></script>
+<?php
+$file = get_file_room('bbs34_r_info', $rid);
 
 if($file[count]) {
 ?>
@@ -41,7 +43,7 @@ if($file[count]) {
 		<div id="roomThumb">
 		<?php
 		for($i=0; $i < $file[count]; $i++) {
-			$fsql = " SELECT bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$r_info_id' and bf_no = '$i' order by bf_no ";
+			$fsql = " SELECT bf_file from $g4[pension_file_table] where bo_table = 'bbs34_r_info' and wr_id = '$rid' and bf_no = '$i' order by bf_no ";
 	    	$row = sql_fetch($fsql);
 	    	if ($row[bf_file]) {
 	            $imgList[$i] = "{$g4[path]}/data/file/roomFile/{$row[bf_file]}";
@@ -55,7 +57,7 @@ if($file[count]) {
 <?php
 }
 
-$csql = " SELECT * FROM g4_write_bbs34_r_info WHERE r_info_id = '$r_info_id' LIMIT 1 ";
+$csql = " SELECT * FROM g4_write_bbs34_r_info WHERE r_info_id = '$rid' LIMIT 1 ";
 $rInfo = sql_fetch($csql);
 if($rInfo[r_info_content]) {
 ?>
