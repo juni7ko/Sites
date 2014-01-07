@@ -59,7 +59,6 @@ if($file[count]) {
 
 $csql = " SELECT * FROM g4_write_bbs34_r_info WHERE r_info_id = '$rid' LIMIT 1 ";
 $rInfo = sql_fetch($csql);
-if($rInfo[r_info_content]) {
 ?>
 	<div id="roomContent" style="margin-top:5px;">
 		<table class="tbl">
@@ -82,6 +81,7 @@ if($rInfo[r_info_content]) {
 					최대<?=$rInfo['r_info_person2']?>명
 				</td>
 			</tr>
+<?php if($rInfo[r_info_content]) { ?>
 			<tr>
 				<th>특이사항</th>
 				<td class="alignLeft">
@@ -92,10 +92,9 @@ if($rInfo[r_info_content]) {
 					<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
 				</td>
 			</tr>
+<?php } ?>
 		</table>
 	</div>
 <?php
-}
-
 include_once("$g4[path]/tail.sub.php");
 ?>
