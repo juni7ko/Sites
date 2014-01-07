@@ -441,7 +441,7 @@ endforeach;
 			</div>
 		</div>
 
-<?php if($view[wr_map]) { ?>
+<?php if($view[wr_map] || $view[wr_map2]) { ?>
 		<div class="cols">
 			<div class="row title-bg">
 				<h3 class="cal-title">지 도 / 오시는 길</h3>
@@ -470,7 +470,7 @@ endforeach;
 		</div>
 		<div>
 			<div class="detail-readme">
-				<label><input type="radio" onClick="penBoard(1, <?=$pension_id?>);" name='rInfo2' />&nbsp;이용후기</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="penBoard(1, <?=$pension_id?>);" name='rInfo2' checked />&nbsp;이용후기</label>&nbsp;&nbsp;&nbsp;
 				<label><input type="radio" onClick="penBoard(2, <?=$pension_id?>);" name='rInfo2' />&nbsp;질문답변</label>&nbsp;&nbsp;&nbsp;
 				<label><input type="radio" onClick="penBoard(3, <?=$pension_id?>);" name='rInfo2' />&nbsp;포토갤러리</label>&nbsp;&nbsp;&nbsp;
 				<label><input type="radio" onClick="penBoard(4, <?=$pension_id?>);" name='rInfo2' />&nbsp;공지사항</label>
