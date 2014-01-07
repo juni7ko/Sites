@@ -335,6 +335,7 @@ if ($w == "" || $w == "r")
                     wr_10 = '$wr_10',
 
                     wr_map = '$wr_map',
+                    wr_map2 = '$wr_map2',
 
                     pre_name = '$pre_name',
                     sale_number = '$sale_number',
@@ -560,6 +561,7 @@ else if ($w == "u")
                     wr_10 = '$wr_10',
 
                     wr_map = '$wr_map',
+                    wr_map2 = '$wr_map2',
 
                     pre_name = '$pre_name',
                     sale_number = '$sale_number',

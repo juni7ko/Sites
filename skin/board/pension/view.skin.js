@@ -24,3 +24,8 @@ function penBoard(rId, pId) {
 	uri = "/reserv/chkBoard.php?rId="+rId+"&pId="+pId;
 	$("#penBoard").attr("src",uri);
 }
+
+function viewMap(i,j) {
+	$("#penMap"+j).hide();
+	$("#penMap"+i).show();
+}

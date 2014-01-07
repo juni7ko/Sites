@@ -13,6 +13,7 @@ if ($is_dhtml_editor) {
     echo "<script src='../cheditor5/cheditor.js'></script>";
     echo cheditor1('wr_content', '100%', '250');
     echo cheditor1('wr_content2', '100%', '250');
+    echo cheditor1('wr_map2', '100%', '250');
 }
 
 //--------------------------------------------------------------------------
@@ -298,7 +299,7 @@ $nav_sql = mysql_query($area_sql);
         <?php if ($is_dhtml_editor) { ?>
             <?=cheditor2('wr_content2', $write['wr_content2']);?>
         <?php } else { ?>
-        <textarea id="wr_content2" name="wr_content2" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="내용"
+        <textarea id="wr_content2" name="wr_content2" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="주의사항"
         <?php if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content2', 'char_count');"<?php }?>><?=$write['wr_content2']?></textarea>
         <?php if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content2', 'char_count'); </script><?php }?>
         <?php } ?>
@@ -310,6 +311,18 @@ $nav_sql = mysql_query($area_sql);
 		<a href="http://dna.daum.net/examples/maps/MissA/step1.php" target="_blank">약도 만들기</a> : 소스 입력<br />
 		<textarea name="wr_map" class=tx style='width:100%; word-break:break-all;' rows=3><?=$write['wr_map']?></textarea>
 	</td>
+</tr>
+<tr>
+	<th>약 도</th>
+    <td class='write_head' style='padding:5 0 5 10;'>
+        <?php if ($is_dhtml_editor) { ?>
+            <?=cheditor2('wr_map2', $write['wr_map2']);?>
+        <?php } else { ?>
+        <textarea id="wr_map2" name="wr_map2" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="약도"
+        <?php if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_map2', 'char_count');"<?php }?>><?=$write['wr_map2']?></textarea>
+        <?php if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_map2', 'char_count'); </script><?php }?>
+        <?php } ?>
+    </td>
 </tr>
 </table>
 
@@ -437,6 +450,7 @@ function fwrite_submit(f)
     if ($is_dhtml_editor) {
     	echo cheditor3('wr_content');
     	echo cheditor3('wr_content2');
+    	echo cheditor3('wr_map2');
     }
     ?>
 

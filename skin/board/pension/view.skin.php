@@ -444,17 +444,21 @@ endforeach;
 <?php if($view[wr_map]) { ?>
 		<div class="cols">
 			<div class="row title-bg">
-				<h3 class="cal-title">지 도</h3>
+				<h3 class="cal-title">지 도 / 오시는 길</h3>
 				<div class="tright t12"></div>
 			</div><!-- row -->
 		</div>
 		<div>
-			<div class="detail-readme" style="text-align:center;">
-				<!-- 내용 출력 -->
-				<span id="writeContents"><?=$view[wr_map];?></span>
-
-				<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
-				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
+			<div class="detail-readme">
+				<label><input type="radio" onClick="viewMap(1,2);" name='rInfo1' checked />&nbsp;지도</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="viewMap(2,1);" name='rInfo1' />&nbsp;오시는길</label>&nbsp;&nbsp;&nbsp;
+				<div class="blank" style="margin-top:5px;"></div>
+				<div id="penMap1" style="display:block; text-align:center;">
+					<span id="writeContents"><?=$view[wr_map];?></span>
+				</div>
+				<div id="penMap2" style="display:none; text-align:center;">
+					<span id="writeContents"><?=$view[wr_map2];?></span>
+				</div>
 			</div>
 		</div>
 <?php } ?>
