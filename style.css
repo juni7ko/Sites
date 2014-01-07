@@ -20,10 +20,10 @@ a.menu:hover { text-decoration:none; }
 
 .ul { list-style-type:square; color:#66AEAD; }
 
-.ct { font-family: Verdana, 굴림; color:#222222; } 
+.ct { font-family: Verdana, 굴림; color:#222222; }
 
-.ed { border:1px solid #CCCCCC; } 
-.tx { border:1px solid #CCCCCC; } 
+.ed { border:1px solid #CCCCCC; }
+.tx { border:1px solid #CCCCCC; }
 
 .small { font-size:8pt; font-family:돋움; }
 .cloudy, a.cloudy {color:#888888;} /* 흐림 */
@@ -31,3 +31,5 @@ a.menu:hover { text-decoration:none; }
 input.ed { height:20px; border:1px solid #9A9A9A; border-right:1px solid #D8D8D8; border-bottom:1px solid #D8D8D8; padding:3px 2px 0 2px; }
 input.ed_password { height:20px; border:1px solid #9A9A9A; border-right:1px solid #D8D8D8; border-bottom:1px solid #D8D8D8; padding:3px 2px 0 2px; font:10px Tahoma; }
 textarea.tx { border:1px solid #9A9A9A; border-right:1px solid #D8D8D8; border-bottom:1px solid #D8D8D8; padding:2px; }
+
+.blank { line-height:0; font-size:0; clear:both; }

@@ -436,17 +436,18 @@ endforeach;
 			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
 				<label><input type="radio" onClick="roomFrameGo(0,'<?=$viewDateRow['rInfoId'][$i]?>','<?=$pension_id?>');" name='rInfo0' value='<?=$viewDateRow['rInfoId'][$i]?>' <?=(!$i) ? "checked":NULL;?> />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
 			<?php endforeach; ?>
+				<br class="blank" />
 				<iframe id="roomFrame0" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][0]?>&pId=<?=$pension_id?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
 
+<?php if($view[wr_map]) { ?>
 		<div class="cols">
 			<div class="row title-bg">
 				<h3 class="cal-title">지 도</h3>
 				<div class="tright t12"></div>
 			</div><!-- row -->
 		</div>
-<?php if($view[wr_map]) { ?>
 		<div>
 			<div class="detail-readme" style="text-align:center;">
 				<!-- 내용 출력 -->
@@ -468,7 +469,8 @@ endforeach;
 				<label><input type="radio" onClick="penBoard(1, <?=$pension_id?>);" name='rInfo2' />&nbsp;이용후기</label>&nbsp;&nbsp;&nbsp;
 				<label><input type="radio" onClick="penBoard(2, <?=$pension_id?>);" name='rInfo2' />&nbsp;질문답변</label>&nbsp;&nbsp;&nbsp;
 				<label><input type="radio" onClick="penBoard(3, <?=$pension_id?>);" name='rInfo2' />&nbsp;포토갤러리</label>&nbsp;&nbsp;&nbsp;
-				<label><input type="radio" onClick="penBoard(4, <?=$pension_id?>,'/bbs/board.php?bo_table=bbs61');" name='rInfo2' />&nbsp;공지사항</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="penBoard(4, <?=$pension_id?>);" name='rInfo2' />&nbsp;공지사항</label>
+				<br class="blank" />
 				<iframe id="penBoard" width="100%" src="about:blank" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
