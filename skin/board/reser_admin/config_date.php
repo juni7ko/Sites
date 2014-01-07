@@ -549,6 +549,9 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 		}
 	}
 
+	// 데이터 저장시 펜션정보에 최대 할인율과 최저 가격 입력 - Start
+	include "lowCost.lib.php";
+	// 데이터 저장시 펜션정보에 최대 할인율과 최저 가격 입력 - End
 	show_list();
 }
 ?>

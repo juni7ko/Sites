@@ -351,6 +351,10 @@ if($u == "add") {
 		// 객실기간별 요금의 해당 객실 데이터 삭제
 		$sql5 = " DELETE FROM {$write_table}_r_date_cost WHERE r_info_id = '$id' AND pension_id = '$pension_id' ";
 		sql_query($sql5);
+
+		// 데이터 저장시 펜션정보에 최대 할인율과 최저 가격 입력 - Start
+		include "lowCost.lib.php";
+		// 데이터 저장시 펜션정보에 최대 할인율과 최저 가격 입력 - End
 	} else if($u == "update") {
 		$r_info_person3 = $r_info_person2 - $r_info_person1;
 		$sql = "UPDATE {$write_table}_r_info SET r_info_name = '$r_info_name',
@@ -495,7 +499,7 @@ if($u == "add") {
 		        $upload[$i]['source'] = addslashes($upload[$i]['source']);
 		    }
 
-		    $row = sql_fetch(" select count(*) as cnt from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ");
+		    $row = sql_fetch(" SELECT count(*) as cnt from $g4[pension_file_table] where bo_table = '$bo_table3' and wr_id = '$id' and bf_no = '$i' ");
 
 		    if ($row[cnt])
 		    {
@@ -503,7 +507,7 @@ if($u == "add") {
 		        // 그렇지 않다면 내용만 업데이트 합니다.
 		        if ($upload[$i][del_check] || $upload[$i][file])
 		        {
-		            $sql = " update $g4[pension_file_table]
+		            $sql = " UPDATE $g4[pension_file_table]
 		                        set bf_source = '{$upload[$i][source]}',
 		                            bf_file = '{$upload[$i][file]}',
 		                            bf_content = '{$bf_content[$i]}',
@@ -519,7 +523,7 @@ if($u == "add") {
 		        }
 		        else
 		        {
-		            $sql = " update $g4[pensoin_file_table]
+		            $sql = " UPDATE $g4[pensoin_file_table]
 		                        set bf_content = '{$bf_content[$i]}'
 		                      where bo_table = '$bo_table3'
 		                        and wr_id = '$id'
@@ -529,7 +533,7 @@ if($u == "add") {
 		    }
 		    else
 		    {
-		        $sql = " insert into $g4[pension_file_table]
+		        $sql = " INSERT into $g4[pension_file_table]
 		                    set bo_table = '$bo_table3',
 		                        wr_id = '$id',
 		                        bf_no = '$i',
