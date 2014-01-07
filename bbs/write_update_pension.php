@@ -334,6 +334,8 @@ if ($w == "" || $w == "r")
                     wr_9 = '$wr_9',
                     wr_10 = '$wr_10',
 
+                    wr_map = '$wr_map',
+
                     pre_name = '$pre_name',
                     sale_number = '$sale_number',
 	                mb_zip1 = '$mb_zip1',
@@ -556,6 +558,8 @@ else if ($w == "u")
                     wr_8 = '$wr_8',
                     wr_9 = '$wr_9',
                     wr_10 = '$wr_10',
+
+                    wr_map = '$wr_map',
 
                     pre_name = '$pre_name',
                     sale_number = '$sale_number',

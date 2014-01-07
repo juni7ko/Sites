@@ -298,13 +298,19 @@ $nav_sql = mysql_query($area_sql);
         <?php if ($is_dhtml_editor) { ?>
             <?=cheditor2('wr_content2', $write['wr_content2']);?>
         <?php } else { ?>
-        <textarea id="wr_content2" name="wr_content2" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="내용" required
+        <textarea id="wr_content2" name="wr_content2" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="내용"
         <?php if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content2', 'char_count');"<?php }?>><?=$write['wr_content2']?></textarea>
         <?php if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content2', 'char_count'); </script><?php }?>
         <?php } ?>
     </td>
 </tr>
-
+<tr>
+	<th>지도코드</th>
+	<td>
+		<a href="http://dna.daum.net/examples/maps/MissA/step1.php" target="_blank">약도 만들기</a> : 소스 입력<br />
+		<textarea name="wr_map" class=tx style='width:100%; word-break:break-all;' rows=3><?=$write['wr_map']?></textarea>
+	</td>
+</tr>
 </table>
 
 

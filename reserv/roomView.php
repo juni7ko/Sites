@@ -31,8 +31,8 @@ if($file[count]) {
 
 	#roomThumb div { padding:2px; }
 	#roomThumb img {
-		width:77px;
-		height:41px;
+		width:70px;
+		height:44px;
 	}
 	</style>
 

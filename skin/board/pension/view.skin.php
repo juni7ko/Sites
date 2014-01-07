@@ -434,7 +434,7 @@ endforeach;
 		<div>
 			<div class="detail-readme">
 			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
-				<label><input type="radio" onClick="roomFrame(0,'<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][$i]?>&pId=<?=$pension_id?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="roomFrameGo(0,'<?=$viewDateRow['rInfoId'][$i]?>','<?=$pension_id?>');" name='rInfo0' value='<?=$viewDateRow['rInfoId'][$i]?>' <?=(!$i) ? "checked":NULL;?> />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
 			<?php endforeach; ?>
 				<iframe id="roomFrame0" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][0]?>&pId=<?=$pension_id?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
@@ -442,19 +442,36 @@ endforeach;
 
 		<div class="cols">
 			<div class="row title-bg">
-				<h3 class="cal-title">지도</h3>
+				<h3 class="cal-title">지 도</h3>
+				<div class="tright t12"></div>
+			</div><!-- row -->
+		</div>
+<?php if($view[wr_map]) { ?>
+		<div>
+			<div class="detail-readme" style="text-align:center;">
+				<!-- 내용 출력 -->
+				<span id="writeContents"><?=$view[wr_map];?></span>
+
+				<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
+				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
+			</div>
+		</div>
+<?php } ?>
+		<div class="cols">
+			<div class="row title-bg">
+				<h3 class="cal-title">게시판</h3>
 				<div class="tright t12"></div>
 			</div><!-- row -->
 		</div>
 		<div>
 			<div class="detail-readme">
-			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
-				<label><input type="radio" onClick="roomFrame(1,'<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][$i]?>&pId=<?=$pension_id?>');" name='rInfoName' />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
-			<?php endforeach; ?>
-				<iframe id="roomFrame1" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][0]?>&pId=<?=$pension_id?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
+				<label><input type="radio" onClick="penBoard(1, <?=$pension_id?>);" name='rInfo2' />&nbsp;이용후기</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="penBoard(2, <?=$pension_id?>);" name='rInfo2' />&nbsp;질문답변</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="penBoard(3, <?=$pension_id?>);" name='rInfo2' />&nbsp;포토갤러리</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="penBoard(4, <?=$pension_id?>,'/bbs/board.php?bo_table=bbs61');" name='rInfo2' />&nbsp;공지사항</label>&nbsp;&nbsp;&nbsp;
+				<iframe id="penBoard" width="100%" src="about:blank" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
-
 	</div>
 </div>
 
