@@ -90,7 +90,7 @@ $costID = $viewDateRow['rInfoId'][$j];
 <tr class="pay">
 	<td rowspan="2">
 		<h3 class="title">
-			<a href="#detail" onClick="roomFrame(0,'<?=$g4[path]?>/reserv/roomView.php?r_info_id=<?=$viewDateRow['rInfoId'][$j]?>');"><?=$viewDateRow['rInfoName'][$j]?></a>
+			<a href="#detail" onClick="roomFrameGo(0,'<?=$viewDateRow['rInfoId'][$j]?>','<?=$pension_id?>');"><?=$viewDateRow['rInfoName'][$j]?></a>
 		</h3>
 		<span>기준<?=$viewDateRow['rInfoPerson1'][$j]?>/최대<?=$viewDateRow['rInfoPerson2'][$j]?></span>
 		<input type="hidden" name="rInfoId" value="<?=$costID?>" />
