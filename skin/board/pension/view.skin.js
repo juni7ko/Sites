@@ -21,6 +21,6 @@ function roomFrame(i, uri) {
 }
 
 function penBoard(rId, pId) {
-	uri = "/reserv/boardCheck.php?rId="+rId+"&pId="+pId;
+	uri = "/reserv/chkBoard.php?rId="+rId+"&pId="+pId;
 	$("#penBoard").attr("src",uri);
 }
