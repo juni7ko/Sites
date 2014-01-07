@@ -16,7 +16,7 @@
     settings.thumbnails = this.filter('img');
     settings.thumbnails.each(function(n){this.index = n;});
     settings.current = 0;
-    settings.thumbnails.click(function(){ showPhoto(this.index); });
+    settings.thumbnails.mouseover(function(){ showPhoto(this.index); });
     settings.photoElement.click(function(){
       showPhoto((settings.current+1) % settings.thumbnails.length);
     });
