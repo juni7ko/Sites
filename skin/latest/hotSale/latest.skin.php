@@ -127,7 +127,7 @@ echo $list[$i][cf94] ? "벽돌형. " : NULL;
 ?>
 						</h5>
 						<h3>[<?=$list[$i]['location1'] ." ". $list[$i]['location2']; ?>] <?=$list[$i]['subject'] ?></h3>
-						<h4><?=number_format($list[$i]['lowPrice'])?></h4>
+						<h4><?=number_format($list[$i]['lowPrice'])?>원</h4>
 					</div>
 				</div><!-- ./section-group -->
 

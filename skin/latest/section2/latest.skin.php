@@ -23,9 +23,9 @@ if (!is_dir($thumb_path)){
 		$thumb = array();
 
 		// 컨텐츠 내용 삽입
-		$wr_content = preg_replace("/<(.*?)\>/"," ",$list[$i][wr_content]); 
-		$wr_content = preg_replace("/&nbsp;/"," ",$wr_content); 
-		$wr_content = str_replace("//##", " ", $wr_content); 
+		$wr_content = preg_replace("/<(.*?)\>/"," ",$list[$i][wr_content]);
+		$wr_content = preg_replace("/&nbsp;/"," ",$wr_content);
+		$wr_content = str_replace("//##", " ", $wr_content);
 		$wr_content = cut_str(get_text($wr_content), 50, '…');
 
 
@@ -41,7 +41,7 @@ if (!is_dir($thumb_path)){
 				}else if($list[$i][file][$k][view]){
 					$thumb[] = $thumb_path."/". $v['file']; // 썸네일이 생성되면 배열에 썸네일 경로를 넣음
 				}
-                
+
 			}
 		}
 
@@ -72,7 +72,7 @@ $tm['tm'][$i] = $thumb;
 				<a href="<?php echo $list[$i]['href']?>"><img src="<?=$thumb?>" class="image" alt="<?=$list[$i]['subject']?>" /></a>
 				<h5><?=$list[$i]['subject']?></h5>
 				<h3>[<?=$list[$i]['location1'] ." ". $list[$i]['location2']; ?>] <?=$list[$i]['subject'] ?></h3>
-				<h4><?=number_format($list[$i]['lowPrice'])?></h4>
+				<h4><?=number_format($list[$i]['lowPrice'])?>원</h4>
 			</div>
 
 <?php }    // for end

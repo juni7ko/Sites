@@ -35,10 +35,14 @@ if($file[count]) {
 		height:44px;
 	}
 	</style>
-
+<table width="100%" border="0" cellpadding="5" align="center">
+<tr>
+	<td>
 	<div id="photoContainer">
 		<img id="roomPhoto" src=""/>
 	</div>
+	</td>
+	<td valign="top" align="left">
 	<div class="small-thumb-area">
 		<div id="roomThumb">
 		<?php
@@ -54,6 +58,9 @@ if($file[count]) {
 			<br style="clear:both; line-heiht:0px; font-size:0;" />
 		</div>
 	</div>
+	</td>
+</tr>
+</table>
 <?php
 }
 
