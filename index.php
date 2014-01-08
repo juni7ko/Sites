@@ -300,24 +300,18 @@ include_once('./head.index.php');
 
 			<div class="latest">
 				<div>
-					<h3><img src="<?=$g4['path']?>/layout/images/latest_title1.gif" alt="공지사항" /></h3>
+					<h3><a href="/bbs/board.php?bo_table=notice"><img src="<?=$g4['path']?>/layout/images/latest_title1.gif" alt="공지사항" /></a></h3>
 					<div class="contents">
 						<ul>
-							<li>공지하나 공지하나 공지하나 공지하나 공지</li>
-							<li>공지둘</li>
-							<li>공지셋</li>
-							<li>공지넷</li>
+							<?=latest("li",notice,4,50);?>
 						</ul>
 					</div>
 				</div>
 				<div>
-					<h3><img src="<?=$g4['path']?>/layout/images/latest_title2.gif" alt="질문하기" /></h3>
+					<h3><a href="/bbs/board.php?bo_table=qna"><img src="<?=$g4['path']?>/layout/images/latest_title2.gif" alt="질문하기" /></a></h3>
 					<div class="contents">
 						<ul>
-							<li>질문하나</li>
-							<li>질문둘</li>
-							<li>질문셋</li>
-							<li>질문넷</li>
+							<?=latest("li",qna,4,50);?>
 						</ul>
 					</div>
 				</div>
