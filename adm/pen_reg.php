@@ -202,16 +202,22 @@ $nav_sql = mysql_query($area_sql);
 		<td><input type="text" name="pickup" value="<?=($write['pickup']) ? $write['pickup']:"픽업가능(부대/기타 정보참조)";?>"></td>
 	</tr>
 	<tr>
-		<th>할인률</th>
-		<td><input type="text" name="discount" value="<?=$write['discount']?>" disabled></td>
+		<th>최고할인율</th>
+		<td><input type="text" name="discount" value="<?=$write['discount']?>" size=3 disabled />%</td>
 	</tr>
 	<tr>
-		<th>기본요금최저가</th>
-		<td><input type="text" name="lowPrice" value="<?=$write['lowPrice']?>" disabled></td>
+		<th>최저가</th>
+		<td>
+			기본요금 최저가 : <input type="text" name="lowPrice" value="<?=number_format($write['lowPrice'])?>" size=10 disabled />&nbsp;&nbsp;&nbsp;
+			통합요금 최저가 : <input type="text" name="lowPrice2" value="<?=number_format($write['lowPrice2'])?>" size=10 disabled />
+		</td>
 	</tr>
 	<tr>
-		<th>기간요금최저가</th>
-		<td><input type="text" name="lowPrice2" value="<?=$write['lowPrice2']?>" disabled></td>
+		<th>최고가</th>
+		<td>
+			기본요금 최고가 : <input type="text" name="highPrice" value="<?=number_format($write['highPrice'])?>" size=10 disabled />&nbsp;&nbsp;&nbsp;
+			통합요금 최고가 : <input type="text" name="highPrice2" value="<?=number_format($write['highPrice2'])?>" size=10 disabled />
+		</td>
 	</tr>
 	<!-- <tr>
 		<th>사진등록</th>
