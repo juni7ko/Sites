@@ -356,7 +356,6 @@ if ($w == "" || $w == "r")
                     bank_name = '$bank_name',
 	                bank_number = '$bank_number',
                     bank_username = '$bank_username',
-	                discount = '$discount',
 
                     cf1 = '$cf1',
                     cf2 = '$cf2',
@@ -435,7 +434,6 @@ if ($w == "" || $w == "r")
                     cf94 = '$cf94',
 
 					area_id = '$area_id',
-					lowPrice = '$lowPrice',
 					mainPrint = '$mainPrint',
                     mainUse = '$mainUse',
 					payment1 = '$payment1',
@@ -582,7 +580,6 @@ else if ($w == "u")
                     bank_name = '$bank_name',
 	                bank_number = '$bank_number',
                     bank_username = '$bank_username',
-	                discount = '$discount',
 
                     cf1 = '$cf1',
                     cf2 = '$cf2',
@@ -661,7 +658,6 @@ else if ($w == "u")
                     cf94 = '$cf94',
 
 					area_id = '$area_id',
-					lowPrice = '$lowPrice',
 					mainPrint = '$mainPrint',
                     mainUse = '$mainUse',
 					payment1 = '$payment1',

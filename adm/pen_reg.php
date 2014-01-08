@@ -203,11 +203,15 @@ $nav_sql = mysql_query($area_sql);
 	</tr>
 	<tr>
 		<th>할인률</th>
-		<td><input type="text" name="discount" value="<?=$write['discount']?>"></td>
+		<td><input type="text" name="discount" value="<?=$write['discount']?>" disabled></td>
 	</tr>
 	<tr>
-		<th>최저가격</th>
-		<td><input type="text" name="lowPrice" value="<?=$write['lowPrice']?>"></td>
+		<th>기본요금최저가</th>
+		<td><input type="text" name="lowPrice" value="<?=$write['lowPrice']?>" disabled></td>
+	</tr>
+	<tr>
+		<th>기간요금최저가</th>
+		<td><input type="text" name="lowPrice2" value="<?=$write['lowPrice2']?>" disabled></td>
 	</tr>
 	<!-- <tr>
 		<th>사진등록</th>
