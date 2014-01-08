@@ -468,14 +468,28 @@ endforeach;
 				<div class="tright t12"></div>
 			</div><!-- row -->
 		</div>
+<?php
+$gr_id = "pen_" . $pension_id; // 그룹 ID
+$br_id = $gr_id . "_1"; // 게시판 ID
+
+$chkGrp = sql_fetch(" SELECT count(*) as cnt FROM g4_group WHERE gr_id = '$gr_id' ");
+
+if(!$chkGrp[cnt]) {
+	$penBoard = "penBoard2";
+	$brd_url = "/reserv/chkBoard.php?rId=1&pId=" . $pension_id;
+} else {
+	$penBoard = "penBoard";
+	$brd_url = "/bbs/board.php?bo_table=pen_" . $pension_id . "_1";
+}
+?>
 		<div>
 			<div class="detail-readme">
-				<label><input type="radio" onClick="penBoard(1, <?=$pension_id?>);" name='rInfo2' checked />&nbsp;이용후기</label>&nbsp;&nbsp;&nbsp;
-				<label><input type="radio" onClick="penBoard(2, <?=$pension_id?>);" name='rInfo2' />&nbsp;질문답변</label>&nbsp;&nbsp;&nbsp;
-				<label><input type="radio" onClick="penBoard(3, <?=$pension_id?>);" name='rInfo2' />&nbsp;포토갤러리</label>&nbsp;&nbsp;&nbsp;
-				<label><input type="radio" onClick="penBoard(4, <?=$pension_id?>);" name='rInfo2' />&nbsp;공지사항</label>
+				<label><input type="radio" onClick="<?=$penBoard?>(1, <?=$pension_id?>);" name='rInfo2' checked />&nbsp;이용후기</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="<?=$penBoard?>(2, <?=$pension_id?>);" name='rInfo2' />&nbsp;질문답변</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="<?=$penBoard?>(3, <?=$pension_id?>);" name='rInfo2' />&nbsp;포토갤러리</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" onClick="<?=$penBoard?>(4, <?=$pension_id?>);" name='rInfo2' />&nbsp;공지사항</label>
 				<br class="blank" />
-				<iframe id="penBoard" width="100%" src="about:blank" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
+				<iframe id="penBoard" width="100%" src="<?=$brd_url?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
 	</div>

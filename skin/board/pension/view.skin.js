@@ -21,6 +21,11 @@ function roomFrame(i, uri) {
 }
 
 function penBoard(rId, pId) {
+	uri = "/bbs/board.php?bo_table=pen_"+pId+"_"+rId;
+	$("#penBoard").attr("src",uri);
+}
+
+function penBoard2(rId, pId) {
 	uri = "/reserv/chkBoard.php?rId="+rId+"&pId="+pId;
 	$("#penBoard").attr("src",uri);
 }
