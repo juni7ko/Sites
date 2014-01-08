@@ -1,6 +1,5 @@
 <?php
-$g4_path = ".."; // common.php 의 상대 경로
-include_once("$g4_path/common.php");
+include_once("./_common.php");
 $background = "class=bg-ptn1";
 include_once("$g4[path]/head.php");
 ?>
@@ -174,7 +173,7 @@ function resform_submit(f)
 </div><!-- container -->
 </form>
 
-<?php include("$g4[path]/sub/sub_footer.php");?>
-
-<?php include_once("../tail.php");
+<?php
+include_once("$g4[path]/sub/sub_footer.php");
+include_once("$g4[path]/tail.php");
 ?>

@@ -1,6 +1,5 @@
 <?php
-$g4_path = ".."; // common.php 의 상대 경로
-include_once("$g4_path/common.php");
+include_once("./_common.php");
 include_once($g4['path'].'/head.sub.php');
 
 if(!$rid && $pId) alert("잘못된 접근입니다.");
