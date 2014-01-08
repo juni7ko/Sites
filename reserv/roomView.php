@@ -29,10 +29,15 @@ if($file[count]) {
 		height:433px;
 	}
 
-	#roomThumb div { padding:2px; }
+	#roomThumb div {
+		margin-bottom:4px;
+		margin-right:0px;
+		margin-left:4px;
+		margin-top:0px;
+	}
 	#roomThumb img {
-		width:70px;
-		height:44px;
+		width:150px;
+		height:100px;
 	}
 	</style>
 <table width="100%" border="0" cellpadding="5" align="center">
