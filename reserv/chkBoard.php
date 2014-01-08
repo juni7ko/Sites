@@ -34,114 +34,119 @@ if(!$chkGrp[cnt]) {
 	echo "게시판 그룹 생성 완료 .....<br />";
 }
 
-// 2단계 - 게시판 생성 여부 확인
-$chkBrd = sql_fetch(" SELECT count(*) as cnt FROM g4_board WHERE gr_id = '$gr_id' AND bo_table = '$br_id' ");
+for($i = 1; $i < 5; $i++) {
+	$rId = $i;
+	$br_id = $gr_id . "_" . $rId;
 
-if(!$chkBrd[cnt]) {
-	$penName = sql_fetch(" SELECT wr_subject FROM g4_write_pension_info WHERE pension_id = '$pId' LIMIT 1 ");
+	// 2단계 - 게시판 생성 여부 확인
+	$chkBrd = sql_fetch(" SELECT count(*) as cnt FROM g4_board WHERE gr_id = '$gr_id' AND bo_table = '$br_id' ");
 
-	$bo_skin = "basic";
-	$bo_page_rows = "15";
-	$bo_write_level = "1";
-	$bo_use_secret = "0";
-	$bo_upload_count = "2";
+	if(!$chkBrd[cnt]) {
+		$penName = sql_fetch(" SELECT wr_subject FROM g4_write_pension_info WHERE pension_id = '$pId' LIMIT 1 ");
 
-	switch ($rId) {
-		case '1':
-			$rName = $penName['wr_subject'] . " 이용후기";
-			break;
-		case '2':
-			$rName = $penName['wr_subject'] . " 질문답변";
-			$bo_use_secret = "2";
-			break;
-		case '3':
-			$rName = $penName['wr_subject'] . " 포토갤러리";
-			$bo_skin = "basic_gallery";
-			$bo_page_rows = "16";
-			$bo_upload_count = "0";
-			break;
-		case '4':
-			$rName = $penName['wr_subject'] . " 공지사항";
-			$bo_write_level = "5";
-			break;
-		default:
-			$rName = $penName['wr_subject'];
-			break;
+		$bo_skin = "basic";
+		$bo_page_rows = "15";
+		$bo_write_level = "1";
+		$bo_use_secret = "0";
+		$bo_upload_count = "2";
+
+		switch ($rId) {
+			case '1':
+				$rName = $penName['wr_subject'] . " 이용후기";
+				break;
+			case '2':
+				$rName = $penName['wr_subject'] . " 질문답변";
+				$bo_use_secret = "2";
+				break;
+			case '3':
+				$rName = $penName['wr_subject'] . " 포토갤러리";
+				$bo_skin = "basic_gallery";
+				$bo_page_rows = "16";
+				$bo_upload_count = "0";
+				break;
+			case '4':
+				$rName = $penName['wr_subject'] . " 공지사항";
+				$bo_write_level = "5";
+				break;
+			default:
+				$rName = $penName['wr_subject'];
+				break;
+		}
+
+		echo $rName . " 게시판 생성중 .....<br />";
+		//중복되지 않는 부분.
+		$sql_diff = "bo_table           = '$br_id',
+					gr_id               = '$gr_id',
+					bo_subject          = '$rName',
+					bo_use_secret       = '$bo_use_secret',
+					bo_write_level      = '$bo_write_level',
+					bo_image_width      = '900',
+					bo_skin             = '$bo_skin',
+					bo_gallery_cols     = '4',
+					bo_page_rows        = '$bo_page_rows',
+					bo_upload_count     = '$bo_upload_count'
+					";
+
+		// 중복되는 부분.
+		$sql_common = "bo_admin         = '',
+	                bo_list_level       = '1',
+	                bo_read_level       = '1',
+	                bo_reply_level      = '3',
+	                bo_comment_level    = '1',
+	                bo_html_level       = '1',
+	                bo_link_level       = '1',
+	                bo_trackback_level  = '1',
+	                bo_count_modify     = '1',
+	                bo_count_delete     = '1',
+	                bo_upload_level     = '1',
+	                bo_download_level   = '1',
+	                bo_read_point       = '0',
+	                bo_write_point      = '0',
+	                bo_comment_point    = '0',
+	                bo_download_point   = '0',
+	                bo_use_category     = '0',
+	                bo_category_list    = '',
+	                bo_disable_tags     = '',
+	                bo_use_sideview     = '0',
+	                bo_use_file_content = '0',
+	                bo_use_dhtml_editor = '1',
+	                bo_use_rss_view     = '0',
+	                bo_use_comment      = '0',
+	                bo_use_good         = '0',
+	                bo_use_nogood       = '0',
+	                bo_use_name         = '1',
+	                bo_use_signature    = '0',
+	                bo_use_ip_view      = '0',
+	                bo_use_trackback    = '0',
+	                bo_use_list_view    = '1',
+	                bo_use_list_content = '0',
+	                bo_use_email        = '0',
+	                bo_table_width      = '97',
+	                bo_subject_len      = '80',
+	                bo_new              = '24',
+	                bo_hot              = '100',
+	                bo_include_head     = '',
+	                bo_include_tail     = '',
+	                bo_content_head     = '',
+	                bo_content_tail     = '',
+	                bo_insert_content   = '',
+	                bo_upload_size      = '11048576',
+	                bo_reply_order      = '1',
+	                bo_use_search       = '1',
+	                bo_order_search     = '0',
+	                bo_write_min        = '0',
+	                bo_write_max        = '0',
+	                bo_comment_min      = '0',
+	                bo_comment_max      = '0',
+	                bo_sort_field       = '' ";
+
+		$b_sql = " INSERT INTO g4_board SET
+	                bo_count_write = '0',
+	                bo_count_comment = '0',
+					$sql_diff,
+					$sql_common ";
+	    sql_query($b_sql);
 	}
-
-	echo $rName . " 게시판 생성중 .....<br />";
-	//중복되지 않는 부분.
-	$sql_diff = "bo_table           = '$br_id',
-				gr_id               = '$gr_id',
-				bo_subject          = '$rName',
-				bo_use_secret       = '$bo_use_secret',
-				bo_write_level      = '$bo_write_level',
-				bo_image_width      = '900',
-				bo_skin             = '$bo_skin',
-				bo_gallery_cols     = '4',
-				bo_page_rows        = '$bo_page_rows',
-				bo_upload_count     = '$bo_upload_count'
-				";
-
-	// 중복되는 부분.
-	$sql_common = "bo_admin         = '',
-                bo_list_level       = '1',
-                bo_read_level       = '1',
-                bo_reply_level      = '3',
-                bo_comment_level    = '1',
-                bo_html_level       = '1',
-                bo_link_level       = '1',
-                bo_trackback_level  = '1',
-                bo_count_modify     = '1',
-                bo_count_delete     = '1',
-                bo_upload_level     = '1',
-                bo_download_level   = '1',
-                bo_read_point       = '0',
-                bo_write_point      = '0',
-                bo_comment_point    = '0',
-                bo_download_point   = '0',
-                bo_use_category     = '0',
-                bo_category_list    = '',
-                bo_disable_tags     = '',
-                bo_use_sideview     = '0',
-                bo_use_file_content = '0',
-                bo_use_dhtml_editor = '1',
-                bo_use_rss_view     = '0',
-                bo_use_comment      = '0',
-                bo_use_good         = '0',
-                bo_use_nogood       = '0',
-                bo_use_name         = '1',
-                bo_use_signature    = '0',
-                bo_use_ip_view      = '0',
-                bo_use_trackback    = '0',
-                bo_use_list_view    = '1',
-                bo_use_list_content = '0',
-                bo_use_email        = '0',
-                bo_table_width      = '97',
-                bo_subject_len      = '80',
-                bo_new              = '24',
-                bo_hot              = '100',
-                bo_include_head     = '',
-                bo_include_tail     = '',
-                bo_content_head     = '',
-                bo_content_tail     = '',
-                bo_insert_content   = '',
-                bo_upload_size      = '11048576',
-                bo_reply_order      = '1',
-                bo_use_search       = '1',
-                bo_order_search     = '0',
-                bo_write_min        = '0',
-                bo_write_max        = '0',
-                bo_comment_min      = '0',
-                bo_comment_max      = '0',
-                bo_sort_field       = '' ";
-
-	$b_sql = " INSERT INTO g4_board SET
-                bo_count_write = '0',
-                bo_count_comment = '0',
-				$sql_diff,
-				$sql_common ";
-    sql_query($b_sql);
 
 	$brdSql = "CREATE TABLE IF NOT EXISTS `g4_write_{$br_id}` (
 		  `wr_id` int(11) NOT NULL auto_increment,
