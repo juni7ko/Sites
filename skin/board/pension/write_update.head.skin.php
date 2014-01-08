@@ -11,10 +11,9 @@
 
 	for($i=0; $i < $res2_roomCount; $i++)
 	{
-		$chkSql = " SELECT * FROM {$write_table2} WHERE pension_id = '$pension_id' AND r_info_id = '$res2_r_info_id[$i]' AND wr_link2 = '$res2_rDateTmp[$i]' LIMIT 1 ";
-		$chkRoom = sql_fetch($chkSql);
+		$chkRoom = sql_fetch(" SELECT count(*) as cnt FROM {$write_table2} WHERE pension_id = '$pension_id' AND r_info_id = '$res2_r_info_id[$i]' AND wr_link2 = '$res2_rDateTmp[$i]' LIMIT 1 ");
 
-		if($chkRoom)
+		if($chkRoom[cnt])
 		{
 			$errCode = 1;
 			break;

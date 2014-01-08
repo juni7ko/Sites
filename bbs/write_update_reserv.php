@@ -555,7 +555,6 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
         mailer($wr_name, $wr_email, $unique_email[$i], $subject, $content, 1);
     }
 }
-
 // 사용자 코드 실행
 @include_once ("$board_skin_path/write_update.skin.php");
 
@@ -585,5 +584,5 @@ else
     goto_url("{$https_url}/board.php?bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr);
 */
 // 예약완료후 페이지 이동
-goto_url("{$g4[url]}/");
+//goto_url($goto_url);
 ?>

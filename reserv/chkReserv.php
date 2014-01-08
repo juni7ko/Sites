@@ -169,6 +169,14 @@ switch ($rList2['rResult']) {
 					</table>
 					<div class="res-comment">
 						<ul>
+							<li class="title"><h2>예약번호</h2>
+								<ol>
+									<li><span class="highlight-pink"><?=$wr_3?></span></li>
+								</ol>
+							</li>
+						</ul>
+
+						<ul>
 							<li class="title"><h2>진행상태</h2>
 								<ol>
 									<li><span class="highlight-pink"><?=$rResult?></span></li>
@@ -211,15 +219,41 @@ switch ($rList2['rResult']) {
 						<ul>
 							<li class="title"><h2>입금계좌</h2>
 								<ol>
-									<li>농협 301-0081-3040-81 조용만</li>
+									<li>입금계좌: <?=get_text($config[cf_1])?></li>
+									<li>문의 : <?=get_text($config[cf_2])?></li>
 								</ol>
 							</li>
 						</ul>
 
 						<ul>
 							<li class="title"><h2>입금시간안내</h2>
+								<table class="tbl">
+								<tr>
+									<th>예약 신청 시간</th>
+									<th>입금 완료 시간</th>
+								</tr>
+								<tr>
+									<td>당일 새벽 00시 부터 오전 8시 이전</td>
+									<td>오전 10시 이전까지 입금</td>
+								</tr>
+								<tr>
+									<td>오전 08시 부터 낮 12시 이전</td>
+									<td>오후 2시 이전까지 입금</td>
+								</tr>
+								<tr>
+									<td>오후 12시 부터 오후 4시 이전</td>
+									<td>오후 6시 이전까지 입금</td>
+								</tr>
+								<tr>
+									<td>오후 4시 부터 밤 8시 이전	</td>
+									<td>오후 9시 이전까지 입금</td>
+								</tr>
+								<tr>
+									<td>오후 8시 부터 밤 12시 이전</td>
+									<td>다음날 오전 10시 이전까지 입금</td>
+								</tr>
+								</table>
 								<ol>
-									<li>2013년 05월 29일 22시 30분까지 (예약후 24시간 이내)</li>
 									<li>지정된 시간까지 입금되지 않으면 자동으로 예약취소됩니다.</li>
 									<li>입금시간후 입금하셨을 경우에는 확인절차를 거쳐 환불처리 됩니다.</li>
 									<li>1일전예약 또는 당일예약일 경우는 예약후 바로 입금하셔야 예약완료가 됩니다. </li>
