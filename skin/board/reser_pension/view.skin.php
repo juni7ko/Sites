@@ -23,12 +23,6 @@ include_once ("$board_skin_path/config.php");
 			<table width="100%" border="0" cellpadding="3" cellspacing="1" align="center" class="<?=$css[table]?>">
 				<tr>
 					<td>
-<?php
-$from_date = str_replace("http://","",$view[link][1]);
-$to_date = str_replace("http://","",$view[link][2]);
-$from_date = substr($from_date,0,4)."년 ".sprintf("%2d",substr($from_date,4,2))."월 ".sprintf("%2d",substr($from_date,6,2))."일";
-$to_date   = substr($to_date,0,4)."년 ".sprintf("%2d",substr($to_date,4,2))."월 ".sprintf("%2d",substr($to_date,6,2))."일";
-?>
 						<table width="100%" border=0 cellpadding=3 cellspacing=1 class="<?=$css[table]?>">
 							<tr class="ht">
 								<td class="<?=$css[tr]?>" width="100">처리상태</td>
@@ -61,9 +55,7 @@ $to_date   = substr($to_date,0,4)."년 ".sprintf("%2d",substr($to_date,4,2))."�
 										<input type=image id="btn_submit" src="<?=$board_skin_path?>/img/btn_wr_9.gif" border=0 accesskey='s' align="absmiddle" />
 									</form>
 									<?php } else { ?>
-									<font color=red>
-									<?=$view[rResult]?>
-									</font>
+										<font color=red><?=get_payMent($view[rResult])?></font>
 									<?php } ?>
 								</td>
 							</tr>
