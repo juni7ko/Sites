@@ -105,7 +105,10 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 			$r_state = Get_Room_Info_One2($bo_table, $r_name, 'cnt') - $row[cnt]; // 예약취소를 제외한 갯수
 			
 			if($r_state >= 1) {
-				$r_print = "{$rstate_ye}<a href='{$link_url}'>{$r_name2}({$r_state})</a>";
+				//if($is_admin)
+				//	$r_print = "{$rstate_ye}<a href='{$link_url}'>{$r_name2}({$r_state})</a>";
+				//else
+					$r_print = "{$rstate_ye}<a href='{$link_url}'>{$r_name2}</a>";
 	
 				if(Get_Date_Tel2($pdate,$r_name) == $r_name) {
 					if($is_admin) $r_print = "{$rstate_jen}<a href='{$link_url}'>{$r_name2}</a>";
@@ -147,5 +150,26 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 	$r_print = "<dt>" . $r_print . "</dt>";
 	
 	return $r_print;
+}
+
+function Get_Room_Select2($bo_table,$f_name,$r_name) {
+	global $bo_table, $write_table, $pension_id;
+	
+	$sql1 = "SELECT r_info_name, r_info_id FROM {$write_table}_r_info where pension_id = '$pension_id' ORDER BY r_info_order DESC ;";
+	$up_cate = "";
+	$result = sql_query($sql1);
+	
+	for ($i=0; $r_info = sql_fetch_array($result); $i++)  {
+		/*
+		if($r_info[r_info_name] == $r_name)
+			$up_cate .= "<option value='{$r_info[r_info_id]}' selected>$r_info[r_info_name]</option>";
+		else
+			$up_cate .= "<option value='{$r_info[r_info_id]}'>$r_info[r_info_name]</option>";
+		*/
+		$up_cate .= "<option value='{$r_info[r_info_id]}'>$r_info[r_info_name]</option>";
+	}
+	
+	$r_value = "<select name='{$f_name}'>" . $up_cate . "</select>";
+	return $r_value;
 }
 ?>

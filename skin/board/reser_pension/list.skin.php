@@ -10,9 +10,6 @@ if ($view_mode == "list"){
 	include_once ("$board_skin_path/list.cost.php");
 } else {
 
-	if(!$year && !$month)
-		$v_curr = 1;
-
 	if (eregi('%', $width)) {
 		$col_width = "14%"; //표의 가로 폭이 100보다 크면 픽셀값입력
 	}else{
@@ -32,27 +29,20 @@ if ($view_mode == "list"){
 	if ($year%4 == 0) $lastday[2] = 29;
 	$dayoftheweek = date("w", mktime (0,0,0,$month,1,$year));
 
-if(!$v_curr) {
+
 	$r_start_day = $year . sprintf("%02d",$month) . "01";
 	$r_start_day_tmp = mktime(12,0,0,$month,1,$year);
 	$r_end_day = $year . sprintf("%02d",$month) . $lastday[$month];
 	$r_end_day_tmp = mktime(12,0,0,$month,$lastday[$month],$year);
-} else {
-	$r_start_day = $b_year . sprintf("%02d",$b_mon) . $b_day;
-	$r_start_day_tmp = mktime(12,0,0,$b_mon,$b_day,$b_year);
-	$r_end_day_tmp = $r_start_day_tmp + (86400 * 31);
-	$r_end_day = date("Ymd", $r_end_day_tmp);
-	$dayoftheweek = date("w", mktime (0,0,0,$month,$day,$year));
-}
 	
-	//$cnt_read = sql_fetch(" SELECT count(wr_id) as cnt FROM {$write_table} WHERE wr_4 != '예약취소' and wr_link1 <= $r_end_day and wr_link2 > $r_start_day");
+	$cnt_read = sql_fetch(" SELECT count(wr_id) as cnt FROM {$write_table} WHERE pension_id = '$pension_id' and wr_4 != '예약취소' and wr_link1 <= $r_end_day and wr_link2 > $r_start_day");
 
-	//if($cnt_read[cnt] >= 100) {
-	//	$chk_list = "0";
-	//} else {
+	if($cnt_read[cnt] >= 100) {
+		$chk_list = "0";
+	} else {
 		$chk_list = "1";
 		include_once ("$board_skin_path/config_n.php");
-	//}
+	}
 ?>
 <link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.css" type="text/css">
 <link rel="stylesheet" href="<?=$board_skin_path?>/mstyle.css" type="text/css">
@@ -132,7 +122,7 @@ if (!$member['mb_id']) {
 ############################## 2010-07-07 Start
 if($chk_list) {
 	## $rd_day Start
-	$read_month_sql = " SELECT * FROM {$write_table} WHERE wr_4 != '예약취소' and wr_link1 <= $r_end_day and wr_link2 > $r_start_day";
+	$read_month_sql = " SELECT * FROM {$write_table} WHERE pension_id = $pension_id and  wr_4 != '예약취소' and wr_link1 <= $r_end_day and wr_link2 > $r_start_day";
 	$read_month = sql_query($read_month_sql);
 	
 	for ($i=0; $r_month = sql_fetch_array($read_month); $i++)  {
@@ -146,7 +136,7 @@ if($chk_list) {
 	## $rd_day End
 	
 	## $rd_close Start
-	$read_close_sql = " SELECT * FROM {$write_table}_r_close WHERE r_close_date <= $r_end_day_tmp AND r_close_date2 >= $r_start_day_tmp";
+	$read_close_sql = " SELECT * FROM {$write_table}_r_close WHERE pension_id = $pension_id and  r_close_date <= $r_end_day_tmp AND r_close_date2 >= $r_start_day_tmp";
 	$read_close = sql_query($read_close_sql);
 	
 	for ($i=0; $r_close = sql_fetch_array($read_close); $i++)  {
@@ -157,7 +147,7 @@ if($chk_list) {
 	## $rd_close End
 	
 	## $rd_info Start
-	$read_info_sql = " SELECT * FROM {$write_table}_r_info";
+	$read_info_sql = " SELECT * FROM {$write_table}_r_info where pension_id = $pension_id ";
 	$read_info = sql_query($read_info_sql);
 	
 	for ($i=0; $r_info = sql_fetch_array($read_info); $i++)  {
@@ -167,7 +157,7 @@ if($chk_list) {
 	## $rd_info End
 	
 	## $rd_tel Start
-	$read_tel_sql = " SELECT * FROM {$write_table}_r_tel WHERE r_tel_date <= $r_end_day_tmp AND r_tel_date2 >= $r_start_day_tmp";
+	$read_tel_sql = " SELECT * FROM {$write_table}_r_tel WHERE pension_id = $pension_id and  r_tel_date <= $r_end_day_tmp AND r_tel_date2 >= $r_start_day_tmp";
 	$read_tel = sql_query($read_tel_sql);
 	
 	for ($i=0; $r_tel = sql_fetch_array($read_tel); $i++)  {
@@ -178,7 +168,7 @@ if($chk_list) {
 	## $rd_tel End
 	
 	## $rd_off Start
-	$read_off_sql = " SELECT * FROM {$write_table}_r_off WHERE r_off_date <= $r_end_day_tmp AND r_off_date2 >= $r_start_day_tmp";
+	$read_off_sql = " SELECT * FROM {$write_table}_r_off WHERE pension_id = $pension_id and  r_off_date <= $r_end_day_tmp AND r_off_date2 >= $r_start_day_tmp";
 	$read_off = sql_query($read_off_sql);
 	
 	for ($i=0; $r_off = sql_fetch_array($read_off); $i++)  {
@@ -189,7 +179,7 @@ if($chk_list) {
 	## $rd_off End
 	
 	## $rd_date Start
-	$read_date_sql = " SELECT * FROM {$write_table}_r_date WHERE r_date_sdate <= $r_end_day_tmp AND r_date_edate >= $r_start_day_tmp";
+	$read_date_sql = " SELECT * FROM {$write_table}_r_date WHERE pension_id = $pension_id and  r_date_sdate <= $r_end_day_tmp AND r_date_edate >= $r_start_day_tmp";
 	$read_date = sql_query($read_date_sql);
 	
 	for ($i=0; $r_date = sql_fetch_array($read_date); $i++)  {
@@ -202,7 +192,7 @@ if($chk_list) {
 ############################## 2010-07-07 End
 																				
 																				
-	$sql = " SELECT r_info_name, r_info_cnt FROM {$write_table}_r_info order by r_info_order ASC ";
+	$sql = " SELECT r_info_name, r_info_cnt FROM {$write_table}_r_info where pension_id = $pension_id order by r_info_order ASC ";
 	$result = sql_query($sql);
 	$r_total = 0;
 
@@ -212,10 +202,7 @@ if($chk_list) {
 		$r_total++;
 	}
 	
-	if(!$v_curr)
-		$cday = 1;
-	else
-		$cday = $b_day;
+	$cday = 1;
 
 	// 달력의 틀을 보여주는 부분
 	$temp = 7- (($lastday[$month]+$dayoftheweek)%7);
@@ -228,16 +215,11 @@ if($chk_list) {
 		if ($b_year==$year && $b_mon==$month && $b_day==$cday) $bgcolor = "#f3f3f3";
 		if (($iz%7) == 1) echo ("<tr>\n"); // 주당 7개씩 한쎌씩을 쌓는다.
 		if ($dayoftheweek < $iz  &&  $iz <= $lastday[$month]+$dayoftheweek)	{ // 전체 루프안에서 숫자가 들어가는 셀들만 해당됨. 즉 11월 달에서 1일부터 30 일까지
-
-			$f_date = date("Ymd", mktime(0,0,0,$month,$cday,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
-			$f1_date = date("Ymd", mktime(0,0,0,$month,$cday+1,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
-
-			$py = substr($f_date,0,4);
-			$pm = substr($f_date,4,2);
-			$pd = substr($f_date,6,2);
-			$pdate = mktime(12,0,0,$pm,$pd,$py);
-			
-			$daytext = "{$pm}월 {$pd}일";   // $pd 는 숫자 예> 11월달은 1~ 30일 까지//$daytext 은 셀에 써질 날짜 숫자 넣을 공간
+			if ($cday < 10 ) {
+				 $daytext = "0$cday";
+			} else {
+				 $daytext = "$cday";   // $cday 는 숫자 예> 11월달은 1~ 30일 까지//$daytext 은 셀에 써질 날짜 숫자 넣을 공간
+			}
 	
 			if ($iz%7 == 1) $daytext = "<span style='color:red'>$daytext</span>"; // 일요일
 			if ($iz%7 == 0) $daytext = "<span style='color:blue'>$daytext</span>"; // 토요일
@@ -248,22 +230,29 @@ if($chk_list) {
 			} else {
 				echo "<td width=$col_width height=$col_height bgcolor=$bgcolor align=left valign=top class='day'>\n";
 			}
+		
+			$f_date = date("Ymd", mktime(0,0,0,$month,$cday,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
+			$f1_date = date("Ymd", mktime(0,0,0,$month,$cday+1,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
+			echo "<div align='right'>";
+	
+			$py = substr($f_date,0,4);
+			$pm = substr($f_date,4,2);
+			$pd = substr($f_date,6,2);
+			$pdate = mktime(12,0,0,$pm,$pd,$py);
 			
 			if($is_admin) $daytext = "<a href='#' onclick='viewCallPop(\"{$board_skin_path}/list.call.popup2.php?bo_table={$bo_table}&pdate={$f_date}\",800,500);'>$daytext</a>";
 			//if($is_admin) $daytext = "<a href='#' onclick='viewCallPop(\"{$board_skin_path}/list.call.popup2.php?bo_table={$bo_table}&pdate={$pdate}\",800,500);'>$daytext</a>";
-			echo "<div style='text-align:right;' class='cal_sdate'>{$daytext}</div>";
-			echo "<div style='text-align:right;'>&nbsp;";
 			if($chk_list) {
 				if(Get_Date_Off2($pdate)) {
-					echo "<span style='color:red;'>".Get_Date_Off2($pdate)."</span>"; //날짜 출력
+					echo "<span style='color:red; padding:2px;'>" . Get_Date_Off2($pdate) . "<span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
 				} else {
-					echo "<span style='color:green;'>".Get_Date_Type_Cal2($pdate)."</span>"; //날짜 출력
+					echo "<span style='color:green;'>".Get_Date_Type_Cal2($pdate)."</span> <span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
 				}
 			} else {
 				if(Get_Date_Off($pdate)) {
-					echo "<span style='color:red;'>".Get_Date_Off($pdate)."</span>"; //날짜 출력
+					echo "<span style='color:red; padding:2px;'>" . Get_Date_Off($pdate) . "<span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
 				} else {
-					echo "<span style='color:green;'>".Get_Date_Type_Cal($pdate)."</span>"; //날짜 출력
+					echo "<span style='color:green;'>".Get_Date_Type_Cal($pdate)."</span> <span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
 				}
 			}
 			echo "</div>";
@@ -279,6 +268,7 @@ if($chk_list) {
 						echo Get_Date_Reserv($bo_table, $r_name[$c], $rc_date, "$g4[bbs_path]/step2.php?bo_table={$bo_table}&f_date={$f_date}&t_date={$f1_date}&sca={$r_name[$c]}");
 					}
 				}// for 끝
+
 			} else {
 				if($year > $b_year || ($year >= $b_year && $month == $b_mon && $cday >= $b_day) || ($year >= $b_year && $month > $b_mon)) {
 					for($c=0; $c < count($r_name); $c++) {//기본 카테고리 출력
@@ -287,7 +277,11 @@ if($chk_list) {
 						} else {
 							echo Get_Date_Reserv($bo_table, $r_name[$c], $rc_date, "$g4[bbs_path]/step2.php?bo_table={$bo_table}&f_date={$f_date}&t_date={$f1_date}&sca={$r_name[$c]}");
 						}
+						
 					}// for 끝
+
+
+
 				} else {
 					//echo "예약종료";
 					echo "<img src='{$board_skin_path}/img_n/jong.gif' align='absmiddle' />";

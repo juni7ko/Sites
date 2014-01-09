@@ -1,4 +1,0 @@
-2011-08-31
-	- 추가옵션에서 숫자를 선택하여 반영되도록 수정
-	: config.php - Get_Option_list
-	: write.skin.php - $wr_reserv_print, $total_p

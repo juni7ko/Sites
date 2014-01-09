@@ -6,11 +6,9 @@ include_once("$g4[path]/head.php");
 $wr_password = sql_password($wr_password);
 
 function alert_and_back($msg){
-    echo("<script language=javascript>
-        <!--
+    echo("<script type='text/javascript'>
             alert('$msg');
             history.back();
-        //-->
         </script>");
 }
 
@@ -145,25 +143,6 @@ if($res_error){
     alert_and_back($msg);
     exit;
 }
-
-switch ($rList2['rResult']) {
-	case '0010':
-		$rResult = "예약대기";
-		break;
-	case '0020':
-		$rResult = "예약완료";
-		break;
-	case '0030':
-		$rResult = "예약취소";
-		break;
-	case '0040':
-		$rResult = "관리자예약";
-		break;
-
-	default:
-		$rResult = "예약대기";
-		break;
-}
 ?>
 						</tbody>
 					</table>
@@ -179,7 +158,7 @@ switch ($rList2['rResult']) {
 						<ul>
 							<li class="title"><h2>진행상태</h2>
 								<ol>
-									<li><span class="highlight-pink"><?=$rResult?></span></li>
+									<li><span class="highlight-pink"><?=get_rResult($rList2['rResult'])?></span></li>
 								</ol>
 							</li>
 						</ul>

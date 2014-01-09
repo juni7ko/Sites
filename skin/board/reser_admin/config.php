@@ -1,4 +1,5 @@
-<?php include_once("config_n.php"); 
+<?php
+include_once("config_n.php");
 
 if($bo_table=="bbs34") $bo_table="bbs34";
 if($write_table=="g4_write_reser_admin") $write_table = "g4_write_bbs34";
@@ -12,7 +13,7 @@ if(strlen($wr_link1)>0 && strlen($wr_link2)>0) {  // 받은 날짜 argument 가 
  $t_day = substr($wr_link2,6,2);
  $f_date = date("Ymd", mktime(0,0,0,$f_mon,$f_day,$f_year));
  $t_date = date("Ymd", mktime(0,0,0,$t_mon,$t_day,$t_year));
- 
+
 }  elseif(strlen($f_date)>0 && strlen($t_date)>0) { // 받은 날짜 argument 가 없거나, 이상할 때 오늘날짜로 세팅...
  $f_year = substr($f_date,0,4);
  $f_mon = substr($f_date,4,2);
@@ -25,14 +26,14 @@ if(strlen($wr_link1)>0 && strlen($wr_link2)>0) {  // 받은 날짜 argument 가 
 }  else {                                    // 받은 날짜 argument 가 없거나, 이상할 때 오늘날짜로 세팅...
  $today = getdate();
  $f_mon = $today['mon'];$f_day = $today['mday'];$f_year = $today['year'];
- $t_mon = $today['mon'];$t_day = $today['mday'];$t_year = $today['year'];   
+ $t_mon = $today['mon'];$t_day = $today['mday'];$t_year = $today['year'];
 
  $f_date = date("Ymd", mktime(0,0,0,$f_mon,$f_day,$f_year));
  $t_date = date("Ymd", mktime(0,0,0,$t_mon,$t_day+1,$t_year));
 }
 
 // 카테고리 이름 얻기
-function get_cat_name($cat_id) 
+function get_cat_name($cat_id)
 {
 
     $row=sql_fetch(" SELECT cat_name FROM cs_cat WHERE cat_id = '$cat_id' ");
@@ -44,13 +45,13 @@ function get_category_list($bo_table)
 {
     global $g4, $category_location;
 
-    $sql = " select bo_category_list from $g4[board_table] where bo_table = '$bo_table' ";
+    $sql = " SELECT bo_category_list from $g4[board_table] where bo_table = '$bo_table' ";
     $row = sql_fetch($sql);
     $arr = explode("|", $row[bo_category_list]); // 구분자가 , 로 되어 있음
     $str = "";
     for ($i=0; $i<count($arr); $i++) {
         if($i>0) $str .= " | ";
-        if (trim($arr[$i])) $str .= "<a href=\"javascript:location='{$category_location}$arr[$i]'\">$arr[$i]</a> \n"; 
+        if (trim($arr[$i])) $str .= "<a href=\"javascript:location='{$category_location}$arr[$i]'\">$arr[$i]</a> \n";
     }
     return $str;
 }
@@ -63,7 +64,7 @@ function get_sort_list($sortlist)
     $s_href = $_SERVER["PHP_SELF"]."?bo_table=$bo_table&sca=$sca&sst=";
     for($i=0;$i<count($sortlist);$i++){
         $css1=$css2="";
-        if($sst==$sortlist[$i][0]) $css1 ="<span class='l_cat_s'>"; $css2 = "</span>"; 
+        if($sst==$sortlist[$i][0]) $css1 ="<span class='l_cat_s'>"; $css2 = "</span>";
         if($i>0) $str .= " | ";
         $str .= "<a href='{$s_href}{$sortlist[$i][0]}'>{$css1}{$sortlist[$i][1]}{$css2}</a>\n";
     }
@@ -72,7 +73,7 @@ function get_sort_list($sortlist)
 
 function Up_Cate($bo_table) {
 	global $bo_table, $write_table;
-	
+
 	$sql1 = "SELECT r_info_name FROM {$write_table}_r_info ORDER BY r_info_order DESC ;";
 	$up_cate = "";
 	$result = sql_query($sql1);
@@ -82,14 +83,14 @@ function Up_Cate($bo_table) {
 		else
 			$up_cate = $r_info[r_info_name];
 	}
-	
+
 	$sql2 = "UPDATE g4_board SET bo_category_list = '$up_cate', bo_use_category = '1', bo_use_secret = '2' WHERE bo_table ='$bo_table' LIMIT 1 ;";
 	sql_fetch($sql2);
 }
 
 function Get_Room($bo_table) {
 	global $bo_table, $write_table;
-	
+
 	$sql1 = "SELECT r_info_name FROM {$write_table}_r_info ORDER BY r_info_order DESC ;";
 	$up_cate = "";
 	$result = sql_query($sql1);
@@ -99,31 +100,31 @@ function Get_Room($bo_table) {
 		else
 			$up_cate = $r_info[r_info_name];
 	}
-	
+
 	return $up_cate;
 }
 
 function Get_Room_Select($bo_table,$f_name,$r_name) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$sql1 = "SELECT r_info_name FROM {$write_table}_r_info where pension_id = '$pension_id' ORDER BY r_info_order DESC ;";
 	$up_cate = "";
 	$result = sql_query($sql1);
-	
+
 	for ($i=0; $r_info = sql_fetch_array($result); $i++)  {
 		if($r_info[r_info_name] == $r_name)
 			$up_cate .= "<option value='{$r_info[r_info_name]}' selected>$r_info[r_info_name]</option>";
 		else
 			$up_cate .= "<option value='{$r_info[r_info_name]}'>$r_info[r_info_name]</option>";
 	}
-	
+
 	$r_value = "<select name='{$f_name}'>" . $up_cate . "</select>";
 	return $r_value;
 }
 
 function Get_Room_Cost($bo_table, $cost_field) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$info_sql = "SELECT r_info_id FROM {$write_table}_r_info where pension_id = '$pension_id' ORDER BY r_info_order DESC ;";
 	$cost_value = "";
 	$ss = "r_cost_" . $cost_field;
@@ -136,15 +137,15 @@ function Get_Room_Cost($bo_table, $cost_field) {
 		else
 			$cost_value = $room_cost[$ss];
 	}
-	
+
 	return $cost_value;
 }
 
 function Get_Room_Cost_One($bo_table, $r_name, $cost_field) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$ss = "r_cost_" . $cost_field;
-	
+
 	$info_sql = "SELECT r_info_id FROM {$write_table}_r_info WHERE  pension_id = '$pension_id' and r_info_name = '$r_name' ";
 	$r_info = sql_fetch($info_sql);
 
@@ -152,24 +153,24 @@ function Get_Room_Cost_One($bo_table, $r_name, $cost_field) {
 		$cost_sql = "SELECT $ss FROM {$write_table}_r_cost WHERE  pension_id = '$pension_id' and r_info_id = '$r_info[r_info_id]' ";
 		$room_cost = sql_fetch($cost_sql);
 		$cost_value = $room_cost[$ss];
-		
+
 		return $cost_value;
 	}
 }
 
 function Get_Room_Info_One($bo_table, $r_name, $info_field) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$ss = "r_info_" . $info_field;
 	$info_sql = "SELECT $ss FROM {$write_table}_r_info WHERE  pension_id = '$pension_id' and r_info_name = '$r_name' ";
 	$r_info = sql_fetch($info_sql);
-	
+
 	return $r_info[$ss];
 }
 
 function Get_Date_Type($time) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$r_date = sql_fetch(" SELECT r_date_name FROM {$write_table}_r_date WHERE  pension_id = '$pension_id' and ( $time BETWEEN r_date_sdate - 86400 AND r_date_edate ) ");
 
 	if($r_date[r_date_name]) {
@@ -185,7 +186,7 @@ function Get_Date_Type_Cal($time) {
 	global $bo_table, $write_table, $pension_id;
 
 	$r_date = sql_fetch(" SELECT r_date_name FROM {$write_table}_r_date WHERE  pension_id = '$pension_id' and ( $time BETWEEN r_date_sdate AND r_date_edate ) ");
-	
+
 	if($r_date[r_date_name]) {
 		$date_type = $r_date[r_date_name];
 	} else {
@@ -197,9 +198,9 @@ function Get_Date_Type_Cal($time) {
 
 function Get_Date_Week($time) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$checkweek = date("w",$time);
-	
+
 	if($checkweek == "5") {
 		$weektype = "금요일";
 	} else if($checkweek == "6") {
@@ -209,19 +210,19 @@ function Get_Date_Week($time) {
 	} else {
 		$weektype = "평일";
 	}
-	
+
 	$time1 = $time + 86400 + 86400;
 	$r_off = sql_fetch(" SELECT r_off_name FROM {$write_table}_r_off WHERE pension_id = '$pension_id' and ($time1 BETWEEN r_off_date AND r_off_date2 + 86400)");
 	if($r_off) $weektype = "공휴일전날";
-	
+
 	return $weektype;
 }
 
 function Get_Date_Off($time) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$checkweek = date("w",$time);
-	
+
 	$r_off = sql_fetch(" SELECT r_off_name FROM {$write_table}_r_off WHERE  pension_id = '$pension_id' and ($time BETWEEN r_off_date AND r_off_date2)");
 	if($r_off) $weektype = $r_off[r_off_name];
 	return $weektype;
@@ -229,7 +230,7 @@ function Get_Date_Off($time) {
 
 function Get_Date_Close($time,$r_name) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$checkweek = date("w",$time);
 	$r_close = "";
 	//$sql = " SELECT r_close_name FROM {$write_table}_r_close WHERE r_close_date2 >= '$time' and r_close_date <= '$time'";
@@ -246,7 +247,7 @@ function Get_Date_Close($time,$r_name) {
 
 function Get_Date_Tel($time,$r_name) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$checkweek = date("w",$time);
 	$r_tel = "";
 	$sql = " SELECT r_tel_name FROM {$write_table}_r_tel WHERE pension_id = '$pension_id' and  ($time BETWEEN r_tel_date AND r_tel_date2)";
@@ -262,7 +263,7 @@ function Get_Date_Tel($time,$r_name) {
 
 function Get_Date_Cost($time, $r_name) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$type = Get_Date_Type($time);
 	$week = Get_Date_Week($time);
 
@@ -290,10 +291,10 @@ function Get_Date_Cost($time, $r_name) {
 				$field = "r_date_cost_1";
 				break;
 		}
-		
+
 		$sql1 = sql_fetch(" SELECT r_info_id FROM {$write_table}_r_info WHERE pension_id = '$pension_id' and  r_info_name='$r_name' ");
 		$sql2 = sql_fetch(" SELECT r_date_idx FROM {$write_table}_r_date WHERE pension_id = '$pension_id' and  r_date_name='$type' and ($time BETWEEN r_date_sdate - 86400 AND r_date_edate) ");
-		$Cost = sql_fetch(" SELECT $field FROM {$write_table}_r_date_cost WHERE pension_id = '$pension_id' and  r_info_id = '{$sql1[r_info_id]}' 
+		$Cost = sql_fetch(" SELECT $field FROM {$write_table}_r_date_cost WHERE pension_id = '$pension_id' and  r_info_id = '{$sql1[r_info_id]}'
 			and r_date_idx = '{$sql2[r_date_idx]}'");
 	} else {
 		switch($week) {
@@ -334,14 +335,14 @@ function Get_Option_list($bo_table, $type, $op_id) {
 		$tmp_array = $op_id;
 		$op_cost = 0;
 		$op_print = "";
-		for ($i=count($tmp_array)-1; $i>=0; $i--) 
+		for ($i=count($tmp_array)-1; $i>=0; $i--)
 		{
 				$option_sql = " SELECT * FROM {$write_table}_r_option WHERE pension_id = '$pension_id' and r_op_id = '{$tmp_array[$i]} LIMIT 1' ;";
 				$r_op = sql_fetch($option_sql);
 				$op_print = $op_print . "<dt style='padding-left:10px;'>- " . $r_op[r_op_name] . " : " . number_format($r_op[r_op_cost]) . "원</dt>";
 				$op_cost = $op_cost + $r_op[r_op_cost];
 		}
-		
+
 		if($type == "chk_list") {
 			if($op_print) return "<dt>추가옵션</dt>" . $op_print;
 		} else if($type == "total_cost") {
@@ -349,7 +350,7 @@ function Get_Option_list($bo_table, $type, $op_id) {
 		}
 	} else if($type == "list") {
 		$option_sql = " SELECT * FROM {$write_table}_r_option where pension_id = '$pension_id' ORDER BY r_op_name ASC ;";
-	
+
 		$result_op = sql_query($option_sql);
 		for ($i=0; $r_op = sql_fetch_array($result_op); $i++)  {
 			echo "<dt>";
@@ -376,16 +377,16 @@ function Get_Date_Reserv_List($bo_table, $r_name, $time, $link_url) {
 	$pdate = mktime(12,0,0,$pm,$pd,$py);
 
 	$r_print = "";
-	
+
 	$sql = " SELECT sum(wr_9) as cnt FROM {$write_table} WHERE pension_id = '$pension_id' and ca_name='$r_name' and wr_4!='예약취소' and wr_link1 <= '$time' and wr_link2 > '$time'";
 	$row = sql_fetch($sql);
 
 	if($row[cnt]) {
 		$r_print .= "<div style='margin-bottom:10px;'>";
 		$r_print .= "<dt style='font-weight:none;'><img src='{$board_skin_path}/img_n/ico_home.gif' align='absmiddle' /><a href='{$g4[bbs_path]}/board.php?view_mode=list&bo_table={$bo_table}&sca={$r_name}&sfl=wr_link1&sop=and&stx={$time}' style='color:#595959;'>{$r_name}[{$row[cnt]}]</a></dt>";
-		
+
 		$sql2 = " SELECT wr_id, wr_name, wr_9, wr_4 FROM {$write_table} WHERE pension_id = '$pension_id' and ca_name='$r_name' and wr_4!='예약취소' and wr_link1 <= '$time' and wr_link2 > '$time'";
-		$result2 = sql_query($sql2);		
+		$result2 = sql_query($sql2);
 		for ($i=0; $r_list = sql_fetch_array($result2); $i++)  {
 			$r_print .= "<dt style='font-weight:none;'>&nbsp;&bull; <a href='{$g4[bbs_path]}/board.php?bo_table={$bo_table}&wr_id={$r_list[wr_id]}' style='color:#4d8cb0;'>{$r_list[wr_name]}";
 			if($r_list[wr_9] > 1) $r_print .= "({$r_list[wr_9]})";
@@ -415,16 +416,16 @@ function Get_Date_Reserv_List_Start($bo_table, $r_name, $time, $link_url) {
 	$pdate = mktime(12,0,0,$pm,$pd,$py);
 
 	$r_print = "";
-	
+
 	$sql = " SELECT sum(wr_9) as cnt FROM {$write_table} WHERE pension_id = '$pension_id' and ca_name='$r_name' and wr_4!='예약취소' and wr_link1 = '$time'";
 	$row = sql_fetch($sql);
 
 	if($row[cnt]) {
 		$r_print .= "<div style='margin-bottom:10px;'>";
 		$r_print .= "<dt style='font-weight:none;'><img src='{$board_skin_path}/img_n/ico_home.gif' align='absmiddle' /><a href='{$g4[bbs_path]}/board.php?view_mode=list&bo_table={$bo_table}&sca={$r_name}&sfl=wr_link1&sop=and&stx={$time}' style='color:#595959;'>{$r_name}[{$row[cnt]}]</a></dt>";
-		
+
 		$sql2 = " SELECT wr_id, wr_name, wr_9, wr_8, wr_4 FROM {$write_table} WHERE pension_id = '$pension_id' and wr_link1 = '$time' and ca_name='$r_name' and wr_4!='예약취소'";
-		$result2 = sql_query($sql2);		
+		$result2 = sql_query($sql2);
 		for ($i=0; $r_list = sql_fetch_array($result2); $i++)  {
 			$r_print .= "<dt style='font-weight:none;'>&nbsp;&bull; <a href='{$g4[bbs_path]}/board.php?bo_table={$bo_table}&wr_id={$r_list[wr_id]}' style='color:#4d8cb0;'>{$r_list[wr_name]}";
 			if($r_list[wr_9] > 1) $r_print .= "({$r_list[wr_9]})";
@@ -441,7 +442,7 @@ function Get_Date_Reserv_List_Start($bo_table, $r_name, $time, $link_url) {
 
 function Get_Date_Reserv($bo_table, $r_name, $time, $link_url) {
 	global $g4, $bo_table, $write_table, $is_admin, $board_skin_path, $pension_id;
-	
+
 	$rstate_ye = "<img src='{$board_skin_path}/img_n/ye.gif' align='absmiddle' /> ";
 	$rstate_wan = "<img src='{$board_skin_path}/img_n/wan.gif' align='absmiddle' /> ";
 	$rstate_jen = "<img src='{$board_skin_path}/img_n/jen.gif' align='absmiddle' /> ";
@@ -480,26 +481,26 @@ function Get_Date_Reserv($bo_table, $r_name, $time, $link_url) {
 	$pdate = mktime(12,0,0,$pm,$pd,$py);
 
 	$r_state = 0;
-	
+
 	if(Get_Date_Close($pdate,$r_name) == $r_name) {
-		
+
 		if($is_admin) $r_print = "{$rstate_bool}{$r_name2}";
 			else $r_print = "{$rstate_wan}{$r_name_wan}";
-			
+
 	} else {
-	
+
 		$sql = " SELECT sum(wr_9) as cnt FROM {$write_table} WHERE  pension_id = '$pension_id' and ca_name='$r_name' and wr_4!='예약취소' and wr_link1 <= '$time' and wr_link2 > '$time'";
 		$row = sql_fetch($sql);
-		
+
 		if(Get_Room_Info_One($bo_table, $r_name, 'over') == "O") {
 			$r_state = Get_Room_Info_One($bo_table, $r_name, 'cnt') - $row[cnt]; // 예약취소를 제외한 갯수
-			
+
 			if($r_state >= 1) {
 				//if($is_admin)
 				//	$r_print = "{$rstate_ye}<a href='{$link_url}'>{$r_name2}({$r_state})</a>";
 				//else
 					$r_print = "{$rstate_ye}<a href='{$link_url}'>{$r_name2}</a>";
-	
+
 				if(Get_Date_Tel($pdate,$r_name) == $r_name) {
 					if($is_admin) $r_print = "{$rstate_jen}<a href='{$link_url}'>{$r_name2}</a>";
 						else $r_print = "{$rstate_jen}{$r_name2}";
@@ -508,10 +509,10 @@ function Get_Date_Reserv($bo_table, $r_name, $time, $link_url) {
 				## 예약완료 갯수 Start
 				$sql_wan = " SELECT sum(wr_9) as cnt FROM {$write_table} WHERE  pension_id = '$pension_id' and ca_name='$r_name' and wr_4='예약완료' and wr_link1 <= '$time' and wr_link2 > '$time'";
 				$row_wan = sql_fetch($sql_wan);
-			
+
 				$r_state2 = Get_Room_Info_One($bo_table, $r_name, 'cnt') - $row_wan[cnt]; // 예약완료 갯수
 				## 예약완료갯수 End
-				
+
 				if($r_state2 <= 0) {
 					$r_print = "{$rstate_wan}{$r_name_wan}";
 				} else {
@@ -541,9 +542,9 @@ function Get_Date_Reserv($bo_table, $r_name, $time, $link_url) {
 	}
 
 	if($is_admin && $row[cnt]) $r_print .= "<a href='{$g4[bbs_path]}/board.php?view_mode=list&bo_table={$bo_table}&sca={$r_name}&sfl=wr_link1&sop=and&stx={$time}' style='color:blue;'>[" . $row[cnt] . "]</a>";
-	
+
 	$r_print = "<dt>" . $r_print . "</dt>";
-	
+
 	return $r_print;
 }
 
@@ -553,17 +554,17 @@ function Get_Date_Reserv_Cnt($bo_table, $r_name, $time1, $time2) {
 ### 2009.7.27 중복기간 검사 수정
 	$ori_r_cnt = Get_Room_Info_One($bo_table, $r_name, 'cnt');
 	$j = 0;
-	
+
 	$sy = substr($time1,0,4);
 	$sm = substr($time1,4,2);
 	$sd = substr($time1,6,2);
 	$sdate = mktime(12,0,0,$sm,$sd,$sy);
-	
+
 	$ey = substr($time2,0,4);
 	$em = substr($time2,4,2);
 	$ed = substr($time2,6,2);
 	$edate = mktime(12,0,0,$em,$ed,$ey);
-	
+
 	for($i=$sdate; $i < $edate; $i += 86400) {
 		$tdate = date("Ymd", $i);
 		$sql = " SELECT sum(wr_9) as cnt FROM {$write_table} WHERE  pension_id = '$pension_id' and ca_name='$r_name' and wr_4!='예약취소' and wr_link1 <= '$tdate' and wr_link2 > '$tdate'";
@@ -597,16 +598,16 @@ function Get_Date_Reserv_List_Pop($bo_table, $r_name, $time) {
 	$total2 = 0;
 	$total3 = 0;
 	$total_hap = 0;
-	
+
 	$sql = " SELECT sum(wr_9) as cnt FROM {$write_table} WHERE pension_id = '$pension_id' and ca_name='$r_name' and wr_link1 <= '$time' and wr_link2 > '$time'";
 	$row = sql_fetch($sql);
 
 	if($row[cnt]) {
 		$r_print .= "<div class='sjbox'><img src='{$board_skin_path}/img_n/ico_home.gif' align='absmiddle' />{$r_name}[{$row[cnt]}]</div>";
-		
+
 		$sql2 = " SELECT wr_3, ca_name, wr_name, wr_link1, wr_8, wr_7, wr_10, wr_2, wr_4, wr_datetime FROM {$write_table} WHERE pension_id = '$pension_id' and  ca_name='$r_name' and wr_link1 <= '$time' and wr_link2 > '$time' ORDER BY wr_name, wr_datetime, wr_4 DESC ";
 		$result2 = sql_query($sql2);
-		
+
 		$r_print .= "\n<table width='100%' border='0' cellpadding='3' cellspacing='1' bgcolor='#FFFFFF' class='conbox'>\n";
 		$r_print .= "<tr align=center class='consjbox'><td>예약번호</td><td>객실명</td><td>예약자명</td><td>숙박일</td><td>추가인원</td><td>숙박요금</td><td>연락처</td><td>예약상태</td><td>작성일자</td></td></tr>\n";
 		for ($i=0; $r_list = sql_fetch_array($result2); $i++)  {
@@ -635,7 +636,7 @@ function Get_Date_Reserv_List_Pop($bo_table, $r_name, $time) {
 			}
 		}
 		$r_print .= "</table>\n";
-		
+
 		$total_hap = $total1 + $total2 + $total3;
 		$r_print .= "<div style='margin-bottom:20px; margin-top:-10px;'><table width='100%' border=0 cellpadding=0 cellspacing=0>
 					<tr align=right><td>예약취소 합계 :</td><td width=80>".number_format($total3) . "원</td></tr>
@@ -661,16 +662,16 @@ function Get_Date_Reserv_List_Start_Pop($bo_table, $r_name, $time) {
 	$total2 = 0;
 	$total3 = 0;
 	$total_hap = 0;
-	
+
 	$sql = " SELECT sum(wr_9) as cnt FROM {$write_table} WHERE pension_id = '$pension_id' and ca_name='$r_name' and wr_link1 = '$time'";
 	$row = sql_fetch($sql);
 
 	if($row[cnt]) {
 		$r_print .= "<div class='sjbox'><img src='{$board_skin_path}/img_n/ico_home.gif' align='absmiddle' />{$r_name}[{$row[cnt]}]</div>";
-		
+
 		$sql2 = " SELECT wr_3, ca_name, wr_9, wr_name, wr_link1, wr_8, wr_7, wr_10, wr_2, wr_4, wr_datetime FROM {$write_table} WHERE pension_id = '$pension_id' and  wr_link1 = '$time' and ca_name='$r_name' ORDER BY wr_name, wr_datetime, wr_4 DESC ";
 		$result2 = sql_query($sql2);
-		
+
 		$r_print .= "\n<table width='100%' border='0' cellpadding='3' cellspacing='1' bgcolor='#FFFFFF' class='conbox'>\n";
 		$r_print .= "<tr align=center class='consjbox'><td>예약번호</td><td>객실명</td><td>예약자명</td><td>숙박일</td><td>추가인원</td><td>숙박요금</td><td>연락처</td><td>예약상태</td><td>작성일자</td></td></tr>\n";
 		for ($i=0; $r_list = sql_fetch_array($result2); $i++)  {
@@ -699,7 +700,7 @@ function Get_Date_Reserv_List_Start_Pop($bo_table, $r_name, $time) {
 			}
 		}
 		$r_print .= "</table>\n";
-		
+
 		$total_hap = $total1 + $total2 + $total3;
 		$r_print .= "<div style='margin-bottom:20px; margin-top:-10px;'><table width='100%' border=0 cellpadding=0 cellspacing=0>
 					<tr align=right><td>예약취소 합계 :</td><td width=80>".number_format($total3) . "원</td></tr>

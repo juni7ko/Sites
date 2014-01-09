@@ -1,5 +1,6 @@
 <?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
+if(!$pension_id) alert("Error");
 // 분류 사용 여부
 $is_category = false;
 if ($board[bo_use_category])
@@ -74,7 +75,7 @@ else {
 }
 
 if ($sst)
-	$sql_order = "GROUP BY wr_3 order by $sst $sod ";
+	$sql_order = " AND pension_id = '$pension_id' GROUP BY wr_3 order by $sst $sod ";
 
 if ($sca || $stx)
 {
