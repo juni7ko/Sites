@@ -171,7 +171,7 @@ if ($w == "" || $w == "r")
     $wr_tel2 = $wr_tel2; // 전화번호
     $wr_tel3 = $wr_tel3; // 전화번호
     $wr_2 = $wr_tel1 . "-" . $wr_tel2 . "-" . $wr_tel3; // 전화번호
-    $wr_3 = $res2_r_info_id[0] . mktime(); // 예약코드
+    $wr_3 = mktime() . $res2_r_info_id[0]; // 예약코드
     $wr_5 = $wr_area; // 출발지역
     $wr_6 = $res2_wr_password; // 비밀번호
     $wr_7 = $payCheck; // 결제방법
