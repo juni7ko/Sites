@@ -20,7 +20,7 @@ if ($sca || $stx)
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
 
     // 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
-    $sql = " select MIN(wr_num) as min_wr_num from $write_table ";
+    $sql = " SELECT MIN(wr_num) as min_wr_num from $write_table ";
     $row = sql_fetch($sql);
     $min_spt = $row[min_wr_num];
 
@@ -29,7 +29,7 @@ if ($sca || $stx)
     $sql_search .= " and (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
 
     // 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
-    $sql = " select distinct wr_parent from $write_table where $sql_search ";
+    $sql = " SELECT distinct wr_parent from $write_table where $sql_search ";
     $result = sql_query($sql);
     $total_count = mysql_num_rows($result);
 }
@@ -78,11 +78,11 @@ if ($sst)
 
 if ($sca || $stx)
 {
-    $sql = " select distinct wr_parent from $write_table where $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
+    $sql = " SELECT distinct wr_parent from $write_table where $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
 }
 else
 {
-    $sql = " select * from $write_table where wr_is_comment = 0 $sql_order limit $from_record, $board[bo_page_rows] ";
+    $sql = " SELECT * from $write_table where wr_is_comment = 0 $sql_order limit $from_record, $board[bo_page_rows] ";
 }
 $result = sql_query($sql);
 
@@ -99,7 +99,7 @@ if (!$sca && !$stx)
     {
         if (trim($arr_notice[$k])=='') continue;
 
-        $row = sql_fetch(" select * from $write_table where wr_id = '$arr_notice[$k]' ");
+        $row = sql_fetch(" SELECT * from $write_table where wr_id = '$arr_notice[$k]' ");
 
         if (!$row[wr_id]) continue;
 
@@ -116,7 +116,7 @@ while ($row = sql_fetch_array($result))
 {
     // 검색일 경우 wr_id만 얻었으므로 다시 한행을 얻는다
     if ($sca || $stx)
-        $row = sql_fetch(" select * from $write_table where wr_id = '$row[wr_parent]' ");
+        $row = sql_fetch(" SELECT * from $write_table where wr_id = '$row[wr_parent]' ");
 
     $list[$i] = get_list($row, $board, $board_skin_path, $board[bo_subject_len]);
     if (strstr($sfl, "subject"))
