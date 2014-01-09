@@ -14,7 +14,7 @@ echo "<br><br><br>";
 
 $chk = 0;
 for($i=0; $i < count($r_name); $i++){
-	if($date[$i]){ 
+	if($date[$i]){
 		$roomno = $i;   // 방번호 체크
 		$chk++;
 	}
@@ -56,7 +56,7 @@ $i = $roomno;    // 선택된방 no.
 			<li><a href="4_1.html">환불규정</a></li>
 		</ul>
 	</div>
-	
+
 	<table width="100%" cellpadding="10" cellspacing="0" class="booting-tbl">
 	<caption>예약관리</caption>
 	<thead>
@@ -106,8 +106,8 @@ $t_date = date("Y년 m월 d일", $out_date);
 	</thead>
 	<tbody>
 	<tr>
-		<td><?php echo $res_code; ?></td>
-		<td><?echo "$r_name[$i]";?> (기준인원 : 2명) X <?=$p1[$i]?></td>
+		<td><?=$res_code; ?></td>
+		<td><?="$r_name[$i]";?> (기준인원 : 2명) X <?=$p1[$i]?></td>
 		<td><?=$p2[$i]?>명</td>
 	</tr>
 	<tr>
@@ -118,9 +118,9 @@ $t_date = date("Y년 m월 d일", $out_date);
 	</thead>
 	<tbody>
 	<tr>
-		<td><?echo "$year";?>년 <?echo "$month";?>월 <?echo "$day";?>일</td>
-		<td><?echo "$t_date";?></td>
-		<td><?echo "$trueday";?>박 <?echo "$trueday"+1;?>일</td>
+		<td><?="$year";?>년 <?="$month";?>월 <?="$day";?>일</td>
+		<td><?="$t_date";?></td>
+		<td><?="$trueday";?>박 <?="$trueday"+1;?>일</td>
 	</tr>
 
 	<tr>
@@ -130,9 +130,9 @@ $t_date = date("Y년 m월 d일", $out_date);
 
 	<tr>
 		<td colspan="3">
-		
-		
-		
+
+
+
 
 
 
@@ -151,7 +151,7 @@ if($sl_day) {
 for($i=0;$i<$sl_day;$i++) {
 	$time=$s_time+(86400*$i);
 	$times[$i]=date("Y-m-d",$time);
-	
+
 	//$wr_reserv_print = $wr_reserv_print . "<dt>".$times[$i]." 일은 <span style='color:green;'>".Get_Date_Type($time)." ".Get_Date_Week($time)."</span>이며 숙박료는 <span style='color:blue;'>".number_format(Get_Date_Cost($time,$sca))."원</span> 입니다. </dt>";
 	$wr_reserv_print .= "<tr align=right>
 		<td style='padding:1px 5px;'>".$times[$i]."</td>
@@ -203,10 +203,10 @@ echo $wr_reserv_print;
 
 
 
-		
-		
+
+
 		</td>
-		
+
 	</tr>
 
 	<tr>
@@ -223,11 +223,11 @@ echo $wr_reserv_print;
 
 
 
-<!-- 
+<!--
 	<tr>
 		<th colspan="3">&nbsp;&nbsp;</th>
 	</tr>
-	
+
 
 
 
@@ -244,7 +244,7 @@ echo $wr_reserv_print;
 	</table>
 
 
-	
+
 	<table width="100%" cellpadding="0" cellspacing="0" class="booting-tbl">
 	<caption>예약관리</caption>
 	<tbody>
@@ -263,8 +263,8 @@ echo $wr_reserv_print;
 	<tr>
 		<td>휴대전화</td>
 		<td class="left">
-			<input name='tel1' value='' type='text' size='5' maxlength='3' onkeydown='onlyNumber(this);'  itemname='전화번호 첫번째자리' required> - 
-			<input name='tel2' value='' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 두번째자리' required> - 
+			<input name='tel1' value='' type='text' size='5' maxlength='3' onkeydown='onlyNumber(this);'  itemname='전화번호 첫번째자리' required> -
+			<input name='tel2' value='' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 두번째자리' required> -
 			<input name='tel3' value='' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 세번째자리' required>
 		</td>
 	</tr>

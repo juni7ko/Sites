@@ -15,7 +15,7 @@ $qstr = "fr_date=$fr_date&to_date=$to_date";
 <input type="hidden" name="pension_id" value="<?=$pension_id?>">
 <tr>
 		<?php if($pension_id){?>
-		<td style="color:#FFFF00;font-weight:bold;"><?echo $write['wr_subject'] ? $write['wr_subject'] : '  등록  '; ?><!-- 기본정보 --></td>
+		<td style="color:#FFFF00;font-weight:bold;"><?php echo $write['wr_subject'] ? $write['wr_subject'] : '  등록  '; ?><!-- 기본정보 --></td>
 		<td><a href="./pen_admin.php?mode=reserhome&pension_id=<?=$pension_id?>">예약홈</a></td>
 		<td><a href="./pen_admin.php?mode=list&pension_id=<?=$pension_id?>">리스트</a></td>
 		<td><a href="./pen_admin.php?mode=room&pension_id=<?=$pension_id?>">객실/기본요금</a></td>
@@ -30,7 +30,7 @@ $qstr = "fr_date=$fr_date&to_date=$to_date";
 </table>
 
 <script type='text/javascript'>
-function fvisit_submit(act) 
+function fvisit_submit(act)
 {
     var f = document.fvisit;
     f.action = act;

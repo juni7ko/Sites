@@ -1,7 +1,7 @@
 <?php
 include_once("./_common.php");
 
-$bo_table="bbs34";
+$bo_table = "bbs34";
 $write_table = "g4_write_bbs34";
 
 if (!$board[bo_table])
@@ -117,7 +117,7 @@ if ($wr_id)
     $ss_name = "ss_view_{$bo_table}_{$wr_id}";
     if (!get_session($ss_name))
     {
-        sql_query(" update $write_table set wr_hit = wr_hit + 1 where wr_id = '$wr_id' ");
+        sql_query(" UPDATE $write_table set wr_hit = wr_hit + 1 where wr_id = '$wr_id' ");
 
         // 자신의 글이면 통과
         if ($write[mb_id] && $write[mb_id] == $member[mb_id]) {

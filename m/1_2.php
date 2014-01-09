@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
 <title>예약하기</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" > 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" >
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 </head>
 <?php $bo_table='bbs34';
@@ -14,7 +14,7 @@ include_once ("$board_skin_path/config.php");
 
 $chkno = 0;
 for($i=0; $i < count($r_name); $i++){
-	if($date[$i]){ 
+	if($date[$i]){
 		$roomno = $i;   // 방번호 체크
 		$chkno +=1;
 	}
@@ -134,7 +134,7 @@ $wr_9 = $p1[$i];
 	</thead>
 	<tbody>
 	<tr>
-		<td><?php echo $res_code; ?></td>
+		<td><?=$res_code; ?></td>
 		<td><?=Get_Room_Info_One($bo_table, $sca, 'name')?> (기준인원 :  <?=Get_Room_Info_One($bo_table, $sca, 'person1')?>명) X <?=$wr_9?></td>
 		<td><?=$p2[$i]?>명</td>
 	</tr>
@@ -150,9 +150,9 @@ $wr_9 = $p1[$i];
 	</thead>
 	<tbody>
 	<tr>
-		<td><?echo "$year";?>년 <?echo "$month";?>월 <?echo "$day";?>일</td>
-		<td><?echo "$t_date";?></td>
-		<td><?echo "$trueday";?>박 <?echo "$trueday"+1;?>일</td>
+		<td><?="$year";?>년 <?="$month";?>월 <?="$day";?>일</td>
+		<td><?="$t_date";?></td>
+		<td><?="$trueday";?>박 <?="$trueday"+1;?>일</td>
 	</tr>
 
 
@@ -164,9 +164,9 @@ $wr_9 = $p1[$i];
 
 	<tr>
 		<td colspan="3">
-		
-		
-		
+
+
+
 
 
 
@@ -185,7 +185,7 @@ if($sl_day) {
 for($i=0;$i<$sl_day;$i++) {
 	$time=$s_time+(86400*$i);
 	$times[$i]=date("Y-m-d",$time);
-	
+
 	//$wr_reserv_print = $wr_reserv_print . "<dt>".$times[$i]." 일은 <span style='color:green;'>".Get_Date_Type($time)." ".Get_Date_Week($time)."</span>이며 숙박료는 <span style='color:blue;'>".number_format(Get_Date_Cost($time,$sca))."원</span> 입니다. </dt>";
 	$wr_reserv_print .= "<tr align=right>
 		<td style='padding:1px 5px;'>".$times[$i]."</td>
@@ -237,10 +237,10 @@ echo $wr_reserv_print;
 
 
 
-		
-		
+
+
 		</td>
-		
+
 	</tr>
 
 	<tr>
@@ -260,7 +260,7 @@ echo $wr_reserv_print;
 	</table>
 
 
-	
+
 	<table width="100%" cellpadding="0" cellspacing="0" class="booting-tbl">
 	<caption>예약관리</caption>
 	<tbody>
@@ -282,7 +282,7 @@ echo $wr_reserv_print;
   <?php } ?>
 
 
-<!-- 
+<!--
 	<tr>
 		<td width="150">메일주소</td>
 		<td class="left"><input type="text" name='wr_email' size=30 maxlength=100 email itemname='E-MAIL' value='<?=$email?>' onclick='wrestEmail(fld)'></td>
@@ -295,8 +295,8 @@ echo $wr_reserv_print;
 	<tr>
 		<td>휴대전화</td>
 		<td class="left">
-			<input name='tel1'  value='<?=$tel1?>' type='text' size='5' maxlength='3' onkeydown='onlyNumber(this);'  itemname='전화번호 첫번째자리' required> - 
-			<input name='tel2'  value='<?=$tel2?>' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 두번째자리' required> - 
+			<input name='tel1'  value='<?=$tel1?>' type='text' size='5' maxlength='3' onkeydown='onlyNumber(this);'  itemname='전화번호 첫번째자리' required> -
+			<input name='tel2'  value='<?=$tel2?>' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 두번째자리' required> -
 			<input name='tel3'  value='<?=$tel3?>' type='text' size='7' maxlength='4' onkeydown='onlyNumber(this);'  itemname='전화번호 세번째자리' required>
 		</td>
 	</tr>
@@ -354,7 +354,7 @@ function fgbform_submit(f)
             obj.value = 1;
         }
     }
-    
+
 
     // 김선용 2006.3 - 전화번호(휴대폰) 형식 검사 : 123-123(4)-5678
 	function wrestTelnumber(fld){
@@ -362,7 +362,7 @@ function fgbform_submit(f)
 		if (!wrestTrim(fld)) return;
 
 		var pattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
-		if(!pattern.test(fld.value)){ 
+		if(!pattern.test(fld.value)){
             if(wrestFld == null){
 				wrestMsg = wrestItemname(fld)+" : 전화번호 형식이 올바르지 않습니다.\n\n하이픈(-)을 포함하여 입력해 주십시오.\n";
                 wrestFld = fld;
@@ -372,15 +372,15 @@ function fgbform_submit(f)
 	}
 
     // 이메일주소 형식 검사
-    function wrestEmail(fld) 
+    function wrestEmail(fld)
     {
         if (!wrestTrim(fld)) return;
 
         //var pattern = /(\S+)@(\S+)\.(\S+)/; 이메일주소에 한글 사용시
         var pattern = /([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)/;
-        if (!pattern.test(fld.value)) 
+        if (!pattern.test(fld.value))
         {
-            if (wrestFld == null) 
+            if (wrestFld == null)
             {
                 wrestMsg = wrestItemname(fld) + " : 이메일주소 형식이 아닙니다.\n";
                 wrestFld = fld;
