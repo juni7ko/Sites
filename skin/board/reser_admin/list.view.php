@@ -1,4 +1,6 @@
-<?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+<?php
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+
 if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
 // 선택옵션으로 인해 셀합치기가 가변적으로 변함
 $colspan = 6;
@@ -67,12 +69,30 @@ $sdd = substr($list[$i][wr_link1],6,2);
 $day1 = $sdy."-".$sdm."-".$sdd;
 
 $c_day1 = strtotime($day1);
+
+switch($list[$i][rResult]) {
+    case "0010" :
+        $rResult = "예약대기";
+        break;
+    case "0020" :
+        $rResult = "예약완료";
+        break;
+    case "0030" :
+        $rResult = "예약취소";
+        break;
+    case "0040" :
+        $rResult = "관리자예약";
+        break;
+    default :
+        $rRestul = "예약대기";
+        break;
+}
 ?>
                                     <td style="word-break:break-all;"><a href="<?=$list[$i][href]?>&pension_id=<?=$pension_id?>" class="m_sub">
                                         <?=$day1?>(<?=$list[$i][wr_1]."명";?>)</a></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_2]?></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_name]?></td>
-                                    <td class="m2_name" align="center" style="color:#FF0000;"><?=$list[$i][wr_4]?></td>
+                                    <td class="m2_name" align="center" style="color:#FF0000;"><?=$rResult?></td>
                                     <td align=center class="m2"><?=$list[$i][datetime]?></td>
                                 </tr>
                                 <?php }?>
@@ -126,7 +146,7 @@ $write_pages2 = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family
                                             <option value='wr_3'>예약번호</option>
                                             <option value='wr_link1'>입실일</option>
                                             <option value='wr_link2'>퇴실일</option>
-                                            <option value='wr_4'>예약상태</option>
+                                            <option value='rResult'>예약상태</option>
                                             <option value='wr_10'>숙박요금</option>
                                         </select>
                                         <input name=stx maxlength=20 size=20 itemname="검색어" required value="<?=$stx?>">
