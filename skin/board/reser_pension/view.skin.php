@@ -130,7 +130,7 @@ $to_date   = substr($to_date,0,4)."년 ".sprintf("%2d",substr($to_date,4,2))."�
 								<td class="<?=$css[tr]?>">예약번호</td>
 								<td><?=$view[wr_3]?></td>
 							</tr>
-							<tr class="ht list1">
+							<tr class="ht">
 								<td class="<?=$css[tr]?>">예약자명</td>
 								<td><?=$view[wr_name]?></td>
 							</tr>
@@ -146,7 +146,7 @@ $to_date   = substr($to_date,0,4)."년 ".sprintf("%2d",substr($to_date,4,2))."�
 								<td class="<?=$css[tr]?>">결제방법</td>
 								<td><?=get_payMent($view[wr_7])?></td>
 							</tr>
-							<tr class="ht list1">
+							<tr class="ht">
 								<td class="<?=$css[tr]?>">출발지역</td>
 								<td><?=$view[wr_5]?></td>
 							</tr>
