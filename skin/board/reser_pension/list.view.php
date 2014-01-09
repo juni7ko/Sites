@@ -4,7 +4,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
 // 선택옵션으로 인해 셀합치기가 가변적으로 변함
 $colspan = 6;
-if ($is_category) $colspan++;
 if ($is_checkbox) $colspan++;
 // 제목이 두줄로 표시되는 경우 이 코드를 사용해 보세요.
 // <nobr style='display:block; overflow:hidden; width:000px;'>제목</nobr>
@@ -37,7 +36,7 @@ if ($is_checkbox) $colspan++;
 								<tr class="<?=$css[tr]?>">
 									<?php if ($is_checkbox) echo "<td><INPUT onclick='if (this.checked) all_checked(true); else all_checked(false);' type=checkbox></td>"; ?>
 									<td>예약번호</td>
-									<?php if ($is_category) echo "<td>객실명</td>";?>
+									<td>객실명</td>
 									<td>예약일</td>
 									<td width="100">연락처</td>
 									<td width="90">예약자명</td>
@@ -59,27 +58,14 @@ if ($is_checkbox) $colspan++;
 										?>
 										</a>
 									</td>
-<?php if ($is_category) {
-	echo "<td><a href='{$list[$i][ca_name_href]}&view_mode=list&pension_id={$pension_id}'><span class=small style='color:blue;'>{$list[$i][ca_name]}</span></a>";
-	echo ($list[$i][wr_9] > 1) ? "<span class=small>x".$list[$i][wr_9]."</span>" : "";
-	echo "</td>";
-}
-
-$sdy = substr($list[$i][wr_link1],0,4);
-$sdm = substr($list[$i][wr_link1],4,2);
-$sdd = substr($list[$i][wr_link1],6,2);
-
-$day1 = $sdy."-".$sdm."-".$sdd;
-
-$c_day1 = strtotime($day1);
-
-$rResult = get_rResult($list[$i][rResult]);
-?>
+									<td>
+										<a href="<?=$list[$i][ca_name_href]?>&view_mode=list&pension_id=<?=$pension_id?>"><span class=small style='color:blue;'><?=$list[$i][ca_name]?></span></a>
+									</td>
 									<td style="word-break:break-all;"><a href="<?=$list[$i][href]?>&pension_id=<?=$pension_id?>" class="m_sub">
-										<?=$day1?>(<?=$list[$i][wr_1]."명";?>)</a></td>
+										<?=date("Y-m-d", $list[$i][wr_link2])?>(<?=$list[$i][wr_1]."명";?>)</a></td>
 									<td class="m2_name" align="center"><?=$list[$i][wr_2]?></td>
 									<td class="m2_name" align="center"><?=$list[$i][wr_name]?></td>
-									<td class="m2_name" align="center" style="color:#FF0000;"><?=$rResult?></td>
+									<td class="m2_name" align="center" style="color:#FF0000;"><?=get_rResult($list[$i][rResult])?></td>
 									<td align=center class="m2"><?=$list[$i][datetime]?></td>
 								</tr>
 								<?php }?>
