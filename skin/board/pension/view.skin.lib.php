@@ -233,7 +233,20 @@ function resCheck($penID, $pDate, $costID)
     $read_complete = sql_fetch(" SELECT * FROM {$write_table2} WHERE pension_id = '$penID' AND r_info_id = '$costID' AND wr_link2 = '$pDate' AND rResult != '0030' LIMIT 1 ");
     if($read_complete)
     {
-    	$resCheck['rResult'] = $read_complete[rResult];
+		switch ($read_complete[rResult]) {
+			case '0020' :
+				$resCheck['rResult'] = "완료";
+				break;
+			case '0010' :
+				$resCheck['rResult'] = "대기";
+				break;
+			case '0040' :
+				$resCheck['rResult'] = "완료";
+				break;
+			default:
+				$resCheck['rResult'] = NULL;
+				break;
+		}
     }
 
 	// 전화예약 체크
