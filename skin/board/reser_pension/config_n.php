@@ -15,7 +15,7 @@ function Get_Date_Type_Cal2($time) {
 
 function Get_Date_Off2($time) {
 	global $rd_off;
-	
+
 	$weektype = "";
 	for ($i=0; $i < count($rd_off); $i++)  {
 		if($rd_off[$i][r_off_date] <= $time && $rd_off[$i][r_off_date2] >= $time) {
@@ -29,7 +29,7 @@ function Get_Date_Off2($time) {
 
 function Get_Date_Tel2($time,$r_name) {
 	global $rd_tel;
-	
+
 	$tel_name = "";
 	for ($i=0; $i < count($rd_tel); $i++)  {
 		if($rd_tel[$i][r_tel_name] == $r_name && $rd_tel[$i][r_tel_date] <= $time && $rd_tel[$i][r_tel_date2] >= $time) {
@@ -42,7 +42,7 @@ function Get_Date_Tel2($time,$r_name) {
 
 function Get_Room_Info_One2($bo_table, $r_name, $info_field) {
 	global $rd_info;
-	
+
 	$ss = "r_info_" . $info_field;
 
 	return $rd_info[$r_name][$ss];
@@ -50,7 +50,7 @@ function Get_Room_Info_One2($bo_table, $r_name, $info_field) {
 
 function Get_Date_Close2($time,$r_name) {
 	global $rd_close;
-	
+
 	$close_name = "";
 	for ($i=0; $i < count($rd_close); $i++)  {
 		if($rd_close[$i][r_close_name] == $r_name && $rd_close[$i][r_close_date] <= $time && $rd_close[$i][r_close_date2] >= $time) {
@@ -63,7 +63,7 @@ function Get_Date_Close2($time,$r_name) {
 
 function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 	global $g4, $bo_table, $is_admin, $board_skin_path, $rd_day;
-	
+
 	$rstate_ye = "<img src='{$board_skin_path}/img_n/ye.gif' align='absmiddle' /> ";
 	$rstate_wan = "<img src='{$board_skin_path}/img_n/wan.gif' align='absmiddle' /> ";
 	$rstate_jen = "<img src='{$board_skin_path}/img_n/jen.gif' align='absmiddle' /> ";
@@ -81,14 +81,14 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 	$pdate = mktime(12,0,0,$pm,$pd,$py);
 
 	$r_state = 0;
-	
+
 	if(Get_Date_Close2($pdate,$r_name) == $r_name) {
-		
+
 		if($is_admin) $r_print = "{$rstate_bool}{$r_name2}";
 			else $r_print = "{$rstate_wan}{$r_name_wan}";
-			
+
 	} else {
-	
+
 		$row[cnt] = 0;
 		$row_wan[cnt] = 0;
 		$row2[wr_4] = "";
@@ -103,13 +103,13 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 
 		if(Get_Room_Info_One2($bo_table, $r_name, 'over') == "O") {
 			$r_state = Get_Room_Info_One2($bo_table, $r_name, 'cnt') - $row[cnt]; // 예약취소를 제외한 갯수
-			
+
 			if($r_state >= 1) {
 				//if($is_admin)
 				//	$r_print = "{$rstate_ye}<a href='{$link_url}'>{$r_name2}({$r_state})</a>";
 				//else
 					$r_print = "{$rstate_ye}<a href='{$link_url}'>{$r_name2}</a>";
-	
+
 				if(Get_Date_Tel2($pdate,$r_name) == $r_name) {
 					if($is_admin) $r_print = "{$rstate_jen}<a href='{$link_url}'>{$r_name2}</a>";
 						else $r_print = "{$rstate_jen}{$r_name2}";
@@ -118,7 +118,7 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 				## 예약완료 갯수 Start
 				$r_state2 = Get_Room_Info_One2($bo_table, $r_name, 'cnt') - $row_wan[cnt]; // 예약완료 갯수
 				## 예약완료갯수 End
-				
+
 				if($r_state2 <= 0) {
 					$r_print = "{$rstate_wan}{$r_name_wan}";
 				} else {
@@ -146,19 +146,19 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 	}
 
 	if($is_admin && $row[cnt]) $r_print .= "<a href='{$g4[bbs_path]}/board.php?view_mode=list&bo_table={$bo_table}&sca={$r_name}&sfl=wr_link1&sop=and&stx={$time}' style='color:blue;'>[" . $row[cnt] . "]</a>";
-	
+
 	$r_print = "<dt>" . $r_print . "</dt>";
-	
+
 	return $r_print;
 }
 
 function Get_Room_Select2($bo_table,$f_name,$r_name) {
 	global $bo_table, $write_table, $pension_id;
-	
+
 	$sql1 = "SELECT r_info_name, r_info_id FROM {$write_table}_r_info where pension_id = '$pension_id' ORDER BY r_info_order DESC ;";
 	$up_cate = "";
 	$result = sql_query($sql1);
-	
+
 	for ($i=0; $r_info = sql_fetch_array($result); $i++)  {
 		/*
 		if($r_info[r_info_name] == $r_name)
@@ -168,8 +168,54 @@ function Get_Room_Select2($bo_table,$f_name,$r_name) {
 		*/
 		$up_cate .= "<option value='{$r_info[r_info_id]}'>$r_info[r_info_name]</option>";
 	}
-	
+
 	$r_value = "<select name='{$f_name}'>" . $up_cate . "</select>";
 	return $r_value;
+}
+
+function getRoomName($r_info_id) {
+	global $write_table;
+	$sql = " SELECT * FROM {$write_table}_r_info WHERE r_info_id = '$r_info_id' LIMIT 1; ";
+	$result = sql_fetch($sql);
+	return $result;
+}
+
+function GetDateWeek($week)
+{
+	switch($week) {
+		case "1" :
+			$weekP = "월";
+			break;
+		case "2" :
+			$weekP = "화";
+			break;
+		case "3" :
+			$weekP = "수";
+			break;
+		case "4" :
+			$weekP = "목";
+			break;
+		case "5" :
+			$weekP = "금";
+			break;
+		case "6" :
+			$weekP = "토";
+			break;
+		case "0" :
+			$weekP = "일";
+			break;
+		default :
+			$weekP = "";
+			break;
+	}
+
+	return $weekP;
+}
+
+function alert_and_back($msg){
+    echo("<script type='text/javascript'>
+            alert('$msg');
+            history.back();
+        </script>");
 }
 ?>

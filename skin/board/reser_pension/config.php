@@ -3,6 +3,7 @@ include_once("config_n.php");
 
 if($bo_table=="bbs34") $bo_table="bbs34";
 if($write_table=="g4_write_reser_admin") $write_table = "g4_write_bbs34";
+if($list_href) $list_href = $g4[path] . "/bbs/resList.php?bo_table=" . $bo_table . "&pension_id=" . $pension_id;
 
 if(strlen($wr_link1)>0 && strlen($wr_link2)>0) {  // 받은 날짜 argument 가 있을때..
  $f_year = substr($wr_link1,0,4);

@@ -116,7 +116,7 @@ $write_pages2 = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family
 							<table width="100%" border="0" cellpadding="0" cellspacing="0">
 								<tr>
 									<td width="50%"><?php if ($list_href) { ?>
-										<a href="<?=$list_href?>&view_mode=list&pension_id=<?=$pension_id?>"><img src="<?=$board_skin_path?>/img/btn_list.gif" border="0"></a>
+										<a href="<?=$list_href?>&view_mode=list"><img src="<?=$board_skin_path?>/img/btn_list.gif" border="0"></a>
 										<?php } ?>
 										<?php if ($is_checkbox) { ?>
 										<a href="javascript:select_delete();"><img src='<?=$board_skin_path?>/img/btn_select_delete.gif' border=0></a>

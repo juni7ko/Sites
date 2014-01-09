@@ -13,12 +13,12 @@ include_once ("$board_skin_path/config.php");
 		<td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) right top;"></td>
 	</tr>
 	<tr>
-		<td colspan="3" valign="top" style="background:#FFF; padding:10px;"><?php include_once("{$board_skin_path}/inc_top_menu.php"); ?>
-			<div class="ui-state-highlight ui-corner-all" style="margin: 20px 0 5px; padding: 5px .7em;"> <span class="ui-icon ui-icon-power" style="float: left; margin-right: .3em;"></span> <strong><span style='color:#000;'>
-				<?=$view[subject]?>
-				- 작성자 :
-				<?=$view[wr_name]?>
-				</strong> </div>
+		<td colspan="3" valign="top" style="background:#FFF; padding:10px;">
+			<?php include_once("{$board_skin_path}/inc_top_menu.php"); ?>
+			<div class="ui-state-highlight ui-corner-all" style="margin: 20px 0 5px; padding: 5px .7em;">
+				<span class="ui-icon ui-icon-power" style="float: left; margin-right: .3em;"></span>
+				<strong><span style='color:#000;'><?=$view[subject]?> - 작성자 : <?=$view[wr_name]?></strong>
+			</div>
 			<!-- 원글 내용 -->
 			<table width="100%" border="0" cellpadding="3" cellspacing="1" align="center" class="<?=$css[table]?>">
 				<tr>
@@ -31,7 +31,7 @@ $to_date   = substr($to_date,0,4)."년 ".sprintf("%2d",substr($to_date,4,2))."�
 ?>
 						<table width="100%" border=0 cellpadding=3 cellspacing=1 class="<?=$css[table]?>">
 							<tr class="ht">
-								<td class="<?=$css[tr]?>" width="150">처리진행상황</td>
+								<td class="<?=$css[tr]?>" width="100">처리상태</td>
 								<td><?php if($is_admin) { ?>
 									<SCRIPT LANGUAGE="javascript">
 									function fwrite_check(f)
@@ -62,59 +62,93 @@ $to_date   = substr($to_date,0,4)."년 ".sprintf("%2d",substr($to_date,4,2))."�
 									</form>
 									<?php } else { ?>
 									<font color=red>
-									<?=$view[wr_4]?>
+									<?=$view[rResult]?>
 									</font>
 									<?php } ?>
 								</td>
 							</tr>
+							<tr>
+								<td class="<?=$css[tr]?>">예약내용</td>
+								<td>
+									<table width="100%" border=0 cellpadding=3 cellspacing=1>
+										<thead>
+											<tr>
+												<th class="first">객실명</th>
+												<th>기준/최대</th>
+												<th>이용일</th>
+												<th>성인</th>
+												<th>아동</th>
+												<th>유아</th>
+												<th>요금타입</th>
+												<th>이용요금</th>
+												<th class="last">결제액</th>
+											</tr>
+										</thead>
+										<tbody>
+
+<?php
+	$query = " SELECT * from $write_table WHERE wr_3 = '$view[wr_3]' AND wr_name = '$view[wr_name]' ORDER BY wr_link1 ASC ";
+	$resultList = sql_query($query);
+
+	for ($i=0; $rList = sql_fetch_array($resultList); $i++)
+	{
+		$rList2[$i] = getRoomName($rList['r_info_id']);
+		$rList2['wr_name'] = $rList['wr_name'];
+		$rList2['wr_10'] = $rList['wr_10'];
+		$rList2['wr_2'] = $rList['wr_2'];
+		$rList2['wr_8'] = $rList['wr_8']
+	?>
+											<tr>
+												<td class="first"><?=$rList2[$i][r_info_name]?></td>
+												<td><?=$rList2[$i][r_info_person1]?>명/<?=$rList2[$i][r_info_person2]?>명</td>
+												<td><span class="highlight-pink"><?=date("Y-m-d", $rList['wr_link2']);?>(<?=GetDateWeek(date("w", $rList['wr_link2']))?>)</span></td>
+												<td>
+													<?=$rList['person1']?> 명
+												</td>
+												<td>
+													<?=$rList['person2']?> 명
+												</td>
+												<td>
+													<?=$rList['person3']?> 명
+												</td>
+												<td><?=$rList['costType']?></td>
+												<td>
+													<div>기본가 <?=number_format($rList['cost1'])?>원</div>
+													<?php if($rList['cost2']) { ?><div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($rList['cost2'])?>원</div><?php } ?>
+													<?php if($rList['overCount']) { ?><div><span class="highlight-blue">추가인원 <?=$rList['overCount']?> +</span> <?=number_format($rList['overCost'])?>원</div><?php } ?>
+												</td>
+												<td class="last"><?=number_format($rList['cost3'] + $rList['overCost'])?>원</td>
+											</tr>
+<?php
+	}
+?>
+										</tbody>
+									</table>
+								</td>
+							</tr>
 							<tr class="ht list1">
-								<td class="<?=$css[tr]?>">예 약 코 드</td>
+								<td class="<?=$css[tr]?>">예약번호</td>
 								<td><?=$view[wr_3]?></td>
 							</tr>
-							<tr class="ht">
-								<td class="<?=$css[tr]?>">예약하신 방</td>
-								<td><?php if ($is_category) { echo ($category_name ? "$view[ca_name] " : ""); } ?>
-									<?php if($view[wr_9] > 1) echo " X " . $view[wr_9] . "(객실수)";?></td>
+							<tr class="ht list1">
+								<td class="<?=$css[tr]?>">예약자명</td>
+								<td><?=$view[wr_name]?></td>
 							</tr>
 							<tr class="ht list1">
-								<td class="<?=$css[tr]?>">예 약 인 원</td>
-								<td><?=$view[wr_1]?>
-									명
-									<?php if($view[wr_7]) { ?>
-									(기준인원 :
-									<?=Get_Room_Info_One($bo_table, $view[ca_name], 'person1')?>
-									명 + 추가인원 :
-									<?=$view[wr_7]?>
-									명)
-									<?php } ?></td>
+								<td class="<?=$css[tr]?>">결제자명</td>
+								<td><?=$view[wr_8]?></td>
 							</tr>
 							<tr class="ht">
-								<td class="<?=$css[tr]?>">예 약 일 정</td>
-								<td><?=$from_date?></td>
+								<td class="<?=$css[tr]?>">결제금액</td>
+								<td><span class="highlight-blue"><?=number_format($view[wr_10]);?></span> 원</td>
 							</tr>
 							<tr class="ht list1">
-								<td class="<?=$css[tr]?>">예 약 구 분</td>
-								<td>
-<?php
-if($view[wr_reserv]) {
-	echo stripslashes($view[wr_reserv]);
-} else {
-
-	echo $times[$i]."일은 <font color=green>".$gigantype." ".$weektype."</font>이며 숙박료는 <font color=blue>".number_format($price11)."원</font> 입니다. <br>";
-	$ad_price = $add_price * $view[wr_7] * $view[wr_8];
-	$sum += $price11;
-
-	echo "<br>";
-	echo "추가요금 -> 추가인원:".$view[wr_7]."명 X 요금:".number_format($add_price)."원 X 숙박일수:".$view[wr_8]."박 = ".number_format($ad_price)."원 추가<br>";
-	echo "<br>";
-	echo "숙박료 총합 : ".number_format($sum)."원 + ".number_format($ad_price)."원 = <font color=red>".number_format($view[wr_10])."원</font> <br>";
-}
-?></td>
+								<td class="<?=$css[tr]?>">결제방법</td>
+								<td><?=get_payMent($view[wr_7])?></td>
 							</tr>
-							<tr class="ht">
-								<td class="<?=$css[tr]?>">총 숙박요금</td>
-								<td><?=number_format($view[wr_10]);?>
-									원</td>
+							<tr class="ht list1">
+								<td class="<?=$css[tr]?>">출발지역</td>
+								<td><?=$view[wr_5]?></td>
 							</tr>
 							<tr class="ht list1">
 								<td class="<?=$css[tr]?>">E-mail주소</td>
@@ -131,6 +165,8 @@ if($view[wr_reserv]) {
 									</span></td>
 							</tr>
 						</TABLE>
+
+
 						<?php include_once ("./view_comment.php");
 ?>
 						<!-- 링크 -->
