@@ -1,6 +1,5 @@
 <?php
-function view_file_link2($file, $width, $height, $content="")
-{
+function view_file_link2($file, $width, $height, $content="") {
     global $config, $board;
     global $g4;
     static $ids;
@@ -27,8 +26,7 @@ function view_file_link2($file, $width, $height, $content="")
         return "<img src='$g4[path]/data/file/$board[bo_table]/".urlencode($file)."' ".$attr."  name='target_resize_image[]'  onclick='image_window(this);' style='cursor:pointer;' title='$content'>";
 }
 
-function view_file_link3($file, $width, $height, $content="")
-{
+function view_file_link3($file, $width, $height, $content="") {
     global $config, $board;
     global $g4;
     static $ids;
@@ -55,8 +53,7 @@ function view_file_link3($file, $width, $height, $content="")
         return "<img src='$g4[path]/data/file/$board[bo_table]/".urlencode($file)."' ".$attr."  name='target_resize_image[]' style='cursor:pointer;' title='$content'>";
 }
 
-function get_file_room($bo_table, $wr_id)
-{
+function get_file_room($bo_table, $wr_id) {
     global $g4, $qstr;
 
     $file["count"] = 0;
@@ -91,5 +88,27 @@ function get_file_room($bo_table, $wr_id)
     }
 
     return $file;
+}
+
+function get_rResult($rCode) {
+    switch ($rCode) {
+        case '0010':
+            $rResult = "예약대기";
+            break;
+        case '0020':
+            $rResult = "예약완료";
+            break;
+        case '0030':
+            $rResult = "예약취소";
+            break;
+        case '0040':
+            $rResult = "관리자예약";
+            break;
+        default:
+            $rResult = "예약대기";
+            break;
+    }
+
+    return $rResult;
 }
 ?>
