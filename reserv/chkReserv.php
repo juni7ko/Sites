@@ -279,6 +279,5 @@ switch ($rList2['rResult']) {
 
 
 <?php
-include_once("$g4[path]/sub/sub_footer.php");
 include_once("$g4[path]/tail.php");
 ?>
