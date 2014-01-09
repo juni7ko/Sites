@@ -111,4 +111,23 @@ function get_rResult($rCode) {
 
     return $rResult;
 }
+
+function get_payMent($pCode) {
+    switch ($pCode) {
+        case '1':
+            $rResult = "무통장입금";
+            break;
+        case '2':
+            $rResult = "실시간계좌이체";
+            break;
+        case '3':
+            $rResult = "신용카드";
+            break;
+        default:
+            $rResult = "무통장입금";
+            break;
+    }
+
+    return $rResult;
+}
 ?>

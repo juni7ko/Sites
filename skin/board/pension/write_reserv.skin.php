@@ -3,6 +3,9 @@ include_once("view.skin.lib.php");
 if(!$_POST[checkRoom])
 	alert("객실을 선택해 주세요!");
 $background = "class=bg-ptn1";
+
+// 펜션정보 읽기.
+$content2 = sql_fetch(" SELECT * FROM $write_table WHERE pension_id = '$pension_id' LIMIT 1; ");
 ?>
 <link rel="stylesheet" type="text/css" href="<?=$g4[path]?>/sub/css/reservation.css">
 
@@ -215,11 +218,13 @@ endforeach;
 							<tr>
 								<td class="first">결제방법</td>
 								<td class="last left">
-									<label><input type="radio" name="payCheck" value="1" checked /> 무통장입금</label>&nbsp;&nbsp;
-									<!--
-									<label><input type="radio" name="payCheck" value="2" />실시간계좌이체</label>&nbsp;&nbsp;
-									<label><input type="radio" name="payCheck" value="3" />신용카드</label>
-									-->
+									<label><input type='radio' name='payCheck' value='1' checked />무통장입금</label>&nbsp;&nbsp;&nbsp;
+									<?php
+									// 펜션설정에서 체크한 결제방식 출력.
+									//if($content2[payment1]) echo "<label><input type='radio' name='payCheck' value='1' checked />무통장입금</label>&nbsp;&nbsp;&nbsp;";
+									if($content2[payment2]) echo "<label><input type='radio' name='payCheck' value='2' disabled />실시간계좌이체</label>&nbsp;&nbsp;&nbsp;";
+									if($content2[payment3]) echo "<label><input type='radio' name='payCheck' value='3' disabled />신용카드</label>&nbsp;&nbsp;&nbsp;";
+									?>
 								</td>
 							</tr>
 							<tr>
@@ -258,9 +263,6 @@ endforeach;
 							<li class="title"><h2>주의사항</h2>
 <?php
 // 펜션 주의사항이 있다면 내용을 출력하고 없다면 공통된 내용이 출력되도록 함.
-$content2_sql = " SELECT wr_option, wr_content2 FROM $write_table WHERE pension_id = '$pension_id' LIMIT 1; ";
-$content2 = sql_fetch($content2_sql);
-
 if($content2[wr_content2]) {
 ?>
 <!-- 내용 출력 -->

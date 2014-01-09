@@ -125,6 +125,13 @@ $background = "class=bg-ptn1";
 						</ul>
 
 						<ul>
+							<li class="title"><h2>결제방법</h2>
+								<ol>
+									<li><?=get_payMent($payCheck)?></li>
+								</ol>
+						</ul>
+
+						<ul>
 							<li class="title"><h2>결제금액</h2>
 								<ol>
 									<li>총 <span class="highlight-blue"><?=number_format($res2_totalCost)?></span> 원</li>
