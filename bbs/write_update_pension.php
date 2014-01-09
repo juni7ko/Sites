@@ -13,7 +13,7 @@ if (substr_count($wr_content2, "&#") > 50) {
     exit;
 }
 
-@include_once("$board_skin_path/write_update.head.skin.php");
+//@include_once("$board_skin_path/write_update.head.skin.php");
 
 include_once("$g4[path]/lib/trackback.lib.php");
 
@@ -844,7 +844,7 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
 }
 
 // 사용자 코드 실행
-@include_once ("$board_skin_path/write_update.skin.php");
+//@include_once ("$board_skin_path/write_update.skin.php");
 
 // 트랙백 주소가 있다면
 if (($w != "u" && $wr_trackback) || ($w=="u" && $wr_trackback && $re_trackback))
@@ -858,7 +858,7 @@ if (($w != "u" && $wr_trackback) || ($w=="u" && $wr_trackback && $re_trackback))
     }
 }
 
-@include_once("$board_skin_path/write_update.tail.skin.php");
+//@include_once("$board_skin_path/write_update.tail.skin.php");
 
 if ($g4[https_url])
     $https_url = "$g4[url]/adm";
