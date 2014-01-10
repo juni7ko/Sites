@@ -27,20 +27,18 @@ include_once ("$board_skin_path/config.php");
 							<tr class="ht">
 								<td class="<?=$css[tr]?>" width="100">처리상태</td>
 								<td><?php if($is_admin) { ?>
-									<SCRIPT LANGUAGE="javascript">
+									<SCRIPT type="text/javascript">
 									function fwrite_check(f)
 									{
-										document.getElementById('btn_submit').disabled = true;
-
+										//document.getElementById('btn_submit').disabled = true;
 										if(confirm('정말로 수정 하시겠습니다.?')) {
 											f.action = '<?=$board_skin_path?>/res_update.php';
 											f.submit();
 										}
-
-										document.getElementById('btn_submit').disabled = false;
+										//document.getElementById('btn_submit').disabled = false;
 									}
 									</SCRIPT>
-									<form name="fwrite" method="post" action="javascript:fwrite_check(document.fwrite);" enctype="multipart/form-data" style="margin:0px; padding:0px;">
+									<form name="fwrite" method="post" enctype="multipart/form-data" style="margin:0px; padding:0px;">
 										<input type=hidden name=null />
 										<input type=hidden name=bo_table value="<?=$bo_table?>" />
 										<input type=hidden name=wr_id value="<?=$wr_id?>" />
@@ -52,7 +50,7 @@ include_once ("$board_skin_path/config.php");
 											<option value="0030"<?=($view[rResult] == "0030" ? " selected":"")?>>예약취소</option>
 											<option value="0040"<?=($view[rResult] == "0040" ? " selected":"")?>>관리자예약</option>
 										</select>
-										<input type=image id="btn_submit" src="<?=$board_skin_path?>/img/btn_wr_9.gif" border=0 accesskey='s' align="absmiddle" />
+										<input type=image id="btn_submit" src="<?=$board_skin_path?>/img/btn_wr_9.gif" border=0 accesskey='s' align="absmiddle" onClick="javascript:fwrite_check(document.fwrite);"/>
 									</form>
 									<?php } else { ?>
 										<font color=red><?=get_payMent($view[rResult])?></font>
