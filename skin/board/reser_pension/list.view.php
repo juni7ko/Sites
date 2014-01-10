@@ -32,10 +32,11 @@ if ($is_checkbox) $colspan++;
 							<input type="hidden" name="spt"  value="<?=$spt?>">
 							<input type="hidden" name="page" value="<?=$page?>">
 							<input type="hidden" name="sw"   value="">
+							<input type="hidden" name="pension_id" value="<?=$pension_id?>" />
 							<table width="100%" border="0" cellpadding="0" cellspacing="1" class=<?=$css[table]?>>
 								<tr class="<?=$css[tr]?>">
 									<?php if ($is_checkbox) echo "<td><INPUT onclick='if (this.checked) all_checked(true); else all_checked(false);' type=checkbox></td>"; ?>
-									<td>예약번호</td>
+									<td width="100">예약번호</td>
 									<td>객실명</td>
 									<td>예약일</td>
 									<td width="100">연락처</td>
@@ -48,21 +49,35 @@ if ($is_checkbox) $colspan++;
 								<tr class="ht center">
 									<?php if ($is_checkbox) echo "<td><input type=checkbox name=chk_wr_id[] value='{$list[$i][wr_id]}'></td>"; ?>
 									<td>
-										<a href="./board.php?bo_table=<?=$bo_table?>&stx=<?=$list[$i][wr_3]?>&sfl=wr_3&view_mode=list&pension_id=<?=$pension_id?>">
 										<?php
-										if ($wr_id == $list[$i][wr_id]) {// 현재위치
-											echo "<span style='color:#2c8cb9; font-weight:bold;'>{$list[$i][wr_3]}</span>";
-										} else {
-											echo "<span class=m_num>{$list[$i][wr_3]}</span>";
-										}
+											$wr3Cnt = sql_fetch("SELECT count(*) as cnt FROM g4_write_bbs34 WHERE wr_3 = '{$list[$i][wr_3]}' ");
+											if( ($wr3Cnt[cnt] > 1) and ($stx != $list[$i][wr_3]) ) {
+												echo "<a href='./resList.php?bo_table=$bo_table&stx={$list[$i][wr_3]}&sfl=wr_3&view_mode=list&pension_id={$pension_id}'>";
+											}
+
+											if ($wr_id == $list[$i][wr_id]) {// 현재위치
+												echo "<span style='color:#2c8cb9; font-weight:bold;'>{$list[$i][wr_3]}</span>";
+											} else {
+												echo "<span class=m_num>{$list[$i][wr_3]}</span>";
+											}
+
+											if( ($wr3Cnt[cnt] > 1) and ($stx != $list[$i][wr_3]) ) {
+												echo "<span class=m_num>({$wr3Cnt[cnt]})</span>";
+												echo "</a>";
+											}
 										?>
-										</a>
 									</td>
 									<td>
-										<a href="<?=$list[$i][ca_name_href]?>&view_mode=list&pension_id=<?=$pension_id?>"><span class=small style='color:blue;'><?=$list[$i][ca_name]?></span></a>
+										<!--<a href="<?=$list[$i][ca_name_href]?>&view_mode=list&pension_id=<?=$pension_id?>">-->
+										<span class=small style='color:blue;'><?=$list[$i][ca_name]?></span>
+										<!--</a>-->
 									</td>
-									<td style="word-break:break-all;"><a href="<?=$list[$i][href]?>&pension_id=<?=$pension_id?>" class="m_sub">
-										<?=date("Y-m-d", $list[$i][wr_link2])?>(<?=$list[$i][wr_1]."명";?>)</a></td>
+									<td style="word-break:break-all;">
+										<a href="<?=$list[$i][href]?>&pension_id=<?=$pension_id?>" class="m_sub">
+										<?=date("Y-m-d", $list[$i][wr_link2])?>
+										<?=($wr3Cnt[cnt] > 1) ? " [{$wr3Cnt[cnt]}건]":""; ?>
+										</a>
+									</td>
 									<td class="m2_name" align="center"><?=$list[$i][wr_2]?></td>
 									<td class="m2_name" align="center"><?=$list[$i][wr_name]?></td>
 									<td class="m2_name" align="center" style="color:#FF0000;"><?=get_rResult($list[$i][rResult])?></td>
@@ -118,7 +133,6 @@ $write_pages2 = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family
 											<option value='wr_2'>연락처</option>
 											<option value='wr_3'>예약번호</option>
 											<option value='wr_link1'>입실일</option>
-											<option value='wr_link2'>퇴실일</option>
 											<option value='rResult'>예약상태</option>
 											<option value='wr_10'>숙박요금</option>
 										</select>
@@ -175,7 +189,7 @@ function select_delete() {
 	if (!confirm("선택한 게시물을 정말 "+str+" 하시겠습니까?\n\n한번 "+str+"한 자료는 복구할 수 없습니다"))
 		return;
 
-	f.action = "./delete_all.php";
+	f.action = "./delete_reserv.php";
 	f.submit();
 }
 
