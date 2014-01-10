@@ -75,12 +75,12 @@ else if ($w == "r")
         $begin_reply_char = "A";
         $end_reply_char = "Z";
         $reply_number = +1;
-        $sql = " select MAX(SUBSTRING(wr_reply, $reply_len, 1)) as reply from $write_table where wr_num = '$reply_array[wr_num]' and SUBSTRING(wr_reply, $reply_len, 1) <> '' ";
+        $sql = " SELECT MAX(SUBSTRING(wr_reply, $reply_len, 1)) as reply from $write_table where wr_num = '$reply_array[wr_num]' and SUBSTRING(wr_reply, $reply_len, 1) <> '' ";
     } else {
         $begin_reply_char = "Z";
         $end_reply_char = "A";
         $reply_number = -1;
-        $sql = " select MIN(SUBSTRING(wr_reply, $reply_len, 1)) as reply from $write_table where wr_num = '$reply_array[wr_num]' and SUBSTRING(wr_reply, $reply_len, 1) <> '' ";
+        $sql = " SELECT MIN(SUBSTRING(wr_reply, $reply_len, 1)) as reply from $write_table where wr_num = '$reply_array[wr_num]' and SUBSTRING(wr_reply, $reply_len, 1) <> '' ";
     }
     if ($reply_array[wr_reply]) $sql .= " and wr_reply like '$reply_array[wr_reply]%' ";
     $row = sql_fetch($sql);
@@ -107,7 +107,7 @@ if ($w == "" || $w == "r")
 
 
     // 동일내용 연속 등록 불가
-    $row = sql_fetch(" select MD5(CONCAT(wr_ip, wr_subject, wr_content)) as prev_md5 from $write_table order by wr_id desc limit 1 ");
+    $row = sql_fetch(" SELECT MD5(CONCAT(wr_ip, wr_subject, wr_content)) as prev_md5 from $write_table order by wr_id desc limit 1 ");
     $curr_md5 = md5($_SERVER[REMOTE_ADDR].$wr_subject.$wr_content);
     if ($row[prev_md5] == $curr_md5 && !$is_admin)
         alert("동일한 내용을 연속해서 등록할 수 없습니다.");
@@ -215,8 +215,7 @@ if ($w == "" || $w == "r")
         $overCount[$i] = (int)$res2_personOver[$i]; // 추가인원
         $overCost[$i] = (int)$res2_personOverCost[$i]; // 추가가격
 
-
-        $sql = " insert into $write_table
+        $sql = " INSERT into $write_table
                     set wr_num = '$wr_num',
                         wr_reply = '$wr_reply',
                         wr_comment = 0,
@@ -270,14 +269,14 @@ if ($w == "" || $w == "r")
         $wr_id = mysql_insert_id();
 
         // 부모 아이디에 UPDATE
-        sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
+        sql_query(" UPDATE $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
 
         // 새글 INSERT
         //sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]' ) ");
-        sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]' ) ");
+        sql_query(" INSERT into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]' ) ");
 
         // 게시글 1 증가
-        sql_query("update $g4[board_table] set bo_count_write = bo_count_write + 1 where bo_table = '$bo_table'");
+        sql_query("UPDATE $g4[board_table] set bo_count_write = bo_count_write + 1 where bo_table = '$bo_table'");
 
         // 쓰기 포인트 부여
         if ($w == '')
@@ -285,7 +284,7 @@ if ($w == "" || $w == "r")
             if ($notice)
             {
                 $bo_notice = $wr_id[$i] . "\n" . $board[bo_notice];
-                sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+                sql_query(" UPDATE $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
             }
 
             insert_point($member[mb_id], $board[bo_write_point], "$board[bo_subject] $wr_id 글쓰기", $bo_table, $wr_id, '쓰기');
@@ -296,6 +295,8 @@ if ($w == "" || $w == "r")
             // 답변 포인트가 많은 경우 코멘트 대신 답변을 하는 경우가 많음
             insert_point($member[mb_id], $board[bo_comment_point], "$board[bo_subject] $wr_id 글답변", $bo_table, $wr_id, '쓰기');
         }
+
+        $wr_num = get_next_num($write_table); // Juni7
 
     } // end for
     /* 예약 내용이 넘어온 것을 게시판에 맞게 변경하여 입력하도록 한다.
@@ -362,7 +363,7 @@ else if ($w == "u")
     if (!$is_admin)
         $sql_ip = " , wr_ip = '$_SERVER[REMOTE_ADDR]' ";
 
-    $sql = " update $write_table
+    $sql = " UPDATE $write_table
                 set ca_name = '$ca_name',
                     wr_option = '$html,$secret,$mail',
                     wr_subject = '$wr_subject',
@@ -390,7 +391,7 @@ else if ($w == "u")
 
     // 분류가 수정되는 경우 해당되는 코멘트의 분류명도 모두 수정함
     // 코멘트의 분류를 수정하지 않으면 검색이 제대로 되지 않음
-    $sql = " update $write_table set ca_name = '$ca_name' where wr_parent = '$wr[wr_id]' ";
+    $sql = " UPDATE $write_table set ca_name = '$ca_name' where wr_parent = '$wr[wr_id]' ";
     sql_query($sql);
 
     if ($notice)
@@ -399,7 +400,7 @@ else if ($w == "u")
         if (!in_array((int)$wr_id, $notice_array))
         {
             $bo_notice = $wr_id . '\n' . $board[bo_notice];
-            sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+            sql_query(" UPDATE $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
         }
     }
     else
@@ -410,7 +411,7 @@ else if ($w == "u")
                 $bo_notice .= $notice_array[$i] . '\n';
         $bo_notice = trim($bo_notice);
         //$bo_notice = preg_replace("/^".$wr_id."[\n]?$/m", "", $board[bo_notice]);
-        sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+        sql_query(" UPDATE $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
     }
 }
 
@@ -424,14 +425,14 @@ for ($i=0; $i<count($upload); $i++)
         $upload[$i]['source'] = addslashes($upload[$i]['source']);
     }
 
-    $row = sql_fetch(" select count(*) as cnt from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
+    $row = sql_fetch(" SELECT count(*) as cnt from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
     if ($row[cnt])
     {
         // 삭제에 체크가 있거나 파일이 있다면 업데이트를 합니다.
         // 그렇지 않다면 내용만 업데이트 합니다.
         if ($upload[$i][del_check] || $upload[$i][file])
         {
-            $sql = " update $g4[board_file_table]
+            $sql = " UPDATE $g4[board_file_table]
                         set bf_source = '{$upload[$i][source]}',
                             bf_file = '{$upload[$i][file]}',
                             bf_content = '{$bf_content[$i]}',
@@ -447,7 +448,7 @@ for ($i=0; $i<count($upload); $i++)
         }
         else
         {
-            $sql = " update $g4[board_file_table]
+            $sql = " UPDATE $g4[board_file_table]
                         set bf_content = '{$bf_content[$i]}'
                       where bo_table = '$bo_table'
                         and wr_id = '$wr_id'
@@ -457,7 +458,7 @@ for ($i=0; $i<count($upload); $i++)
     }
     else
     {
-        $sql = " insert into $g4[board_file_table]
+        $sql = " INSERT into $g4[board_file_table]
                     set bo_table = '$bo_table',
                         wr_id = '$wr_id',
                         bf_no = '$i',
@@ -476,16 +477,16 @@ for ($i=0; $i<count($upload); $i++)
 
 // 업로드된 파일 내용에서 가장 큰 번호를 얻어 거꾸로 확인해 가면서
 // 파일 정보가 없다면 테이블의 내용을 삭제합니다.
-$row = sql_fetch(" select max(bf_no) as max_bf_no from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ");
+$row = sql_fetch(" SELECT max(bf_no) as max_bf_no from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ");
 for ($i=(int)$row[max_bf_no]; $i>=0; $i--)
 {
-    $row2 = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
+    $row2 = sql_fetch(" SELECT bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
 
     // 정보가 있다면 빠집니다.
     if ($row2[bf_file]) break;
 
     // 그렇지 않다면 정보를 삭제합니다.
-    sql_query(" delete from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
+    sql_query(" DELETE from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
 }
 //------------------------------------------------------------------------------
 
@@ -539,7 +540,7 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
 
         // 코멘트 쓴 모든이에게 메일 발송이 되어 있다면 (자신에게는 발송하지 않는다)
         if ($config[cf_email_wr_comment_all]) {
-            $sql = " select distinct wr_email from $write_table
+            $sql = " SELECT distinct wr_email from $write_table
                       where wr_email not in ( '$wr[wr_email]', '$member[mb_email]', '' )
                         and wr_parent = '$wr_id' ";
             $result = sql_query($sql);
