@@ -130,4 +130,124 @@ function get_payMent($pCode) {
 
     return $rResult;
 }
+
+function get_list2($write_row, $board, $skin_path, $subject_len=40)
+{
+    global $g4, $config;
+    global $qstr, $page;
+    global $pension_id;
+
+    //$t = get_microtime();
+
+    // 배열전체를 복사
+    $list = $write_row;
+    unset($write_row);
+
+    $list['is_notice'] = preg_match("/[^0-9]{0,1}{$list['wr_id']}[\r]{0,1}/",$board['bo_notice']);
+
+    if ($subject_len)
+        $list['subject'] = conv_subject($list['wr_subject'], $subject_len, "…");
+    else
+        $list['subject'] = conv_subject($list['wr_subject'], $board['bo_subject_len'], "…");
+
+    // 목록에서 내용 미리보기 사용한 게시판만 내용을 변환함 (속도 향상) : kkal3(커피)님께서 알려주셨습니다.
+    if ($board['bo_use_list_content'])
+    {
+        $html = 0;
+        if (strstr($list['wr_option'], "html1"))
+            $html = 1;
+        else if (strstr($list['wr_option'], "html2"))
+            $html = 2;
+
+        $list['content'] = conv_content($list['wr_content'], $html);
+    }
+
+    $list['comment_cnt'] = "";
+    if ($list['wr_comment'])
+        $list['comment_cnt'] = "($list[wr_comment])";
+
+    // 당일인 경우 시간으로 표시함
+    $list['datetime'] = substr($list['wr_datetime'],0,10);
+    $list['datetime2'] = $list['wr_datetime'];
+    if ($list['datetime'] == $g4['time_ymd'])
+        $list['datetime2'] = substr($list['datetime2'],11,5);
+    else
+        $list['datetime2'] = substr($list['datetime2'],5,5);
+    // 4.1
+    $list['last'] = substr($list['wr_last'],0,10);
+    $list['last2'] = $list['wr_last'];
+    if ($list['last'] == $g4['time_ymd'])
+        $list['last2'] = substr($list['last2'],11,5);
+    else
+        $list['last2'] = substr($list['last2'],5,5);
+
+    $list['wr_homepage'] = get_text(addslashes($list['wr_homepage']));
+
+    $tmp_name = get_text(cut_str($list['wr_name'], $config['cf_cut_name'])); // 설정된 자리수 만큼만 이름 출력
+    if ($board['bo_use_sideview'])
+        $list['name'] = get_sideview($list['mb_id'], $tmp_name, $list['wr_email'], $list['wr_homepage']);
+    else
+        $list['name'] = "<span class='".($list['mb_id']?'member':'guest')."'>$tmp_name</span>";
+
+    $reply = $list['wr_reply'];
+
+    $list['reply'] = "";
+    if (strlen($reply) > 0)
+    {
+        for ($k=0; $k<strlen($reply); $k++)
+            $list['reply'] .= ' &nbsp;&nbsp; ';
+    }
+
+    $list['icon_reply'] = "";
+    if ($list['reply'])
+        $list['icon_reply'] = "<img src='$skin_path/img/icon_reply.gif' align='absmiddle'>";
+
+    $list['icon_link'] = "";
+    if ($list['wr_link1'] || $list['wr_link2'])
+        $list['icon_link'] = "<img src='$skin_path/img/icon_link.gif' align='absmiddle'>";
+
+    // 분류명 링크
+    $list['ca_name_href'] = "$g4[bbs_path]/resList.php?bo_table=$board[bo_table]&pension_id=$pension_id&sca=".urlencode($list['ca_name']);
+
+    $list['href'] = "$g4[bbs_path]/resList.php?bo_table=$board[bo_table]&pension_id=$pension_id&wr_id=$list[wr_id]" . $qstr;
+    //$list['href'] = "$g4[bbs_path]/resList.php?bo_table=$board[bo_table]&pension_id=$pension_id&wr_id=$list[wr_id]";
+    if ($board['bo_use_comment'])
+        $list['comment_href'] = "javascript:win_comment('$g4[bbs_path]/resList.php?bo_table=$board[bo_table]&pension_id=$pension_id&wr_id=$list[wr_id]&cwin=1');";
+    else
+        $list['comment_href'] = $list['href'];
+
+    $list['icon_new'] = "";
+    if ($list['wr_datetime'] >= date("Y-m-d H:i:s", $g4['server_time'] - ($board['bo_new'] * 3600)))
+        $list['icon_new'] = "<img src='$skin_path/img/icon_new.gif' align='absmiddle'>";
+
+    $list['icon_hot'] = "";
+    if ($list['wr_hit'] >= $board['bo_hot'])
+        $list['icon_hot'] = "<img src='$skin_path/img/icon_hot.gif' align='absmiddle'>";
+
+    $list['icon_secret'] = "";
+    if (strstr($list['wr_option'], "secret"))
+        $list['icon_secret'] = "<img src='$skin_path/img/icon_secret.gif' align='absmiddle'>";
+
+    // 링크
+    for ($i=1; $i<=$g4['link_count']; $i++)
+    {
+        $list['link'][$i] = set_http(get_text($list["wr_link{$i}"]));
+        $list['link_href'][$i] = "$g4[bbs_path]/link.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]&no=$i" . $qstr;
+        $list['link_hit'][$i] = (int)$list["wr_link{$i}_hit"];
+    }
+
+    // 가변 파일
+    $list['file'] = get_file($board['bo_table'], $list['wr_id']);
+
+    if ($list['file']['count'])
+        $list['icon_file'] = "<img src='$skin_path/img/icon_file.gif' align='absmiddle'>";
+
+    return $list;
+}
+
+// get_list 의 alias
+function get_view2($write_row, $board, $skin_path, $subject_len=125)
+{
+    return get_list($write_row, $board, $skin_path, $subject_len);
+}
 ?>
