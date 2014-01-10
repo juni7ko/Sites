@@ -53,14 +53,14 @@ header("Pragma: no-cache"); // HTTP/1.0
 
 
 
-<link rel="stylesheet" type="text/css" href="<?php echo $g4['path']?>/css/style.css" media="all" />
-<link rel="stylesheet" type="text/css" href="<?php echo $g4['path']?>/css/ui_theme/jquery-ui-1.8.13.custom.css" media="all" />
-<link rel="stylesheet" type="text/css" href="<?php echo $g4['path']?>/js/fancybox/jquery.fancybox-1.3.4.css" media="all" />
+<link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/css/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/css/ui_theme/jquery-ui-1.8.13.custom.css" media="all" />
+<link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/js/fancybox/jquery.fancybox-1.3.4.css" media="all" />
 <?php if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table && $wr_id){?>
-<link rel="canonical" href="<?php echo $_SERVER[PHP_SELF];?>?bo_table=<?php echo $bo_table;?>&wr_id=<?php echo $wr_id;?>" />
+<link rel="canonical" href="<?=$_SERVER[PHP_SELF];?>?bo_table=<?=$bo_table;?>&wr_id=<?=$wr_id;?>" />
 <?php }?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo $g4['path']?>/css/skin.css"  media="all" />
+<link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/css/skin.css"  media="all" />
 
 
 
@@ -137,26 +137,28 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 <script type="text/javascript" src="<?=$g4['path']?>/js/common.js"></script>
 
 
-<script type="text/javascript" src="<?php echo $g4['path']?>/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo $g4['path']?>/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?php echo $g4['path']?>/js/jquery.external.js"></script>
-<script type="text/javascript" src="<?php echo $g4['path']?>/js/common.js"></script>
-<script type="text/javascript" src="<?php echo $g4['path']?>/js/wrest.js"></script>
-<script type="text/javascript" src="<?php echo $g4['path']?>/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/jquery.external.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/common.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/wrest.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 
 	<!------------------------------------------------>
 	<!-- * 추가                                     -->
 	<!------------------------------------------------>
 
-	<script type="text/javascript" src="<?php echo $g4['path']?>/layout/js/jquery.1.9.1.min.js"></script>
-	<script type="text/javascript" src="<?php echo $g4['path']?>/layout/js/easing.js"></script>
-	<script type="text/javascript" src="<?php echo $g4['path']?>/layout/js/jquery.bxslider.js"></script>
-	<script type="text/javascript" src="<?php echo $g4['path']?>/layout/js/jquery.ui.totop.js"></script>
-	<script type="text/javascript" src="<?php echo $g4['path']?>/layout/js/common.js"></script>
+	<script type="text/javascript" src="<?=$g4['path']?>/layout/js/jquery.1.9.1.min.js"></script>
+	<script type="text/javascript" src="<?=$g4['path']?>/layout/js/easing.js"></script>
+	<script type="text/javascript" src="<?=$g4['path']?>/layout/js/jquery.bxslider.js"></script>
+	<script type="text/javascript" src="<?=$g4['path']?>/layout/js/jquery.ui.totop.js"></script>
+	<script type="text/javascript" src="<?=$g4['path']?>/layout/js/common.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="<?php echo $g4['path']?>/layout/css/common.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $g4['path']?>/layout/css/style.css" />
-	<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="<?php echo $g4['path']?>/layout/css/ie.css" media="all" /><![endif]-->
+	<script type="text/javascript" src="<?=$g4['path']?>/js/jquery.msgbox.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/layout/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/layout/css/style.css" />
+	<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/layout/css/ie.css" media="all" /><![endif]-->
 
 </head>
 
