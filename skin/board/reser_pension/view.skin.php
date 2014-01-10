@@ -169,11 +169,10 @@ include_once ("$board_skin_path/config.php");
 	echo "<a href=\"{$list_href}\">완료</a>";
 }
 
-if ($write_href) { /*echo "<a href=\"$write_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/write.gif' border=0 alt='글쓰기'></a>";*/ }
+// if ($write_href) { echo "<a href=\"$write_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/write.gif' border=0 alt='글쓰기'></a>"; }
+//if ($reply_href && $admin_href) { echo "<a href=\"$reply_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/reply.gif' border=0 alt='답변'></a>"; }
 
-if ($reply_href && $admin_href) { /*echo "<a href=\"$reply_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/reply.gif' border=0 alt='답변'></a>";*/ }
-
-if ($update_href && $admin_href) { echo "<a href=\"res_modify.php?bo_table={$bo_table}&wr_id={$wr_id}&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
+//if ($update_href && $admin_href) { echo "<a href=\"res_modify.php?bo_table={$bo_table}&wr_id={$wr_id}&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
 //if ($update_href && $admin_href) { echo "<a href=\"$update_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
 if ($delete2_href && $admin_href) { echo "<a href=\"$delete2_href\"><img src='$board_skin_path/img/delete.gif' border=0 alt='삭제'></a>"; }
 ?></td>
