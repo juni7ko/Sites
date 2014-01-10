@@ -6,7 +6,7 @@ $is_category = false;
 if ($board[bo_use_category])
 {
 	$is_category = true;
-	$category_location = "./board.php?bo_table=$bo_table&sca=";
+	$category_location = "./resList.php?bo_table=$bo_table&sca=";
 	$category_option = get_category_option($bo_table); // SELECT OPTION 태그로 넘겨받음
 }
 
@@ -74,8 +74,12 @@ else {
 	$sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
 }
 
-if ($sst)
-	$sql_order = " AND pension_id = '$pension_id' GROUP BY wr_3 order by $sst $sod ";
+if ($sst) {
+	if($sfl == "wr_3")
+		$sql_order = " AND pension_id = '$pension_id' order by $sst $sod ";
+	else
+		$sql_order = " AND pension_id = '$pension_id' GROUP BY wr_3 order by $sst $sod ";
+}
 
 if ($sca || $stx)
 {
@@ -104,7 +108,7 @@ if (!$sca && !$stx)
 
 		if (!$row[wr_id]) continue;
 
-		$list[$i] = get_list($row, $board, $board_skin_path, $board[bo_subject_len]);
+		$list[$i] = get_list2($row, $board, $board_skin_path, $board[bo_subject_len]);
 		$list[$i][is_notice] = true;
 
 		$i++;
@@ -119,7 +123,7 @@ while ($row = sql_fetch_array($result))
 	if ($sca || $stx)
 		$row = sql_fetch(" SELECT * from $write_table where wr_id = '$row[wr_parent]' ");
 
-	$list[$i] = get_list($row, $board, $board_skin_path, $board[bo_subject_len]);
+	$list[$i] = get_list2($row, $board, $board_skin_path, $board[bo_subject_len]);
 	if (strstr($sfl, "subject"))
 		$list[$i][subject] = search_font($stx, $list[$i][subject]);
 	$list[$i][is_notice] = false;
@@ -130,28 +134,28 @@ while ($row = sql_fetch_array($result))
 	$k++;
 }
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./resList.php?bo_table=$bo_table&pension_id=$pension_id".$qstr."&page=");
 
 $list_href = '';
 $prev_part_href = '';
 $next_part_href = '';
 if ($sca || $stx)
 {
-	$list_href = "./board.php?bo_table=$bo_table";
+	$list_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id";
 
 	//if ($prev_spt >= $min_spt)
 	$prev_spt = $spt - $config[cf_search_part];
 	if (isset($min_spt) && $prev_spt >= $min_spt)
-		$prev_part_href = "./board.php?bo_table=$bo_table".$qstr."&spt=$prev_spt&page=1";
+		$prev_part_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id".$qstr."&spt=$prev_spt&page=1";
 
 	$next_spt = $spt + $config[cf_search_part];
 	if ($next_spt < 0)
-		$next_part_href = "./board.php?bo_table=$bo_table".$qstr."&spt=$next_spt&page=1";
+		$next_part_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id".$qstr."&spt=$next_spt&page=1";
 }
 
 $write_href = "";
 if ($member[mb_level] >= $board[bo_write_level])
-	$write_href = "./write.php?bo_table=$bo_table";
+	$write_href = "./write.php?bo_table=$bo_table&pension_id=$pension_id";
 
 $nobr_begin = $nobr_end = "";
 if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) {
@@ -162,7 +166,7 @@ if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) {
 // RSS 보기 사용에 체크가 되어 있어야 RSS 보기 가능 061106
 $rss_href = "";
 if ($board[bo_use_rss_view])
-	$rss_href = "./rss.php?bo_table=$bo_table";
+	$rss_href = "./rss.php?bo_table=$bo_table&pension_id=$pension_id";
 
 $stx = get_text(stripslashes($stx));
 include_once("$board_skin_path/list.skin.php");

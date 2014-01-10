@@ -14,12 +14,12 @@ if (!$board[bo_table])
 
 if ($write[wr_is_comment])
 {
-    goto_url("./board.php?bo_table=$bo_table&wr_id=$write[wr_parent]#c_{$wr_id}");
+    goto_url("./resList.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$write[wr_parent]#c_{$wr_id}");
 }
 
 if (!$bo_table)
 {
-    $msg = "bo_table 값이 넘어오지 않았습니다.\\n\\nboard.php?bo_table=code 와 같은 방식으로 넘겨 주세요.";
+    $msg = "bo_table 값이 넘어오지 않았습니다.\\n\\nresList.php?bo_table=code 와 같은 방식으로 넘겨 주세요.";
     if ($cwin) // 코멘트 보기
         alert_close($msg);
     else
@@ -36,7 +36,7 @@ if ($wr_id)
         if ($cwin)
             alert_close($msg);
         else
-            alert($msg, "./board.php?bo_table=$bo_table");
+            alert($msg, "./resList.php?bo_table=$bo_table&pension_id=$pension_id");
     }
 
     // 그룹접근 사용
@@ -47,7 +47,7 @@ if ($wr_id)
             if ($cwin)
                 alert_close($msg);
             else
-                alert($msg, "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id"));
+                alert($msg, "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("./resList.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id"));
         }
 
         // 그룹관리자 이상이라면 통과
@@ -72,7 +72,7 @@ if ($wr_id)
             //alert("글을 읽을 권한이 없습니다.");
             alert("글을 읽을 권한이 없습니다.", $g4[path]);
         else
-            alert("글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id"));
+            alert("글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("./resList.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id"));
     }
 
     // 자신의 글이거나 관리자라면 통과
@@ -106,7 +106,7 @@ if ($wr_id)
                 // 이 게시물이 저장된 게시물이 아니면서 관리자가 아니라면
                 //if ("$bo_table|$write[wr_num]" != get_session("ss_secret"))
                 if (!get_session($ss_name))
-                    goto_url("./password.php?w=s&bo_table=$bo_table&wr_id=$wr_id{$qstr}");
+                    goto_url("./password.php?w=s&bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id{$qstr}");
             }
 
             set_session($ss_name, TRUE);
@@ -154,7 +154,7 @@ else
         if ($member[mb_id])
             alert("목록을 볼 권한이 없습니다.", $g4[path]);
         else
-            alert("목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("board.php?bo_table=$bo_table&wr_id=$wr_id"));
+            alert("목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("resList.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id"));
     }
 
     if (!$page) $page = 1;
@@ -197,7 +197,7 @@ if ($board[bo_use_nogood])
 $admin_href = "";
 // 최고관리자 또는 그룹관리자라면
 if ($member[mb_id] && ($is_admin == 'super' || $group[gr_admin] == $member[mb_id]))
-    $admin_href = "$g4[admin_path]/board_form.php?w=u&bo_table=$bo_table";
+    $admin_href = "$g4[admin_path]/board_form.php?w=u&bo_table=$bo_table&pension_id=$pension_id";
 
 if (!($board[bo_use_comment] && $cwin))
     include_once("./board_head.php");
