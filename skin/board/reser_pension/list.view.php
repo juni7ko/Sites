@@ -26,12 +26,12 @@ if ($is_checkbox) $colspan++;
 						<?php if ($admin_href) include_once("{$board_skin_path}/inc_top_menu.php");?>
 						<!-- 제목 -->
 						<form name="fboardlist" method="post" style="margin:0px;">
-							<input type="hidden" name="bo_table" value="<?=$bo_table?>">
-							<input type="hidden" name="sfl"  value="<?=$sfl?>">
-							<input type="hidden" name="stx"  value="<?=$stx?>">
-							<input type="hidden" name="spt"  value="<?=$spt?>">
-							<input type="hidden" name="page" value="<?=$page?>">
-							<input type="hidden" name="sw"   value="">
+							<input type="hidden" name="bo_table" value="<?=$bo_table?>" />
+							<input type="hidden" name="sfl"  value="<?=$sfl?>" />
+							<input type="hidden" name="stx"  value="<?=$stx?>" />
+							<input type="hidden" name="spt"  value="<?=$spt?>" />
+							<input type="hidden" name="page" value="<?=$page?>" />
+							<input type="hidden" name="sw"   value="" />
 							<input type="hidden" name="pension_id" value="<?=$pension_id?>" />
 							<table width="100%" border="0" cellpadding="0" cellspacing="1" class=<?=$css[table]?>>
 								<tr class="<?=$css[tr]?>">
@@ -112,8 +112,8 @@ $write_pages2 = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family
 						<!-- 버튼 링크 -->
 						<form name=fsearch method=get style="margin:0px; padding:0px;">
 							<input type=hidden name=view_mode value="list" />
-							<input type=hidden name=bo_table value="<?=$bo_table?>">
-							<input type=hidden name=sca      value="<?=$sca?>">
+							<input type=hidden name=bo_table value="<?=$bo_table?>" />
+							<input type=hidden name=sca      value="<?=$sca?>" />
 							<table width="100%" border="0" cellpadding="0" cellspacing="0">
 								<tr>
 									<td width="50%"><?php if ($list_href) { ?>
