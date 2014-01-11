@@ -109,13 +109,19 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
     }
 
     if($sfl != "wr_3") {
-        $findWr3 = sql_fetch("SELECT wr_3 FROM $write_table WHERE wr_parent = '$write[wr_id]' LIMIT 1 ");
         // 예약번호 모두 삭제
-        sql_query(" DELETE FROM $write_table WHERE wr_3 = '$findWr3[wr_3]' ");
-    }
+        sql_query(" DELETE FROM $write_table WHERE wr_3 = '$write[wr_3]' ");
+    } else {
+        // 게시글 삭제
+        sql_query(" DELETE from $write_table where wr_parent = '$write[wr_id]' ");
 
-    // 게시글 삭제
-    sql_query(" DELETE from $write_table where wr_parent = '$write[wr_id]' ");
+        // 예약번호가 남아있을 경우 가격 업데이트
+        $chkWr3 = sql_fetch(" SELECT count(*) as cnt FROM $write_table WHERE wr_3 = '$write[wr_3]' ");
+        if($chkWr3[cnt]) {
+            $sumWr10 = sql_fetch(" SELECT sum(wr_9) as sum_wr9 FROM $write_table WHERE wr_3 = '$write[wr_3]' ");
+            sql_query(" UPDATE $write_table SET wr_10 = $sumWr10[sum_wr9] WHERE wr_3 = '$write[wr_3]' ");
+        }
+    }
 
     // 최근게시물 삭제
     sql_query(" DELETE from $g4[board_new_table] where bo_table = '$bo_table' and wr_parent = '$write[wr_id]' ");
