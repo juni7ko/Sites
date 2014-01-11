@@ -3,7 +3,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
 // 선택옵션으로 인해 셀합치기가 가변적으로 변함
-$colspan = 6;
+$colspan = 7;
 if ($is_checkbox) $colspan++;
 // 제목이 두줄로 표시되는 경우 이 코드를 사용해 보세요.
 // <nobr style='display:block; overflow:hidden; width:000px;'>제목</nobr>
@@ -84,7 +84,7 @@ if ($is_checkbox) $colspan++;
 									<td align=center class="m2"><?=$list[$i][datetime]?></td>
 								</tr>
 								<?php }?>
-								<?php if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
+								<?php if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 class='center'>게시물이 없습니다.</td></tr>"; } ?>
 							</table>
 						</form>
 						<!-- 페이지 -->
