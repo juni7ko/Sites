@@ -433,10 +433,14 @@ endforeach;
 		</div>
 		<div>
 			<div class="detail-readme">
+<?php
+/*
 			<?php foreach($viewDateRow['rInfoIdRow'] as $i) : ?>
 				<label><input type="radio" onClick="roomFrameGo(0,'<?=$viewDateRow['rInfoId'][$i]?>','<?=$pension_id?>');" name='rInfo0' value='<?=$viewDateRow['rInfoId'][$i]?>' <?=(!$i) ? "checked":NULL;?> />&nbsp;<?=$viewDateRow['rInfoName'][$i]?></label>&nbsp;&nbsp;&nbsp;
 			<?php endforeach; ?>
 				<br class="blank" />
+*/
+?>
 				<iframe id="roomFrame0" width="100%" src="<?=$g4[path]?>/reserv/roomView.php?rid=<?=$viewDateRow['rInfoId'][0]?>&pId=<?=$pension_id?>" frameborder='0' marginwidth='0' marginheight='0' scrolling='no' onload="resizeFrame(this);" style="height:100px; margin-top:3px;"></iframe>
 			</div>
 		</div>
