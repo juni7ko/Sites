@@ -1,4 +1,5 @@
-<?php include_once ("$board_skin_path/config.php");
+<?php
+include_once ("$board_skin_path/config.php");
 
 if ($view_mode == "list"){
 	include_once ("$board_skin_path/list.view.php");
@@ -10,6 +11,8 @@ if ($view_mode == "list"){
 	include_once ("$board_skin_path/list.cost.php");
 } else {
 
+
+
 	if (eregi('%', $width)) {
 		$col_width = "14%"; //표의 가로 폭이 100보다 크면 픽셀값입력
 	}else{
@@ -20,11 +23,11 @@ if ($view_mode == "list"){
 	$b_mon = $today['mon'];
 	$b_day = $today['mday'];
 	$b_year = $today['year'];
-	
+
 	if ($day != "") {   $month = $month;   $day = $day;   $year = $year;}
-	else if ($year < 1) {   $month = $b_mon;   $day = $b_day;   $year = $b_year;} 
-	
-	
+	else if ($year < 1) {   $month = $b_mon;   $day = $b_day;   $year = $b_year;}
+
+
 	$lastday = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
 	if ($year%4 == 0) $lastday[2] = 29;
 	$dayoftheweek = date("w", mktime (0,0,0,$month,1,$year));
@@ -34,15 +37,9 @@ if ($view_mode == "list"){
 	$r_start_day_tmp = mktime(12,0,0,$month,1,$year);
 	$r_end_day = $year . sprintf("%02d",$month) . $lastday[$month];
 	$r_end_day_tmp = mktime(12,0,0,$month,$lastday[$month],$year);
-	
-	$cnt_read = sql_fetch(" SELECT count(wr_id) as cnt FROM {$write_table} WHERE pension_id = '$pension_id' and wr_4 != '예약취소' and wr_link1 <= $r_end_day and wr_link2 > $r_start_day");
 
-	if($cnt_read[cnt] >= 100) {
-		$chk_list = "0";
-	} else {
-		$chk_list = "1";
-		include_once ("$board_skin_path/config_n.php");
-	}
+	$chk_list = "1";
+	include_once ("$board_skin_path/config_n.php");
 ?>
 <link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.css" type="text/css">
 <link rel="stylesheet" href="<?=$board_skin_path?>/mstyle.css" type="text/css">
@@ -51,7 +48,7 @@ if ($view_mode == "list"){
 <link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jtip.css" type="text/css">
 <script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jtip.js"></script>
 
-<script language="javascript"> 
+<script language="javascript">
 function viewCallPop(url,nwidth,nheight) {
 	window.open(url, 'viewCallPop', 'width='+nwidth+', height='+nheight+', left='+(screen.width-nwidth)/2+', top='+(screen.height - nheight)/2+', fullscreen=0, channelmode=0, location=0, menubar=0, scrollbars=1, status=0, toolbar=0, resizable=0');
 }
@@ -72,16 +69,16 @@ function viewCallPop(url,nwidth,nheight) {
                                             <td width="150">&nbsp;</td>
                                             <td align="center"><table width="200" border="0" cellpadding="3" cellspacing="0">
                                                     <tr>
-                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table"?><?php if ($month == 1) { $year_pre=$year-1; $month_pre=12; } else {$year_pre=$year; $month_pre=$month-1;} echo ("&year=$year_pre&month=$month_pre");?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/pre.gif" width="30" height="14" /></a></td>
-                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table"?>" title="오늘로" onfocus="this.blur()"><span style="font-size:16px; font-weight:bold;">
+                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?><?php if ($month == 1) { $year_pre=$year-1; $month_pre=12; } else {$year_pre=$year; $month_pre=$month-1;} echo ("&year=$year_pre&month=$month_pre");?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/pre.gif" width="30" height="14" /></a></td>
+                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?>" title="오늘로" onfocus="this.blur()"><span style="font-size:16px; font-weight:bold;">
                                                             <?=$year?>
                                                             년
                                                             <?=$month?>
                                                             월</span></a></td>
-                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table"?><?php if ($month == 12) { $year_pre=$year+1; $month_pre=1; } else {$year_pre=$year; $month_pre=$month+1;} echo ("&year=$year_pre&month=$month_pre");?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/next.gif" width="30" height="14" /></a></td>
+                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?><?php if ($month == 12) { $year_pre=$year+1; $month_pre=1; } else {$year_pre=$year; $month_pre=$month+1;} echo ("&year=$year_pre&month=$month_pre");?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/next.gif" width="30" height="14" /></a></td>
                                                     </tr>
                                                 </table></td>
-                                            <td width="150" align="right"><?php if ($admin_href) { 
+                                            <td width="150" align="right"><?php if ($admin_href) {
 	echo "<a href='{$g4[bbs_path]}/board.php?bo_table={$bo_table}&view_mode=list'><img src='{$board_skin_path}/img_n/list.gif' border=0></a>&nbsp;";
 }
 if (!$member['mb_id']) {
@@ -122,9 +119,9 @@ if (!$member['mb_id']) {
 ############################## 2010-07-07 Start
 if($chk_list) {
 	## $rd_day Start
-	$read_month_sql = " SELECT * FROM {$write_table} WHERE pension_id = $pension_id and  wr_4 != '예약취소' and wr_link1 <= $r_end_day and wr_link2 > $r_start_day";
+	$read_month_sql = " SELECT * FROM {$write_table} WHERE pension_id = $pension_id and  rResult != '0030' ";
 	$read_month = sql_query($read_month_sql);
-	
+
 	for ($i=0; $r_month = sql_fetch_array($read_month); $i++)  {
 		$rd_day[$i][wr_id] = $r_month[wr_id];
 		$rd_day[$i][ca_name] = $r_month[ca_name];
@@ -134,54 +131,54 @@ if($chk_list) {
 		$rd_day[$i][wr_9] = $r_month[wr_9];
 	}
 	## $rd_day End
-	
+
 	## $rd_close Start
 	$read_close_sql = " SELECT * FROM {$write_table}_r_close WHERE pension_id = $pension_id and  r_close_date <= $r_end_day_tmp AND r_close_date2 >= $r_start_day_tmp";
 	$read_close = sql_query($read_close_sql);
-	
+
 	for ($i=0; $r_close = sql_fetch_array($read_close); $i++)  {
 		$rd_close[$i][r_close_name] = $r_close[r_close_name];
 		$rd_close[$i][r_close_date] = $r_close[r_close_date];
 		$rd_close[$i][r_close_date2] = $r_close[r_close_date2];
 	}
 	## $rd_close End
-	
+
 	## $rd_info Start
 	$read_info_sql = " SELECT * FROM {$write_table}_r_info where pension_id = $pension_id ";
 	$read_info = sql_query($read_info_sql);
-	
+
 	for ($i=0; $r_info = sql_fetch_array($read_info); $i++)  {
 		$rd_info[$r_info[r_info_name]][r_info_over] = $r_info[r_info_over];
 		$rd_info[$r_info[r_info_name]][r_info_cnt] = $r_info[r_info_cnt];
 	}
 	## $rd_info End
-	
+
 	## $rd_tel Start
 	$read_tel_sql = " SELECT * FROM {$write_table}_r_tel WHERE pension_id = $pension_id and  r_tel_date <= $r_end_day_tmp AND r_tel_date2 >= $r_start_day_tmp";
 	$read_tel = sql_query($read_tel_sql);
-	
+
 	for ($i=0; $r_tel = sql_fetch_array($read_tel); $i++)  {
 		$rd_tel[$i][r_tel_name] = $r_tel[r_tel_name];
 		$rd_tel[$i][r_tel_date] = $r_tel[r_tel_date];
 		$rd_tel[$i][r_tel_date2] = $r_tel[r_tel_date2];
 	}
 	## $rd_tel End
-	
+
 	## $rd_off Start
 	$read_off_sql = " SELECT * FROM {$write_table}_r_off WHERE pension_id = $pension_id and  r_off_date <= $r_end_day_tmp AND r_off_date2 >= $r_start_day_tmp";
 	$read_off = sql_query($read_off_sql);
-	
+
 	for ($i=0; $r_off = sql_fetch_array($read_off); $i++)  {
 		$rd_off[$i][r_off_name] = $r_off[r_off_name];
 		$rd_off[$i][r_off_date] = $r_off[r_off_date];
 		$rd_off[$i][r_off_date2] = $r_off[r_off_date2];
 	}
 	## $rd_off End
-	
+
 	## $rd_date Start
 	$read_date_sql = " SELECT * FROM {$write_table}_r_date WHERE pension_id = $pension_id and  r_date_sdate <= $r_end_day_tmp AND r_date_edate >= $r_start_day_tmp";
 	$read_date = sql_query($read_date_sql);
-	
+
 	for ($i=0; $r_date = sql_fetch_array($read_date); $i++)  {
 		$rd_date[$i][r_date_name] = $r_date[r_date_name];
 		$rd_date[$i][r_date_sdate] = $r_date[r_date_sdate];
@@ -190,8 +187,8 @@ if($chk_list) {
 	## $rd_date End
 }
 ############################## 2010-07-07 End
-																				
-																				
+
+
 	$sql = " SELECT r_info_name, r_info_cnt FROM {$write_table}_r_info where pension_id = $pension_id order by r_info_order ASC ";
 	$result = sql_query($sql);
 	$r_total = 0;
@@ -201,15 +198,15 @@ if($chk_list) {
 		$r_cnt[] = $r_info[r_info_cnt];
 		$r_total++;
 	}
-	
+
 	$cday = 1;
 
 	// 달력의 틀을 보여주는 부분
 	$temp = 7- (($lastday[$month]+$dayoftheweek)%7);
-	
+
 	if ($temp == 7) $temp = 0;
 		$lastcount = $lastday[$month]+$dayoftheweek + $temp;
-	
+
 	for ($iz = 1; $iz <= $lastcount; $iz++) {
 		$bgcolor = "#FFFFFF";
 		if ($b_year==$year && $b_mon==$month && $b_day==$cday) $bgcolor = "#f3f3f3";
@@ -220,26 +217,26 @@ if($chk_list) {
 			} else {
 				 $daytext = "$cday";   // $cday 는 숫자 예> 11월달은 1~ 30일 까지//$daytext 은 셀에 써질 날짜 숫자 넣을 공간
 			}
-	
+
 			if ($iz%7 == 1) $daytext = "<span style='color:red'>$daytext</span>"; // 일요일
 			if ($iz%7 == 0) $daytext = "<span style='color:blue'>$daytext</span>"; // 토요일
-			// 여기까지 숫자와 들어갈 내용에 대한 변수들의 세팅이 끝나고 
+			// 여기까지 숫자와 들어갈 내용에 대한 변수들의 세팅이 끝나고
 			// 이제 여기 부터 직접 셀이 그려지면서 그 안에 내용이 들어 간다.
 			if (($iz%7) == 0) {
 				echo "<td width=$col_width height=$col_height bgcolor=$bgcolor align=left valign=top class='dsat'>\n";
 			} else {
 				echo "<td width=$col_width height=$col_height bgcolor=$bgcolor align=left valign=top class='day'>\n";
 			}
-		
+
 			$f_date = date("Ymd", mktime(0,0,0,$month,$cday,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
 			$f1_date = date("Ymd", mktime(0,0,0,$month,$cday+1,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
 			echo "<div align='right'>";
-	
+
 			$py = substr($f_date,0,4);
 			$pm = substr($f_date,4,2);
 			$pd = substr($f_date,6,2);
 			$pdate = mktime(12,0,0,$pm,$pd,$py);
-			
+
 			if($is_admin) $daytext = "<a href='#' onclick='viewCallPop(\"{$board_skin_path}/list.call.popup2.php?bo_table={$bo_table}&pdate={$f_date}\",800,500);'>$daytext</a>";
 			//if($is_admin) $daytext = "<a href='#' onclick='viewCallPop(\"{$board_skin_path}/list.call.popup2.php?bo_table={$bo_table}&pdate={$pdate}\",800,500);'>$daytext</a>";
 			if($chk_list) {
@@ -277,7 +274,7 @@ if($chk_list) {
 						} else {
 							echo Get_Date_Reserv($bo_table, $r_name[$c], $rc_date, "$g4[bbs_path]/step2.php?bo_table={$bo_table}&f_date={$f_date}&t_date={$f1_date}&sca={$r_name[$c]}");
 						}
-						
+
 					}// for 끝
 
 
@@ -291,12 +288,12 @@ if($chk_list) {
 			$cday++; // 날짜를 카운팅
 		} else { // 11월에서 1일부터 30일에 해당되지 않으면 그냥 회색을 칠한다.
 			if (($iz%7) == 0) {
-				echo ("<td width=$col_width height=$col_height valign=top class='dsat'>&nbsp;</td>\n"); 
+				echo ("<td width=$col_width height=$col_height valign=top class='dsat'>&nbsp;</td>\n");
 			} else {
-				echo ("<td width=$col_width height=$col_height valign=top class='day'>&nbsp;</td>\n"); 
+				echo ("<td width=$col_width height=$col_height valign=top class='day'>&nbsp;</td>\n");
 			}
 		}
-	
+
 		if (($iz%7) == 0) echo ("  </tr>\n");
 	} // 반복구문이 끝남
 	?>

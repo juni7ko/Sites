@@ -1,8 +1,8 @@
 <?php
 include_once("./_common.php");
 
-$bo_table = "bbs34";
-$write_table = "g4_write_bbs34";
+//$bo_table = "bbs34";
+//$write_table = "g4_write_bbs34";
 
 if (!$board[bo_table])
 {
@@ -207,7 +207,7 @@ echo "<script type=\"text/javascript\" src=\"$g4[path]/js/sideview.js\"></script
 if (!($board[bo_use_comment] && $cwin)) {
     // 게시물 아이디가 있다면 게시물 보기를 INCLUDE
     if ($wr_id)
-        include_once("./view.php");
+        include_once("./view_reserv.php");
 
     // 전체목록보이기 사용이 "예" 또는 wr_id 값이 없다면 목록을 보임
     //if ($board[bo_use_list_view] || empty($wr_id))
