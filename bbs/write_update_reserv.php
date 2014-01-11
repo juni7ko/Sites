@@ -214,6 +214,7 @@ if ($w == "" || $w == "r")
         $cost3[$i] = (int)$res2_typeCost3[$i]; // 결제가격
         $overCount[$i] = (int)$res2_personOver[$i]; // 추가인원
         $overCost[$i] = (int)$res2_personOverCost[$i]; // 추가가격
+        $wr_9[$i] = $cost3[$i] + $overCost[$i]; // 필드 가격.
 
         $sql = " INSERT into $write_table
                     set wr_num = '$wr_num',
@@ -247,7 +248,7 @@ if ($w == "" || $w == "r")
                         wr_6 = '$wr_6',
                         wr_7 = '$wr_7',
                         wr_8 = '$wr_8',
-                        wr_9 = '$wr_9',
+                        wr_9 = '$wr_9[$i]',
                         wr_10 = '$wr_10',
                         wr_reserv = '$wr_reserv',
 
