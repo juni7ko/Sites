@@ -67,7 +67,7 @@ $viewDateRow = viewDateRow($sDateTmp, $eDateTmp, $pension_id);
 </tr>
 <tr>
 	<?php
-	foreach($viewDateRow['row']  as $i)
+	foreach($viewDateRow['row'] as $i)
 	{
 		if($viewDateRow['pDateWeek'][$i] == "토")
 			echo "<td class='blue'>";
