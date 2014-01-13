@@ -31,21 +31,21 @@ if ($view_mode == "list"){
 		$eDateTmp = mktime(12,0,0,$nDateM,$lastDay[$nDateM],$nDateY);
 		$eDate = date("Ymd", $eDateTmp);
 	} else {
-		$sDateTmp = $sDate;
-		$sDateY = date("Y", $sDateTmp);
-		$sDateM = date("m", $sDateTmp);
-		$sDateD = date("d", $sDateTmp);
+		$sDateY = date("Y", $sDate);
+		$sDateM = date("m", $sDate);
+		$sDateTmp = mktime(12,0,0,$sDateM,1,$sDateY);
+		$sDate = date("Ymd", $sDateTmp);
 		$sDateYMD = date("Ymd", $sDateTmp);
 
 		$eDateTmp = mktime(12,0,0,$sDateM,$lastDay[$sDateM],$sDateY);
 		$eDate = date("Ymd", $eDateTmp);
 	}
 
-	// 이전/다음 버튼의 링크 생성 - 1주일 단위로 이동하도록 수정
+	// 이전/다음 버튼의 링크 생성 - 1개월 단위로 이동하도록 수정
 	$prevDay = $sDateTmp - (86400 * 1);
 	$nextDay = $sDateTmp + (86400 * 33);
-	$prevLink = "$_SERVER[PHP_SELF]?pension_id=$pension_id&bo_table=$bo_table&wr_id=$wr_id&sDate=$prevDay";
-	$nextLink = "$_SERVER[PHP_SELF]?pension_id=$pension_id&bo_table=$bo_table&wr_id=$wr_id&sDate=$nextDay";
+	$prevLink = "$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id&sDate=$prevDay";
+	$nextLink = "$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id&sDate=$nextDay";
 
 	echo "sDate = " . $prevLink . "<br>";
 	echo "eDate = " . $nextLink;
@@ -117,13 +117,19 @@ function viewCallPop(url,nwidth,nheight) {
                                             <td width="150">&nbsp;</td>
                                             <td align="center"><table width="200" border="0" cellpadding="3" cellspacing="0">
                                                     <tr>
-                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?><?php if ($month == 1) { $year_pre=$year-1; $month_pre=12; } else {$year_pre=$year; $month_pre=$month-1;} echo ("&year=$year_pre&month=$month_pre");?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/pre.gif" width="30" height="14" /></a></td>
-                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?>" title="오늘로" onfocus="this.blur()"><span style="font-size:16px; font-weight:bold;">
-                                                            <?=$year?>
-                                                            년
-                                                            <?=$month?>
-                                                            월</span></a></td>
-                                                        <td align="center"><a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?><?php if ($month == 12) { $year_pre=$year+1; $month_pre=1; } else {$year_pre=$year; $month_pre=$month+1;} echo ("&year=$year_pre&month=$month_pre");?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/next.gif" width="30" height="14" /></a></td>
+                                                        <td align="center">
+                                                        	<a href="<?=$prevLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/pre.gif" width="30" height="14" /></a>
+                                                        </td>
+                                                        <td align="center">
+                                                        	<a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?>" title="오늘로" onfocus="this.blur()">
+                                                        		<span style="font-size:16px; font-weight:bold;">
+                                                            		<?=date("Y", $sDateTmp);?>년 <?=date("m", $sDateTmp);?>월
+																</span>
+															</a>
+														</td>
+                                                        <td align="center">
+                                                        	<a href="<?=$nextLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/next.gif" width="30" height="14" /></a>
+                                                        </td>
                                                     </tr>
                                                 </table></td>
                                             <td width="150" align="right"><?php if ($admin_href) {
