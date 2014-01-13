@@ -91,13 +91,13 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 
 		$row[cnt] = 0;
 		$row_wan[cnt] = 0;
-		$row2[wr_4] = "";
+		$row2[rResult] = "";
 		for($i=0; $i < count($rd_day); $i++) {
 			if($rd_day[$i][ca_name] == $r_name && $rd_day[$i][wr_link1] <= $time && $rd_day[$i][wr_link2] > $time) {
 				$row[cnt] += $rd_day[$i][wr_9];
-				if($rd_day[$i][wr_4] == "예약완료")
+				if($rd_day[$i][rResult] == "0020")
 					$row_wan[cnt] += $rd_day[$i][wr_9];
-				$row2[wr_4] = $rd_day[$i][wr_4];
+				$row2[rResult] = $rd_day[$i][rResult];
 			}
 		}
 
@@ -127,9 +127,9 @@ function Get_Date_Reserv2($bo_table, $r_name, $time, $link_url) {
 			}
 		} else {
 			if($row[cnt]) {
-				if($row2[wr_4] == "예약확인중") {
+				if($row2[rResult] == "0010") {
 					$r_print = "{$rstate_dae}{$r_name_dae}";
-				} else if($row2[wr_4] == "예약완료") {
+				} else if($row2[rResult] == "0020") {
 					$r_print = "{$rstate_wan}{$r_name_wan}";
 				} else {
 					$r_print = "{$rstate_wan}{$r_name_wan}";

@@ -1,5 +1,6 @@
 <?php
-include_once ("$board_skin_path/config.php");
+//include_once ("$board_skin_path/config.php");
+include_once("$board_skin_path/view.skin.lib.php");
 
 if ($view_mode == "list"){
 	include_once ("$board_skin_path/list.view.php");
@@ -11,6 +12,46 @@ if ($view_mode == "list"){
 	include_once ("$board_skin_path/list.cost.php");
 } else {
 
+	$nDate = getdate();
+	$nDateY = $nDate['year'];
+	$nDateM = $nDate['mon'];
+	$nDateD = $nDate['mday'];
+	$nDateTmp = mktime(12,0,0,$nDateM,$nDateD,$nDateY);
+
+
+	$lastDay = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
+	if ($nDateY%4 == 0) $lastDay[2] = 29;
+	$dayoftheweek = date("w", mktime (0,0,0,$nDateM,1,$nDateY));
+
+	if(!$sDate)
+	{
+		$sDateTmp = mktime(12,0,0,$nDateM,1,$nDateY);
+		$sDate = date("Ymd", $sDateTmp);
+
+		$eDateTmp = mktime(12,0,0,$nDateM,$lastDay[$nDateM],$nDateY);
+		$eDate = date("Ymd", $eDateTmp);
+	} else {
+		$sDateTmp = $sDate;
+		$sDateY = date("Y", $sDateTmp);
+		$sDateM = date("m", $sDateTmp);
+		$sDateD = date("d", $sDateTmp);
+		$sDateYMD = date("Ymd", $sDateTmp);
+
+		$eDateTmp = mktime(12,0,0,$sDateM,$lastDay[$sDateM],$sDateY);
+		$eDate = date("Ymd", $eDateTmp);
+	}
+
+	// 이전/다음 버튼의 링크 생성 - 1주일 단위로 이동하도록 수정
+	$prevDay = $sDateTmp - (86400 * 1);
+	$nextDay = $sDateTmp + (86400 * 33);
+	$prevLink = "$_SERVER[PHP_SELF]?pension_id=$pension_id&bo_table=$bo_table&wr_id=$wr_id&sDate=$prevDay";
+	$nextLink = "$_SERVER[PHP_SELF]?pension_id=$pension_id&bo_table=$bo_table&wr_id=$wr_id&sDate=$nextDay";
+
+	echo "sDate = " . $prevLink . "<br>";
+	echo "eDate = " . $nextLink;
+
+	$viewDateRow = viewDateRow($sDateTmp, $eDateTmp, $pension_id);
+
 
 
 	if (eregi('%', $width)) {
@@ -19,13 +60,21 @@ if ($view_mode == "list"){
 		$col_width = round($width/7); //표의 가로 폭이 100보다 작거나 같으면 백분율 값을 입력
 	}
 	$col_height= 70 ;//내용 들어갈 사각공간의 세로길이를 가로 폭과 같도록
+
 	$today = getdate();
 	$b_mon = $today['mon'];
 	$b_day = $today['mday'];
 	$b_year = $today['year'];
 
-	if ($day != "") {   $month = $month;   $day = $day;   $year = $year;}
-	else if ($year < 1) {   $month = $b_mon;   $day = $b_day;   $year = $b_year;}
+	if ($day != "") {
+		$month = $month;
+		$day = $day;
+		$year = $year;
+	} else if ($year < 1) {
+		$month = $b_mon;
+		$day = $b_day;
+		$year = $b_year;
+	}
 
 
 	$lastday = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
@@ -39,7 +88,6 @@ if ($view_mode == "list"){
 	$r_end_day_tmp = mktime(12,0,0,$month,$lastday[$month],$year);
 
 	$chk_list = "1";
-	include_once ("$board_skin_path/config_n.php");
 ?>
 <link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.css" type="text/css">
 <link rel="stylesheet" href="<?=$board_skin_path?>/mstyle.css" type="text/css">
@@ -127,8 +175,7 @@ if($chk_list) {
 		$rd_day[$i][ca_name] = $r_month[ca_name];
 		$rd_day[$i][wr_link1] = $r_month[wr_link1];
 		$rd_day[$i][wr_link2] = $r_month[wr_link2];
-		$rd_day[$i][wr_4] = $r_month[wr_4];
-		$rd_day[$i][wr_9] = $r_month[wr_9];
+		$rd_day[$i][rResult] = $r_month[rResult];
 	}
 	## $rd_day End
 
@@ -239,18 +286,10 @@ if($chk_list) {
 
 			if($is_admin) $daytext = "<a href='#' onclick='viewCallPop(\"{$board_skin_path}/list.call.popup2.php?bo_table={$bo_table}&pdate={$f_date}\",800,500);'>$daytext</a>";
 			//if($is_admin) $daytext = "<a href='#' onclick='viewCallPop(\"{$board_skin_path}/list.call.popup2.php?bo_table={$bo_table}&pdate={$pdate}\",800,500);'>$daytext</a>";
-			if($chk_list) {
-				if(Get_Date_Off2($pdate)) {
-					echo "<span style='color:red; padding:2px;'>" . Get_Date_Off2($pdate) . "<span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
-				} else {
-					echo "<span style='color:green;'>".Get_Date_Type_Cal2($pdate)."</span> <span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
-				}
+			if(Get_Date_Off2($pdate)) {
+				echo "<span style='color:red; padding:2px;'>" . Get_Date_Off2($pdate) . "<span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
 			} else {
-				if(Get_Date_Off($pdate)) {
-					echo "<span style='color:red; padding:2px;'>" . Get_Date_Off($pdate) . "<span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
-				} else {
-					echo "<span style='color:green;'>".Get_Date_Type_Cal($pdate)."</span> <span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
-				}
+				echo "<span style='color:green;'>".Get_Date_Type_Cal2($pdate)."</span> <span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
 			}
 			echo "</div>";
 			echo "";

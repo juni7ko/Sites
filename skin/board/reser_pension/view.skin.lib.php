@@ -1,5 +1,15 @@
 <?php
+if($write_table=="g4_write_reser_admin") $write_table = "g4_write_bbs34";
+if($list_href) $list_href = $g4[path] . "/bbs/resList.php?bo_table=" . $bo_table . "&pension_id=" . $pension_id;
 $write_table2 = "g4_write_bbs34";
+
+function getRoomName($r_info_id) {
+	global $write_table;
+	$sql = " SELECT * FROM {$write_table}_r_info WHERE r_info_id = '$r_info_id' LIMIT 1; ";
+	$result = sql_fetch($sql);
+	return $result;
+}
+
 // 날짜를 입력받아 요일을 리턴
 function GetDateWeek($week)
 {
@@ -31,6 +41,13 @@ function GetDateWeek($week)
 	}
 
 	return $weekP;
+}
+
+function alert_and_back($msg){
+    echo("<script type='text/javascript'>
+            alert('$msg');
+            history.back();
+        </script>");
 }
 
 function viewDateRow($sDate, $eDate, $penID)
@@ -262,4 +279,11 @@ function resCheck($penID, $pDate, $costID)
 
 	return $resCheck;
 }
+
+$css[btn] = "ui-button ui-state-default";
+$css[table] = "ui-widget-content";
+$css[tr] = "ht center ui-state-default";
+$css[td] = "ht center";
+
+$css[no_table] = "<div class='$css[table]' style='padding:50px 0; text-align:center;'>테이블이 생성되지 않았습니다.</div>";
 ?>
