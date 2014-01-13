@@ -12,11 +12,11 @@ $sql_search = "";
 if ($sca || $stx) {
     // where 문을 얻음
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
-    $search_href = "./resList.php?bo_table=$bo_table&page=$page" . $qstr;
-    $list_href = "./resList.php?bo_table=$bo_table";
+    $search_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id&page=$page" . $qstr;
+    $list_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id";
 } else {
     $search_href = "";
-    $list_href = "./resList.php?bo_table=$bo_table&page=$page";
+    $list_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id&page=$page";
 }
 
 if (!$board[bo_use_list_view]) {
@@ -46,14 +46,14 @@ if (!$board[bo_use_list_view]) {
 $prev_href = "";
 if ($prev[wr_id]) {
     $prev_wr_subject = get_text(cut_str($prev[wr_subject], 255));
-    $prev_href = "./resList.php?bo_table=$bo_table&wr_id=$prev[wr_id]&page=$page" . $qstr;
+    $prev_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$prev[wr_id]&page=$page" . $qstr;
 }
 
 // 다음글 링크
 $next_href = "";
 if ($next[wr_id]) {
     $next_wr_subject = get_text(cut_str($next[wr_subject], 255));
-    $next_href = "./resList.php?bo_table=$bo_table&wr_id=$next[wr_id]&page=$page" . $qstr;
+    $next_href = "./resList.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$next[wr_id]&page=$page" . $qstr;
 }
 
 // 쓰기 링크
