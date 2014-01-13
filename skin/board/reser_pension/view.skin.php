@@ -61,7 +61,7 @@ include_once ("$board_skin_path/config.php");
 							<tr>
 								<td class="<?=$css[tr]?>">예약내용</td>
 								<td>
-									<table width="100%" border=0 cellpadding=3 cellspacing=1>
+									<table width="100%" border=1 cellpadding=3 cellspacing=1>
 										<thead>
 											<tr>
 												<th class="first">객실명</th>
