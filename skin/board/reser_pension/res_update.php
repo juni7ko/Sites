@@ -49,7 +49,7 @@ if($is_admin) {
 		}
 	}
 
-	alert("수정되었습니다.","$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id");
+	alert("수정되었습니다.","$g4[bbs_path]/board.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id");
 }
 
 function GetResultFromURL($url)

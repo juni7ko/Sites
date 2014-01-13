@@ -45,6 +45,7 @@ include_once ("$board_skin_path/config.php");
 										<input type=hidden name=wr_id value="<?=$wr_id?>" />
 										<input type=hidden name=wr_3 value='<?=$view[wr_3]?>' />
 										<input type=hidden name=wr_link1 value='<?=$view[wr_link1]?>' />
+										<input type=hidden name=pension_id value='<?=$pension_id?>' />
 										<select name=rResult itemname="처리진행상황">
 											<option value="0010"<?=($view[rResult] == "0010" ? " selected":"")?>>예약대기</option>
 											<option value="0020"<?=($view[rResult] == "0020" ? " selected":"")?>>예약완료</option>
