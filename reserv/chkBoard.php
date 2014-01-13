@@ -193,5 +193,5 @@ for($i = 1; $i < 5; $i++) {
 	sql_query($brdSql);
 }
 
-goto_url("{$g4[path]}/bbs/board.php?bo_table=$br_id");
+goto_url("{$g4[path]}/bbs/board.php?bo_table={$gr_id}_1");
 ?>
