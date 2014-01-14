@@ -15,7 +15,7 @@ $(function(){
 });
 
 function addbookmark() {
-	var url = "<?=$g4[url]?>/bbs/board.php?bo_table=pension_info&wr_id=<?=$view[wr_id]?>&sfl=area_id&stx=1";   // URL
+	var url = "<?=$g4[url]?>/bbs/board.php?bo_table=pension_info&wr_id=<?=$view[wr_id]?>&sfl=area_id&stx=<?=$stx?>";   // URL
 	var title = "<?=$view[wr_subject]?> - StayStore";           // 사이트 이름
 	var browser=navigator.userAgent.toLowerCase();
 	// Mozilla, Firefox, Netscape
@@ -442,7 +442,7 @@ endforeach;
 				</div><!-- reserve-wrap -->
 			</form><!-- span12 -->
 		</div>
-
+<a name="detail"></a>
 		<div class="cols">
 			<div class="row title-bg">
 				<h3 class="cal-title">펜션 상세 정보</h3>
@@ -458,7 +458,6 @@ endforeach;
 				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
 			</div>
 		</div>
-<a name="detail" />
 		<div class="cols">
 			<div class="row title-bg">
 				<h3 class="cal-title">객실 사진 및 소개</h3>
