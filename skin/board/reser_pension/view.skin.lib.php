@@ -280,6 +280,16 @@ function resCheck($penID, $pDate, $costID)
 	return $resCheck;
 }
 
+function reserDay($penID, $pDate)
+{
+	global $write_table2;
+
+    $sql = " SELECT * FROM {$write_table2} WHERE pension_id = '$penID' AND wr_link2 = '$pDate' ";
+	$result = sql_query($sql);
+
+	return $result;
+}
+
 $css[btn] = "ui-button ui-state-default";
 $css[table] = "ui-widget-content";
 $css[tr] = "ht center ui-state-default";
