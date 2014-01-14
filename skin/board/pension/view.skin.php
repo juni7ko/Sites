@@ -13,6 +13,40 @@ $(function(){
 		lastControl: '#lastButton'
 	});
 });
+
+function addbookmark() {
+	var url = "<?=$g4[url]?>/bbs/board.php?bo_table=pension_info&wr_id=<?=$view[wr_id]?>&sfl=area_id&stx=1";   // URL
+	var title = "<?=$view[wr_subject]?> - StayStore";           // 사이트 이름
+	var browser=navigator.userAgent.toLowerCase();
+	// Mozilla, Firefox, Netscape
+	if (window.sidebar) {
+		window.sidebar.addPanel(title, url,"");
+	}
+	// IE or chrome
+	else if( window.external) {
+	// IE
+		if (browser.indexOf('chrome')==-1){
+			window.external.AddFavorite( url, title);
+		} else {
+		// chrome
+		alert('CTRL+D 또는 Command+D를 눌러 즐겨찾기에 추가해주세요.');
+		}
+	}
+	// Opera - automatically adds to sidebar if rel=sidebar in the tag
+	else if(window.opera && window.print) {
+		return true;
+	}
+	// Konqueror
+	else if (browser.indexOf('konqueror')!=-1) {
+		alert('CTRL+B를 눌러 즐겨찾기에 추가해주세요.');
+	}
+	// safari
+	else if (browser.indexOf('webkit')!=-1){
+		alert('CTRL+B 또는 Command+B를 눌러 즐겨찾기에 추가해주세요.');
+	} else {
+		alert('사용하고 계시는 브라우저에서는 이 버튼으로 즐겨찾기를 추가할 수 없습니다. 수동으로 링크를 추가해주세요.')
+	}
+}
 </script>
 <style type="text/css">
 #photo {
@@ -224,7 +258,7 @@ endforeach;
 
 					<ul class="pension-info-btn">
 						<li class="cols50 cart-add"><a href="#" class="btn">관심등록</a></li>
-						<li class="cols50 fav-add"><a href="javascript:window.external.AddFavorite('<?=$g4[url]?>/bbs/board.php?bo_table=pension_info&wr_id=<?=$view[wr_id]?>&sfl=area_id&stx=1', '<?=$view[wr_subject]?> - StayStore');" class="btn">즐겨찾기</a></li>
+						<li class="cols50 fav-add"><a href="javascript:addbookmark()" class="btn">즐겨찾기</a></li>
 					</ul>
 
 			</div>
