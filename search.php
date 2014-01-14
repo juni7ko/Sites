@@ -220,12 +220,12 @@
 			<div class="left">
 				검색값 : 경기도, 바다, 계곡, 강/호수, 산
 			</div>
-			<div class="right">
-				<label><input type="radio" name="orderList" class="orderList" value="wr_good" /> 추천순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="lowPrice" /> 저가순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="wr_num" /> 예약순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="wr_hit" /> 조회순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="highPrice" /> 고가순</label>
+			<div class="right nowrap">
+				<label><input type="radio" name="orderList" class="orderList" value="wr_good" />추천순</label>
+				<label><input type="radio" name="orderList" class="orderList" value="lowPrice" />저가순</label>
+				<label><input type="radio" name="orderList" class="orderList" value="resCount" />예약순</label>
+				<label><input type="radio" name="orderList" class="orderList" value="wr_hit" />조회순</label>
+				<label><input type="radio" name="orderList" class="orderList" value="highPrice" />고가순</label>
 			</div>
 		</div>
 	</div>
@@ -242,8 +242,8 @@
 				case "lowPrice" :
 					sod = "asc";
 					break;
-				case "wr_num" :
-					sod = "asc";
+				case "resCount" :
+					sod = "desc";
 					break;
 				case "wr_hit" :
 					sod = "desc";

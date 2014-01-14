@@ -43,25 +43,12 @@ hr.line {border-bottom:1px solid #ddd;}
 input.iCheckbox,input.iRadio {*margin:-4px -4px 0 -4px;}
 label.iLabel {position:absolute;}
 
-
-
-
 /* 사이드뷰 */
 .sideview {position:absolute; width:100px; padding:3px; background:#f7f7f7; z-index:9999;}
 .sideview ul { background:#fff; margin:0; border:1px solid #e1e1e1; padding:0 5px; overflow:hidden; }
 .sideview ul li {font-size:11px; margin:-1px 0; border:1px solid #e1e1e1; border-width:1px 0;}
 .sideview ul li a { display:block; margin:1px 0; padding:1px 5px; color:#555555;}
 .sideview ul li a:hover { background:#F8F8F8; }
-
-
-
-
-
-
-
-
-
-
 
 .bo_content_head {margin-bottom:15px;}
 
@@ -94,13 +81,11 @@ label.iLabel {position:absolute;}
 .button-set .black {color:#fff; border:1px solid #000; background-position:0 -33px;}
 .button-set .purple {color:#fff; border:1px solid #30348f; background-position:0 -66px;}
 
-
 /* rss */
 .rss-list {margin-bottom:30px; padding:20px; font-size:12px; border:1px solid #e5e5e5; background:#f9f9f9;}
 .rss-list li {padding:5px 0; line-height:200%;}
 .rss-list li span.tit {font-weight:bold;}
 .rss-list li li {padding:2px 0 2px 20px;}
-
 
 /* mypage */
 .mypage {width:740px;margin:0 auto;padding:0 0 0 20px;}
@@ -170,3 +155,6 @@ label.iLabel {position:absolute;}
 #poll-result .poll-comment-list li div.content {color:#666;}
 
 .rules-box {padding:15px; font-size:12px; height:400px; line-height:160%; border:1px solid #ddd; overflow:auto;}
+
+.nowrap { -ms-word-break: keep-all; word-break: keep-all; }
+.disnone { display:none; }

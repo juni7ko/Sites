@@ -95,21 +95,21 @@ foreach($_POST[checkRoom] as $chkData) :
 										<input type="hidden" name="res1_weekType2[<?=$row?>]" value="<?=$rWeekType2?>" />
 										<input type="hidden" name="res1_r_info_person_add[<?=$row?>]" value="<?=$r_info[r_info_person_add]?>" />
 
-										<select name="res1_person1[<?=$row?>]">
+										<select name="res1_person1[<?=$row?>]" id="person<?=$row?>" class="1">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"<?=($i == $r_info['r_info_person1']) ? " selected":NULL;?>><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="res1_person2[<?=$row?>]">
+										<select name="res1_person2[<?=$row?>]" id="person<?=$row?>" class="2">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="res1_person3[<?=$row?>]">
+										<select name="res1_person3[<?=$row?>]" id="person<?=$row?>" class="3">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
@@ -130,7 +130,7 @@ endforeach;
 							<tr>
 								<td class="first" colspan="8">객실요금 합계</td>
 								<td class="last">
-									<input type="hidden" name="res1_roomCount" value="<?=$row?>" />
+									<input type="hidden" name="res1_roomCount" value="<?=$row?>" id="res1_roomCount" />
 									<input type="hidden" name="res1_totalCost" value="<?=$totalCost?>" />
 									<?=number_format($totalCost)?>원
 								</td>
@@ -394,5 +394,18 @@ function resForm_submit()
 	f.action = "./write_reserv2.php";
 	f.submit();
 }
+
+$(function(){
+	var rCnt = $("#res1_roomCount").val();
+	for (var i = 0; i < rCnt; i++) {
+		$('select#person'+i).change(function() {
+			var sum = 0;
+			$(this).each(function() {
+				sum += Number($(this).val());
+			});
+			alert(sum);
+		});
+	};
+});
 </script>
 

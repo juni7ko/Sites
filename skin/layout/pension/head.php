@@ -1,7 +1,7 @@
 <div id="wrap">
 
-<div id="top">
-	<div class="contents"><img src="<?=$g4['path']?>/layout/images/top_banner.png" alt="" /></div>
+<div id="top disnone">
+	<div class="contents disnone"><img src="<?=$g4['path']?>/layout/images/top_banner.png" alt="" /></div>
 </div>
 
 <!-- HEADER -->
@@ -12,17 +12,17 @@
 	</h1><!-- logo -->
 
 	<div class="contents clearfix">
-	
+
 		<!-- navigation -->
 <?php include("$g4[path]/_navigation.php");?>
 		<!-- ./navigation -->
-		
+
 		<div class="search-form-area">
 			<input type="text" value="" />
 			<input type="button" value="" />
 		</div><!-- search-form-area -->
-	
+
 	</div>
-	
+
 </div>
 <!-- ./HEADER -->

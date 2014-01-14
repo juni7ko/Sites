@@ -70,7 +70,7 @@ else {
     // 게시물 리스트의 정렬 대상 필드가 아니라면 공백으로 (nasca 님 09.06.16)
     // 리스트에서 다른 필드로 정렬을 하려면 아래의 코드에 해당 필드를 추가하세요.
     // $sst = preg_match("/^(wr_subject|wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
-    $sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood|lowPrice|highPrice|wr_num)$/i", $sst) ? $sst : "";
+    $sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood|lowPrice|highPrice|resCount)$/i", $sst) ? $sst : "";
 }
 
 if ($sst)

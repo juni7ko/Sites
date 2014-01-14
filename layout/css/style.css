@@ -827,17 +827,17 @@
 	}
 
 	.search-list-top .right {
-		width: 290px;
+		/*width: 290px;*/
 		float: right;
 		text-align: right;
 	}
 
 	.search-list-top .right input {
-		margin-left: 5px;
+		margin-right: 3px;
 	}
 
 	.search-list-top .right label {
-		margin-left: 3px;
+		margin-right: 7px;
 	}
 
 /*===================================================================================*/
