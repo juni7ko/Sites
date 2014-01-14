@@ -73,7 +73,7 @@ if ($is_checkbox) $colspan++;
 										<!--</a>-->
 									</td>
 									<td style="word-break:break-all;">
-										<a href="<?=$list[$i][href]?>&pension_id=<?=$pension_id?>" class="m_sub">
+										<a href="<?=$list[$i][href]?>" class="m_sub">
 										<?=date("Y-m-d", $list[$i][wr_link2])?>
 										<?=($wr3Cnt[cnt] > 1) ? " [{$wr3Cnt[cnt]}건]":""; ?>
 										</a>
