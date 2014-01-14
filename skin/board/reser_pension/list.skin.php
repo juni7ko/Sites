@@ -141,7 +141,6 @@ if ($view_mode == "list"){
 													<img src="<?=$board_skin_path?>/img_n/cancel.gif" align="absmiddle" /> 예약취소
 													<?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 예약불가<?php }?>
 												</td>
-												<td align="right"><a href="<?=$g4['bbs_path']?>/res_form.php?bo_table=<?=$bo_table?>"><img src="<?=$board_skin_path?>/img_n/ca_rescheck.gif" width="70" height="19" /></a></td>
 											</tr>
 										</table>
 									</td>
