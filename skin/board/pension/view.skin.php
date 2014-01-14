@@ -257,7 +257,7 @@ endforeach;
 					</table>
 
 					<ul class="pension-info-btn">
-						<li class="cols50 cart-add"><a href="#" class="btn">관심등록</a></li>
+						<li class="cols50 cart-add"><a href="javascript:;" onclick="win_scrap('<?=$scrap_href?>');" class="btn">관심등록</a></li>
 						<li class="cols50 fav-add"><a href="javascript:addbookmark()" class="btn">즐겨찾기</a></li>
 					</ul>
 
