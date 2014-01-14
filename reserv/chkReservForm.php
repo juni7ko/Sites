@@ -26,7 +26,7 @@ function resform_submit(f)
 
 <link rel="stylesheet" type="text/css" href="css/reservation.css">
 
-<form name='resform1' method='post' action='javascript:resform_submit(document.resform1)' enctype='multipart/form-data' style='margin:0px;'>
+<form name='resform1' method='post' action='javascript:resform_submit(document.resform1)' enctype='multipart/form-data' style='margin:0px;' autocomplete="off">
 <input type=hidden name=null>
 <input type=hidden name=type value=code />
 <input type=hidden name=bo_table value='bbs34'>
@@ -55,7 +55,7 @@ function resform_submit(f)
 						<li class="title"><h2>예약번호</h2>
 							<ol class="list-none">
 								<li>메일또는 문자메시지로 통보된 예약번호를 입력하세요</li>
-								<li><input name="wr_3" type="text" class="text" required itemname='예약코드' /></li>
+								<li><input name="wr_3" type="text" class="text" required itemname='예약번호' /></li>
 							</ol>
 						</li>
 					</ul>
