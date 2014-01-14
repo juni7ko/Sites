@@ -1,16 +1,16 @@
-if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(SIDEVIEW_JS) == 'undefined') // í•œë²ˆë§Œ ì‹¤í–‰
 {
     if (typeof g4_is_member == 'undefined')
-        alert('g4_is_member º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/sideview.js');
+        alert('g4_is_member ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/sideview.js');
     if (typeof g4_path == 'undefined')
-        alert('g4_path º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/sideview.js');
+        alert('g4_path ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/sideview.js');
     if (typeof g4m_path == 'undefined')
-        alert('g4m_path º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/sideview.js');
+        alert('g4m_path ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/sideview.js');
 
     var SIDEVIEW_JS = true;
-    // ¾Æ·¡ÀÇ ¼Ò½ºÄÚµå´Â daum.net Ä«ÆäÀÇ ÀÚ¹Ù½ºÅ©¸³Æ®¸¦ Âü°íÇÏ¿´½À´Ï´Ù.
-    // È¸¿øÀÌ¸§ Å¬¸¯½Ã È¸¿øÁ¤º¸µîÀ» º¸¿©ÁÖ´Â ·¹ÀÌ¾î
-    function insertHead(name, text, evt) 
+    // ì•„ë˜ì˜ ì†ŒìŠ¤ì½”ë“œëŠ” daum.net ì¹´í˜ì˜ ìë°”ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ê³ í•˜ì˜€ìŠµë‹ˆë‹¤.
+    // íšŒì›ì´ë¦„ í´ë¦­ì‹œ íšŒì›ì •ë³´ë“±ì„ ë³´ì—¬ì£¼ëŠ” ë ˆì´ì–´
+    function insertHead(name, text, evt)
     {
         var idx = this.heads.length;
         var row = new SideViewRow(-idx, name, text, evt);
@@ -18,7 +18,7 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
         return row;
     }
 
-    function insertTail(name, evt) 
+    function insertTail(name, evt)
     {
         var idx = this.tails.length;
         var row = new SideViewRow(idx, name, evt);
@@ -26,38 +26,38 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
         return row;
     }
 
-    function SideViewRow(idx, name, onclickEvent) 
+    function SideViewRow(idx, name, onclickEvent)
     {
         this.idx = idx;
         this.name = name;
         this.onclickEvent = onclickEvent;
         this.renderRow = renderRow;
-        
+
         this.isVisible = true;
         this.isDim = false;
     }
 
-    function renderRow() 
+    function renderRow()
     {
         if (!this.isVisible)
             return "";
-        
+
         var str = "<tr><td id='sideViewRow_"+this.name+"'>"+this.onclickEvent+"</td></tr>";
         return str;
     }
 
-    function showSideView(curObj, mb_id, name, email, homepage) 
+    function showSideView(curObj, mb_id, name, email, homepage)
     {
         var sideView = new SideView('nameContextMenu', curObj, mb_id, name, email, homepage);
         sideView.showLayer();
     }
 
-    function SideView(targetObj, curObj, mb_id, name, email, homepage) 
+    function SideView(targetObj, curObj, mb_id, name, email, homepage)
     {
         this.targetObj = targetObj;
         this.curObj = curObj;
         this.mb_id = mb_id;
-        name = name.replace(/¡¦/g,"");
+        name = name.replace(/â€¦/g,"");
         this.name = name;
         this.email = email;
         this.homepage = homepage;
@@ -68,53 +68,53 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
         this.tails = new Array();
         this.insertTail = insertTail;
         this.getRow = getRow;
-        this.hideRow = hideRow;		
+        this.hideRow = hideRow;
         this.dimRow = dimRow;
-    
-        // È¸¿øÀÌ¶ó¸é // (ºñÈ¸¿øÀÇ °æ¿ì °Ë»ö ¾øÀ½)
+
+        // íšŒì›ì´ë¼ë©´ // (ë¹„íšŒì›ì˜ ê²½ìš° ê²€ìƒ‰ ì—†ìŒ)
         //if (g4_is_member) {
-            // ÂÊÁöº¸³»±â // ºÒ¿©¿ì ÀÚ¹Ù½ºÅ©¸³Æ®Ã¢ÀÌ ¶ß´Â ¿À·ù¸¦ ¼öÁ¤
-            if (mb_id) 
-                this.insertTail("memo", "<a href=\""+g4m_path+"/" + g4m_bbs + "/memo_form.php?me_recv_mb_id="+mb_id+"\">ÂÊÁöº¸³»±â</a>");
-            // ¸ŞÀÏº¸³»±â
-            if (email) 
-                this.insertTail("mail", "<a href=\"javascript:;\" onclick=\"m_formmail('"+mb_id+"','"+name+"','"+email+"');\">¸ŞÀÏº¸³»±â</a>");
-            // È¨ÆäÀÌÁö
-            if (homepage) 
-                this.insertTail("homepage", "<a href=\"javascript:;\" onclick=\"window.open('"+homepage+"');\">È¨ÆäÀÌÁö</a>");
-            // ÀÚ±â¼Ò°³
-            if (mb_id) 
-                this.insertTail("info", "<a href=\"javascript:;\" onclick=\"win_profile('"+mb_id+"');\">ÀÚ±â¼Ò°³</a>");
+            // ìª½ì§€ë³´ë‚´ê¸° // ë¶ˆì—¬ìš° ìë°”ìŠ¤í¬ë¦½íŠ¸ì°½ì´ ëœ¨ëŠ” ì˜¤ë¥˜ë¥¼ ìˆ˜ì •
+            if (mb_id)
+                this.insertTail("memo", "<a href=\""+g4m_path+"/" + g4m_bbs + "/memo_form.php?me_recv_mb_id="+mb_id+"\">ìª½ì§€ë³´ë‚´ê¸°</a>");
+            // ë©”ì¼ë³´ë‚´ê¸°
+            if (email)
+                this.insertTail("mail", "<a href=\"javascript:;\" onclick=\"m_formmail('"+mb_id+"','"+name+"','"+email+"');\">ë©”ì¼ë³´ë‚´ê¸°</a>");
+            // í™ˆí˜ì´ì§€
+            if (homepage)
+                this.insertTail("homepage", "<a href=\"javascript:;\" onclick=\"window.open('"+homepage+"');\">í™ˆí˜ì´ì§€</a>");
+            // ìê¸°ì†Œê°œ
+            if (mb_id)
+                this.insertTail("info", "<a href=\"javascript:;\" onclick=\"win_profile('"+mb_id+"');\">ìê¸°ì†Œê°œ</a>");
         //}
 
-        // °Ô½ÃÆÇÅ×ÀÌºí ¾ÆÀÌµğ°¡ ³Ñ¾î¿ÔÀ» °æ¿ì
+        // ê²Œì‹œíŒí…Œì´ë¸” ì•„ì´ë””ê°€ ë„˜ì–´ì™”ì„ ê²½ìš°
         if (g4_bo_table) {
-            if (mb_id) // È¸¿øÀÏ °æ¿ì ¾ÆÀÌµğ·Î °Ë»ö
-                this.insertTail("mb_id", "<a href='"+g4m_path+"/" + g4m_bbs + "/board.php?bo_table="+g4_bo_table+"&sca="+g4_sca+"&sfl=mb_id,1&stx="+mb_id+"'>¾ÆÀÌµğ·Î °Ë»ö</a>");
-            else // ºñÈ¸¿øÀÏ °æ¿ì ÀÌ¸§À¸·Î °Ë»ö
-                this.insertTail("name", "<a href='"+g4m_path+"/" + g4m_bbs + "/board.php?bo_table="+g4_bo_table+"&sca="+g4_sca+"&sfl=wr_name,1&stx="+name+"'>ÀÌ¸§À¸·Î °Ë»ö</a>");
+            if (mb_id) // íšŒì›ì¼ ê²½ìš° ì•„ì´ë””ë¡œ ê²€ìƒ‰
+                this.insertTail("mb_id", "<a href='"+g4m_path+"/" + g4m_bbs + "/board.php?bo_table="+g4_bo_table+"&sca="+g4_sca+"&sfl=mb_id,1&stx="+mb_id+"'>ì•„ì´ë””ë¡œ ê²€ìƒ‰</a>");
+            else // ë¹„íšŒì›ì¼ ê²½ìš° ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰
+                this.insertTail("name", "<a href='"+g4m_path+"/" + g4m_bbs + "/board.php?bo_table="+g4_bo_table+"&sca="+g4_sca+"&sfl=wr_name,1&stx="+name+"'>ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰</a>");
         }
         if (mb_id)
-            this.insertTail("new", "<a href='"+g4m_path + "/" + g4m_bbs + "/new.php?mb_id="+mb_id+"'>ÀüÃ¼°Ô½Ã¹°</a>");
+            this.insertTail("new", "<a href='"+g4m_path + "/" + g4m_bbs + "/new.php?mb_id="+mb_id+"'>ì „ì²´ê²Œì‹œë¬¼</a>");
         /*
-        // ÃÖ°í°ü¸®ÀÚÀÏ °æ¿ì
+        // ìµœê³ ê´€ë¦¬ìì¼ ê²½ìš°
         if (g4_is_admin == "super") {
-            // È¸¿øÁ¤º¸º¯°æ
+            // íšŒì›ì •ë³´ë³€ê²½
             if (mb_id)
-                this.insertTail("modify", "<a href='"+g4_path+"/" + g4_admin + "/member_form.php?w=u&mb_id="+mb_id+"' target='_blank'>È¸¿øÁ¤º¸º¯°æ</a>");
-            // Æ÷ÀÎÆ®³»¿ª
+                this.insertTail("modify", "<a href='"+g4_path+"/" + g4_admin + "/member_form.php?w=u&mb_id="+mb_id+"' target='_blank'>íšŒì›ì •ë³´ë³€ê²½</a>");
+            // í¬ì¸íŠ¸ë‚´ì—­
             if (mb_id)
-                this.insertTail("point", "<a href='"+g4_path+"/" + g4_admin + "/point_list.php?sfl=mb_id&stx="+mb_id+"' target='_blank'>Æ÷ÀÎÆ®³»¿ª</a>");
+                this.insertTail("point", "<a href='"+g4_path+"/" + g4_admin + "/point_list.php?sfl=mb_id&stx="+mb_id+"' target='_blank'>í¬ì¸íŠ¸ë‚´ì—­</a>");
         }
         */
     }
 
-    function showLayer() 
+    function showLayer()
     {
         clickAreaCheck = true;
         var oSideViewLayer = document.getElementById(this.targetObj);
         var oBody = document.body;
-            
+
         if (oSideViewLayer == null) {
             oSideViewLayer = document.createElement("DIV");
             oSideViewLayer.id = this.targetObj;
@@ -122,7 +122,7 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
             oBody.appendChild(oSideViewLayer);
         }
         oSideViewLayer.innerHTML = this.makeNameContextMenus();
-        
+
         if (getAbsoluteTop(this.curObj) + this.curObj.offsetHeight + oSideViewLayer.scrollHeight + 5 > oBody.scrollHeight)
             oSideViewLayer.style.top = getAbsoluteTop(this.curObj) - oSideViewLayer.scrollHeight;
         else
@@ -159,33 +159,33 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
     }
 
 
-    function makeNameContextMenus() 
+    function makeNameContextMenus()
     {
         var str = "<table border='0' cellpadding='0' cellspacing='0' width='120' style='border:1px solid #E0E0E0;' bgcolor='#F9FBFB'>";
-        
+
         var i=0;
         for (i=this.heads.length - 1; i >= 0; i--)
             str += this.heads[i].renderRow();
-       
+
         var j=0;
         for (j=0; j < this.tails.length; j++)
             str += this.tails[j].renderRow();
-        
+
         str += "</table>";
         return str;
     }
 
-    function getRow(name) 
+    function getRow(name)
     {
         var i = 0;
         var row = null;
-        for (i=0; i<this.heads.length; ++i) 
+        for (i=0; i<this.heads.length; ++i)
         {
             row = this.heads[i];
             if (row.name == name) return row;
         }
 
-        for (i=0; i<this.tails.length; ++i) 
+        for (i=0; i<this.tails.length; ++i)
         {
             row = this.tails[i];
             if (row.name == name) return row;
@@ -193,39 +193,39 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
         return row;
     }
 
-    function hideRow(name) 
+    function hideRow(name)
     {
         var row = this.getRow(name);
         if (row != null)
             row.isVisible = false;
     }
 
-    function dimRow(name) 
+    function dimRow(name)
     {
         var row = this.getRow(name);
         if (row != null)
             row.isDim = true;
     }
-    // Internet Explorer¿¡¼­ ¼¿·ºÆ®¹Ú½º¿Í ·¹ÀÌ¾î°¡ °ãÄ¥½Ã ·¹ÀÌ¾î°¡ ¼¿·ºÆ® ¹Ú½º µÚ·Î ¼û´Â Çö»óÀ» ÇØ°áÇÏ´Â ÇÔ¼ö
-    // ·¹ÀÌ¾î°¡ ¼¿·ºÆ® ¹Ú½º¸¦ Ä§¹üÇÏ¸é ¼¿·ºÆ® ¹Ú½º¸¦ hidden ½ÃÅ´
+    // Internet Explorerì—ì„œ ì…€ë ‰íŠ¸ë°•ìŠ¤ì™€ ë ˆì´ì–´ê°€ ê²¹ì¹ ì‹œ ë ˆì´ì–´ê°€ ì…€ë ‰íŠ¸ ë°•ìŠ¤ ë’¤ë¡œ ìˆ¨ëŠ” í˜„ìƒì„ í•´ê²°í•˜ëŠ” í•¨ìˆ˜
+    // ë ˆì´ì–´ê°€ ì…€ë ‰íŠ¸ ë°•ìŠ¤ë¥¼ ì¹¨ë²”í•˜ë©´ ì…€ë ‰íŠ¸ ë°•ìŠ¤ë¥¼ hidden ì‹œí‚´
     // <div id=LayerID style="display:none; position:absolute;" onpropertychange="selectBoxHidden('LayerID')">
-    function selectBoxHidden(layer_id) 
+    function selectBoxHidden(layer_id)
     {
         //var ly = eval(layer_id);
         var ly = document.getElementById(layer_id);
 
-        // ·¹ÀÌ¾î ÁÂÇ¥
+        // ë ˆì´ì–´ ì¢Œí‘œ
         var ly_left   = ly.offsetLeft;
         var ly_top    = ly.offsetTop;
         var ly_right  = ly.offsetLeft + ly.offsetWidth;
         var ly_bottom = ly.offsetTop + ly.offsetHeight;
 
-        // ¼¿·ºÆ®¹Ú½ºÀÇ ÁÂÇ¥
+        // ì…€ë ‰íŠ¸ë°•ìŠ¤ì˜ ì¢Œí‘œ
         var el;
 
         for (i=0; i<document.forms.length; i++) {
             for (k=0; k<document.forms[i].length; k++) {
-                el = document.forms[i].elements[k];    
+                el = document.forms[i].elements[k];
                 if (el.type == "select-one") {
                     var el_left = el_top = 0;
                     var obj = el;
@@ -241,8 +241,8 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
                     el_right  = el_left + el.clientWidth;
                     el_bottom = el_top + el.clientHeight;
 
-                    // ÁÂÇ¥¸¦ µûÁ® ·¹ÀÌ¾î°¡ ¼¿·ºÆ® ¹Ú½º¸¦ Ä§¹üÇßÀ¸¸é ¼¿·ºÆ® ¹Ú½º¸¦ hidden ½ÃÅ´
-                    if ( (el_left >= ly_left && el_top >= ly_top && el_left <= ly_right && el_top <= ly_bottom) || 
+                    // ì¢Œí‘œë¥¼ ë”°ì ¸ ë ˆì´ì–´ê°€ ì…€ë ‰íŠ¸ ë°•ìŠ¤ë¥¼ ì¹¨ë²”í–ˆìœ¼ë©´ ì…€ë ‰íŠ¸ ë°•ìŠ¤ë¥¼ hidden ì‹œí‚´
+                    if ( (el_left >= ly_left && el_top >= ly_top && el_left <= ly_right && el_top <= ly_bottom) ||
                          (el_right >= ly_left && el_right <= ly_right && el_top >= ly_top && el_top <= ly_bottom) ||
                          (el_left >= ly_left && el_bottom >= ly_top && el_right <= ly_right && el_bottom <= ly_bottom) ||
                          (el_left >= ly_left && el_left <= ly_right && el_bottom >= ly_top && el_bottom <= ly_bottom) ||
@@ -254,39 +254,39 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
         }
     }
 
-    // °¨Ãß¾îÁø ¼¿·ºÆ® ¹Ú½º¸¦ ¸ğµÎ º¸ÀÌ°Ô ÇÔ
-    function selectBoxVisible() 
+    // ê°ì¶”ì–´ì§„ ì…€ë ‰íŠ¸ ë°•ìŠ¤ë¥¼ ëª¨ë‘ ë³´ì´ê²Œ í•¨
+    function selectBoxVisible()
     {
-        for (i=0; i<document.forms.length; i++) 
+        for (i=0; i<document.forms.length; i++)
         {
-            for (k=0; k<document.forms[i].length; k++) 
+            for (k=0; k<document.forms[i].length; k++)
             {
-                el = document.forms[i].elements[k];    
+                el = document.forms[i].elements[k];
                 if (el.type == "select-one" && el.style.visibility == 'hidden')
                     el.style.visibility = 'visible';
             }
         }
     }
 
-    function divDisplay(id, act) 
+    function divDisplay(id, act)
     {
         selectBoxVisible();
 
         document.getElementById(id).style.display = act;
     }
 
-    function hideSideView() 
+    function hideSideView()
     {
         if (document.getElementById("nameContextMenu"))
             divDisplay ("nameContextMenu", 'none');
     }
 
     var clickAreaCheck = false;
-    document.onclick = function() 
+    document.onclick = function()
     {
-        if (!clickAreaCheck) 
+        if (!clickAreaCheck)
             hideSideView();
-        else 
+        else
             clickAreaCheck = false;
     }
 }

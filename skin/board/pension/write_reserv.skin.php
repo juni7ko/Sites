@@ -235,6 +235,12 @@ endforeach;
 								<td class="first">기타사항</td>
 								<td class="last left"><textarea name="wr_content" cols="50" rows="4" class="w100p"></textarea></td>
 							</tr>
+							<?php if ($is_guest) { ?>
+							<tr>
+							    <td class="first"><img id='kcaptcha_image' /></td>
+							    <td class="last left"><input class='ed' type=input size=10 name=wr_key itemname="자동등록방지" required>&nbsp;&nbsp;왼쪽의 글자를 입력하세요.</td>
+							</tr>
+							<?php } ?>
 						</tbody>
 					</table>
 
@@ -352,6 +358,7 @@ if($content2[wr_content2]) {
 	</div><!-- container -->
 </form>
 
+<script type="text/javascript" src="<?="$g4[path]/js/jquery.kcaptcha.js"?>"></script>
 <script type="text/javascript">
 function resForm_submit()
 {
@@ -380,7 +387,12 @@ function resForm_submit()
 		return false;
 	}
 
+	if (!check_kcaptcha(f.wr_key)) {
+        return false;
+    }
+
 	f.action = "./write_reserv2.php";
 	f.submit();
 }
 </script>
+

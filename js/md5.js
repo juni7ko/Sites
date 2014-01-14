@@ -1,4 +1,4 @@
-if (typeof(MD5_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(MD5_JS) == 'undefined') // í•œë²ˆë§Œ ì‹¤í–‰
 {
     var MD5_JS = true;
 
@@ -14,11 +14,11 @@ if (typeof(MD5_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
     function b64_hmac_md5(key, data) { return binl2b64(core_hmac_md5(key, data)); }
     function str_hmac_md5(key, data) { return binl2str(core_hmac_md5(key, data)); }
 
-    function core_md5(x, len) 
+    function core_md5(x, len)
     {
         x[len >> 5] |= 0x80 << ((len) % 32); x[(((len + 64) >>> 9) << 4) + 14] = len;
         var a =  1732584193; var b = -271733879; var c = -1732584194; var d =  271733878;
-        for(var i = 0; i < x.length; i += 16) 
+        for(var i = 0; i < x.length; i += 16)
         {
             var olda = a; var oldb = b; var oldc = c; var oldd = d;
             a = md5_ff(a, b, c, d, x[i+ 0], 7 , -680876936);
@@ -102,14 +102,14 @@ if (typeof(MD5_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
 
     function core_hmac_md5(key, data) {
         var bkey = str2binl(key);
-        if(bkey.length > 16) 
+        if(bkey.length > 16)
             bkey = core_md5(bkey, key.length * chrsz);
 
         var ipad = Array(16), opad = Array(16);
-        for(var i = 0; i < 16; i++) 
-        { 
-            ipad[i] = bkey[i] ^ 0x36363636; 
-            opad[i] = bkey[i] ^ 0x5C5C5C5C; 
+        for(var i = 0; i < 16; i++)
+        {
+            ipad[i] = bkey[i] ^ 0x36363636;
+            opad[i] = bkey[i] ^ 0x5C5C5C5C;
         }
 
         var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
@@ -119,45 +119,45 @@ if (typeof(MD5_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
     function safe_add(x, y) { var lsw = (x & 0xFFFF) + (y & 0xFFFF); var msw = (x >> 16) + (y >> 16) + (lsw >> 16); return (msw << 16) | (lsw & 0xFFFF); }
     function bit_rol(num, cnt) { return (num << cnt) | (num >>> (32 - cnt)); }
 
-    function str2binl(str) 
+    function str2binl(str)
     {
         var bin = Array(); var mask = (1 << chrsz) - 1;
-        for(var i = 0; i < str.length * chrsz; i += chrsz) 
+        for(var i = 0; i < str.length * chrsz; i += chrsz)
             bin[i>>5] |= (str.charCodeAt(i / chrsz) & mask) << (i%32);
-        return bin; 
+        return bin;
     }
 
-    function binl2str(bin) 
+    function binl2str(bin)
     {
         var str = ""; var mask = (1 << chrsz) - 1;
-        for(var i = 0; i < bin.length * 32; i += chrsz) 
-            str += String.fromCharCode((bin[i>>5] >>> (i % 32)) & mask); return str; 
+        for(var i = 0; i < bin.length * 32; i += chrsz)
+            str += String.fromCharCode((bin[i>>5] >>> (i % 32)) & mask); return str;
     }
 
 
-    function binl2hex(binarray) 
+    function binl2hex(binarray)
     {
         var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef"; var str = "";
-        for(var i = 0; i < binarray.length * 4; i++) 
-            str += hex_tab.charAt((binarray[i>>2] >> ((i%4)*8+4)) & 0xF) + hex_tab.charAt((binarray[i>>2] >> ((i%4)*8  )) & 0xF); 
-        return str; 
+        for(var i = 0; i < binarray.length * 4; i++)
+            str += hex_tab.charAt((binarray[i>>2] >> ((i%4)*8+4)) & 0xF) + hex_tab.charAt((binarray[i>>2] >> ((i%4)*8  )) & 0xF);
+        return str;
     }
 
-    function binl2b64(binarray) 
+    function binl2b64(binarray)
     {
         var tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         var str = "";
-        for(var i = 0; i < binarray.length * 4; i += 3) 
+        for(var i = 0; i < binarray.length * 4; i += 3)
         {
             var triplet = (((binarray[i   >> 2] >> 8 * ( i   %4)) & 0xFF) << 16)
                         | (((binarray[i+1 >> 2] >> 8 * ((i+1)%4)) & 0xFF) << 8 )
                         |  ((binarray[i+2 >> 2] >> 8 * ((i+2)%4)) & 0xFF);
-            for(var j = 0; j < 4; j++) 
+            for(var j = 0; j < 4; j++)
             {
-                if(i * 8 + j * 6 > binarray.length * 32) 
+                if(i * 8 + j * 6 > binarray.length * 32)
                     str += b64pad;
-                else 
-                    str += tab.charAt((triplet >> 6*(3-j)) & 0x3F); 
+                else
+                    str += tab.charAt((triplet >> 6*(3-j)) & 0x3F);
             }
         }
         return str;

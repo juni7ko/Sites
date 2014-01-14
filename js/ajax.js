@@ -1,4 +1,4 @@
-// request °´Ã¼ »ı¼º
+// request ê°ì²´ ìƒì„±
 var req = null;
 function create_request() {
     var request = null;
@@ -21,7 +21,7 @@ function create_request() {
         return request;
 }
 
-// Æ®·¢¹éÀ» »ç¿ëÇÑ´Ù¸é ÅäÅ«À» ½Ç½Ã°£À¸·Î »ı¼º
+// íŠ¸ë™ë°±ì„ ì‚¬ìš©í•œë‹¤ë©´ í† í°ì„ ì‹¤ì‹œê°„ìœ¼ë¡œ ìƒì„±
 var trackback_url = "";
 function trackback_send_server(url) {
     req = create_request();
@@ -30,12 +30,12 @@ function trackback_send_server(url) {
         if (req.readyState == 4) {
             if (req.status == 200) {
                 var token = req.responseText;
-                prompt("¾Æ·¡ ÁÖ¼Ò¸¦ º¹»çÇÏ¼¼¿ä. ÀÌ ÁÖ¼Ò´Â ½ºÆÔÀ» ¸·±â À§ÇÏ¿© ÇÑ¹ø¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù.", trackback_url+"/"+token);
+                prompt("ì•„ë˜ ì£¼ì†Œë¥¼ ë³µì‚¬í•˜ì„¸ìš”. ì´ ì£¼ì†ŒëŠ” ìŠ¤íŒ¸ì„ ë§‰ê¸° ìœ„í•˜ì—¬ í•œë²ˆë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤.", trackback_url+"/"+token);
                 trackback_url = "";
             }
         }
     }
     req.open("POST", g4_path+'/'+g4_bbs+'/'+'tb_token.php', true);
-    //req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    //req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);
 }

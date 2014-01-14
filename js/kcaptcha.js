@@ -1,11 +1,11 @@
 /*
-** 2010.03.12 : jQuery ·Î ´ëÃ¼ÇÏ¿© ¾ÕÀ¸·Î »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.
+** 2010.03.12 : jQuery ë¡œ ëŒ€ì²´í•˜ì—¬ ì•ìœ¼ë¡œ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
 */
 
-if (typeof(KCAPTCHA_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(KCAPTCHA_JS) == 'undefined') // í•œë²ˆë§Œ ì‹¤í–‰
 {
     if (typeof g4_path == 'undefined')
-        alert('g4_path º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/kcaptcha.js');
+        alert('g4_path ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/kcaptcha.js');
 
     var KCAPTCHA_JS = true;
 
@@ -15,16 +15,16 @@ if (typeof(KCAPTCHA_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
 		var url = g4_path+"/"+g4_bbs+"/kcaptcha_session.php";
 		var para = "";
 		var myAjax = new Ajax.Request(
-			url, 
+			url,
 			{
-				method: 'post', 
+				method: 'post',
 				asynchronous: true,
-				parameters: para, 
+				parameters: para,
 				onComplete: imageClickResult
 			});
 	}
 
-	function imageClickResult(req) { 
+	function imageClickResult(req) {
 		var result = req.responseText;
 		var img = document.createElement("IMG");
 		img.setAttribute("src", g4_path+"/"+g4_bbs+"/kcaptcha_image.php?t=" + (new Date).getTime());
