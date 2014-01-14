@@ -128,23 +128,26 @@ echo "<tr class='$css[tr]'>
 		<td>토요일</td>
 		<td>일요일</td>
 		<td>공휴일</td>
+		<td>전체적용</td>
 	</tr>";
 if($room_info) {
 	echo "<tr class='ht center'>";
 	echo "<td>기본요금</td>";
-	echo "<td><input type=input size=7 name=r_cost_11 value='" . $cost_info[r_cost_11] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_12 value='" . $cost_info[r_cost_12] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_13 value='" . $cost_info[r_cost_13] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_14 value='" . $cost_info[r_cost_14] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_15 value='" . $cost_info[r_cost_15] . "'></td>";
+	echo "<td><input type=input size=7 name=r_cost_11 value='" . $cost_info[r_cost_11] . "' class='costValue' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_12 value='" . $cost_info[r_cost_12] . "' class='costValue' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_13 value='" . $cost_info[r_cost_13] . "' class='costValue' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_14 value='" . $cost_info[r_cost_14] . "' class='costValue' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_15 value='" . $cost_info[r_cost_15] . "' class='costValue' /></td>";
+	echo "<td><input type=input size=7 name=allCost id=allCost /></td>";
 	echo "</tr>";
 	echo "<tr class='ht center'>";
 	echo "<td>할인율</td>";
-	echo "<td><input type=input size=7 name=r_cost_21 value='" . $cost_info[r_cost_21] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_22 value='" . $cost_info[r_cost_22] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_23 value='" . $cost_info[r_cost_23] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_24 value='" . $cost_info[r_cost_24] . "'></td>";
-	echo "<td><input type=input size=7 name=r_cost_25 value='" . $cost_info[r_cost_25] . "'></td>";
+	echo "<td><input type=input size=7 name=r_cost_21 value='" . $cost_info[r_cost_21] . "' class='costRate' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_22 value='" . $cost_info[r_cost_22] . "' class='costRate' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_23 value='" . $cost_info[r_cost_23] . "' class='costRate' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_24 value='" . $cost_info[r_cost_24] . "' class='costRate' /></td>";
+	echo "<td><input type=input size=7 name=r_cost_25 value='" . $cost_info[r_cost_25] . "' class='costRate' /></td>";
+	echo "<td><input type=input size=7 name=allRate id=allRate /></td>";
 	echo "</tr>";
 	echo "<tr class='ht center'>";
 	echo "<td>할인가격</td>";
@@ -153,6 +156,7 @@ if($room_info) {
 	echo "<td>". number_format($cost_info[r_cost_33]) . "</td>";
 	echo "<td>". number_format($cost_info[r_cost_34]) . "</td>";
 	echo "<td>". number_format($cost_info[r_cost_35]) . "</td>";
+	echo "<td></td>";
 	echo "</tr>";
 }
 echo "</table>";
@@ -211,22 +215,6 @@ function show_list() {
 ## 리스트 끝
 }
 ?>
-<script type="text/javascript">
-<!--
-function Process(u,id) {
-	f = document.go_cost;
-	if(u == "cost") {
-		f.action = "./config_cost.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>";
-	} else {
-		return false;
-	}
-
-	f.u.value = u;
-	f.id.value = id;
-	f.submit();
-}
--->
-</script>
 <form name="go_cost" method="POST" style="margin:0; padding:0;">
 <input type="hidden" name="bo_table" value="<?=$bo_table?>" />
 <input type="hidden" name="u" value="">
@@ -238,6 +226,31 @@ function Process(u,id) {
 <td bgcolor="#ffffff">&nbsp;</td>
 <td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) right bottom;"></td></tr>
 </table>
+<script type="text/javascript">
+	$(function(){
+		$('#allRate').keyup(function(){
+			var rate = $(this).val();
+			$('.costRate').val(rate);
+		});
+		$('#allCost').keyup(function(){
+			var cost = $(this).val();
+			$('.costValue').val(cost);
+		});
+	});
+
+	function Process(u,id) {
+		f = document.go_cost;
+		if(u == "cost") {
+			f.action = "./config_cost.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>";
+		} else {
+			return false;
+		}
+
+		f.u.value = u;
+		f.id.value = id;
+		f.submit();
+	}
+</script>
 <?php
 ############# 푸터
 if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
