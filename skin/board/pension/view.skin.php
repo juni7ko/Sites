@@ -224,7 +224,7 @@ endforeach;
 
 					<ul class="pension-info-btn">
 						<li class="cols50 cart-add"><a href="#" class="btn">관심등록</a></li>
-						<li class="cols50 fav-add"><a href="#" onClick="window.external.AddFavorite('http://pension.interfo.com/', 'Stay Store')" class="btn">즐겨찾기</a></li>
+						<li class="cols50 fav-add"><a href="javascript:window.external.AddFavorite('<?=$g4[url]?>/bbs/board.php?bo_table=pension_info&wr_id=<?=$view[wr_id]?>&sfl=area_id&stx=1', '<?=$view[wr_subject]?> - StayStore');" class="btn">즐겨찾기</a></li>
 					</ul>
 
 			</div>
