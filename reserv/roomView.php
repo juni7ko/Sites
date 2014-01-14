@@ -3,21 +3,6 @@ include_once("./_common.php");
 include_once($g4['path'].'/head.sub.php');
 
 if(!$rid && !$pId) alert("잘못된 접근입니다.");
-
-
-$roomListSql = " SELECT * FROM g4_write_bbs34_r_info WHERE pension_id = '$pId' ORDER BY r_info_order ASC";
-$resultList = sql_query($roomListSql);
-
-echo "<div style='padding:3px;'>";
-for ($i=0; $roomList = sql_fetch_array($resultList); $i++) {
-	echo "<label><input type='radio' onClick='roomFrameGo2(0, {$roomList['r_info_id']}, {$pId});' name='rInfo0' value='{$roomList['r_info_id']}' />&nbsp;{$roomList['r_info_name']}</label>&nbsp;&nbsp;&nbsp;";
-}
-echo "<br class='blank' />";
-echo "</div>";
-
-$file = get_file_room('bbs34_r_info', $rid);
-
-if($file[count]) {
 ?>
 	<script type="text/javascript" src="<?=$g4[path]?>/js/jquery.photomatic.js"></script>
 	<script type="text/javascript">
@@ -47,7 +32,38 @@ if($file[count]) {
 		width:150px;
 		height:100px;
 	}
+	#labelBox {
+		padding: 3px;
+		line-height: 16px;
+		-ms-word-break: keep-all;
+		word-break: keep-all;
+	}
+	#labelBox li {
+		float: left;
+		list-style-type: none;
+		margin-right: 15px;
+		-ms-word-break: keep-all;
+		word-break: keep-all;
+	}
+	#labelBox li input {
+		margin-right: 5px;
+	}
 	</style>
+<?php
+$roomListSql = " SELECT * FROM g4_write_bbs34_r_info WHERE pension_id = '$pId' ORDER BY r_info_order ASC";
+$resultList = sql_query($roomListSql);
+
+echo "<div id=labelBox>";
+for ($i=0; $roomList = sql_fetch_array($resultList); $i++) {
+	echo "<li><label><input type='radio' onClick='roomFrameGo2(0, {$roomList['r_info_id']}, {$pId});' name='rInfo0' value='{$roomList['r_info_id']}' />{$roomList['r_info_name']}</label></li>";
+}
+echo "<br class='blank' />";
+echo "</div>";
+
+$file = get_file_room('bbs34_r_info', $rid);
+
+if($file[count]) {
+?>
 <table width="100%" border="0" cellpadding="5" align="center">
 <tr>
 	<td>
@@ -117,12 +133,12 @@ $rInfo = sql_fetch($csql);
 	</div>
 
 <script type="text/javascript">
-function roomFrameGo2(i, rId, pId) {
-	uri2 = "/reserv/roomView.php?rid="+rId+"&pId="+pId;
-	$(location).attr('href',uri2);
-	//$("#roomFrame"+i, parent.document).attr('src',uri2);
-}
-$(":radio[name='rInfo0']:radio[value="+<?=$rid?>+"]").attr('checked',true);
+	function roomFrameGo2(i, rId, pId) {
+		uri2 = "/reserv/roomView.php?rid="+rId+"&pId="+pId;
+		$(location).attr('href',uri2);
+		//$("#roomFrame"+i, parent.document).attr('src',uri2);
+	}
+	$(":radio[name='rInfo0']:radio[value="+<?=$rid?>+"]").attr('checked',true);
 </script>
 <?php
 include_once("$g4[path]/tail.sub.php");
