@@ -1,3 +1,12 @@
+<?php
+$area_sql = "SELECT * from ci_area order by area_no desc ";
+$nav_sql = sql_query($area_sql);
+
+for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
+	$navi_area['area_id'][$area_count] = $areaInfo['area_id'];
+	$navi_area['area_name'][$area_count] = $areaInfo['area_name'];
+}
+?>
 <div id="section" class="sub-search-bar">
 	<div class="container">
 		<table>
@@ -9,11 +18,11 @@
 					</th>
 					<td>
 						<select name="location">
-							<option value="지역선택">지역선택</option>
-							<option value="강릉/경포대">강릉/경포대</option>
-							<option value="인천/강화도">인천/강화도</option>
-							<option value="가평/양평">가평/양평</option>
-							<option value="태안/안면도">태안/안면도</option>
+							<option value="">지역선택</option>
+							<?php
+							for($i=0; $i < $area_count; $i++)
+								echo "<option value='{$navi_area['area_id'][$i]}'>{$navi_area['area_name'][$i]}</option>";
+							?>
 						</select>
 					</td>
 
@@ -71,148 +80,135 @@
 </div>
 <!-- ./sub-search-bar -->
 
+<form name="searchZone2" method="post" action="javascript:resform_submit(document.resform1)" enctype="multipart/form-data" style="margin:0px;">
+	<div id="section" class="section-powersearch">
+		<div class="container">
+			<table>
+				<tr>
+					<th>지역</th>
+					<td>
+						<label><input type="radio" name="area_id" value="all" />전지역</label>
+						<?php
+						for($i=0; $i < $area_count; $i++)
+							echo "<label><input type='radio' name='area_id' value='{$navi_area['area_id'][$i]}' />{$navi_area['area_name'][$i]}</label>";
+						?>
+					</td>
+				</tr>
 
-<div id="section" class="section-powersearch">
-	<div class="container">
-		<table>
-			<tr>
-				<th>
-					지역
-				</th>
-				<td>
-					<input type="radio" name="" value="" /><label>전지역</label>
-					<input type="radio" name="" value="" /><label>경기도</label>
-					<input type="radio" name="" value="" /><label>강원도</label>
-					<input type="radio" name="" value="" /><label>충청도</label>
-					<input type="radio" name="" value="" /><label>경상도</label>
-					<input type="radio" name="" value="" /><label>전라도</label>
-					<input type="radio" name="" value="" /><label>제주도</label>
-				</td>
-			</tr>
+				<tr>
+					<th>인기지역</th>
+					<td>
+						<label><input type="radio" name="location2" value="" />전지역</label>
+						<label><input type="radio" name="location2" value="" />경기도</label>
+						<label><input type="radio" name="location2" value="" />강원도</label>
+						<label><input type="radio" name="location2" value="" />충청도</label>
+						<label><input type="radio" name="location2" value="" />경상도</label>
+						<label><input type="radio" name="location2" value="" />전라도</label>
+						<label><input type="radio" name="location2" value="" />제주도</label>
+					</td>
+				</tr>
 
-			<tr>
-				<th>
-					인기지역
-				</th>
-				<td>
-					<input type="radio" name="" value="" /><label>전지역</label>
-					<input type="radio" name="" value="" /><label>경기도</label>
-					<input type="radio" name="" value="" /><label>강원도</label>
-					<input type="radio" name="" value="" /><label>충청도</label>
-					<input type="radio" name="" value="" /><label>경상도</label>
-					<input type="radio" name="" value="" /><label>전라도</label>
-					<input type="radio" name="" value="" /><label>제주도</label>
-				</td>
-			</tr>
+				<tr>
+					<th>주변여행지</th>
+					<td>
+						<label><input type="checkbox" id="condition1" name="cf1" />바다</label>
+						<label><input type="checkbox" id="condition1" name="cf2" />계곡</label>
+						<label><input type="checkbox" id="condition1" name="cf3" />강/호수</label>
+						<label><input type="checkbox" id="condition1" name="cf4" />산</label>
+						<label><input type="checkbox" id="condition1" name="cf5" />섬</label>
+					</td>
+				</tr>
 
-			<tr>
-				<th>
-					주변여행지
-				</th>
-				<td>
-					<input type="checkbox" id="condition1" name="cf1" ><label>바다</label>
-					<input type="checkbox" id="condition1" name="cf2" ><label>계곡</label>
-					<input type="checkbox" id="condition1" name="cf3" ><label>강/호수</label>
-					<input type="checkbox" id="condition1" name="cf4" ><label>산</label>
-					<input type="checkbox" id="condition1" name="cf5" ><label>섬</label>
-				</td>
-			</tr>
+				<tr>
+					<th>테마</th>
+					<td>
+						<div>
+							<label><input type="checkbox" id="condition2" name="cf21" />해수욕장</label>
+							<label><input type="checkbox" id="condition2" name="cf22" />레프팅</label>
+							<label><input type="checkbox" id="condition2" name="cf23" />MT/워크샵</label>
+							<label><input type="checkbox" id="condition2" name="cf24" />갯벌</label>
+							<label><input type="checkbox" id="condition2" name="cf25" />스키장</label>
+							<label><input type="checkbox" id="condition2" name="cf26" />수상레져</label>
+							<label><input type="checkbox" id="condition2" name="cf27" />스파</label>
+							<label><input type="checkbox" id="condition2" name="cf28" />등산,수목원,휴양림</label>
+							<label><input type="checkbox" id="condition2" name="cf29" />낚시</label>
+							<label><input type="checkbox" id="condition2" name="cf31" />골프장주변</label>
+							<label><input type="checkbox" id="condition2" name="cf32" />커플전용</label>
+						</div>
+						<div style="margin-top:7px;">
+							<label><input type="checkbox" id="condition2" name="cf33" />바다,강이 보이는 전망</label>
+							<label><input type="checkbox" id="condition2" name="cf34" />복층구조</label>
+							<label><input type="checkbox" id="condition2" name="cf35" />독채</label>
+							<label><input type="checkbox" id="condition2" name="cf36" />소규모(10명이상)</label>
+							<label><input type="checkbox" id="condition2" name="cf37" />대규모(50명이상)</label>
+							<label><input type="checkbox" id="condition2" name="cf38" />계곡주변</label>
+						</div>
+					</td>
+				</tr>
 
-			<tr>
-				<th>
-					테마
-				</th>
-				<td style="line-height:20px;">
-					<input type="checkbox" id="condition2" name="" ><label>해수욕장</label>
-					<input type="checkbox" id="condition2" name="" ><label>레프팅</label>
-					<input type="checkbox" id="condition2" name="" ><label>MT/워크샵</label>
-					<input type="checkbox" id="condition2" name="" ><label>갯벌</label>
-					<input type="checkbox" id="condition2" name="" ><label>스키장주변</label>
-					<input type="checkbox" id="condition2" name="" ><label>수상레져</label>
-					<input type="checkbox" id="condition2" name="" ><label>스파</label>
-					<input type="checkbox" id="condition2" name="" ><label>등산,수목원,휴양림</label>
-					<input type="checkbox" id="condition2" name="" ><label>낚시</label>
-					<input type="checkbox" id="condition2" name="" ><label>골프장주변</label>
-					<input type="checkbox" id="condition2" name="" ><label>커플전용</label>
-					<br />
-					<input type="checkbox" id="condition2" name="" ><label>바다,강이 보이는 전망</label>
-					<input type="checkbox" id="condition2" name="" ><label>복층구조</label>
-					<input type="checkbox" id="condition2" name="" ><label>독채</label>
-					<input type="checkbox" id="condition2" name="" ><label>소규모(10명이상)</label>
-					<input type="checkbox" id="condition2" name="" ><label>대규모(50명이상)</label>
-					<input type="checkbox" id="condition2" name="" ><label>계곡주변</label>
-				</td>
-			</tr>
+				<tr>
+					<th>편의제공</th>
+					<td>
+						<label><input type="checkbox" id="condition3" name="cf51" />매점</label>
+						<label><input type="checkbox" id="condition3" name="cf52" />식사가능</label>
+						<label><input type="checkbox" id="condition3" name="cf53" />애완견동반가능</label>
+						<label><input type="checkbox" id="condition3" name="cf54" />파티/이벤트제공</label>
+						<label><input type="checkbox" id="condition3" name="cf55" />보드게임</label>
+						<label><input type="checkbox" id="condition3" name="cf56" />픽업가능</label>
+						<label><input type="checkbox" id="condition3" name="cf57" />인터넷</label>
+						<label><input type="checkbox" id="condition3" name="cf58" />영화관람</label>
+						<label><input type="checkbox" id="condition3" name="cf59" />카페</label>
+						<label><input type="checkbox" id="condition3" name="cf60" />셔틀버스</label>
+					</td>
+				</tr>
 
-			<tr>
-				<th>
-					편의제공
-				</th>
-				<td>
-					<input type="checkbox" id="condition3" name="" ><label>매점</label>
-					<input type="checkbox" id="condition3" name="" ><label>식사가능</label>
-					<input type="checkbox" id="condition3" name="" ><label>애완견동반가능</label>
-					<input type="checkbox" id="condition3" name="" ><label>파티/이벤트제공</label>
-					<input type="checkbox" id="condition3" name="" ><label>보드게임</label>
-					<input type="checkbox" id="condition3" name="" ><label>픽업가능</label>
-					<input type="checkbox" id="condition3" name="" ><label>인터넷</label>
-					<input type="checkbox" id="condition3" name="" ><label>영화관람</label>
-					<input type="checkbox" id="condition3" name="" ><label>카페</label>
-					<input type="checkbox" id="condition3" name="" ><label>셔틀버스</label>
-				</td>
-			</tr>
+				<tr>
+					<th>부대시설</th>
+					<td>
+						<label><input type="checkbox" id="condition4" name="cf71" />간이축구장</label>
+						<label><input type="checkbox" id="condition4" name="cf72" />족구장</label>
+						<label><input type="checkbox" id="condition4" name="cf73" />바베큐장</label>
+						<label><input type="checkbox" id="condition4" name="cf74" />캠프화이어</label>
+						<label><input type="checkbox" id="condition4" name="cf75" />노래방</label>
+						<label><input type="checkbox" id="condition4" name="cf76" />수영장</label>
+						<label><input type="checkbox" id="condition4" name="cf77" />농구장</label>
+						<label><input type="checkbox" id="condition4" name="cf78" />세미나실</label>
+						<label><input type="checkbox" id="condition4" name="cf79" />스파</label>
+						<label><input type="checkbox" id="condition4" name="cf80" />자전거</label>
+						<label><input type="checkbox" id="condition4" name="cf81" />4륜오토바이</label>
+						<label><input type="checkbox" id="condition4" name="cf82" />서바이벌게임</label>
+					</td>
+				</tr>
 
-			<tr>
-				<th>
-					부대시설
-				</th>
-				<td>
-					<input type="checkbox" id="condition4" name="" ><label>간이축구장</label>
-					<input type="checkbox" id="condition4" name="" ><label>족구장</label>
-					<input type="checkbox" id="condition4" name="" ><label>바베큐장</label>
-					<input type="checkbox" id="condition4" name="" ><label>캠프화이어</label>
-					<input type="checkbox" id="condition4" name="" ><label>노래방</label>
-					<input type="checkbox" id="condition4" name="" ><label>수영장</label>
-					<input type="checkbox" id="condition4" name="" ><label>농구장</label>
-					<input type="checkbox" id="condition4" name="" ><label>세미나실</label>
-					<input type="checkbox" id="condition4" name="" ><label>스파</label>
-					<input type="checkbox" id="condition4" name="" ><label>자전거</label>
-					<input type="checkbox" id="condition4" name="" ><label>4륜오토바이</label>
-					<input type="checkbox" id="condition4" name="" ><label>서바이벌게임</label>
-				</td>
-			</tr>
+				<tr>
+					<th>유형별</th>
+					<td>
+						<label><input type="checkbox" id="condition5" name="cf91" />목조형</label>
+						<label><input type="checkbox" id="condition5" name="cf92" />통나무형</label>
+						<label><input type="checkbox" id="condition5" name="cf93" />황토형</label>
+						<label><input type="checkbox" id="condition5" name="cf94" />벽돌형</label>
+					</td>
+				</tr>
+			</table>
 
-			<tr>
-				<th>
-					유형별
-				</th>
-				<td>
-					<input type="checkbox" id="condition5" name="" ><label>목조형</label>
-					<input type="checkbox" id="condition5" name="" ><label>통나무형</label>
-					<input type="checkbox" id="condition5" name="" ><label>황토형</label>
-					<input type="checkbox" id="condition5" name="" ><label>벽돌형</label>
-				</td>
-			</tr>
-		</table>
+		</div><!-- ./container -->
+	</div><!-- ./section -->
 
-	</div><!-- ./container -->
-</div><!-- ./section -->
+	<div id="section" class="search-value-btn">
 
-<div id="section" class="search-value-btn">
+		<div class="LineBackground"></div>
 
-	<div class="LineBackground"></div>
-
-	<div class="container">
-		<div class="powersearch-btn-area">
-			<a href="#">펜 션 검 색</a>
-			<a href="#">빈 방 검 색</a>
+		<div class="container">
+			<div class="powersearch-btn-area">
+				<a href="#">펜 션 검 색</a>
+				<a href="#">빈 방 검 색</a>
+			</div>
 		</div>
+
+		<div class="LineBackground"></div>
+
 	</div>
-
-	<div class="LineBackground"></div>
-
-</div>
-
+</form>
 
 <div id="section" class="search-list-top">
 	<div class="row">
@@ -237,23 +233,23 @@
 			var sod;
 			switch(sst) {
 				case "wr_good" :
-					sod = "desc";
-					break;
+				sod = "desc";
+				break;
 				case "lowPrice" :
-					sod = "asc";
-					break;
+				sod = "asc";
+				break;
 				case "resCount" :
-					sod = "desc";
-					break;
+				sod = "desc";
+				break;
 				case "wr_hit" :
-					sod = "desc";
-					break;
+				sod = "desc";
+				break;
 				case "highPrice" :
-					sod = "desc";
-					break;
+				sod = "desc";
+				break;
 				default :
-					sod = "asc";
-					break;
+				sod = "asc";
+				break;
 			}
 			uri = "<?=$_SERVER[PHP_SELF]?>?bo_table=pension_info&sfl=area_id&stx=<?=$stx?>&sop=and&sod="+sod+"&sst="+sst+"&page=<?=$page?>";
 			$(location).attr('href',uri);
