@@ -7,95 +7,106 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	$navi_area['area_name'][$area_count] = $areaInfo['area_name'];
 }
 ?>
-<div id="section" class="sub-search-bar">
-	<div class="container">
-		<table>
-			<caption>스피드검색</caption>
-			<tbody>
-				<tr>
-					<th>
-						<h4>지역</h4>
-					</th>
-					<td>
-						<select name="location">
-							<option value="">지역선택</option>
-							<?php
-							for($i=0; $i < $area_count; $i++)
-								echo "<option value='{$navi_area['area_id'][$i]}'>{$navi_area['area_name'][$i]}</option>";
-							?>
-						</select>
-					</td>
+<script src="<?=$g4[path]?>/js/support.labs.js"></script>
+<script src="<?=$g4[path]?>/js/jquery.form.js"></script>
+<form id="searchZone1" name="searchZone1" method="post" enctype="multipart/form-data" style="margin:0px;">
+	<div id="section" class="sub-search-bar">
+		<div class="container">
+			<table>
+				<caption>스피드검색</caption>
+				<tbody>
+					<tr>
+						<th>
+							<h4>지역</h4>
+						</th>
+						<td>
+							<select name="location">
+								<option value="all">지역선택</option>
+								<?php
+								for($i=0; $i < $area_count; $i++) {
+									if($navi_area['area_id'][$i] == $stx)
+										$chk = " selected";
+									else
+										$chk = "";
+									echo "<option value='{$navi_area['area_id'][$i]}'{$chk}>{$navi_area['area_name'][$i]}</option>";
+								}
+								?>
+							</select>
+						</td>
 
-					<th>
-						<h4>기간</h4>
-					</th>
-					<td>
-						<select name="period">
-							<option value="기간선택">기간선택</option>
-							<option value="1박2일">1박2일</option>
-							<option value="2박3일">2박3일</option>
-							<option value="3박4일">3박4일</option>
-							<option value="4박5일">4박5일</option>
-						</select>
-					</td>
+						<th>
+							<h4>기간</h4>
+						</th>
+						<td>
+							<select name="period">
+								<option vlaue="">기간선택</option>
+								<option value="2">1박2일</option>
+								<option value="3">2박3일</option>
+								<option value="4">3박4일</option>
+								<option value="5">4박5일</option>
+							</select>
+						</td>
 
-					<th>
-						<h4>날짜</h4>
-					</th>
-					<td>
-						<input type="text" maxlength="8" />
-					</td>
+						<th>
+							<h4>날짜</h4>
+						</th>
+						<td>
+							<input type="text" maxlength="8" />
+						</td>
 
-					<th>
-						<h4>객실수</h4>
-					</th>
-					<td>
-						<select name="location">
-							<option value="객실수선택">객실수선택</option>
-							<option value="객실수무관">객실수무관</option>
-							<option value="1개">1개</option>
-							<option value="2개">2개</option>
-							<option value="3개">3개</option>
-						</select>
-					</td>
+						<th>
+							<h4>객실수</h4>
+						</th>
+						<td>
+							<select name="location">
+								<option vlaue="">객실수선택</option>
+								<option value="a">객실수무관</option>
+								<option value="1">1개</option>
+								<option value="2">2개</option>
+								<option value="3">3개</option>
+							</select>
+						</td>
 
-					<th>
-						<h4>화장실</h4>
-					</th>
-					<td>
-						<select name="location">
-							<option value="화장실수선택">화장실수선택</option>
-							<option value="화장실수무관">화장실수무관</option>
-							<option value="1개">1개</option>
-							<option value="2개">2개</option>
-							<option value="3개">3개</option>
-						</select>
-					</td>
+						<th>
+							<h4>화장실</h4>
+						</th>
+						<td>
+							<select name="location">
+								<option vlaue="">화장실수선택</option>
+								<option value="a">화장실수무관</option>
+								<option value="1">1개</option>
+								<option value="2">2개</option>
+								<option value="3">3개</option>
+							</select>
+						</td>
 
-					<td class="tright"><img src="<?=$g4['path']?>/layout/images/speed_search_sub_btn.gif" alt="스피드검색 시작" /></td>
-				</tr>
-			</tfoot>
-		</table>
-	</div><!-- ./container -->
-</div>
-<!-- ./sub-search-bar -->
+						<td class="tright"><img src="<?=$g4['path']?>/layout/images/speed_search_sub_btn.gif" alt="스피드검색 시작" id="searchBtn1" style="cursor:pointer;" /></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div><!-- ./container -->
+	</div>
+	<!-- ./sub-search-bar -->
+</form>
 
-<form name="searchZone2" method="post" action="javascript:resform_submit(document.resform1)" enctype="multipart/form-data" style="margin:0px;">
+<form id="searchZone2" name="searchZone2" method="post" enctype="multipart/form-data" style="margin:0px;">
+	<input type=hidden name="bo_table" value="<?=$bo_table?>" />
+	<input type=hidden name="sfl" value="<?=$sfl?>" />
 	<div id="section" class="section-powersearch">
 		<div class="container">
 			<table>
 				<tr>
 					<th>지역</th>
 					<td>
-						<label><input type="radio" name="area_id" value="all" />전지역</label>
+						<label><input type="radio" name="stx" class="stx" value="all" />전지역</label>
 						<?php
 						for($i=0; $i < $area_count; $i++)
-							echo "<label><input type='radio' name='area_id' value='{$navi_area['area_id'][$i]}' />{$navi_area['area_name'][$i]}</label>";
+							echo "<label><input type='radio' name='stx' class='stx' value='{$navi_area['area_id'][$i]}' />{$navi_area['area_name'][$i]}</label>";
 						?>
 					</td>
 				</tr>
 
-				<tr>
+				<tr style="display:none;">
 					<th>인기지역</th>
 					<td>
 						<label><input type="radio" name="location2" value="" />전지역</label>
@@ -200,32 +211,32 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 
 		<div class="container">
 			<div class="powersearch-btn-area">
-				<a href="#">펜 션 검 색</a>
-				<a href="#">빈 방 검 색</a>
+				<a id="searchBtn2" style="cursor:pointer;">펜 션 검 색</a>
+				<a id="searchBtn3" style="cursor:pointer;">조건 되돌리기</a>
 			</div>
 		</div>
 
 		<div class="LineBackground"></div>
 
 	</div>
-</form>
 
-<div id="section" class="search-list-top">
-	<div class="row">
-		<div class="container">
-			<div class="left">
-				검색값 : 경기도, 바다, 계곡, 강/호수, 산
-			</div>
-			<div class="right nowrap">
-				<label><input type="radio" name="orderList" class="orderList" value="wr_good" />추천순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="lowPrice" />저가순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="resCount" />예약순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="wr_hit" />조회순</label>
-				<label><input type="radio" name="orderList" class="orderList" value="highPrice" />고가순</label>
+	<div id="section" class="search-list-top">
+		<div class="row">
+			<div class="container">
+				<div class="left">
+					검색값 : 경기도, 바다, 계곡, 강/호수, 산
+				</div>
+				<div class="right nowrap">
+					<label><input type="radio" name="orderList" class="orderList" value="wr_good" />추천순</label>
+					<label><input type="radio" name="orderList" class="orderList" value="lowPrice" />저가순</label>
+					<label><input type="radio" name="orderList" class="orderList" value="resCount" />예약순</label>
+					<label><input type="radio" name="orderList" class="orderList" value="wr_hit" />조회순</label>
+					<label><input type="radio" name="orderList" class="orderList" value="highPrice" />고가순</label>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
 <script type="text/javascript">
 	$(function(){
 		$('.orderList').click(function(){
@@ -251,11 +262,40 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 				sod = "asc";
 				break;
 			}
-			uri = "<?=$_SERVER[PHP_SELF]?>?bo_table=pension_info&sfl=area_id&stx=<?=$stx?>&sop=and&sod="+sod+"&sst="+sst+"&page=<?=$page?>";
-			$(location).attr('href',uri);
+			//uri = "<?=$_SERVER[PHP_SELF]?>?bo_table=pension_info&sfl=area_id&stx=<?=$stx?>&sop=and&sod="+sod+"&sst="+sst+"&page=<?=$page?>";
+			//$(location).attr('href',uri);
+			$('#searchZone2').attr('action','<?=$_SERVER[PHP_SELF]?>?sop=and&sod='+sod+'&sst='+sst+'&page=<?=$page?>').submit();
 		});
 
-		$(".orderList[value=<?=$sst?>]").attr('checked',true);
+		//$(".orderList[value=<?=$sst?>]").attr('checked',true);
 		//$(":radio[name='orderList']:radio[value=<?=$mod?>]").attr('checked',true);
+		$(".stx[value='<?=$stx?>']").attr('checked', true); // 지역 자동 체크
 	});
+
+	$('#searchBtn1').click(function(){
+		$('#console').empty().text( $.toSource($('#searchZone1').formSerialize()));
+	});
+
+	$('#searchBtn2').click(function(){
+		$('#searchZone2').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
+	});
+
+	$('#searchBtn3').click(function(){
+		$('#searchZone2').resetForm();
+	});
+
+	<?php
+	if ($_POST) {
+		foreach ($_POST as $key => $value) :
+			if( (substr($key, 0, 2) == "cf") && ($value == "on") )
+				echo "\$(\":input[name='{$key}']\").attr('checked', true);";
+			if( ($key == "orderList") )
+				echo "\$(\".orderList[value='{$value}']\").attr('checked', true);";
+			if( ($key == "stx") )
+				echo "\$(\".stx[value='{$value}']\").attr('checked', true);";
+		endforeach;
+		//echo "$key = $value<br />";
+	}
+	?>
 </script>
+

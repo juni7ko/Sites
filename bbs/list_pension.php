@@ -1,4 +1,24 @@
-<?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+<?php
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+
+$query_string = "";
+if ($_POST) {
+  $kv = array();
+  foreach ($_POST as $key => $value) {
+    if($value == "on") $value = 1;
+    $kv[] = "$key = '$value'";
+    //echo "$key = $value<br />";
+  }
+  $query_string = join(" AND ", $kv);
+}
+else {
+  $query_string = $_SERVER['QUERY_STRING'];
+}
+echo $query_string;
+
+
+
+
 
 // 분류 사용 여부
 $is_category = false;
