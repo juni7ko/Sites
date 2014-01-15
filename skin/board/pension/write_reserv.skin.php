@@ -248,54 +248,25 @@ endforeach;
 						<ul>
 							<li class="title"><h2>StayStore 이용시 유의사항</h2>
 								<?=$config[cf_3]?>
-<?php /*
-								<ol>
-									<li style="display:none;"><span class="highlight-pink">성수기는 여름 7월25일 ~ 8월15일 / 겨울 12월 20일 ~ 1월 31일까지 입니다</span>.</li>
-									<li>상기요금은 정원기준이며 추가인원 1인당 <?=number_format($r_info[r_info_person_add]);?>원의 추가요금임이 적용됨</li>
-									<li>주말요금은 금요일, 토요일 그리고 공휴일 전날에 적용함</li>
-									<li>TV, 냉장고, 전기밥솥, 가스렌지, 침구, 주방용구및 화장실, 샤워실 일체가 준비되어 있음</li>
-									<li>1회용삼푸, 린스, 칫솔, 면도기, 모기향, 석쇠, 공기숯은 펜션내 구입가능함</li>
-									<li>안전사고는 책임지지 않습니다.</li>
-									<li>예약금액 : <span class="highlight-pink">예약금은 24시간 이내 50% 입금시 확정</span></li>
-									<li>예약방법 : 홈페이지 실시간예약 + 전화</li>
-									<li>주중요금 : 일요일 ~ 목요일</li>
-									<li>주말요금 : 금요일, 토요일, 공휴일 전날</li>
-								</ol>
-*/ ?>
 							</li>
 						</ul>
 
 						<ul>
 							<li class="title"><h2>주의사항</h2>
-<?php
-// 펜션 주의사항이 있다면 내용을 출력하고 없다면 공통된 내용이 출력되도록 함.
-if($content2[wr_content2]) {
-?>
+							<?php
+							// 펜션 주의사항이 있다면 내용을 출력하고 없다면 공통된 내용이 출력되도록 함.
+							if($content2[wr_content2]) {
+							?>
 <!-- 내용 출력 -->
-				<span id="writeContents"><?=$content2[wr_content2]?></span>
+								<span id="writeContents"><?=$content2[wr_content2]?></span>
 
-				<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
-				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
-<?php
-} else {
-	echo $config[cf_4];
-}
-?>
-<?php /*
-								<ol>
-									<li>기준인원 초과 시 1인에 10,000원이 추가됩니다.</li>
-									<li>입실시간은 오후2시부터입니다. 객실청소가 12~14시까지이기 때문에 오전입실이 어려우나 전날 사용하지 않은 객실의 오전 입실은 전화로 상담 받습니다.</li>
-									<li>퇴실시간은 오전11시까지입니다.</li>
-									<li>객실정리가 끝나시면 관리자에게 연락하시어 퇴실점검을 받으시기 바랍니다.</li>
-									<li>오후 10시 이후의 입실은 사전에 반드시 연락주시기 바랍니다.</li>
-									<li>집기 파손 시에는 관리자에게 알려주시기 바랍니다.</li>
-									<li>애완동물은 부득이 타객실 및 손님을 위해 입실을 금하오니 양해바랍니다.</li>
-									<li>쓰레기는 필히 분리수거하여 주십시오.</li>
-									<li>고성방가는 절대 삼가 바랍니다.</li>
-									<li>애완견은 입실이 불가능합니다.</li>
-									<li>입실시간 PM 14:00, 퇴실시간 AM 11:00</li>
-								</ol>
-*/ ?>
+								<?php//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
+								<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
+							<?php
+							} else {
+								echo $config[cf_4];
+							}
+							?>
 							</li>
 							<li class="comment-ps">* 예약 취소에 따른 환불규정은 당콘도의 규정사항이므로 예약해지시 신중히 검토 예약하시길 바랍니다. *</li>
 						</ul>
@@ -303,17 +274,6 @@ if($content2[wr_content2]) {
 						<ul>
 							<li class="title"><h2>환불기준</h2>
 								<?=$config[cf_5]?>
-<?php /*
-								<ol>
-									<li>이용일 6일전 취소시 80% 환불</li>
-									<li>이용일 5일전 취소시 70% 환불</li>
-									<li>이용일 4일전 취소시 60% 환불</li>
-									<li>이용일 3일전 취소시 50% 환불</li>
-									<li>이용일 2일전 취소시 40% 환불</li>
-									<li>이용일 1일전,당일 환불안됨</li>
-									<li>모든환불금은 수수료 공제후 송금됩니다.</li>
-								</ol>
-*/ ?>
 							</li>
 						</ul>
 
@@ -360,63 +320,61 @@ if($content2[wr_content2]) {
 
 <script type="text/javascript" src="<?="$g4[path]/js/jquery.kcaptcha.js"?>"></script>
 <script type="text/javascript">
-function resForm_submit()
-{
-	f = document.resForm;
+	function resForm_submit()
+	{
+		f = document.resForm;
 
-	if(!f.wr_name.value) {
-		alert("이름을 입력하세요!");
-		f.wr_name.focus();
-		return false;
+		if(!f.wr_name.value) {
+			alert("이름을 입력하세요!");
+			f.wr_name.focus();
+			return false;
+		}
+
+		if(!f.wr_password.value) {
+			alert("패스워드를 입력하세요!");
+			f.wr_password.focus();
+			return false;
+		}
+
+		if(!f.wr_tel2.value || !f.wr_tel3.value) {
+			alert("연락처를 입력하세요!");
+			f.wr_tel2.focus();
+			return false;
+		}
+
+		if(!f.agree.checked) {
+			alert("유의사항과 환불기준에 동의하셔야 합니다.");
+			return false;
+		}
+
+		if (!check_kcaptcha(f.wr_key)) {
+	        return false;
+	    }
+
+		f.action = "./write_reserv2.php";
+		f.submit();
 	}
 
-	if(!f.wr_password.value) {
-		alert("패스워드를 입력하세요!");
-		f.wr_password.focus();
-		return false;
-	}
+	$(function() {
+		var rCnt = $("#res1_roomCount").val();
 
-	if(!f.wr_tel2.value || !f.wr_tel3.value) {
-		alert("연락처를 입력하세요!");
-		f.wr_tel2.focus();
-		return false;
-	}
+		$('select#personSel').change(function() {
+			for(var i = 0; i < rCnt; i++) {
+				var sum = 0;
+				for(var j = 1; j <=3; j++) {
+					var cname = '.c'+i+'_'+j;
+					sum += Number($(cname).val());
 
-	if(!f.agree.checked) {
-		alert("유의사항과 환불기준에 동의하셔야 합니다.");
-		return false;
-	}
-
-	if (!check_kcaptcha(f.wr_key)) {
-        return false;
-    }
-
-	f.action = "./write_reserv2.php";
-	f.submit();
-}
-
-$(function() {
-	var rCnt = $("#res1_roomCount").val();
-
-	$('select#personSel').change(function() {
-		for(var i = 0; i < rCnt; i++) {
-			var sum = 0;
-			for(var j = 1; j <=3; j++) {
-				var cname = '.c'+i+'_'+j;
-				sum += Number($(cname).val());
-
-				var rMax = $(".res1_r_info_person2_"+i).val();
-				if(rMax < sum) {
-					alert("최대인원을 초과하였습니다.");
-					$(this).val(0);
-					break;
+					var rMax = $(".res1_r_info_person2_"+i).val();
+					if(rMax < sum) {
+						$(this).val(0);
+						alert("최대인원을 초과하였습니다.");
+						break;
+					}
 				}
 			}
-		}
+		});
+
 	});
-
-});
-
-
 </script>
 
