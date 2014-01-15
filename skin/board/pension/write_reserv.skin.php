@@ -407,7 +407,7 @@ $(function() {
 
 				var rMax = $(".res1_r_info_person2_"+i).val();
 				if(rMax < sum) {
-					alert("예약인원을 초과하였습니다.");
+					alert("최대인원을 초과하였습니다.");
 					$(this).val(0);
 					break;
 				}
