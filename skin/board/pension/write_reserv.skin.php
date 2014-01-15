@@ -88,28 +88,28 @@ foreach($_POST[checkRoom] as $chkData) :
 										<input type="hidden" name="res1_typeCost1[<?=$row?>]" value="<?=$viewDateCost[typeCost1]?>" />
 										<input type="hidden" name="res1_typeCost2[<?=$row?>]" value="<?=$typeCost2?>" />
 										<input type="hidden" name="res1_typeCost3[<?=$row?>]" value="<?=$viewDateCost[typeCost3]?>" />
-										<input type="hidden" name="res1_r_info_person1[<?=$row?>]" value="<?=$r_info[r_info_person1]?>" />
-										<input type="hidden" name="res1_r_info_person2[<?=$row?>]" value="<?=$r_info[r_info_person2]?>" />
+										<input type="hidden" name="res1_r_info_person1[<?=$row?>]" value="<?=$r_info[r_info_person1]?>" class="res1_r_info_person1_<?=$row?>" />
+										<input type="hidden" name="res1_r_info_person2[<?=$row?>]" value="<?=$r_info[r_info_person2]?>" class="res1_r_info_person2_<?=$row?>" />
 										<input type="hidden" name="res1_r_info_person3[<?=$row?>]" value="<?=$r_info[r_info_person3]?>" />
 										<input type="hidden" name="res1_dateType[<?=$row?>]" value="<?=$viewDateType?>" />
 										<input type="hidden" name="res1_weekType2[<?=$row?>]" value="<?=$rWeekType2?>" />
 										<input type="hidden" name="res1_r_info_person_add[<?=$row?>]" value="<?=$r_info[r_info_person_add]?>" />
 
-										<select name="res1_person1[<?=$row?>]" id="person<?=$row?>" class="1">
+										<select name="res1_person1[<?=$row?>]" id="personSel" class="c<?=$row?>_1">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"<?=($i == $r_info['r_info_person1']) ? " selected":NULL;?>><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="res1_person2[<?=$row?>]" id="person<?=$row?>" class="2">
+										<select name="res1_person2[<?=$row?>]" id="personSel" class="c<?=$row?>_2">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
 										</select>명
 									</td>
 									<td>
-										<select name="res1_person3[<?=$row?>]" id="person<?=$row?>" class="3">
+										<select name="res1_person3[<?=$row?>]" id="personSel" class="c<?=$row?>_3">
 											<?php for($i=0; $i <= $r_info['r_info_person2']; $i++) { ?>
 											<option value="<?=$i?>"><?=$i?></option>
 											<?php }?>
@@ -395,17 +395,28 @@ function resForm_submit()
 	f.submit();
 }
 
-$(function(){
+$(function() {
 	var rCnt = $("#res1_roomCount").val();
-	for (var i = 0; i < rCnt; i++) {
-		$('select#person'+i).change(function() {
+
+	$('select#personSel').change(function() {
+		for(var i = 0; i < rCnt; i++) {
 			var sum = 0;
-			$(this).each(function() {
-				sum += Number($(this).val());
-			});
-			alert(sum);
-		});
-	};
+			for(var j = 1; j <=3; j++) {
+				var cname = '.c'+i+'_'+j;
+				sum += Number($(cname).val());
+
+				var rMax = $(".res1_r_info_person2_"+i).val();
+				if(rMax < sum) {
+					alert("예약인원을 초과하였습니다.");
+					$(this).val(0);
+					break;
+				}
+			}
+		}
+	});
+
 });
+
+
 </script>
 
