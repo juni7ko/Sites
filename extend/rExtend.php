@@ -250,4 +250,5 @@ function get_view2($write_row, $board, $skin_path, $subject_len=125)
 {
     return get_list($write_row, $board, $skin_path, $subject_len);
 }
+
 ?>
