@@ -91,7 +91,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 
 <form id="searchZone2" name="searchZone2" method="post" enctype="multipart/form-data" style="margin:0px;">
 	<input type=hidden name="bo_table" value="<?=$bo_table?>" />
-	<input type=hidden name="sfl" value="<?=$sfl?>" />
+	<input type=hidden name="sfl" value="area_id" />
 	<div id="section" class="section-powersearch">
 		<div class="container">
 			<table>
@@ -106,7 +106,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 					</td>
 				</tr>
 
-				<tr style="display:none;">
+				<tr class="disnone">
 					<th>인기지역</th>
 					<td>
 						<label><input type="radio" name="location2" value="" />전지역</label>
@@ -223,8 +223,8 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	<div id="section" class="search-list-top">
 		<div class="row">
 			<div class="container">
-				<div class="left">
-					검색값 : 경기도, 바다, 계곡, 강/호수, 산
+				<div class="left disnone">
+					검색값 : <span id="searchValue"></span>
 				</div>
 				<div class="right nowrap">
 					<label><input type="radio" name="orderList" class="orderList" value="wr_good" />추천순</label>

@@ -1,14 +1,32 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
+if($sfl == "area_id" && $stx == "all") {
+	$sfl = "";
+	$stx = "";
+}
+
+// 검색 체크값을 쿼리에 더하기 시작
+$cfSearch = "";
+if ($_POST) {
+	$kv = array();
+	foreach ($_POST as $key => $value) {
+		// cf 값인 것만 검색 추출
+		if( substr($key, 0, 2) == "cf" ) {
+			if($value == "on") $value = 1;
+			$kv[] = "$key = '$value'";
+		}
+	}
+	$cfSearch = join(" and ", $kv);
+}
+if($cfSearch)
+	$cfSearch2 = $cfSearch . " and mainUse = 1 ";
+else
+	$cfSearch2 = " mainUse = 1 ";
+// 검색 체크값을 쿼리에 더하기 끝
+
 // 분류 사용 여부
 $is_category = false;
-if ($board[bo_use_category])
-{
-	$is_category = true;
-	$category_location = "./board.php?bo_table=$bo_table&sca=";
-	$category_option = get_category_option($bo_table); // SELECT OPTION 태그로 넘겨받음
-}
 
 $sop = strtolower($sop);
 if ($sop != "and" && $sop != "or")
@@ -16,27 +34,32 @@ if ($sop != "and" && $sop != "or")
 
 // 분류 선택 또는 검색어가 있다면
 $stx = trim($stx);
-if ($sca || $stx)
+if ($sca || $stx || $cfSearch)
 {
 	$sql_search = get_sql_search($sca, $sfl, $stx, $sop);
 
 	// 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
-	$sql = " SELECT MIN(wr_num) as min_wr_num from $write_table WHERE mainUse = 1 ";
+	$sql = " SELECT MIN(wr_num) as min_wr_num from $write_table WHERE $cfSearch2 ";
 	$row = sql_fetch($sql);
 	$min_spt = $row[min_wr_num];
 
 	if (!$spt) $spt = $min_spt;
 
-	$sql_search .= " and (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
+	// stx 값 삭제로 인해 $sql_search 값으로 0이 올 경우 처리.
+	if(!$sql_search)
+		$sql_search = " (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
+	else
+		$sql_search .= " and (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
 
+	$sql_search = $cfSearch2 . " and " . $sql_search;
 	// 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
-	$sql = " SELECT distinct wr_parent from $write_table where mainUse = 1 and $sql_search ";
+	$sql = " SELECT distinct wr_parent from $write_table where $sql_search ";
 	$result = sql_query($sql);
 	$total_count = mysql_num_rows($result);
 }
 else
 {
-	$sql_search = "";
+	$sql_search = $cfSearch2;
 
 	$total_count = $board[bo_count_write];
 }
@@ -77,31 +100,11 @@ else {
 if ($sst)
 	$sql_order = " order by $sst $sod ";
 
-// 검색 체크값을 쿼리에 더하기 시작
-$sql_search2 = "";
-if ($_POST) {
-	$kv = array();
-	foreach ($_POST as $key => $value) {
-		// cf 값인 것만 검색 추출
-		if( substr($key, 0, 2) == "cf" ) {
-			if($value == "on") $value = 1;
-			$kv[] = "$key = '$value'";
-		}
-	}
-	$sql_search2 = join(" and ", $kv);
-}
-else {
-	//$sql_search2 = $_SERVER['QUERY_STRING'];
-	$sql_search2 = "";
-}
-
-if($sql_search2) $sql_search2 = $sql_search2 . " and ";
-// 검색 체크값을 쿼리에 더하기 끝
-$sql_search2 .= " mainUse = 1 and ";
+$sql_search2 = $sql_search . " and ";
 
 if ($sca || $stx)
 {
-	$sql = " SELECT distinct wr_parent from $write_table where $sql_search2 $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
+	$sql = " SELECT distinct wr_parent from $write_table where $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
 }
 else
 {
