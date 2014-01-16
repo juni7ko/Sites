@@ -39,7 +39,7 @@ th { font-size: 9pt; height:30px; }
                 <input type='password' name='wr_6' size="15" required itemname='비밀번호' /></td>
               <td width="90"><input type="image" src="<?=$board_skin_path?>/img_n/ok.gif" accesskey='s'></td>
             </tr>
-            
+
           </table></td>
         </tr>
       </table>

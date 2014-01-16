@@ -7,9 +7,21 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	$navi_area['area_name'][$area_count] = $areaInfo['area_name'];
 }
 ?>
+<script src="<?=$g4[path]?>/js/jquery-ui.min.js"></script>
+<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
+<style type="text/css">
+<!--
+.ui-datepicker { font:12px dotum; }
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year { width: 70px;}
+.ui-datepicker-trigger { margin:0 0 -5px 2px; }
+-->
+</style>
 <script src="<?=$g4[path]?>/js/support.labs.js"></script>
 <script src="<?=$g4[path]?>/js/jquery.form.js"></script>
 <form id="searchZone1" name="searchZone1" method="post" enctype="multipart/form-data" style="margin:0px;">
+	<input type=hidden name="bo_table" value="<?=$bo_table?>" />
+	<input type=hidden name="sfl" value="area_id" />
 	<div id="section" class="sub-search-bar">
 		<div class="container">
 			<table>
@@ -20,7 +32,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 							<h4>지역</h4>
 						</th>
 						<td>
-							<select name="location">
+							<select name="stx">
 								<option value="all">지역선택</option>
 								<?php
 								for($i=0; $i < $area_count; $i++) {
@@ -51,7 +63,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 							<h4>날짜</h4>
 						</th>
 						<td>
-							<input type="text" maxlength="8" />
+							<input type="text" name="schDate" id="schDate" value="<?=$schDate?>" size=8 maxlength=8 minlength=8 numeric readonly title="옆의 달력 아이콘을 클릭하여 날짜를 입력하세요." />
 						</td>
 
 						<th>
@@ -270,10 +282,60 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 		//$(".orderList[value=<?=$sst?>]").attr('checked',true);
 		//$(":radio[name='orderList']:radio[value=<?=$mod?>]").attr('checked',true);
 		$(".stx[value='<?=$stx?>']").attr('checked', true); // 지역 자동 체크
+
+		<?php
+		if ($_POST) {
+			foreach ($_POST as $key => $value) :
+				if( (substr($key, 0, 2) == "cf") && ($value == "on") )
+					echo "\$(\":input[name='{$key}']\").attr('checked', true);";
+				if( ($key == "orderList") )
+					echo "\$(\".orderList[value='{$value}']\").attr('checked', true);";
+				if( ($key == "stx") )
+					echo "\$(\".stx[value='{$value}']\").attr('checked', true);";
+			endforeach;
+			//echo "$key = $value<br />";
+		}
+		?>
+
+		$.datepicker.regional['ko'] = {
+			closeText: '닫기',
+			prevText: '이전달',
+			nextText: '다음달',
+			currentText: '오늘',
+			monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+			'7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+			monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+			'7월','8월','9월','10월','11월','12월'],
+			dayNames: ['일','월','화','수','목','금','토'],
+			dayNamesShort: ['일','월','화','수','목','금','토'],
+			dayNamesMin: ['일','월','화','수','목','금','토'],
+			weekHeader: 'Wk',
+			dateFormat: 'yymmdd',
+			firstDay: 0,
+			isRTL: false,
+			showMonthAfterYear: true,
+			yearSuffix: ''
+		};
+		$.datepicker.setDefaults($.datepicker.regional['ko']);
+
+	    $('#schDate').datepicker({
+	        showOn: 'button',
+			buttonImage: '<?=$g4[path]?>/img/calendar.gif',
+			buttonImageOnly: true,
+	        buttonText: "달력",
+	        changeMonth: true,
+			changeYear: true,
+	        showButtonPanel: true,
+	        yearRange: 'c-99:c+99',
+	        maxDate: '+180d',
+	        minDate: '-0d'
+	    });
+
 	});
 
 	$('#searchBtn1').click(function(){
-		$('#console').empty().text( $.toSource($('#searchZone1').formSerialize()));
+		//$('#console').empty().text( $.toSource($('#searchZone1').formSerialize()));
+		$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
 	});
 
 	$('#searchBtn2').click(function(){
@@ -283,19 +345,4 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	$('#searchBtn3').click(function(){
 		$('#searchZone2').resetForm();
 	});
-
-	<?php
-	if ($_POST) {
-		foreach ($_POST as $key => $value) :
-			if( (substr($key, 0, 2) == "cf") && ($value == "on") )
-				echo "\$(\":input[name='{$key}']\").attr('checked', true);";
-			if( ($key == "orderList") )
-				echo "\$(\".orderList[value='{$value}']\").attr('checked', true);";
-			if( ($key == "stx") )
-				echo "\$(\".stx[value='{$value}']\").attr('checked', true);";
-		endforeach;
-		//echo "$key = $value<br />";
-	}
-	?>
 </script>
-
