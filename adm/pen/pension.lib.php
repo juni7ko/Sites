@@ -18,4 +18,13 @@ function get_member_pension_select($name, $selected='', $event='')
     $str .= "</select>";
     return $str;
 }
+
+function get_mb1_name($mb_1) {
+    global $g4;
+
+    $sql = " SELECT * FROM g4_write_pension_info WHERE pension_id = '$mb_1' LIMIT 1 ";
+    $penName = sql_fetch($sql);
+
+    return $penName[wr_subject];
+}
 ?>

@@ -1,6 +1,4 @@
 <?php
-if($is_admin != 'super' && $member[mb_level] < 5) alert("관리자만 접근이 가능합니다.");
-
 if($write_table=="g4_write_reser_admin") $write_table = "g4_write_bbs34";
 if($list_href) $list_href = $g4[path] . "/bbs/resList.php?bo_table=" . $bo_table . "&pension_id=" . $pension_id;
 $write_table2 = "g4_write_bbs34";

@@ -1,4 +1,5 @@
-<?php if (!defined("_GNUBOARD_")) exit;
+<?php
+if (!defined("_GNUBOARD_")) exit;
 
 include_once("$g4[path]/lib/visit.lib.php");
 
@@ -7,9 +8,6 @@ if (empty($to_date)) $to_date = $g4[time_ymd];
 
 $qstr = "fr_date=$fr_date&to_date=$to_date";
 ?>
-
-
-
 <table width=100% cellpadding=3 cellspacing=1 class="adm_navi">
 <form name=fvisit method=get>
 <input type="hidden" name="pension_id" value="<?=$pension_id?>">

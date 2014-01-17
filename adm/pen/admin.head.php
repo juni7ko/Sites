@@ -46,62 +46,18 @@ function print_menu2($key, $no)
 	}
 	return $str;
 }
-
-function print_menu_pension($key, $no)
-{
-	global $menu, $auth_menu, $is_admin, $auth, $g4;
-
-	$str = "";
-	for($i=1; $i<count($menu[$key]); $i++)
-	{
-		if ($is_admin != "super" && (!array_key_exists($menu[$key][$i][0],$auth) || !strstr($auth[$menu[$key][$i][0]], "r")))
-			continue;
-
-		if ($menu[$key][$i][0] == "-")
-			$str .= "<tr><td class=bg_line{$no}></td></tr>";
-		else
-		{
-			$span1 = $span2 = "";
-			if (isset($menu[$key][$i][3]))
-			{
-				$span1 = "<span style='{$menu[$key][$i][3]}'>";
-				$span2 = "</span>";
-			}
-			$str .= "<tr><td class=bg_menu{$no}>";
-			if ($no == 2)
-				$str .= "&nbsp;&nbsp;<img src='{$g4[admin_path]}/img/icon.gif' align=absmiddle>";
-			$str .= "<a href='{$menu[$key][$i][2]}' style='color:#555500;'>{$span1}{$menu[$key][$i][1]}{$span2}</a></td></tr>";
-
-			$auth_menu[$menu[$key][$i][0]] = $menu[$key][$i][1];
-		}
-	}
-
-	$str .= "<tr><td class=bg_menu{$no}>";
-	$str .= "<ul class='pen_adm_list'>";
-
-	$sql = " SELECT * from g4_write_pension_info where wr_is_comment = 0 order by wr_subject asc ";
-	$result = sql_query($sql);
-	while ($row = sql_fetch_array($result))
-	{
-		$str .= "<li><a href='./pen_admin.php?pension_id=$row[wr_id]'>(".$row[wr_id].") ".$row[wr_subject]."</a></li>";
-	}
-
-	$str .= "</ul></div></td></tr>";
-
-	return $str;
-}
 ?>
 
 <script type="text/javascript">
-if (!g4_is_ie) document.captureEvents(Event.MOUSEMOVE)
-document.onmousemove = getMouseXY;
-var tempX = 0;
-var tempY = 0;
-var prevdiv = null;
-var timerID = null;
+	if (!g4_is_ie) document.captureEvents(Event.MOUSEMOVE)
+		document.onmousemove = getMouseXY;
+	var tempX = 0;
+	var tempY = 0;
+	var prevdiv = null;
+	var timerID = null;
 
-function getMouseXY(e)
-{
+	function getMouseXY(e)
+	{
 	if (g4_is_ie) { // grab the x-y pos.s if browser is IE
 		tempX = event.clientX + document.body.scrollLeft;
 		tempY = event.clientY + document.body.scrollTop;
@@ -118,7 +74,6 @@ function getMouseXY(e)
 
 function imageview(id, w, h)
 {
-
 	menu(id);
 
 	var el_id = document.getElementById(id);
@@ -165,11 +120,11 @@ function textarea_size(fld, size)
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/sideview.js"></script>
 <script type="text/javascript">
-var save_layer = null;
-function layer_view(link_id, menu_id, opt, x, y)
-{
-	var link = document.getElementById(link_id);
-	var menu = document.getElementById(menu_id);
+	var save_layer = null;
+	function layer_view(link_id, menu_id, opt, x, y)
+	{
+		var link = document.getElementById(link_id);
+		var menu = document.getElementById(menu_id);
 
 	//for (i in link) { document.write(i + '<br/>'); } return;
 
@@ -202,85 +157,104 @@ function layer_view(link_id, menu_id, opt, x, y)
 
 <link rel="stylesheet" href="<?=$g4['admin_path']?>/admin.style.css" type="text/css">
 <style>
-.bg_menu1 { height:22px;
-			padding-left:15px;
-			padding-right:15px; }
-.bg_line1 { height:1px; background-color:#EFCA95; }
+	.bg_menu1 {
+		height:22px;
+		padding-left:15px;
+		padding-right:15px;
+	}
+	.bg_line1 { height:1px; background-color:#EFCA95; }
 
-.bg_menu2 { height:22px;
-			padding-left:25px; }
-.bg_line2 { background-image:url('<?=$g4['admin_path']?>/img/dot.gif'); height:3px; }
-.dot {color:#D6D0C8;border-style:dotted;}
+	.bg_menu2 {
+		height:22px;
+		padding-left:25px;
+	}
+	.bg_line2 { background-image:url('<?=$g4['admin_path']?>/img/dot.gif'); height:3px; }
+	.dot {color:#D6D0C8;border-style:dotted;}
 
-#csshelp1 { border:0px; background:#FFFFFF; padding:6px; }
-#csshelp2 { border:2px solid #BDBEC6; padding:0px; }
-#csshelp3 { background:#F9F9F9; padding:6px; width:200px; color:#222222; line-height:120%; text-align:left; }
+	#csshelp1 { border:0px; background:#FFFFFF; padding:6px; }
+	#csshelp2 { border:2px solid #BDBEC6; padding:0px; }
+	#csshelp3 { background:#F9F9F9; padding:6px; width:200px; color:#222222; line-height:120%; text-align:left; }
 </style>
 
 <body leftmargin=0 topmargin=0>
-<a name='gnuboard4_admin_head'></a>
-<table width=1004 cellpadding=0 cellspacing=0 border=0>
-<colgroup width=180>
-<colgroup>
-<tr bgcolor=#E3DCD2 height=70>
-	<td colspan=2 onmouseover="layer_view('','','','','')" style='text-align:center;'><a href='<?=$g4['admin_path']?>/'><strong><?=$member[mb_1]?></strong></a></td>
-	<td>
-		<?php
-		if($member[mb_level] < 7) {
-			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php?pension_id={$member[mb_1]}'>예약관리</a></li>";
-			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php'>입금현황</a></li>";
-		} else {
-			foreach($amenu as $key=>$value)
-			{
-				$href1 = $href2 = "";
-				if ($menu["menu{$key}"][0][2])
-				{
-					$href1 = "<a href='".$menu["menu{$key}"][0][2]."'>";
-					$href2 = "</a>";
+	<a name='gnuboard4_admin_head'></a>
+	<table width=1004 cellpadding=0 cellspacing=0 border=0>
+		<colgroup width=180>
+		<colgroup>
+		<tr bgcolor=#E3DCD2 height=70>
+			<td colspan=2 onmouseover="layer_view('','','','','')" style='text-align:center;'><a href='<?=$g4['admin_path']?>/pen/'><strong><?=get_mb1_name($member[mb_1])?></strong></a></td>
+			<td>
+				<?php
+				if($member[mb_level] < 7) {
+					echo "<li><a href='{$g4[admin_path]}/pen/'>예약관리</a></li>";
+					echo "<li><a href='{$g4[admin_path]}/pen/index.php?mode=list'>입금현황</a></li>";
+				} else {
+					foreach($amenu as $key=>$value)
+					{
+						$href1 = $href2 = "";
+						if ($menu["menu{$key}"][0][2])
+						{
+							$href1 = "<a href='".$menu["menu{$key}"][0][2]."'>";
+							$href2 = "</a>";
+						}
+						echo "{$href1}<img src='$g4[admin_path]/img/menu{$key}.gif' border=0 id='id_menu{$key}' onmouseover=\"layer_view('id_menu{$key}', 'menu_menu{$key}', 'view', -2, 5);\">{$href2}&nbsp; ";
+						echo print_menu1("menu{$key}", 1);
+					}
 				}
-				echo "{$href1}<img src='$g4[admin_path]/img/menu{$key}.gif' border=0 id='id_menu{$key}' onmouseover=\"layer_view('id_menu{$key}', 'menu_menu{$key}', 'view', -2, 5);\">{$href2}&nbsp; ";
-				echo print_menu1("menu{$key}", 1);
-			}
-		}
-		?>
-	</td>
+				?>
+			</td>
 
-</tr>
-<tr><td colspan=3 bgcolor=#C3BBB1 height=1></td></tr>
-<tr><td colspan=3 bgcolor=#E5E5E5 height=2></td></tr>
-<tr onmouseover="layer_view('','','','','')">
-	<td><a href='<?=$g4['path']?>/'><img src='<?=$g4['admin_path']?>/img/home.gif' border=0></a><a href='<?=$g4['bbs_path']?>/logout.php'><img src='<?=$g4['admin_path']?>/img/logout.gif' border=0></a></td>
-	<td rowspan=2 width=1 bgcolor=#DBDBDB></td>
-	<td bgcolor=#F8F8F8 align=right>
-		<img src='<?=$g4['admin_path']?>/img/navi_icon.gif' align=absmiddle>
-		&nbsp;<a href='<?=$g4['admin_path']?>/'>Admin</a> >
-		<?php $tmp_menu = "";
-		if (isset($sub_menu))
-			$tmp_menu = substr($sub_menu, 0, 3);
-		if (isset($menu["menu{$tmp_menu}"][0][1]))
-		{
-			if ($menu["menu{$tmp_menu}"][0][2])
-			{
-				echo "<a href='".$menu["menu{$tmp_menu}"][0][2]."'>";
-				echo $menu["menu{$tmp_menu}"][0][1];
-				echo "</a> > ";
-			}
-			else
-				echo $menu["menu{$tmp_menu}"][0][1]." > ";
-		}
-		?>
-		<?=$g4['title']?> <span class=small>: <?=$member['mb_id']?>님</span>&nbsp;&nbsp;</td>
-</tr>
-<tr onmouseover="layer_view('','','','','')">
-	<td valign=top>
-		<table width=180 cellpadding=0 cellspacing=0>
-		<?php echo "<tr><td><img src='$g4[admin_path]/img/title_menu{$tmp_menu}.gif'></td></tr>";
-		if($tmp_menu == 400){
-			echo print_menu_pension("menu{$tmp_menu}", 2);
-		}else{
-			echo print_menu2("menu{$tmp_menu}", 2);
-		}
-		?>
-		</table><br>
-	</td>
-	<td valign=top style='padding:10px;'>
+		</tr>
+		<tr><td colspan=3 bgcolor=#C3BBB1 height=1></td></tr>
+		<tr><td colspan=3 bgcolor=#E5E5E5 height=2></td></tr>
+		<tr onmouseover="layer_view('','','','','')">
+			<td><a href='<?=$g4['path']?>/'><img src='<?=$g4['admin_path']?>/img/home.gif' border=0></a><a href='<?=$g4['bbs_path']?>/logout.php'><img src='<?=$g4['admin_path']?>/img/logout.gif' border=0></a></td>
+			<td rowspan=2 width=1 bgcolor=#DBDBDB></td>
+			<td bgcolor=#F8F8F8 align=right>
+				<img src='<?=$g4['admin_path']?>/img/navi_icon.gif' align=absmiddle>
+				&nbsp;<a href='<?=$g4['admin_path']?>/'>Admin</a> >
+				<?php
+				$tmp_menu = "";
+				if (isset($sub_menu))
+					$tmp_menu = substr($sub_menu, 0, 3);
+				if (isset($menu["menu{$tmp_menu}"][0][1]))
+				{
+					if ($menu["menu{$tmp_menu}"][0][2])
+					{
+						echo "<a href='".$menu["menu{$tmp_menu}"][0][2]."'>";
+						echo $menu["menu{$tmp_menu}"][0][1];
+						echo "</a> > ";
+					}
+					else
+						echo $menu["menu{$tmp_menu}"][0][1]." > ";
+				}
+				?>
+				<?=$g4['title']?> <span class=small>: <?=$member['mb_id']?>님</span>&nbsp;&nbsp;
+			</td>
+		</tr>
+		<tr onmouseover="layer_view('','','','','')">
+			<td valign=top>
+				<table width=180 cellpadding=0 cellspacing=0>
+					<tr>
+						<td>
+							<ul>
+								<li><a href='<?=$g4[admin_path]?>/pen/'>예약관리</a></li>
+								<li>
+									<ul>
+										<li><a href="./index.php?mode=reserhome">예약홈</a></li>
+										<li><a href="./index.php?mode=list">리스트</a></li>
+										<li><a href="./index.php?mode=room">객실/기본요금</a></li>
+										<li><a href="./index.php?mode=date">기간별요금</a></li>
+										<li><a href="./index.php?mode=off">공휴일</a></li>
+										<li><a href="./index.php?mode=close">예약불가</a></li>
+										<li><a href="./index.php?mode=tel">전화예약</a></li>
+										<li><a href="./index.php?mode=option">추가옵션</a></li>
+									</ul>
+								</li>
+								<li><a href='<?=$g4[admin_path]?>/pen/index.php?mode=list'>입금현황</a></li>
+							</ul>
+						</td>
+					</tr>
+				</table><br>
+			</td>
+			<td valign=top style='padding:10px;'>

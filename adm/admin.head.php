@@ -1,4 +1,5 @@
-<?php if (!defined("_GNUBOARD_")) exit;
+<?php
+if (!defined("_GNUBOARD_")) exit;
 
 $begin_time = get_microtime();
 

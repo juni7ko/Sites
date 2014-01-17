@@ -21,7 +21,7 @@ switch ($mode) {
 	case 'list':
 		include_once ("./pen_list.php");
 		break;
-	case 'reshome' :
+	case 'reserhome' :
 		include_once ("./pen_reserhome.php");
 		break;
 	case 'reg' :
