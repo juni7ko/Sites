@@ -1,6 +1,8 @@
 <?php
 include_once("$board_skin_path/view.skin.lib.php");
 
+if($is_admin != 'super' && $member[mb_level] < 5) alert("관리자만 접근이 가능합니다.");
+
 if ($view_mode == "list"){
 	include_once ("$board_skin_path/list.view.php");
 } else if ($view_mode == "call") {

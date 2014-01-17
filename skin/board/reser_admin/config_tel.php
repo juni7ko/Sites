@@ -2,8 +2,6 @@
 include_once("$g4[path]/head.sub.php");
 include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super' && $member[mb_level] < 5) alert("관리자만 접근이 가능합니다.");
-
 if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
 $sql = "CREATE TABLE IF NOT EXISTS `{$res_table}_r_tel` (

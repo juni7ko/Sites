@@ -1,4 +1,5 @@
-<?php include_once("_common.php");
+<?php
+include_once("_common.php");
 include_once("$g4[path]/head.sub.php");
 
 //if($is_admin != 'super' && $member[mb_level] < 5) alert("관리자만 접근이 가능합니다.");
