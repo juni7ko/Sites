@@ -29,7 +29,7 @@ if ($stx) {
 }
 
 //if ($is_admin == 'group') $sql_search .= " and mb_level = '$member[mb_level]' ";
-if ($is_admin != 'super') 
+if ($is_admin != 'super')
     $sql_search .= " and mb_level <= '$member[mb_level]' ";
 
 if (!$sst) {
@@ -81,7 +81,7 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$colspan = 15;
+$colspan = 14;
 ?>
 
 <script type="text/javascript">
@@ -92,9 +92,9 @@ var list_delete_php = "member_list_delete.php";
 <table width=100%>
 <form name=fsearch method=get>
 <tr>
-    <td width=50% align=left><?=$listall?> 
-        (총회원수 : <?=number_format($total_count)?>, 
-        <a href='?sst=mb_intercept_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='차단된 회원부터 출력'><font color=orange>차단 : <?=number_format($intercept_count)?></font></a>, 
+    <td width=50% align=left><?=$listall?>
+        (총회원수 : <?=number_format($total_count)?>,
+        <a href='?sst=mb_intercept_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='차단된 회원부터 출력'><font color=orange>차단 : <?=number_format($intercept_count)?></font></a>,
         <a href='?sst=mb_leave_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='탈퇴한 회원부터 출력'><font color=crimson>탈퇴 : <?=number_format($leave_count)?></font></a>)
     </td>
     <td width=50% align=right>
@@ -126,19 +126,20 @@ var list_delete_php = "member_list_delete.php";
 <input type=hidden name=token value='<?=$token?>'>
 
 <table width=100% cellpadding=0 cellspacing=0>
-<colgroup width=30>
-<colgroup width=90>
-<colgroup width=90>
-<colgroup width=90>
+<colgroup width='20'>
 <colgroup width=''>
-<colgroup width=70>
-<colgroup width=80>
-<colgroup width=40>
-<colgroup width=40>
-<colgroup width=40>
-<colgroup width=40>
-<colgroup width=40>
-<colgroup width=80>
+<colgroup width='70'>
+<colgroup width='70'>
+<colgroup width='60'>
+<colgroup width=''>
+<colgroup width=''>
+<colgroup width=''>
+<colgroup width=''>
+<colgroup width=''>
+<colgroup width=''>
+<colgroup width=''>
+<colgroup width=''>
+<colgroup width=''>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
@@ -146,6 +147,7 @@ var list_delete_php = "member_list_delete.php";
     <td><?=subject_sort_link('mb_name')?>이름</a></td>
     <td><?=subject_sort_link('mb_nick')?>별명</a></td>
     <td><?=subject_sort_link('mb_level', '', 'desc')?>권한</a></td>
+    <td><?=subject_sort_link('mb_1', '', 'desc')?>펜션</a></td>
     <td><?=subject_sort_link('mb_point', '', 'desc')?>포인트</a></td>
     <td><?=subject_sort_link('mb_today_login', '', 'desc')?>최종접속</a></td>
     <td title='메일수신허용여부'><?=subject_sort_link('mb_mailling', '', 'desc')?>수신</a></td>
@@ -165,12 +167,12 @@ var list_delete_php = "member_list_delete.php";
     if ($row2[cnt])
         $group = "<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'>$row2[cnt]</a>";
 
-    if ($is_admin == 'group') 
+    if ($is_admin == 'group')
     {
         $s_mod = "";
         $s_del = "";
-    } 
-    else 
+    }
+    else
     {
         $s_mod = "<a href=\"./member_form.php?$qstr&w=u&mb_id=$row[mb_id]\"><img src='img/icon_modify.gif' border=0 title='수정'></a>";
         //$s_del = "<a href=\"javascript:del('./member_delete.php?$qstr&w=d&mb_id=$row[mb_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
@@ -198,6 +200,7 @@ var list_delete_php = "member_list_delete.php";
         <td><nobr style='display:block; overflow:hidden; width:90px;'>$row[mb_name]</nobr></td>
         <td><nobr style='display:block; overflow:hidden; width:90px;'><u>$mb_nick</u></nobr></td>
         <td>".get_member_level_select("mb_level[$i]", 1, $member[mb_level], $row[mb_level])."</td>
+        <td>".get_member_pension_select("mb_1[$i]", $row[mb_1])."</td>
         <td align=right><a href='point_list.php?sfl=mb_id&stx=$row[mb_id]' class=tt>".number_format($row[mb_point])."</a>&nbsp;</td>
         <td>".substr($row[mb_today_login],2,8)."</td>
         <td>".($row[mb_mailling]?'&radic;':'&nbsp;')."</td>
@@ -205,7 +208,7 @@ var list_delete_php = "member_list_delete.php";
         <!-- <td title='$row[mb_leave_date]'>".($row[mb_leave_date]?'&radic;':'&nbsp;')."</td> -->
         <td title='$row[mb_email_certify]'>".(preg_match('/[1-9]/', $row[mb_email_certify])?'&radic;':'&nbsp;')."</td>
         <td title='$row[mb_intercept_date]'><input type=checkbox name=mb_intercept_date[$i] ".($row[mb_intercept_date]?'checked':'')." value='$intercept_date'></td>
-        <td>$group</td>               
+        <td>$group</td>
         <td>$s_mod $s_del $s_grp</td>
     </tr>";
 }

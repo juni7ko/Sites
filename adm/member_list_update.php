@@ -7,7 +7,7 @@ auth_check($auth[$sub_menu], "w");
 
 check_token();
 
-for ($i=0; $i<count($chk); $i++) 
+for ($i=0; $i<count($chk); $i++)
 {
     // 실제 번호를 넘김
     $k = $_POST['chk'][$i];
@@ -21,11 +21,18 @@ for ($i=0; $i<count($chk); $i++)
     } else if ($member[mb_id] == $mb[mb_id]) {
         $msg .= "$mb[mb_id] : 로그인 중인 관리자는 수정 할 수 없습니다.\\n";
     } else {
-        $sql = " update $g4[member_table]
+        $sql = " UPDATE $g4[member_table]
                     set mb_level          = '{$_POST['mb_level'][$k]}',
-                        mb_intercept_date = '{$_POST['mb_intercept_date'][$k]}'
+                        mb_intercept_date = '{$_POST['mb_intercept_date'][$k]}',
+                        mb_1              = '{$_POST['mb_1'][$k]}'
                   where mb_id             = '{$_POST['mb_id'][$k]}' ";
         sql_query($sql);
+    }
+
+    // 게시판 그룹 관리자 지정
+    $groupSql = " SELECT gr_id, gr_admin FROM g4_group WHERE gr_id = 'pen_{$_POST['mb_1'][$k]}' and gr_admin != '{$_POST['mb_id'][$k]}' LIMIT 1 ";
+    if(sql_fetch($groupSql)) {
+        sql_query(" UPDATE g4_group set gr_admin = '{$_POST['mb_id'][$k]}' WHERE gr_id = 'pen_{$_POST['mb_1'][$k]}' ");
     }
 }
 

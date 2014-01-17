@@ -5,7 +5,7 @@ auth_check($auth[$sub_menu], "w");
 
 $token = get_token();
 
-if ($w == "") 
+if ($w == "")
 {
     $required_mb_id = "required minlength=3 alphanumericunderline itemname='회원아이디'";
     $required_mb_password = "required itemname='패스워드'";
@@ -15,11 +15,11 @@ if ($w == "")
     $mb[mb_level] = $config[cf_register_level];
     $html_title = "등록";
 }
-else if ($w == "u") 
+else if ($w == "u")
 {
     $mb = get_member($mb_id);
     if (!$mb[mb_id])
-        alert("존재하지 않는 회원자료입니다."); 
+        alert("존재하지 않는 회원자료입니다.");
 
     if ($is_admin != 'super' && $mb[mb_level] >= $member[mb_level])
         alert("자신보다 권한이 높거나 같은 회원은 수정할 수 없습니다.");
@@ -50,8 +50,8 @@ else if ($w == "u")
     $mb[mb_8]           = get_text($mb[mb_8]);
     $mb[mb_9]           = get_text($mb[mb_9]);
     $mb[mb_10]          = get_text($mb[mb_10]);
-} 
-else 
+}
+else
     alert("제대로 된 값이 넘어오지 않았습니다.");
 
 if ($mb[mb_mailling]) $mailling_checked = "checked"; // 메일 수신
@@ -96,7 +96,10 @@ include_once("./admin.head.php");
 </tr>
 <tr class='ht'>
     <td>회원 권한</td>
-    <td><?=get_member_level_select("mb_level", 1, $member[mb_level], $mb[mb_level])?></td>
+    <td>
+        <?=get_member_level_select("mb_level", 1, $member[mb_level], $mb[mb_level])?>
+        <?=get_member_pension_select("mb_1", $mb[mb_1])?>
+    </td>
     <td>포인트</td>
     <td><a href='./point_list.php?sfl=mb_id&stx=<?=$mb[mb_id]?>' class='bold'><?=number_format($mb[mb_point])?></a> 점</td>
 </tr>
@@ -128,7 +131,7 @@ include_once("./admin.head.php");
         if (file_exists($icon_file)) {
             echo "<br><img src='$icon_file' align=absmiddle>";
             echo " <input type=checkbox name='del_mb_icon' value='1' class='csscheck'>삭제";
-        }   
+        }
         ?>
     </td>
 </tr>
@@ -171,10 +174,10 @@ include_once("./admin.head.php");
 <tr class='ht'>
     <td>IP</td>
     <td><?=$mb[mb_ip]?></td>
-    
+
     <?php if ($config[cf_use_email_certify]) { ?>
     <td>인증일시</td>
-    <td><?=$mb[mb_email_certify]?> 
+    <td><?=$mb[mb_email_certify]?>
         <?php if ($mb[mb_email_certify] == "0000-00-00 00:00:00") { echo "<input type=checkbox name=passive_certify>수동인증"; } ?></td>
     <?php } else { ?>
     <td></td>
@@ -197,8 +200,8 @@ include_once("./admin.head.php");
     <td>접근차단일자</td>
     <td><input type=text class=ed name=mb_intercept_date size=9 maxlength=8 value='<?php echo $mb[mb_intercept_date] ?>'> <input type=checkbox value='<?php echo date("Ymd"); ?>' onclick='if (this.form.mb_intercept_date.value==this.form.mb_intercept_date.defaultValue) { this.form.mb_intercept_date.value=this.value; } else { this.form.mb_intercept_date.value=this.form.mb_intercept_date.defaultValue; } '>오늘</td>
 </tr>
-
-<?php for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
+<input type=hidden class=ed style='width:99%;' name='mb_2' maxlength=255 value='<?=$mb["mb_2"]?>'>
+<?php for ($i=3; $i<=10; $i=$i+2) { $k=$i+1; ?>
 <tr class='ht'>
     <td>여분 필드 <?=$i?></td>
     <td><input type=text class=ed style='width:99%;' name='mb_<?=$i?>' maxlength=255 value='<?=$mb["mb_$i"]?>'></td>
@@ -228,7 +231,7 @@ include_once("./admin.head.php");
 <p align=center>
     <input type=submit class=btn1 accesskey='s' value='  확    인  '>&nbsp;
     <input type=button class=btn1 value='  목  록  ' onclick="document.location.href='./member_list.php?<?=$qstr?>';">&nbsp;
-    
+
     <?php if ($w != '') { ?>
     <input type=button class=btn1 value='  삭  제  ' onclick="del('./member_delete.php?<?=$qstr?>&w=d&mb_id=<?=$mb[mb_id]?>&url=<?=$_SERVER[PHP_SELF]?>');">&nbsp;
     <?php } ?>
@@ -240,8 +243,8 @@ if (document.fmember.w.value == "")
 else if (document.fmember.w.value == "u")
     document.fmember.mb_password.focus();
 
-if (typeof(document.fmember.mb_level) != "undefined") 
-    document.fmember.mb_level.value   = "<?=$mb[mb_level]?>"; 
+if (typeof(document.fmember.mb_level) != "undefined")
+    document.fmember.mb_level.value   = "<?=$mb[mb_level]?>";
 
 function fmember_submit(f)
 {
