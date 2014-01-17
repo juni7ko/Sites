@@ -115,7 +115,7 @@ if ($file_length < 0)
     	<th>지역</th>
         <td>
         	<select name="area_id">
-            	<option value=""<?=($write['area_id']=='') ? ' selected':'';?>>지역</option>
+            	<option value=""<?=(empty($write['area_id'])) ? ' selected':'';?>>지역</option>
 <?php
 $area_sql = "select * from ci_area order by area_no desc ";
 $nav_sql = mysql_query($area_sql);
