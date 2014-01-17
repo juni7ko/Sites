@@ -1,4 +1,5 @@
-<?php $sub_menu = "100200";
+<?php
+$sub_menu = "100200";
 include_once("./_common.php");
 
 if ($is_admin != "super")
@@ -12,7 +13,7 @@ $sql_search = " where (1) ";
 if ($stx) {
     $sql_search .= " and ( ";
     switch ($sfl) {
-        default : 
+        default :
             $sql_search .= " ($sfl like '%$stx%') ";
             break;
     }
@@ -25,9 +26,9 @@ if (!$sst) {
 }
 $sql_order = " order by $sst $sod ";
 
-$sql = " select count(*) as cnt
-         $sql_common 
-         $sql_search 
+$sql = " SELECT count(*) as cnt
+         $sql_common
+         $sql_search
          $sql_order ";
 $row = sql_fetch($sql);
 $total_count = $row[cnt];
@@ -37,7 +38,7 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page == "") $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-$sql = " select * 
+$sql = " SELECT *
           $sql_common
           $sql_search
           $sql_order
@@ -96,7 +97,8 @@ var list_delete_php = "auth_list_delete.php";
 	<td>권한</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-<?php for ($i=0; $row=sql_fetch_array($result); $i++) 
+<?php
+for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $mb_nick = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
 
@@ -120,7 +122,7 @@ var list_delete_php = "auth_list_delete.php";
     </tr>";
 }
 
-if ($i==0) 
+if ($i==0)
     echo "<tr><td colspan='$colspan' height=100 align=center bgcolor='#FFFFFF'>자료가 없습니다.</td></tr>";
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
@@ -145,7 +147,7 @@ else
 
 <script type='text/javascript'> document.fsearch.stx.focus(); </script>
 
-<?php $colspan=5?>
+<?php $colspan=5; ?>
 <p>
 
 <form name=fauthlist2 method=post onsubmit="return fauthlist2_submit(this);" autocomplete="off">
@@ -213,5 +215,4 @@ function fauthlist2_submit(f)
 }
 </script>
 
-<?php include_once ("./admin.tail.php");
-?>
+<?php include_once ("./admin.tail.php"); ?>
