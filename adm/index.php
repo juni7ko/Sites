@@ -1,4 +1,5 @@
-<?php include_once("./_common.php");
+<?php
+include_once("./_common.php");
 
 $g4['title'] = "관리자메인";
 include_once ("./admin.head.php");
@@ -12,7 +13,7 @@ $sql_common = " from $g4[member_table] ";
 $sql_search = " where (1) ";
 
 //if ($is_admin == 'group') $sql_search .= " and mb_level = '$member[mb_level]' ";
-if ($is_admin != 'super') 
+if ($is_admin != 'super')
     $sql_search .= " and mb_level <= '$member[mb_level]' ";
 
 if (!isset($sst)) {
@@ -99,7 +100,7 @@ $colspan = 12;
     <td title='접근가능한 그룹수'>그룹</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-<?php for ($i=0; $row=sql_fetch_array($result); $i++) 
+<?php for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     // 접근가능한 그룹수
     $sql2 = " select count(*) as cnt from $g4[group_member_table] where mb_id = '$row[mb_id]' ";
@@ -108,12 +109,12 @@ $colspan = 12;
     if ($row2['cnt'])
         $group = "<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'>$row2[cnt]</a>";
 
-    if ($is_admin == 'group') 
+    if ($is_admin == 'group')
     {
         $s_mod = "";
         $s_del = "";
-    } 
-    else 
+    }
+    else
     {
         $s_mod = "<a href=\"./member_form.php?$qstr&w=u&mb_id=$row[mb_id]\"><img src='img/icon_modify.gif' border=0 title='수정'></a>";
         $s_del = "<a href=\"javascript:del('./member_delete.php?$qstr&w=d&mb_id=$row[mb_id]&url=$_SERVER[PHP_SELF]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
@@ -145,7 +146,7 @@ $colspan = 12;
         <td>".($row['mb_open']?'&radic;':'&nbsp;')."</td>
         <td title='$row[mb_email_certify]'>".(preg_match('/[1-9]/', $row['mb_email_certify'])?'&radic;':'&nbsp;')."</td>
         <td title='$row[mb_intercept_date]'>".($row['mb_intercept_date']?'&radic;':'&nbsp;')."</td>
-        <td>$group</td>               
+        <td>$group</td>
     </tr>";
 }
 
@@ -207,7 +208,7 @@ $colspan = 5;
           $sql_order
           limit $new_write_rows ";
 $result = sql_query($sql);
-for ($i=0; $row=sql_fetch_array($result); $i++) 
+for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $tmp_write_table = $g4['write_prefix'] . $row['bo_table'];
 
@@ -252,7 +253,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <td align=left style='word-break:break-all;'>&nbsp;<a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row2[wr_id]{$comment_link}'>{$comment}".conv_subject($row2['wr_subject'], 100)."</a></td>
         <td>$name</td>
         <td>$datetime</td>
-    </tr> ";  
+    </tr> ";
 }
 
 if ($i == 0)
@@ -269,8 +270,8 @@ $sql_search = " where (1) ";
 $sql_order = " order by po_id desc ";
 
 $sql = " select count(*) as cnt
-         $sql_common 
-         $sql_search 
+         $sql_common
+         $sql_search
          $sql_order ";
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
@@ -297,7 +298,7 @@ $colspan = 7;
 //$row2 = sql_fetch(" select sum(po_point) as sum_point from $g4[point_table] ");
         //echo "&nbsp;(전체 포인트 합계 : " . number_format($row2[sum_point]) . "점)";
         ?>
-        
+
     </td>
     <td width=50% align=right></td>
 </tr>
@@ -328,7 +329,7 @@ $colspan = 7;
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?php $row2['mb_id'] = '';
-for ($i=0; $row=sql_fetch_array($result); $i++) 
+for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     if ($row2['mb_id'] != $row['mb_id'])
     {
@@ -358,7 +359,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <td align=right>".number_format($row['po_point'])."&nbsp;</td>
         <td align=right>".number_format($row2['mb_point'])."&nbsp;</td>
     </tr> ";
-} 
+}
 
 if ($i == 0)
     echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";

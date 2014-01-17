@@ -10,12 +10,10 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 <script src="<?=$g4[path]?>/js/jquery-ui.min.js"></script>
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
 <style type="text/css">
-<!--
 .ui-datepicker { font:12px dotum; }
 .ui-datepicker select.ui-datepicker-month,
 .ui-datepicker select.ui-datepicker-year { width: 70px;}
 .ui-datepicker-trigger { margin:0 0 -5px 2px; }
--->
 </style>
 <script src="<?=$g4[path]?>/js/support.labs.js"></script>
 <script src="<?=$g4[path]?>/js/jquery.form.js"></script>

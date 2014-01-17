@@ -329,8 +329,5 @@ include_once('./head.index.php');
 	</div><!-- ./row -->
 </div>
 <!-- ./CS CENTER -->
-
-
-
 <?php include_once("./_tail.php");
 ?>
