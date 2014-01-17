@@ -1,7 +1,7 @@
 <?php include_once("_common.php");
-include_once("$g4[path]/head.sub.php"); 
+include_once("$g4[path]/head.sub.php");
 
-//if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
+//if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 if(!$bo_table) alert("잘못된 접근입니다.");
 
 $board_skin_path = ".";
@@ -27,7 +27,7 @@ for ($i=0; $r_list = sql_fetch_array($result); $i++)  {
 	$j=($i)%2;
 	$u_name = substr($r_list[wr_name],0,2);
 	$u_tel = explode('-', $r_list[wr_2], 3);
-	
+
 	$r_print .= "<tr class='n_list{$j}'>\n";
 	if($is_admin) $r_print .= "<td>{$r_list[wr_name]}"; //예약자명
 		else $r_print .= "<td>{$u_name}**"; //예약자명
@@ -48,5 +48,5 @@ if($i) {
 } else {
 	echo "정보가 없습니다.";
 }
-include_once("$g4[path]/tail.sub.php"); 
+include_once("$g4[path]/tail.sub.php");
 ?>

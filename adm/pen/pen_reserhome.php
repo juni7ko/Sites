@@ -1,1 +1,1 @@
-<iframe src="../bbs/resList.php?bo_table=bbs34&pension_id=<?=$pension_id?>" name="index_main" frameborder=0 marginwidth="0" marginheight="0" scrolling="no" noresize width=100% height=1100 onload="resizeFrame(this);" style="height:100px;">
+<iframe src="../../bbs/resList.php?bo_table=bbs34&pension_id=<?=$pension_id?>" name="index_main" frameborder=0 marginwidth="0" marginheight="0" scrolling="no" noresize width=100% height=1100 onload="resizeFrame(this);" style="height:100px;">

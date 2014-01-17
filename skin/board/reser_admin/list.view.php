@@ -1,7 +1,7 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 // 선택옵션으로 인해 셀합치기가 가변적으로 변함
 $colspan = 6;
 if ($is_category) $colspan++;

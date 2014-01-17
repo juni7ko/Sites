@@ -1,9 +1,9 @@
-<?php include_once "_common.php"; 
-include_once("$board_skin_path/config.php"); 
+<?php include_once "_common.php";
+include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
 ############# 헤드
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
@@ -68,8 +68,8 @@ $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
     <td class="consjbox">퇴실일자</td>
     <td><?=$t_year?>년 <?=$t_mon?>월 <?=$t_day?>일<input type=hidden name='wr_link2' itemname='퇴실일자' value='<?=$wr_link2?>'></td>
   </tr>
-<?php $s_time=mktime( "00", "00", "00",$f_mon,$f_day,$f_year); 
-$e_time=mktime( "23", "59", "59",$t_mon,$t_day,$t_year); 
+<?php $s_time=mktime( "00", "00", "00",$f_mon,$f_day,$f_year);
+$e_time=mktime( "23", "59", "59",$t_mon,$t_day,$t_year);
 
 $cnt=$e_time-$s_time;
 $sl_day=floor($cnt/86400);
@@ -109,8 +109,8 @@ $res_cnt = Get_Room_Info_One($bo_table, $write[ca_name], 'person1') + $write[wr_
 	<tr>
     <td class="consjbox">휴대전화</td>
     <td colspan="3" align="left">
-      <input name='tel1' value='<?=$tel[0]?>' type='text' size='5' maxlength='3'> - 
-      <input name='tel2' value='<?=$tel[1]?>' type='text' size='7' maxlength='4'> - 
+      <input name='tel1' value='<?=$tel[0]?>' type='text' size='5' maxlength='3'> -
+      <input name='tel2' value='<?=$tel[1]?>' type='text' size='7' maxlength='4'> -
       <input name='tel3' value='<?=$tel[2]?>' type='text' size='7' maxlength='4'></td>
   </tr>
   <tr>
@@ -137,12 +137,12 @@ function fgbform_submit(f)
 {
 	var f = document.fgbform;
 	// 김선용 2006.3 - 전화번호(휴대폰) 형식 검사 : 123-123(4)-5678
-	
+
 	function wrestTelnumber(fld) {
 		if (!wrestTrim(fld)) return;
-		
+
 		var pattern = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
-		if(!pattern.test(fld.value)) { 
+		if(!pattern.test(fld.value)) {
 			if(wrestFld == null){
 				wrestMsg = wrestItemname(fld)+" : 전화번호 형식이 올바르지 않습니다.\n\n하이픈(-)을 포함하여 입력해 주십시오.\n";
 				wrestFld = fld;
@@ -154,7 +154,7 @@ function fgbform_submit(f)
 	// 이메일주소 형식 검사
 	function wrestEmail(fld) {
 		if (!wrestTrim(fld)) return;
-		
+
 		//var pattern = /(\S+)@(\S+)\.(\S+)/; 이메일주소에 한글 사용시
 		var pattern = /([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)/;
 		if (!pattern.test(fld.value)) {

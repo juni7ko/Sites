@@ -1,14 +1,14 @@
-<?php include_once "_common.php"; 
-include_once("$g4[path]/head.sub.php"); 
-include_once("$board_skin_path/config.php"); 
+<?php include_once "_common.php";
+include_once("$g4[path]/head.sub.php");
+include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
-if ($board[bo_include_head]) include ("../../$board[bo_include_head]"); 
-if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>"; 
-if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]); 
+if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
+if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
+if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
 ?>
 <link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.css" type="text/css">
@@ -43,10 +43,10 @@ if($u == "edit") {
 			pension_id = '$pension_id'
 			WHERE r_info_id ='$id' LIMIT 1 ;";
 	} else {
-		$sql = "INSERT INTO {$write_table}_r_cost (r_info_id, r_cost_11, r_cost_12, r_cost_13, r_cost_14, r_cost_15, pension_id) 
+		$sql = "INSERT INTO {$write_table}_r_cost (r_info_id, r_cost_11, r_cost_12, r_cost_13, r_cost_14, r_cost_15, pension_id)
 			VALUES ('$id', '$r_cost_11', '$r_cost_12', '$r_cost_13', '$r_cost_14', '$r_cost_15', '$pension_id');";
 	}
-	
+
 	$result = sql_fetch($sql);
 	alert("수정완료!!","{$board_skin_path}/config_room.php?bo_table={$bo_table}&pension_id={$pension_id}");
 	//if(!$result) $u_result = "수정 완료!!";
@@ -80,7 +80,7 @@ echo "</table>";
 
 if($room_info) {
 	echo "<div style='margin-top:5px; text-align:right;'>
-		<input type=button class='$css[btn]' value=\"수정\" onClick='form.submit();'> 
+		<input type=button class='$css[btn]' value=\"수정\" onClick='form.submit();'>
 		<input type=button class='$css[btn]' value=\"취소\" onClick='history.back(-1);'></div>";
 }
 ?>
@@ -126,8 +126,8 @@ function show_list() {
 		echo "</tr>";
 	}
 	if ($i == 0)
-		echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
-	
+		echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
+
 	echo "</table>";
 ## 리스트 끝
 }
@@ -141,7 +141,7 @@ function Process(u,id) {
 	} else {
 		return false;
 	}
-	
+
 	f.u.value = u;
 	f.id.value = id;
 	f.submit();
@@ -161,9 +161,9 @@ function Process(u,id) {
 </table>
 <?php
 ############# 푸터
-if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]); 
-if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>"; 
-if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]"); 
+if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
+if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>";
+if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]");
 
-include_once("$g4[path]/tail.sub.php"); 
+include_once("$g4[path]/tail.sub.php");
 ?>

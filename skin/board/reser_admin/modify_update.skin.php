@@ -1,20 +1,20 @@
 <?php include_once "_common.php";
 
-include_once("$g4[path]/head.sub.php"); 
-include_once("$board_skin_path/config.php"); 
+include_once("$g4[path]/head.sub.php");
+include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
 $g4_sql_table = "g4_write_";
 $res_table = $g4_sql_table . $bo_table;
 
-//전화번호 
-$wr_2 = "$tel1-$tel2-$tel3"; 
+//전화번호
+$wr_2 = "$tel1-$tel2-$tel3";
 $wr_content = addslashes($wr_content);
 
-$sql = "UPDATE $res_table SET 
+$sql = "UPDATE $res_table SET
 						wr_2   = '$wr_2',
 						wr_name = '$wr_name',
 						wr_email = '$wr_email',

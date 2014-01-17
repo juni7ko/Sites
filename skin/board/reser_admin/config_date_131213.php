@@ -1,14 +1,14 @@
-<?php include_once "_common.php"; 
-include_once("$g4[path]/head.sub.php"); 
-include_once("$board_skin_path/config.php"); 
+<?php include_once "_common.php";
+include_once("$g4[path]/head.sub.php");
+include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
-if ($board[bo_include_head]) include ("../../$board[bo_include_head]"); 
-if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>"; 
-if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]); 
+if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
+if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
+if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 ?>
@@ -95,7 +95,7 @@ function show_list() {
 		<button type="button" class="btn btn-sm btn-primary" onClick="Process('copy',<?=$r_date[r_date_idx]?>); return false;">복사</button>
 <?php
 /*
-		<input type=button class='<?=$css[btn]?>' value="수정" onClick="Process('edit',<?=$r_date[r_date_idx]?>); return false;"> 
+		<input type=button class='<?=$css[btn]?>' value="수정" onClick="Process('edit',<?=$r_date[r_date_idx]?>); return false;">
 		<input type=button class='<?=$css[btn]?>' value="삭제" onClick="Process('del',<?=$r_date[r_date_idx]?>); return false;">
 		<input type=button class='<?=$css[btn]?>' value="복사" onClick="Process('copy',<?=$r_date[r_date_idx]?>); return false;">
 */ ?>
@@ -124,7 +124,7 @@ function Process(u,id) {
 		else
 			return false;
 	}
-	
+
 	if((u == "update" || u == "insert") && !f.r_date_name.value) {
 		alert("기간명을 입력해 주세요!!");
 		f.r_date_name.focus();
@@ -163,9 +163,9 @@ function Process(u,id) {
 </tr>
 <tr class="ht center">
 	<td colspan=2><input type='text' name='r_date_name' required size=30></td>
-    <td colspan=2><input class=m_text id=r_date_sdate type=text required numeric itemname=시작일 size=13 name=r_date_sdate value='<?=date("Ymd", mktime())?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> 
+    <td colspan=2><input class=m_text id=r_date_sdate type=text required numeric itemname=시작일 size=13 name=r_date_sdate value='<?=date("Ymd", mktime())?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
     	<a href="javascript:win_calendar('r_date_sdate', document.getElementById('r_date_sdate').value, '');"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>
-	<td colspan=2><input class=m_text id=r_date_edate type=text required numeric itemname=종료일 size=13 name=r_date_edate value='<?=date("Ymd", mktime())?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> 
+	<td colspan=2><input class=m_text id=r_date_edate type=text required numeric itemname=종료일 size=13 name=r_date_edate value='<?=date("Ymd", mktime())?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
     	<a href="javascript:win_calendar('r_date_edate', document.getElementById('r_date_edate').value, '');"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>
 </tr>
 <tr class="<?=$css[tr]?>">
@@ -202,11 +202,11 @@ for ($ri=0; $r_info = sql_fetch_array($result_room); $ri++)  {
 </tr>
 <?php }
 
-if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실이 없습니다.</td></tr>"; 
+if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실이 없습니다.</td></tr>";
 ?>
 </table>
 <div style="margin-top:5px; text-align:right">
-	<input type=button class='<?=$css[btn]?>' value="추가" onClick="Process('insert',0); return false;"> 
+	<input type=button class='<?=$css[btn]?>' value="추가" onClick="Process('insert',0); return false;">
 	<input type=button class='<?=$css[btn]?>' value="취소" onClick="history.back(-1); return false;">
 </div>
 <?php } else if($u == "edit") {
@@ -230,7 +230,7 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 	<td colspan=2><input type='text' name='r_date_name' required size=30 value='<?=$r_date[r_date_name]?>'></td>
     <td colspan=2><input class=m_text id=r_date_sdate type=text required numeric itemname=시작일 size=13 name=r_date_sdate value='<?=date("Ymd", $r_date[r_date_sdate])?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
     	<a href="javascript:win_calendar('r_date_sdate', document.getElementById('r_date_sdate').value, '');"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>
-	<td colspan=2><input class=m_text id=r_date_edate type=text required numeric itemname=종료일 size=13 name=r_date_edate value='<?=date("Ymd", $r_date[r_date_edate])?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> 
+	<td colspan=2><input class=m_text id=r_date_edate type=text required numeric itemname=종료일 size=13 name=r_date_edate value='<?=date("Ymd", $r_date[r_date_edate])?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
     	<a href="javascript:win_calendar('r_date_edate', document.getElementById('r_date_edate').value, '');"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>
 </tr>
 <tr class="<?=$css[tr]?>">
@@ -276,11 +276,11 @@ for ($ri=0; $r_info = sql_fetch_array($result_room); $ri++)  {
 </tr>
 <?php }
 
-if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실이 없습니다.</td></tr>"; 
+if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실이 없습니다.</td></tr>";
 ?>
 </table>
 <div style='margin-top:5px; text-align:right;'>
-	<input type=button class='<?=$css[btn]?>' value="수정" onClick="Process('update',<?=$id?>); return false;"> 
+	<input type=button class='<?=$css[btn]?>' value="수정" onClick="Process('update',<?=$id?>); return false;">
 	<input type=button class='<?=$css[btn]?>' value="취소" onClick="history.back(-1); return false;">
 </div>
 
@@ -305,7 +305,7 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 	<td colspan=2><input type='text' name='r_date_name' required size=30 value='<?=$r_date[r_date_name]?>'></td>
     <td colspan=2><input class=m_text id=r_date_sdate type=text required numeric itemname=시작일 size=13 name=r_date_sdate value='<?=date("Ymd", $r_date[r_date_sdate])?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
     	<a href="javascript:win_calendar('r_date_sdate', document.getElementById('r_date_sdate').value, '');"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>
-	<td colspan=2><input class=m_text id=r_date_edate type=text required numeric itemname=종료일 size=13 name=r_date_edate value='<?=date("Ymd", $r_date[r_date_edate])?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> 
+	<td colspan=2><input class=m_text id=r_date_edate type=text required numeric itemname=종료일 size=13 name=r_date_edate value='<?=date("Ymd", $r_date[r_date_edate])?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
     	<a href="javascript:win_calendar('r_date_edate', document.getElementById('r_date_edate').value, '');"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>
 </tr>
 <tr class="<?=$css[tr]?>">
@@ -351,11 +351,11 @@ for ($ri=0; $r_info = sql_fetch_array($result_room); $ri++)  {
 </tr>
 <?php }
 
-if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실이 없습니다.</td></tr>"; 
+if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실이 없습니다.</td></tr>";
 ?>
 </table>
 <div style='margin-top:5px; text-align:right;'>
-	<input type=button class='<?=$css[btn]?>' value="수정" onClick="Process('insert',0); return false;"> 
+	<input type=button class='<?=$css[btn]?>' value="수정" onClick="Process('insert',0); return false;">
 	<input type=button class='<?=$css[btn]?>' value="취소" onClick="history.back(-1); return false;">
 </div>
 
@@ -365,18 +365,18 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 } else {
 	if($u == "del") {
 		$sql = "DELETE FROM {$write_table}_r_date WHERE pension_id = '$pension_id' and r_date_idx ='$id'";
-		sql_query($sql);	
+		sql_query($sql);
 	} else if($u == "update") {
 		$sy = substr($r_date_sdate,0,4);
 		$sm = substr($r_date_sdate,4,2);
 		$sd = substr($r_date_sdate,6,2);
 		$sdate = mktime(12,0,0,$sm,$sd,$sy);
-		
+
 		$ey = substr($r_date_edate,0,4);
 		$em = substr($r_date_edate,4,2);
 		$ed = substr($r_date_edate,6,2);
 		$edate = mktime(12,0,0,$em,$ed,$ey);
-	
+
 		$chk_date = sql_fetch("SELECT * FROM {$write_table}_r_date WHERE
 			r_date_idx != '$id' AND pension_id = '$pension_id' AND
 			(('$sdate' BETWEEN r_date_sdate AND r_date_edate) OR
@@ -388,9 +388,9 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 			r_date_sdate = '$sdate',
 			r_date_edate = '$edate'
 			WHERE pension_id = '$pension_id' and r_date_idx ='$id' LIMIT 1 ;";
-	
+
 		$result = sql_query($sql);
-		
+
 		for($i=0; $i < count($r_dcost_idx); $i++ ) {
 			if($r_date_cost_11[$i]) $r_date_cost_21 = round( $r_date_cost_1[$i] - ($r_date_cost_1[$i] * ($r_date_cost_11[$i] * 0.01)), -2 );
 				else $r_date_cost_21 = $r_date_cost_1[$i];
@@ -425,9 +425,9 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 			} else {
 				$sql = " SELECT r_date_idx FROM {$write_table}_r_date WHERE pension_id = '$pension_id' and r_date_name = '$r_date_name' AND r_date_sdate = '$sdate' AND r_date_edate = '$edate' ";
 				$r_date_idx = sql_fetch($sql);
-				
-				$sql = "INSERT INTO {$write_table}_r_date_cost 
-					(r_dcost_idx, r_info_id, r_date_idx, r_date_cost_1, r_date_cost_2, r_date_cost_3, r_date_cost_4, r_date_cost_5, pension_id, r_date_cost_11, r_date_cost_12, r_date_cost_13, r_date_cost_14, r_date_cost_15, r_date_cost_21, r_date_cost_22, r_date_cost_23, r_date_cost_24, r_date_cost_25 ) VALUES 
+
+				$sql = "INSERT INTO {$write_table}_r_date_cost
+					(r_dcost_idx, r_info_id, r_date_idx, r_date_cost_1, r_date_cost_2, r_date_cost_3, r_date_cost_4, r_date_cost_5, pension_id, r_date_cost_11, r_date_cost_12, r_date_cost_13, r_date_cost_14, r_date_cost_15, r_date_cost_21, r_date_cost_22, r_date_cost_23, r_date_cost_24, r_date_cost_25 ) VALUES
 					('','$r_info_id[$i]', '$r_date_idx[r_date_idx]', '$r_date_cost_1[$i]', '$r_date_cost_2[$i]', '$r_date_cost_3[$i]', '$r_date_cost_4[$i]', '$r_date_cost_5[$i]', '$pension_id',  '$r_date_cost_11[$i]', '$r_date_cost_12[$i]', '$r_date_cost_13[$i]', '$r_date_cost_14[$i]', '$r_date_cost_15[$i]', '$r_date_cost_21[$i]', '$r_date_cost_22[$i]', '$r_date_cost_23[$i]', '$r_date_cost_24[$i]', '$r_date_cost_25[$i]');";
 				sql_query($sql);
 			}
@@ -437,21 +437,21 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 		$sm = substr($r_date_sdate,4,2);
 		$sd = substr($r_date_sdate,6,2);
 		$sdate = mktime(12,0,0,$sm,$sd,$sy);
-		
+
 		$ey = substr($r_date_edate,0,4);
 		$em = substr($r_date_edate,4,2);
 		$ed = substr($r_date_edate,6,2);
 		$edate = mktime(12,0,0,$em,$ed,$ey);
-		
+
 		$chk_date = sql_fetch("SELECT * FROM {$write_table}_r_date WHERE
 			pension_id = '$pension_id' AND
-			(('$sdate' BETWEEN r_date_sdate AND r_date_edate) OR 
+			(('$sdate' BETWEEN r_date_sdate AND r_date_edate) OR
 			('$edate' BETWEEN r_date_sdate AND r_date_edate))");
 		if($chk_date) alert("중복되는 기간이 있습니다. 기간을 확인해 주세요!!");
-		
+
 		$sql = "INSERT INTO {$write_table}_r_date (r_date_name, r_date_sdate, r_date_edate, pension_id) VALUES ('$r_date_name', '$sdate', '$edate', '$pension_id');";
 		sql_query($sql);
-		
+
 		// r_date_idx 값을 읽어와서 요금 정보를 저장한다.
 		$sql = " SELECT r_date_idx FROM {$write_table}_r_date WHERE pension_id = '$pension_id' and r_date_name = '$r_date_name' AND r_date_sdate = '$sdate' AND r_date_edate = '$edate' ";
 		$r_date_idx = sql_fetch($sql);
@@ -467,13 +467,13 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 			if($r_date_cost_15[$i]) $r_date_cost_25 = round( $r_date_cost_5[$i] - ($r_date_cost_5[$i] * ($r_date_cost_15[$i] * 0.01)), -2 );
 				else $r_date_cost_25 = $r_date_cost_5[$i];
 
-			$sql = "INSERT INTO {$write_table}_r_date_cost 
-				(r_dcost_idx, r_info_id, r_date_idx, r_date_cost_1, r_date_cost_2, r_date_cost_3, r_date_cost_4, r_date_cost_5, pension_id, r_date_cost_11, r_date_cost_12, r_date_cost_13, r_date_cost_14, r_date_cost_15, r_date_cost_21, r_date_cost_22, r_date_cost_23, r_date_cost_24, r_date_cost_25) VALUES 
+			$sql = "INSERT INTO {$write_table}_r_date_cost
+				(r_dcost_idx, r_info_id, r_date_idx, r_date_cost_1, r_date_cost_2, r_date_cost_3, r_date_cost_4, r_date_cost_5, pension_id, r_date_cost_11, r_date_cost_12, r_date_cost_13, r_date_cost_14, r_date_cost_15, r_date_cost_21, r_date_cost_22, r_date_cost_23, r_date_cost_24, r_date_cost_25) VALUES
 				('','$r_info_id[$i]', '$r_date_idx[r_date_idx]', '$r_date_cost_1[$i]', '$r_date_cost_2[$i]', '$r_date_cost_3[$i]', '$r_date_cost_4[$i]', '$r_date_cost_5[$i]', '$pension_id',  '$r_date_cost_11[$i]', '$r_date_cost_12[$i]', '$r_date_cost_13[$i]', '$r_date_cost_14[$i]', '$r_date_cost_15[$i]', '$r_date_cost_21', '$r_date_cost_22', '$r_date_cost_23', '$r_date_cost_24', '$r_date_cost_25');";
 			sql_query($sql);
 		}
 	}
-	
+
 	show_list();
 }
 ?>
@@ -481,9 +481,9 @@ if ($ri == 0) echo "<tr><td colspan='6' align=center height=100>등록된 객실
 </div>
 <?php
 ############# 푸터
-if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]); 
-if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>"; 
-if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]"); 
+if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
+if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>";
+if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]");
 
-include_once("$g4[path]/tail.sub.php"); 
+include_once("$g4[path]/tail.sub.php");
 ?>

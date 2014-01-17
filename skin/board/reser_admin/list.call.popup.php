@@ -1,7 +1,7 @@
 <?php include_once("_common.php");
-include_once("$g4[path]/head.sub.php"); 
+include_once("$g4[path]/head.sub.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 if(!$bo_table) alert("잘못된 접근입니다.");
 
 $board_skin_path = ".";
@@ -62,5 +62,5 @@ for ($r_info_cnt=0; $r_info = sql_fetch_array($result); $r_info_cnt++)  {
 ?>
 <br style="clear:both;">
 <div style="text-align:center; margin-top:20px;"><input type="button" onClick="print()" value="인쇄" > <input type="button" onClick="window.close();" value="창닫기"></div>
-<?php include_once("$g4[path]/tail.sub.php"); 
+<?php include_once("$g4[path]/tail.sub.php");
 ?>

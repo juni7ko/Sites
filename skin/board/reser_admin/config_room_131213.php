@@ -1,14 +1,14 @@
-<?php include_once "_common.php"; 
-include_once("$g4[path]/head.sub.php"); 
-include_once("$board_skin_path/config.php"); 
+<?php include_once "_common.php";
+include_once("$g4[path]/head.sub.php");
+include_once("$board_skin_path/config.php");
 //echo $pension_id;   // 펜션 아이디
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
-if ($board[bo_include_head]) include ("../../$board[bo_include_head]"); 
-if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>"; 
-if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]); 
+if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
+if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
+if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 ?>
@@ -45,7 +45,7 @@ function show_list() {
 	$sql = " SELECT * FROM {$write_table}_r_info where  pension_id = '$pension_id' order by r_info_order ASC ";
 //	echo $sql;
 	$result = sql_query($sql);
-	
+
 	echo "<table width='100%' border='0' cellpadding='3' cellspacing='1' class='$css[table]'>";
 	echo "<tr class='$css[tr]'>
 		<td>No</td>
@@ -74,19 +74,19 @@ function show_list() {
 		echo "<td>" . number_format($r_info[r_info_person2]) . "</td>";
 		echo "<td>" . number_format($r_info[r_info_person_add]) . "</td>";
 		echo "<td>" . number_format($r_info[r_info_cnt]) . "</td>";
-		
+
 		echo "<td>" . $r_info[r_info_type] . "</td>";
 
 		echo "<td>" . $r_info[r_info_over] . "</td>";
 		echo "<td>" . $r_info[r_info_multi] . "</td>";
 		echo "<td>" . number_format($r_info[r_info_order]) . "</td>";
-		echo "<td><input type=button class='$css[btn]' value='요금' onClick=\"Process('cost',{$r_info[r_info_id]}); return false;\"> 
-			<input type=button class='$css[btn]' value='수정' onClick=\"Process('edit',{$r_info[r_info_id]}); return false;\"> 
+		echo "<td><input type=button class='$css[btn]' value='요금' onClick=\"Process('cost',{$r_info[r_info_id]}); return false;\">
+			<input type=button class='$css[btn]' value='수정' onClick=\"Process('edit',{$r_info[r_info_id]}); return false;\">
 			<input type=button class='$css[btn]' value='삭제' onClick=\"Process('del',{$r_info[r_info_id]}); return false;\"></td>";
 		echo "</tr>";
 	}
 	if ($i == 0)
-		echo "<tr><td colspan='11' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
+		echo "<tr><td colspan='11' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
 	echo "</table>";
 	echo "<div style='margin-top:5px; text-align:right;'><input type=button class='$css[btn]' value=\"추가\" onClick=\"Process('add',0); return false;\"></div>";
 ## 리스트 끝
@@ -103,13 +103,13 @@ function Process(u,id) {
 		else
 			return false;
 	}
-	
+
 	if(u == "cost") {
 		f.action = "<?=$board_skin_path?>/config_cost.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>";
 	} else {
 		f.action = "<?=$this_page?>&pension_id=<?=$pension_id?>";
 	}
-	
+
 	if((u == "update" || u == "insert") && !f.r_info_name.value) {
 		alert("객실명을 입력해 주세요!!");
 		f.r_info_name.focus();
@@ -169,7 +169,7 @@ function Process(u,id) {
 } else if($u == "edit") {
 	## 업데이트 리스트
 	$r_info = sql_fetch(" SELECT * FROM {$write_table}_r_info WHERE r_info_id='$id' ");
-	
+
 	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
 	echo "<tr class='$css[tr]'>
 			<td>객실명</td>
@@ -211,7 +211,7 @@ function Process(u,id) {
 	if($u == "del") {
 		$sql = "DELETE FROM {$write_table}_r_info WHERE r_info_id ='$id'";
 		Up_Cate($bo_table);
-		sql_query($sql);	
+		sql_query($sql);
 	} else if($u == "update") {
 		$r_info_person3 = $r_info_person2 - $r_info_person1;
 		$sql = "UPDATE {$write_table}_r_info SET r_info_name = '$r_info_name',
@@ -227,7 +227,7 @@ function Process(u,id) {
 			r_info_multi = '$r_info_multi',
 			pension_id = '$pension_id'
 			WHERE r_info_id ='$id' LIMIT 1 ;";
-	
+
 		$result = sql_query($sql);
 		Up_Cate($bo_table);
 	} else if($u == "insert") {
@@ -236,7 +236,7 @@ function Process(u,id) {
 		sql_query($sql);
 		Up_Cate($bo_table);
 	}
-	
+
 	show_list();
 }
 ?>
@@ -249,9 +249,9 @@ function Process(u,id) {
 </table>
 <?php
 ############# 푸터
-if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]); 
-if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>"; 
-if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]"); 
+if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
+if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>";
+if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]");
 
-include_once("$g4[path]/tail.sub.php"); 
+include_once("$g4[path]/tail.sub.php");
 ?>

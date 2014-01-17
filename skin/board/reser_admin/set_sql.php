@@ -1,15 +1,15 @@
 <?php include_once "_common.php";
 
-include_once("$g4[path]/head.sub.php"); 
-include_once("$board_skin_path/config.php"); 
+include_once("$g4[path]/head.sub.php");
+include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
-if ($board[bo_include_head]) include ("../../$board[bo_include_head]"); 
-if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>"; 
-if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]); 
+if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
+if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
+if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 ?>
@@ -143,9 +143,9 @@ sql_query(" ALTER TABLE `{$res_table}` ADD `wr_reserv` text NOT NULL ", FALSE);
 </table>
 <?php
 ############# 푸터
-if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]); 
-if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>"; 
-if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]"); 
+if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
+if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>";
+if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]");
 
-include_once("$g4[path]/tail.sub.php"); 
+include_once("$g4[path]/tail.sub.php");
 ?>

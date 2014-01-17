@@ -1,14 +1,14 @@
-<?php include_once "_common.php"; 
-include_once("$g4[path]/head.sub.php"); 
-include_once("$board_skin_path/config.php"); 
+<?php include_once "_common.php";
+include_once("$g4[path]/head.sub.php");
+include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
-if ($board[bo_include_head]) include ("../../$board[bo_include_head]"); 
-if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>"; 
-if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]); 
+if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
+if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
+if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 ?>
@@ -44,7 +44,7 @@ function show_list() {
 ## 리스트 시작
 	$sql = " SELECT * FROM {$write_table}_r_option where pension_id = '$pension_id'   order by r_op_name ASC ";
 	$result = sql_query($sql);
-	
+
 	echo "<table width='100%' border='0' cellpadding='3' cellspacing='1' class='$css[table]'>";
 	echo "<tr class='$css[tr]'>
 			<td width=40>No</td>
@@ -58,15 +58,15 @@ function show_list() {
 		echo "<td>" . $j . "</td>";
 		echo "<td>" . $r_option[r_op_name] . "</td>";
 		echo "<td>" . number_format($r_option[r_op_cost]) . "</td>";
-		echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('edit',{$r_option[r_op_id]}); return false;\"> 
+		echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('edit',{$r_option[r_op_id]}); return false;\">
 			<input type=button class='$css[btn]' value=\"삭제\" onClick=\"Process('del',{$r_option[r_op_id]}); return false;\"></td>";
 		echo "</tr>";
 	}
 	if ($i == 0)
-		echo "<tr><td colspan='4' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
+		echo "<tr><td colspan='4' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
 
 	echo "</table>";
-	
+
 	echo "<div style='margin-top:5px; text-align:right;'><input type=button class='$css[btn]' value='추가' onClick=\"Process('add',0); return false;\"></div>";
 ## 리스트 끝
 }
@@ -82,13 +82,13 @@ function Process(u,id) {
 		else
 			return false;
 	}
-	
+
 	if((u == "update" || u == "insert") && !f.r_op_name.value) {
 		alert("옵션명을 입력해 주세요!!");
 		f.r_op_name.focus();
 		return false;
 	}
-	
+
 	f.action = "<?=$this_page?>";
 	f.u.value = u;
 	f.id.value = id;
@@ -137,13 +137,13 @@ function Process(u,id) {
 	} else if($u == "update") {
 		$sql = "UPDATE {$write_table}_r_option SET r_op_name = '$r_op_name',
 			r_op_cost = '$r_op_cost' WHERE r_op_id ='$id' LIMIT 1 ;";
-	
+
 		$result = sql_query($sql);
 	} else if($u == "insert") {
 		$sql = "INSERT INTO {$write_table}_r_option (r_op_name, r_op_cost, pension_id) VALUES ('$r_op_name', '$r_op_cost', '$pension_id');";
 		sql_query($sql);
 	}
-	
+
 	show_list();
 }
 ?>
@@ -156,9 +156,9 @@ function Process(u,id) {
 </table>
 <?php
 ############# 푸터
-if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]); 
-if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>"; 
-if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]"); 
+if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
+if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>";
+if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]");
 
-include_once("$g4[path]/tail.sub.php"); 
+include_once("$g4[path]/tail.sub.php");
 ?>

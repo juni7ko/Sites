@@ -223,7 +223,7 @@ function layer_view(link_id, menu_id, opt, x, y)
 <colgroup width=180>
 <colgroup>
 <tr bgcolor=#E3DCD2 height=70>
-	<td colspan=2 onmouseover="layer_view('','','','','')" style='text-align:center;'><a href='<?=$g4['admin_path']?>/pen/'><strong><?=$member[mb_1]?></strong></a></td>
+	<td colspan=2 onmouseover="layer_view('','','','','')" style='text-align:center;'><a href='<?=$g4['admin_path']?>/'><strong><?=$member[mb_1]?></strong></a></td>
 	<td>
 		<?php
 		if($member[mb_level] < 7) {
