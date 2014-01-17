@@ -30,7 +30,7 @@ for ($i=0; $i<count($chk); $i++)
     }
 
     // 게시판 그룹 관리자 지정
-    $groupSql = " SELECT gr_id, gr_admin FROM g4_group WHERE gr_id = 'pen_{$_POST['mb_1'][$k]}' and gr_admin != '{$_POST['mb_id'][$k]}' LIMIT 1 ";
+    $groupSql = " SELECT * FROM g4_group WHERE gr_id = 'pen_{$_POST['mb_1'][$k]}' and gr_admin != '{$_POST['mb_id'][$k]}' LIMIT 1 ";
     if(sql_fetch($groupSql)) {
         sql_query(" UPDATE g4_group set gr_admin = '{$_POST['mb_id'][$k]}' WHERE gr_id = 'pen_{$_POST['mb_1'][$k]}' ");
     }
