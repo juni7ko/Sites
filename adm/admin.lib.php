@@ -17,7 +17,7 @@ function get_skin_dir($skin, $len='')
 
     $dirname = "$g4[path]/skin/$skin/";
     $handle = opendir($dirname);
-    while ($file = readdir($handle)) 
+    while ($file = readdir($handle))
     {
         if($file == "."||$file == "..") continue;
 
@@ -45,7 +45,7 @@ function member_delete($mb_id)
 
     // 회원자료는 정보만 없앤 후 아이디는 보관하여 다른 사람이 사용하지 못하도록 함 : 061025
     if ($mb[mb_level] > 1) {
-        $sql = " update $g4[member_table] 
+        $sql = " update $g4[member_table]
                     set mb_jumin = '',
                         mb_password = '',
                         mb_level = '1',
@@ -63,12 +63,12 @@ function member_delete($mb_id)
                         mb_sex = '',
                         mb_signature = '',
                         mb_memo = '".date("Ymd",$g4['server_time'])." 삭제함\n\n$mb[mb_memo]',
-                        mb_leave_date = '".date("Ymd",$g4['server_time'])."' 
+                        mb_leave_date = '".date("Ymd",$g4['server_time'])."'
                   where mb_id = '$mb_id' ";
         //echo $sql; exit;
         sql_query($sql);
     }
-    
+
     /*
     // 회원 자료 삭제
     sql_query(" delete from $g4[member_table] where mb_id = '$mb_id' ");
@@ -80,23 +80,23 @@ function member_delete($mb_id)
         // 게시판에서 회원아이디는 삭제하지 않기 때문입니다.
         sql_query(" insert into $g4[member_table] set mb_id = '$mb_id', mb_name='$mb[mb_name]', mb_nick='[삭제됨]', mb_ip='$mb[mb_ip]', mb_datetime = '$g4[time_ymdhis]' ");
     }
-    
+
     // 포인트 테이블에서 삭제
     sql_query(" delete from $g4[point_table] where mb_id = '$mb_id' ");
-    
+
     // 그룹접근가능 삭제
     sql_query(" delete from $g4[group_member_table] where mb_id = '$mb_id' ");
-    
+
     // 쪽지 삭제
     sql_query(" delete from $g4[memo_table] where me_recv_mb_id = '$mb_id' or me_send_mb_id = '$mb_id' ");
-    
+
     // 스크랩 삭제
     sql_query(" delete from $g4[scrap_table] where mb_id = '$mb_id' ");
-    
+
     // 관리권한 삭제
     sql_query(" delete from $g4[auth_table] where mb_id = '$mb_id' ");
 
-    // 그룹관리자인 경우 그룹관리자를 공백으로 
+    // 그룹관리자인 경우 그룹관리자를 공백으로
     sql_query(" update $g4[group_table] set gr_admin = '' where gr_admin = '$mb_id' ");
 
     // 게시판관리자인 경우 게시판관리자를 공백으로
@@ -117,7 +117,7 @@ function get_member_level_select($name, $start_id=0, $end_id=10, $selected='', $
     for ($i=$start_id; $i<=$end_id; $i++)
     {
         $str .= "<option value='$i'";
-        if ($i == $selected) 
+        if ($i == $selected)
             $str .= " selected";
         $str .= ">$i</option>";
     }
@@ -125,6 +125,25 @@ function get_member_level_select($name, $start_id=0, $end_id=10, $selected='', $
     return $str;
 }
 
+function get_member_pension_select($name, $selected='', $event='')
+{
+    global $g4;
+
+    $str = "<select name='$name' $event>";
+    $str .= "<option vaule=''>펜션지정</option>";
+
+    $sql = " SELECT * from g4_write_pension_info where wr_is_comment = 0 order by wr_subject asc ";
+    $result = sql_query($sql);
+    while ($row = sql_fetch_array($result)) {
+        $str .= "<option value='$row[wr_id]'";
+        if($row[wr_id] == $selected)
+            $str .= " selected";
+        $str .= ">$row[wr_subject]</option>";
+    }
+
+    $str .= "</select>";
+    return $str;
+}
 
 // 회원아이디을 SELECT 형식으로 얻음
 function get_member_id_select($name, $level, $selected='', $event='')
@@ -134,7 +153,7 @@ function get_member_id_select($name, $level, $selected='', $event='')
     $sql = " select mb_id from $g4[member_table] where mb_level >= '$level' ";
     $result = sql_query($sql);
     $str = "<select name='$name' $event><option value=''>선택안함";
-    for ($i=0; $row=sql_fetch_array($result); $i++) 
+    for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $str .= "<option value='$row[mb_id]'";
         if ($row[mb_id] == $selected) $str .= " selected";
@@ -163,14 +182,14 @@ function auth_check($auth, $attr)
             alert("입력, 추가, 생성, 수정 권한이 없습니다.");
         else if ($attr == "d")
             alert("삭제 권한이 없습니다.");
-        else 
+        else
             alert("속성이 잘못 되었습니다.");
     }
 }
 
 
 // 텍스트에리어 늘리기, 줄이기
-function textarea_size($fld) 
+function textarea_size($fld)
 {
     global $g4;
 
@@ -201,19 +220,19 @@ function icon($act, $link="", $target="_parent")
 
 // rm -rf 옵션 : exec(), system() 함수를 사용할 수 없는 서버 또는 win32용 대체
 // www.php.net 참고 : pal at degerstrom dot com
-function rm_rf($file) 
+function rm_rf($file)
 {
     if (file_exists($file)) {
         @chmod($file,0777);
         if (is_dir($file)) {
-            $handle = opendir($file); 
+            $handle = opendir($file);
             while($filename = readdir($handle)) {
-                if ($filename != "." && $filename != "..") 
+                if ($filename != "." && $filename != "..")
                     rm_rf("$file/$filename");
             }
             closedir($handle);
             rmdir($file);
-        } else 
+        } else
             unlink($file);
     }
 }
@@ -226,7 +245,7 @@ function help($help="", $left=0, $top=0)
     $idx++;
 
     $help = preg_replace("/\n/", "<br>", $help);
-    
+
     $str  = "<img src='$g4[admin_path]/img/icon_help.gif' border=0 width=15 height=15 align=absmiddle onclick=\"help('help$idx', $left, $top);\" style='cursor:hand;'>";
     $str .= "<div id='help$idx' style='position:absolute; display:none; z-index:9999;'>";
     $str .= "<div id='csshelp1'><div id='csshelp2'><div id='csshelp3'>$help</div></div></div>";
@@ -235,7 +254,7 @@ function help($help="", $left=0, $top=0)
     return $str;
 }
 
-function subtitle($title, $more="") 
+function subtitle($title, $more="")
 {
     global $g4;
 
@@ -243,12 +262,12 @@ function subtitle($title, $more="")
     if ($more)
         $s .= "<a href='$more'><img src='$g4[admin_path]/img/icon_more.gif' width='43' height='11' border=0 align=absmiddle></a>";
     $s .= "</td></tr></table>\n";
-    
+
     return $s;
 }
 
 // 출력순서
-function order_select($fld, $sel="") 
+function order_select($fld, $sel="")
 {
     $s = "<select name='$fld'>";
     for ($i=1; $i<=100; $i++) {
@@ -275,12 +294,12 @@ if (!$member['mb_id'])
     //alert("로그인 하십시오.", "$g4[bbs_path]/login.php?url=" . urlencode("$_SERVER[PHP_SELF]?w=$w&mb_id=$mb_id"));
     alert("로그인 하십시오.", "$g4[bbs_path]/login.php?url=" . urlencode("$_SERVER[PHP_SELF]?$_SERVER[QUERY_STRING]"));
 }
-else if ($is_admin != "super") 
+else if ($is_admin != "super")
 {
     $auth = array();
     $sql = " select au_menu, au_auth from $g4[auth_table] where mb_id = '$member[mb_id]' ";
     $result = sql_query($sql);
-    for($i=0; $row=sql_fetch_array($result); $i++) 
+    for($i=0; $row=sql_fetch_array($result); $i++)
     {
         $auth[$row[au_menu]] = $row[au_auth];
     }
@@ -314,12 +333,12 @@ unset($auth_menu);
 unset($menu);
 unset($amenu);
 $tmp = dir($g4['admin_path']);
-while ($entry = $tmp->read()) 
+while ($entry = $tmp->read())
 {
-    //if (!preg_match("/^admin.menu([0-9]{3}).php/", $entry, $m)) 
-    //if (!preg_match("/^admin.menu([0-9]{3}).*\.php/", $entry, $m)) 
-    if (!preg_match("/^admin.menu([0-9]{3}).*\.php$/", $entry, $m)) 
-        continue;  // 파일명이 menu 으로 시작하지 않으면 무시한다. 
+    //if (!preg_match("/^admin.menu([0-9]{3}).php/", $entry, $m))
+    //if (!preg_match("/^admin.menu([0-9]{3}).*\.php/", $entry, $m))
+    if (!preg_match("/^admin.menu([0-9]{3}).*\.php$/", $entry, $m))
+        continue;  // 파일명이 menu 으로 시작하지 않으면 무시한다.
 
     $amenu[$m[1]] = $entry;
     include_once($g4['admin_path']."/".$entry);
