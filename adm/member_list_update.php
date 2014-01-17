@@ -34,6 +34,26 @@ for ($i=0; $i<count($chk); $i++)
     if(sql_fetch($groupSql)) {
         sql_query(" UPDATE g4_group set gr_admin = '{$_POST['mb_id'][$k]}' WHERE gr_id = 'pen_{$_POST['mb_1'][$k]}' ");
     }
+
+    // 관리자페이지 관리권한 설정
+    if($_POST['mb_1'][$k])
+    {
+        $au_menu = array('400300', '400310');
+        foreach($au_menu as $aumenu) {
+            $sql = " INSERT into $g4[auth_table]
+                        set mb_id   = '{$_POST['mb_id'][$k]}',
+                            au_menu = '$aumenu',
+                            au_auth = 'r,w,' ";
+            $result = sql_query($sql, FALSE);
+            if (!$result) {
+                $sql = " UPDATE $g4[auth_table]
+                            set au_auth = 'r,w,'
+                          where mb_id   = '{$_POST['mb_id'][$k]}'
+                            and au_menu = '$aumenu' ";
+                sql_query($sql);
+            }
+        }
+    }
 }
 
 if ($msg)
