@@ -223,11 +223,11 @@ function layer_view(link_id, menu_id, opt, x, y)
 <colgroup width=180>
 <colgroup>
 <tr bgcolor=#E3DCD2 height=70>
-	<td colspan=2 onmouseover="layer_view('','','','','')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='<?=$g4['admin_path']?>/'><!-- <img src='<?=$g4['admin_path']?>/img/logo.gif' border=0> --><strong>펜션할인사이트</strong></a></td>
+	<td colspan=2 onmouseover="layer_view('','','','','')" style='text-align:center;'><a href='<?=$g4['admin_path']?>/pen/'><strong><?=$member[mb_1]?></strong></a></td>
 	<td>
 		<?php
 		if($member[mb_level] < 7) {
-			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php?pension_id=5'>예약관리</a></li>";
+			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php?pension_id={$member[mb_1]}'>예약관리</a></li>";
 			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php'>입금현황</a></li>";
 		} else {
 			foreach($amenu as $key=>$value)

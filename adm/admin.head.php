@@ -226,7 +226,7 @@ function layer_view(link_id, menu_id, opt, x, y)
 	<td>
 		<?php
 		if($member[mb_level] < 7) {
-			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php?pension_id=5'>예약관리</a></li>";
+			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php?pension_id={$member[mb_1]}'>예약관리</a></li>";
 			echo "<li><a href='{$g4[admin_path]}/pen/pen_admin.php'>입금현황</a></li>";
 		} else {
 			foreach($amenu as $key=>$value)
