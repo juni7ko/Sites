@@ -1,4 +1,5 @@
-<?php if (!defined("_GNUBOARD_")) exit;
+<?php
+if (!defined("_GNUBOARD_")) exit;
 
 /*
 // 081022 : CSRF 방지를 위해 코드를 작성했으나 효과가 없어 주석처리 함
@@ -121,26 +122,6 @@ function get_member_level_select($name, $start_id=0, $end_id=10, $selected='', $
             $str .= " selected";
         $str .= ">$i</option>";
     }
-    $str .= "</select>";
-    return $str;
-}
-
-function get_member_pension_select($name, $selected='', $event='')
-{
-    global $g4;
-
-    $str = "<select name='$name' $event>";
-    $str .= "<option vaule=''>펜션지정</option>";
-
-    $sql = " SELECT * from g4_write_pension_info where wr_is_comment = 0 order by wr_subject asc ";
-    $result = sql_query($sql);
-    while ($row = sql_fetch_array($result)) {
-        $str .= "<option value='$row[wr_id]'";
-        if($row[wr_id] == $selected)
-            $str .= " selected";
-        $str .= ">$row[wr_subject]</option>";
-    }
-
     $str .= "</select>";
     return $str;
 }
