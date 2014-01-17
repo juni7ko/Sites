@@ -1,5 +1,5 @@
 <?php include_once ("$board_skin_path/config.php");
-if($is_admin != 'super' || $is_auth) alert("관리자만 접근이 가능합니다.");
+if($is_admin != 'super' && $member[mb_level] < 5) alert("관리자만 접근이 가능합니다.");
 if (eregi('%', $width)) {
 	$col_width = "14%"; //표의 가로 폭이 100보다 크면 픽셀값입력
 }else{
