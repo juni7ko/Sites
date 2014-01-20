@@ -23,6 +23,9 @@ switch ($mode) {
 	case 'reg' :
 		include_once ("./pen_reg.php");
 		break;
+	case 'cost' :
+		include_once ("./pen_cost.php");
+		break;
 	case 'room' :
 	case 'date' :
 	case 'off' :

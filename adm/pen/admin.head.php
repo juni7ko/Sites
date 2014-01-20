@@ -187,7 +187,7 @@ function textarea_size(fld, size)
 				<?php
 				if($member[mb_level] < 7) {
 					echo "<li><a href='{$g4[admin_path]}/pen/'>예약관리</a></li>";
-					echo "<li><a href='{$g4[admin_path]}/pen/index.php?mode=list'>입금현황</a></li>";
+					echo "<li><a href='{$g4[admin_path]}/pen/index.php?mode=cost'>입금현황</a></li>";
 				} else {
 					foreach($amenu as $key=>$value)
 					{
@@ -251,7 +251,7 @@ function textarea_size(fld, size)
 										<li><a href="./index.php?mode=option">추가옵션</a></li>
 									</ul>
 								</li>
-								<li><a href='<?=$g4[admin_path]?>/pen/index.php?mode=list'>입금현황</a></li>
+								<li><a href='<?=$g4[admin_path]?>/pen/index.php?mode=cost'>입금현황</a></li>
 							</ul>
 						</td>
 					</tr>
