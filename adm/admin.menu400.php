@@ -7,7 +7,7 @@ $menu["menu400"] = array (
     array("-"),
 	array("400300", "예약관리", "$g4[admin_path]/pen_admin.php"),
 	array("-"),
-	array("400310", "입금현황", "$g4[admin_path]/pen_admin.php?mode=cost"),
+	array("400310", "입금현황", "$g4[admin_path]/admin.stats.php"),
 );
 ?>
 

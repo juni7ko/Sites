@@ -99,7 +99,7 @@ if ($wr_id)
 
             $ss_name = "ss_secret_{$bo_table}_$write[wr_num]";
 
-            if (!$is_owner)
+            if (!$is_owner && ($member[mb_level] < 5))
             {
                 //$ss_name = "ss_secret_{$bo_table}_{$wr_id}";
                 // 한번 읽은 게시물의 번호는 세션에 저장되어 있고 같은 게시물을 읽을 경우는 다시 패스워드를 묻지 않습니다.

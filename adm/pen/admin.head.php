@@ -199,7 +199,7 @@ function textarea_size(fld, size)
 				<?php
 				if($member[mb_level] < 7) {
 					echo "<li><a href='{$g4[admin_path]}/pen/'>예약관리</a></li>";
-					echo "<li><a href='{$g4[admin_path]}/pen/index.php?mode=cost'>입금현황</a></li>";
+					echo "<li><a href='{$g4[admin_path]}/pen/admin.stats.php'>입금현황</a></li>";
 				} else {
 					foreach($amenu as $key=>$value)
 					{

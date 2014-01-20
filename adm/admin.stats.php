@@ -3,6 +3,7 @@ $sub_menu = "400310";
 include_once("./_common.php");
 include_once("./admin.head.php");
 
+$pension_info = "g4_write_pension_info";
 $room_info = "g4_write_bbs34_r_info";
 $room_base = "g4_write_bbs34";
 $room_reserv = "g4_write_bbs34";
@@ -15,8 +16,8 @@ if(!$r_year && !$r_month && !$r_day) {
 }
 
 $where =  "where  rResult = '0020' " ;
-if($member[mb_level] >= 5)
-	$where .= " and pension_id = '$member[mb_1]' ";
+if($pension_id)
+	$where .= " and pension_id = '$pension_id' ";
 
 if($r_year && $r_year != "All")	 {
 	if($r_month && $r_month != "All")	 {
@@ -85,9 +86,15 @@ while ($Data = sql_fetch_array($search_DB))   {
 	$Charge += $Data['wr_9'];
 }
 
-// 객실명 출력
-$sql_r = "SELECT r_info_id , r_info_name  from $room_info WHERE pension_id = '$member[mb_1]' order by r_info_name, r_info_id";
-$Re_rN = mysql_query($sql_r);
+if($pension_id) {
+	// 펜션을 선택했을 경우 펜션 객실명 검색
+	$sql_r = "SELECT r_info_id , r_info_name  from $room_info WHERE pension_id = '$pension_id' order by r_info_name, r_info_id";
+	$Re_rN = mysql_query($sql_r);
+}
+
+// 펜션리스트 검색
+$sql_pension = "SELECT pension_id , wr_subject  from $pension_info order by wr_num desc";
+$Re_rNP = mysql_query($sql_pension);
 ?>
 
 <style type="text/css">
@@ -119,6 +126,18 @@ $Re_rN = mysql_query($sql_r);
 	.income {color:#f00;}
 </style>
 
+<select name="pension_id" id="penID">
+	<option value="" class="penSelect"> 전체 펜션 </option>
+	<?php
+	while($rNP = mysql_fetch_row($Re_rNP)) {
+		?>
+		<option value="<?=$rNP[0]?>" id="penSelect" <?php if($pension_id == $rNP[0]){?>selected<?php }?>><?=$rNP[1]?></option>
+		<?php
+	}
+	?>
+</select>
+
+
 <!-- 날짜별검색 -->
 <TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" height="30" style="border:1px solid #AAAAAA ; background-color:#EEEEEE">
 	<FORM NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>">
@@ -131,9 +150,13 @@ $Re_rN = mysql_query($sql_r);
 				객실별
 				<select name="r_info_name">
 					<option value=""> 전체 </option>
-					<?php while($rN = mysql_fetch_row($Re_rN)) {?>
-					<option value="<?=$rN[1]?>" <?php if($r_info_name == $rN[1]){?>selected<?php }?>><?=$rN[1]?></option>
-					<?php }?>
+					<?php
+					while($rN = mysql_fetch_row($Re_rN)) {
+						?>
+						<option value="<?=$rN[1]?>" <?php if($r_info_name == $rN[1]){?>selected<?php }?>><?=$rN[1]?></option>
+						<?php
+					}
+					?>
 				</select>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				년도별 입금 현황 <select name="r_year" onChange="if(!this.selectedIndex) this.form.r_month.selectedIndex=0;dateSelect(this.value,'','')">
@@ -304,7 +327,6 @@ include_once ("./admin.tail.php");
 ?>
 
 <SCRIPT LANGUAGE="JavaScript">
-	<!--
 	function dateSelect(year , month , day) {
 		f = document.SearchForm ;
 		if(year) f.r_year.value=year.replace('년' , '') ;
@@ -314,5 +336,4 @@ include_once ("./admin.tail.php");
 		else				f.r_day.value='All' ;
 		f.submit() ;
 	}
-//-->
 </SCRIPT>
