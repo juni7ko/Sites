@@ -174,6 +174,18 @@ function textarea_size(fld, size)
 	#csshelp1 { border:0px; background:#FFFFFF; padding:6px; }
 	#csshelp2 { border:2px solid #BDBEC6; padding:0px; }
 	#csshelp3 { background:#F9F9F9; padding:6px; width:200px; color:#222222; line-height:120%; text-align:left; }
+
+	#leftMenu1 li {
+		list-style-type:none;
+		margin-left:15px;
+		line-height:25px;
+	}
+
+	#leftMenu2 li {
+		list-style-type: circle;
+		margin-left:20px;
+		line-height:25px;
+	}
 </style>
 
 <body leftmargin=0 topmargin=0>
@@ -236,12 +248,12 @@ function textarea_size(fld, size)
 			<td valign=top>
 				<table width=180 cellpadding=0 cellspacing=0>
 					<tr>
-						<td>
-							<ul>
+						<td style="padding-top:20px;">
+							<ul id="leftMenu1">
 								<li><a href='<?=$g4[admin_path]?>/pen/'>예약관리</a></li>
 								<li>
-									<ul>
-										<li><a href="./index.php?mode=reserhome">예약홈</a></li>
+									<ul id="leftMenu2">
+										<li><a href="./index.php?mode=reserhome">달력</a></li>
 										<li><a href="./index.php?mode=list">리스트</a></li>
 										<li><a href="./index.php?mode=room">객실/기본요금</a></li>
 										<li><a href="./index.php?mode=date">기간별요금</a></li>
@@ -251,10 +263,10 @@ function textarea_size(fld, size)
 										<li><a href="./index.php?mode=option">추가옵션</a></li>
 									</ul>
 								</li>
-								<li><a href='<?=$g4[admin_path]?>/pen/index.php?mode=cost'>입금현황</a></li>
+								<li><a href='<?=$g4[admin_path]?>/pen/admin.stats.php'>입금현황</a></li>
 							</ul>
 						</td>
 					</tr>
 				</table><br>
 			</td>
-			<td valign=top style='padding:10px;'>
+			<td valign=top style="margin-top: 5px;">

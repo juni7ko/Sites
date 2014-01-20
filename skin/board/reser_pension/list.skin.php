@@ -240,9 +240,11 @@ if ($view_mode == "list"){
 																$tImg = "dae.gif";
 																break;
 														}
-														echo "<div><img src='{$board_skin_path}/img_n/{$tImg}' width=11 height=11 align=absmiddle />";
+														echo "<div><img src='{$board_skin_path}/img_n/ico_home.gif' width=10 height=10 align=absmiddle />{$resData[ca_name]}</div>";
+														echo "<div style='padding-left:3px;'>&middot; ";
 														echo "<a href='$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id&wr_id={$resData[wr_id]}'>";
-														echo $resData[ca_name];
+														echo "{$resData[wr_name]}";
+														echo " <img src='{$board_skin_path}/img_n/{$tImg}' width=11 height=11 align=absmiddle />";
 														echo "</a></div>";
 													}
 

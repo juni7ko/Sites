@@ -14,7 +14,7 @@ $qstr = "fr_date=$fr_date&to_date=$to_date";
 <tr>
 		<?php if($pension_id){?>
 		<td style="color:#FFFF00;font-weight:bold;"><?php echo $write['wr_subject'] ? $write['wr_subject'] : '  등록  '; ?><!-- 기본정보 --></td>
-		<td><a href="./pen_admin.php?mode=reserhome&pension_id=<?=$pension_id?>">예약홈</a></td>
+		<td><a href="./pen_admin.php?mode=reserhome&pension_id=<?=$pension_id?>">달력</a></td>
 		<td><a href="./pen_admin.php?mode=list&pension_id=<?=$pension_id?>">리스트</a></td>
 		<td><a href="./pen_admin.php?mode=room&pension_id=<?=$pension_id?>">객실/기본요금</a></td>
 		<td><a href="./pen_admin.php?mode=date&pension_id=<?=$pension_id?>">기간별요금</a></td>

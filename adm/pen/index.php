@@ -3,7 +3,7 @@ $sub_menu = "400100";
 include_once("./_common.php");
 include_once("./admin.head.php");
 
-if(!$mode) $mode = "reg";
+if(!$mode) $mode = "reserhome";
 
 $pension_id = $member[mb_1];
 if($pension_id) {

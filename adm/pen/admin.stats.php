@@ -1,5 +1,5 @@
 <?php
-$sub_menu = "400100";
+$sub_menu = "400310";
 include_once("./_common.php");
 include_once("./admin.head.php");
 
@@ -20,13 +20,11 @@ $where =  "WHERE rResult = '0020'" ;
 if($member[mb_level] == 5)
 	$where .= " & pension_id = '$member[mb_1]' ";
 
-echo $where;
-
 if($r_year && $r_year != "All")	 {
 	if($r_month && $r_month != "All")	 {
 		if($r_day && $r_day != "All") {
 			$mode = "day";
-			$tday = $r_year.$r_month.$r_day."%";
+			$tday = $r_year.$r_month.$r_day;
 			$where = $where . " and (wr_link1 = '$tday' )" ;
 			if($r_info_name)	 $where .= " and ca_name='" . $r_info_name . "'" ;
 			$day_SQL = "SELECT * from $room_reserv  $where  order by wr_link1 asc ";
@@ -34,7 +32,7 @@ if($r_year && $r_year != "All")	 {
 		}else{
 			$mode = "month";
 			$tday = $r_year.$r_month."%";
-			$where = $where . " and (wr_link1 = '$tday' )" ;
+			$where = $where . " and (wr_link1 LIKE '$tday' )" ;
 			if($r_info_name)	 $where .= " and ca_name='" . $r_info_name . "'" ;
 			$month_SQL = "SELECT  * , count(*) as cnt , sum(wr_10) as tmoney from $room_reserv  $where  group by wr_link1 order by wr_link1 asc ";
 			$select_DB =  mysql_query($month_SQL);
@@ -42,7 +40,7 @@ if($r_year && $r_year != "All")	 {
 	}else{
 		$mode = "year";
 		$tday = $r_year."%";
-		$where = $where . " and (wr_link1 = '$tday' ) " ;
+		$where = $where . " and (wr_link1 LIKE '$tday' ) " ;
 		if($r_info_name)	 $where .= " and ca_name='" . $r_info_name . "'" ;
 		$year_SQL = "SELECT * from $room_reserv  $where   order by wr_link1 asc ";
 		$select_DB =  mysql_query($year_SQL);
@@ -55,7 +53,7 @@ if($r_year && $r_year != "All")	 {
 }
 
 $search_SQL = "SELECT * from $room_reserv  $where  order by wr_link1 asc ";  //group by ca_name
-
+echo $search_SQL;
 $search_DB =  mysql_query($search_SQL);
 
 $dayCnt = '0';
