@@ -102,11 +102,7 @@ function print_menu_pension2($key, $no)
 	$sql = " SELECT * from g4_write_pension_info where wr_is_comment = 0 order by wr_subject asc ";
 	$result = sql_query($sql);
 	while ($row = sql_fetch_array($result))
-	{
-		$str .= "<option value='{$row[wr_id]}' class='penSelectMenu' ";
-		if($pension_id == $row[wr_id]) $str .= "selected";
-		$str .= ">{$row[wr_subject]}</option>";
-	}
+		$str .= "<option value='{$row[wr_id]}' class='penSelectMenu'>{$row[wr_subject]}</option>";
 
 	$str .= "</select>";
 	$str .= "
@@ -116,9 +112,10 @@ function print_menu_pension2($key, $no)
 					uri2 = '{$_SERVER[PHP_SELF]}?pension_id='+pId;
 					$(location).attr('href',uri2);
 				});
+
+				$('select#lMenuPenId').val('{$pension_id}').attr('selected', 'selected');
 			</script>
 			";
-
 	return $str;
 }
 ?>
