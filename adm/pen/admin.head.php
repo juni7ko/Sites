@@ -241,7 +241,7 @@ function textarea_size(fld, size)
 						echo $menu["menu{$tmp_menu}"][0][1]." > ";
 				}
 				?>
-				<?=$g4['title']?> <span class=small>: <?=$member['mb_id']?>님</span>&nbsp;&nbsp;
+				<?=get_mb1_name($member[mb_1])?> <span class=small>: <?=$member['mb_id']?>님</span>&nbsp;&nbsp;
 			</td>
 		</tr>
 		<tr onmouseover="layer_view('','','','','')">
