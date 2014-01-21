@@ -69,13 +69,13 @@ function print_menu_pension($key, $no)
 			}
 			$str .= "<tr><td class=bg_menu{$no}>";
 			if ($no == 2)
-				$str .= "&nbsp;&nbsp;<img src='{$g4[admin_path]}/img/icon.gif' align=absmiddle>";
+				$str .= "&nbsp;&nbsp;<img src='{$g4[admin_path]}/img/icon.gif' align=absmiddle> ";
 			$str .= "<a href='{$menu[$key][$i][2]}' style='color:#555500;'>{$span1}{$menu[$key][$i][1]}{$span2}</a></td></tr>";
 
 			$auth_menu[$menu[$key][$i][0]] = $menu[$key][$i][1];
 		}
 	}
-
+/*
 	$str .= "<tr><td class=bg_menu{$no}>";
 	$str .= "<ul class='pen_adm_list'>";
 
@@ -87,7 +87,7 @@ function print_menu_pension($key, $no)
 	}
 
 	$str .= "</ul></div></td></tr>";
-
+*/
 	return $str;
 }
 
