@@ -1,9 +1,15 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
-if($sfl == "area_id" && $stx == "all") {
+if( $sfl == "area_id" and $stx == "all" ) {
 	$sfl = "";
 	$stx = "";
+}
+
+if( !$sop and !$sod and !$sst ) {
+	$sop = "and";
+	$sod = "asc";
+	$sst = "lowPrice";
 }
 
 // 검색 체크값을 쿼리에 더하기 시작
