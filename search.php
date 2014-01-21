@@ -17,6 +17,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 </style>
 <script src="<?=$g4[path]?>/js/support.labs.js"></script>
 <script src="<?=$g4[path]?>/js/jquery.form.js"></script>
+<form id="searchZone3" name="searchZone3" method="post" enctype="multipart/form-data" style="margin:0px;">
 <form id="searchZone1" name="searchZone1" method="post" enctype="multipart/form-data" style="margin:0px;">
 	<input type=hidden name="bo_table" value="<?=$bo_table?>" />
 	<input type=hidden name="sfl" value="area_id" />
@@ -291,12 +292,9 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 			endforeach;
 			//echo "$key = $value<br />";
 		}
-
-		if(!$_POST) {
-			echo "\$(\".orderList[value='{$sst}']\").attr('checked', true);";
-		}
 		?>
 
+		$(".orderList[value='<?=$sst?>']").attr('checked', true);
 		$("select#stx").val("<?=$stx?>").attr('selected', 'selected');
 		$("select#period").val("<?=$period?>").attr('selected', 'selected');
 		$("select#rCnt").val("<?=$rCnt?>").attr('selected', 'selected');
