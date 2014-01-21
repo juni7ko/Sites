@@ -30,15 +30,11 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 							<h4>지역</h4>
 						</th>
 						<td>
-							<select name="stx">
+							<select name="stx" id="stx">
 								<option value="all">지역선택</option>
 								<?php
 								for($i=0; $i < $area_count; $i++) {
-									if($navi_area['area_id'][$i] == $stx)
-										$chk = " selected";
-									else
-										$chk = "";
-									echo "<option value='{$navi_area['area_id'][$i]}'{$chk}>{$navi_area['area_name'][$i]}</option>";
+									echo "<option value='{$navi_area['area_id'][$i]}'>{$navi_area['area_name'][$i]}</option>";
 								}
 								?>
 							</select>
@@ -48,7 +44,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 							<h4>기간</h4>
 						</th>
 						<td>
-							<select name="period">
+							<select name="period" id="period">
 								<option vlaue="">기간선택</option>
 								<option value="1">1박2일</option>
 								<option value="2">2박3일</option>
@@ -68,7 +64,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 							<h4>객실수</h4>
 						</th>
 						<td>
-							<select name="rCnt">
+							<select name="rCnt" id="rCnt">
 								<option vlaue="">객실수선택</option>
 								<option value="1">1개</option>
 								<option value="2">2개</option>
@@ -82,7 +78,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 							<h4>화장실</h4>
 						</th>
 						<td>
-							<select name="tCnt">
+							<select name="tCnt" id="tCnt">
 								<option vlaue="">화장실수선택</option>
 								<option value="1">1개</option>
 								<option value="2">2개 이상</option>
@@ -300,6 +296,11 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 			echo "\$(\".orderList[value='{$sst}']\").attr('checked', true);";
 		}
 		?>
+
+		$("select#stx").val("<?=$stx?>").attr('selected', 'selected');
+		$("select#period").val("<?=$period?>").attr('selected', 'selected');
+		$("select#rCnt").val("<?=$rCnt?>").attr('selected', 'selected');
+		$("select#tCnt").val("<?=$tCnt?>").attr('selected', 'selected');
 
 		$.datepicker.regional['ko'] = {
 			closeText: '닫기',
