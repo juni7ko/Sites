@@ -38,7 +38,7 @@ for ($i=0; $i<count($chk); $i++)
     // 관리자페이지 관리권한 설정
     if($_POST['mb_1'][$k])
     {
-        $au_menu = array('400300', '400310');
+        $au_menu = array('300100', '400300', '400310');
         foreach($au_menu as $aumenu) {
             $sql = " INSERT into $g4[auth_table]
                         set mb_id   = '{$_POST['mb_id'][$k]}',

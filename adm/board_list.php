@@ -1,9 +1,16 @@
-<?php $sub_menu = "300100";
+<?php
+$sub_menu = "300100";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
+
+if($member[mb_level] == 5)
+{
+    $sfl = "a.gr_id";
+    $stx = "pen_" . $member[mb_1];
+}
 
 // DHTML 에디터 사용 필드 추가 : 061021
 sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_use_dhtml_editor` TINYINT NOT NULL AFTER `bo_use_secret` ", false);
@@ -27,7 +34,7 @@ if ($stx) {
         case "a.gr_id" :
             $sql_search .= " ($sfl = '$stx') ";
             break;
-        default : 
+        default :
             $sql_search .= " ($sfl like '%$stx%') ";
             break;
     }
@@ -52,7 +59,7 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if ($page == "") { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-$sql = " select * 
+$sql = " select *
           $sql_common
           $sql_search
           $sql_order
@@ -129,7 +136,7 @@ var list_delete_php = 'board_list_delete.php';
 // 스킨디렉토리
 $skin_options = "";
 $arr = get_skin_dir("board");
-for ($k=0; $k<count($arr); $k++) 
+for ($k=0; $k<count($arr); $k++)
 {
     $option = $arr[$k];
     if (strlen($option) > 10)
@@ -151,7 +158,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     // 스킨디렉토리
     $skin_options = "";
     $arr = get_skin_dir("board");
-    for ($k=0; $k<count($arr); $k++) 
+    for ($k=0; $k<count($arr); $k++)
     {
         $option = $arr[$k];
         if (strlen($option) > 10)
@@ -188,10 +195,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "<td align=left><select id=bo_skin_$i name=bo_skin[$i]>$skin_options</select></td>";
     echo "</tr>\n";
     echo "<script type='text/javascript'>document.getElementById('bo_skin_$i').value='$row[bo_skin]';</script>";
-} 
+}
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
+    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
