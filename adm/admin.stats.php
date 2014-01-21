@@ -278,7 +278,7 @@ $Re_rNP = mysql_query($sql_pension);
 
 			<tr>
 				<td><?=$no?></td>
-				<td><a href="<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1" target="_blank"><?=$pay2['wr_link1']?></a></td>
+				<td><a href="javascript:win_stats('<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1')" target="_blank"><?=$pay2['wr_link1']?></a></td>
 				<td><?=$pay2['ca_name']?></td>
 				<td><?=$pay2['wr_link1']?></td>
 				<td><?=$pay2['wr_datetime']?></td>
@@ -344,6 +344,11 @@ $Re_rNP = mysql_query($sql_pension);
 		uri2 = "<?=$_SERVER[PHP_SELF]?>?pension_id="+pId;
 		$(location).attr('href',uri2);
 	});
+
+	function win_stats(url)
+	{
+	    win_open(url, "winStats", "left=50, top=50, width=800, height=600, scrollbars=1");
+	}
 </SCRIPT>
 
 <?php

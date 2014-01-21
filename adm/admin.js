@@ -9,15 +9,15 @@ function check_all(f)
 function btn_check(f, act)
 {
     if (act == "update") // 선택수정
-    { 
+    {
         f.action = list_update_php;
         str = "수정";
-    } 
+    }
     else if (act == "delete") // 선택삭제
-    { 
+    {
         f.action = list_delete_php;
         str = "삭제";
-    } 
+    }
     else
         return;
 
@@ -30,7 +30,7 @@ function btn_check(f, act)
             bchk = true;
     }
 
-    if (!bchk) 
+    if (!bchk)
     {
         alert(str + "할 자료를 하나 이상 선택하세요.");
         return;

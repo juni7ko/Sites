@@ -251,7 +251,7 @@ $Re_rN = mysql_query($sql_r);
 
 			<tr>
 				<td><?=$no?></td>
-				<td><a href="<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1" target="_blank"><?=$pay2['wr_link1']?></a></td>
+				<td><a href="javascript:win_stats('<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1')" target="_blank"><?=$pay2['wr_link1']?></a></td>
 				<td><?=$pay2['ca_name']?></td>
 				<td><?=$pay2['wr_link1']?></td>
 				<td><?=$pay2['wr_datetime']?></td>
@@ -304,7 +304,6 @@ include_once ("./admin.tail.php");
 ?>
 
 <SCRIPT LANGUAGE="JavaScript">
-	<!--
 	function dateSelect(year , month , day) {
 		f = document.SearchForm ;
 		if(year) f.r_year.value=year.replace('년' , '') ;
@@ -314,5 +313,9 @@ include_once ("./admin.tail.php");
 		else				f.r_day.value='All' ;
 		f.submit() ;
 	}
-//-->
+
+	function win_stats(url)
+	{
+	    win_open(url, "winStats", "left=50, top=50, width=800, height=600, scrollbars=1");
+	}
 </SCRIPT>
