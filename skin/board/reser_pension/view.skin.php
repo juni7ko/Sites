@@ -27,36 +27,56 @@ include_once ("$board_skin_path/config.php");
 						<table width="100%" border=0 cellpadding=3 cellspacing=1 class="<?=$css[table]?>">
 							<tr class="ht">
 								<td class="<?=$css[tr]?>" width="100">처리상태</td>
-								<td><?php if($is_admin) { ?>
-									<SCRIPT type="text/javascript">
-									function fwrite_check(f)
-									{
-										//document.getElementById('btn_submit').disabled = true;
-										if(confirm('정말로 수정 하시겠습니다.?')) {
-											f.action = '<?=$board_skin_path?>/res_update.php';
-											f.submit();
+								<td>
+									<?php
+									if($is_admin) {
+										?>
+										<SCRIPT type="text/javascript">
+											function fwrite_check(f)
+											{
+												if(confirm('정말로 수정 하시겠습니다.?'))
+												{
+													f.action = '<?=$board_skin_path?>/res_update.php';
+													f.submit();
+												}
+											}
+										</SCRIPT>
+										<form name="fwrite" method="post" enctype="multipart/form-data" style="margin:0px; padding:0px;">
+											<input type=hidden name=null />
+											<input type=hidden name=bo_table value="<?=$bo_table?>" />
+											<input type=hidden name=wr_id value="<?=$wr_id?>" />
+											<input type=hidden name=wr_3 value='<?=$view[wr_3]?>' />
+											<input type=hidden name=wr_link1 value='<?=$view[wr_link1]?>' />
+											<input type=hidden name=pension_id value='<?=$pension_id?>' />
+											<select name=rResult itemname="처리진행상황">
+												<option value="0010"<?=($view[rResult] == "0010" ? " selected":"")?>>예약대기</option>
+												<option value="0020"<?=($view[rResult] == "0020" ? " selected":"")?>>예약완료</option>
+												<option value="0030"<?=($view[rResult] == "0030" ? " selected":"")?>>예약취소</option>
+												<option value="0040"<?=($view[rResult] == "0040" ? " selected":"")?>>관리자예약</option>
+											</select>
+											<input type=image id="btn_submit" src="<?=$board_skin_path?>/img/btn_wr_9.gif" border=0 accesskey='s' align="absmiddle" onClick="javascript:fwrite_check(document.fwrite);"/>
+										</form>
+										<?php
+									} else {
+										switch ($view[rResult]) {
+											case '0010':
+											$rResult = "예약대기";
+											break;
+											case '0020' :
+											$rResult = "예약완료";
+											break;
+											case '0030' :
+											$rResult = "예약취소";
+											case '0040' :
+											$rResult = "관리자예약";
+											break;
+											default:
+											$rResult = "예약대기";
+											break;
 										}
-										//document.getElementById('btn_submit').disabled = false;
+										echo "<font color=red>{$rResult}</font>";
 									}
-									</SCRIPT>
-									<form name="fwrite" method="post" enctype="multipart/form-data" style="margin:0px; padding:0px;">
-										<input type=hidden name=null />
-										<input type=hidden name=bo_table value="<?=$bo_table?>" />
-										<input type=hidden name=wr_id value="<?=$wr_id?>" />
-										<input type=hidden name=wr_3 value='<?=$view[wr_3]?>' />
-										<input type=hidden name=wr_link1 value='<?=$view[wr_link1]?>' />
-										<input type=hidden name=pension_id value='<?=$pension_id?>' />
-										<select name=rResult itemname="처리진행상황">
-											<option value="0010"<?=($view[rResult] == "0010" ? " selected":"")?>>예약대기</option>
-											<option value="0020"<?=($view[rResult] == "0020" ? " selected":"")?>>예약완료</option>
-											<option value="0030"<?=($view[rResult] == "0030" ? " selected":"")?>>예약취소</option>
-											<option value="0040"<?=($view[rResult] == "0040" ? " selected":"")?>>관리자예약</option>
-										</select>
-										<input type=image id="btn_submit" src="<?=$board_skin_path?>/img/btn_wr_9.gif" border=0 accesskey='s' align="absmiddle" onClick="javascript:fwrite_check(document.fwrite);"/>
-									</form>
-									<?php } else { ?>
-										<font color=red><?=get_payMent($view[rResult])?></font>
-									<?php } ?>
+									?>
 								</td>
 							</tr>
 							<tr>
@@ -77,43 +97,36 @@ include_once ("$board_skin_path/config.php");
 											</tr>
 										</thead>
 										<tbody>
+											<?php
+											$query = " SELECT * from $write_table WHERE wr_3 = '$view[wr_3]' AND wr_name = '$view[wr_name]' ORDER BY wr_link1 ASC ";
+											$resultList = sql_query($query);
 
-<?php
-	$query = " SELECT * from $write_table WHERE wr_3 = '$view[wr_3]' AND wr_name = '$view[wr_name]' ORDER BY wr_link1 ASC ";
-	$resultList = sql_query($query);
-
-	for ($i=0; $rList = sql_fetch_array($resultList); $i++)
-	{
-		$rList2[$i] = getRoomName($rList['r_info_id']);
-		$rList2['wr_name'] = $rList['wr_name'];
-		$rList2['wr_10'] = $rList['wr_10'];
-		$rList2['wr_2'] = $rList['wr_2'];
-		$rList2['wr_8'] = $rList['wr_8']
-	?>
-											<tr>
-												<td class="first"><?=$rList2[$i][r_info_name]?></td>
-												<td><?=$rList2[$i][r_info_person1]?>명/<?=$rList2[$i][r_info_person2]?>명</td>
-												<td><span class="highlight-pink"><?=date("Y-m-d", $rList['wr_link2']);?>(<?=GetDateWeek(date("w", $rList['wr_link2']))?>)</span></td>
-												<td>
-													<?=$rList['person1']?> 명
-												</td>
-												<td>
-													<?=$rList['person2']?> 명
-												</td>
-												<td>
-													<?=$rList['person3']?> 명
-												</td>
-												<td><?=$rList['costType']?></td>
-												<td>
-													<div>기본가 <?=number_format($rList['cost1'])?>원</div>
-													<?php if($rList['cost2']) { ?><div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($rList['cost2'])?>원</div><?php } ?>
-													<?php if($rList['overCount']) { ?><div><span class="highlight-blue">추가인원 <?=$rList['overCount']?> +</span> <?=number_format($rList['overCost'])?>원</div><?php } ?>
-												</td>
-												<td class="last"><?=number_format($rList['cost3'] + $rList['overCost'])?>원</td>
-											</tr>
-<?php
-	}
-?>
+											for ($i=0; $rList = sql_fetch_array($resultList); $i++)
+											{
+												$rList2[$i] = getRoomName($rList['r_info_id']);
+												$rList2['wr_name'] = $rList['wr_name'];
+												$rList2['wr_10'] = $rList['wr_10'];
+												$rList2['wr_2'] = $rList['wr_2'];
+												$rList2['wr_8'] = $rList['wr_8']
+												?>
+												<tr>
+													<td class="first"><?=$rList2[$i][r_info_name]?></td>
+													<td><?=$rList2[$i][r_info_person1]?>명/<?=$rList2[$i][r_info_person2]?>명</td>
+													<td><span class="highlight-pink"><?=date("Y-m-d", $rList['wr_link2']);?>(<?=GetDateWeek(date("w", $rList['wr_link2']))?>)</span></td>
+													<td><?=$rList['person1']?> 명</td>
+													<td><?=$rList['person2']?> 명</td>
+													<td><?=$rList['person3']?> 명</td>
+													<td><?=$rList['costType']?></td>
+													<td>
+														<div>기본가 <?=number_format($rList['cost1'])?>원</div>
+														<?php if($rList['cost2']) { ?><div><span class="highlight-blue">기본 객실할인</span> - <?=number_format($rList['cost2'])?>원</div><?php } ?>
+														<?php if($rList['overCount']) { ?><div><span class="highlight-blue">추가인원 <?=$rList['overCount']?> +</span> <?=number_format($rList['overCost'])?>원</div><?php } ?>
+													</td>
+													<td class="last"><?=number_format($rList['cost3'] + $rList['overCost'])?>원</td>
+												</tr>
+												<?php
+											}
+											?>
 										</tbody>
 									</table>
 								</td>
@@ -154,34 +167,42 @@ include_once ("$board_skin_path/config.php");
 								<td class="<?=$css[tr]?>">추 가 사 항</td>
 								<td><span class=content>
 									<?=$view[content];?>
-									</span></td>
+								</span></td>
 							</tr>
 						</TABLE>
-
-
-						<?php include_once ("./view_comment.php");
-?>
+						<?php include_once ("./view_comment.php"); ?>
 						<!-- 링크 -->
 						<table width=100% align=center border=0 cellpadding=3 cellspacing=0>
 							<tr>
-								<td height=25><?php if ($search_href) { echo "<a href=\"{$search_href}&view_mode=list\"><img src='$board_skin_path/img/searchlist.gif' border=0 alt='검색목록'></a>"; } ?>
-<?php if($is_admin) {
-	echo "<a href=\"{$list_href}&view_mode=list\"><img src='$board_skin_path/img/list.gif' border=0 alt='목록'></a>";
-} else {
-	echo "<a href=\"{$list_href}\">완료</a>";
-}
+								<td height=25>
+									<?php
+									if(!$ap)
+									{
+										if ($search_href) { echo "<a href=\"{$search_href}&view_mode=list\"><img src='$board_skin_path/img/searchlist.gif' border=0 alt='검색목록'></a>"; }
+										if($is_admin)
+										{
+											echo "<a href=\"{$list_href}&view_mode=list\"><img src='$board_skin_path/img/list.gif' border=0 alt='목록'></a>";
+										} else {
+											echo "<a href=\"{$list_href}\">완료</a>";
+										}
 
-// if ($write_href) { echo "<a href=\"$write_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/write.gif' border=0 alt='글쓰기'></a>"; }
-//if ($reply_href && $admin_href) { echo "<a href=\"$reply_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/reply.gif' border=0 alt='답변'></a>"; }
+										// if ($write_href) { echo "<a href=\"$write_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/write.gif' border=0 alt='글쓰기'></a>"; }
+										//if ($reply_href && $admin_href) { echo "<a href=\"$reply_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/reply.gif' border=0 alt='답변'></a>"; }
 
-//if ($update_href && $admin_href) { echo "<a href=\"res_modify.php?bo_table={$bo_table}&wr_id={$wr_id}&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
-//if ($update_href && $admin_href) { echo "<a href=\"$update_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
-if ($delete2_href && $admin_href) { echo "<a href=\"$delete2_href\"><img src='$board_skin_path/img/delete.gif' border=0 alt='삭제'></a>"; }
-?></td>
+										//if ($update_href && $admin_href) { echo "<a href=\"res_modify.php?bo_table={$bo_table}&wr_id={$wr_id}&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
+										//if ($update_href && $admin_href) { echo "<a href=\"$update_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
+										if ($delete2_href && $admin_href) { echo "<a href=\"$delete2_href\"><img src='$board_skin_path/img/delete.gif' border=0 alt='삭제'></a>"; }
+									} else {
+										echo "<button onClick='window.close()'> 닫기 </button>";
+									}
+									?>
+								</td>
 							</tr>
-						</table></TD>
+						</table>
+					</TD>
 				</TR>
-			</TABLE></td>
+			</TABLE>
+		</td>
 	</tr>
 	<tr>
 		<td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) left bottom;"></td>
