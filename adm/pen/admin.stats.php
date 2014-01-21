@@ -251,7 +251,7 @@ $Re_rN = mysql_query($sql_r);
 
 			<tr>
 				<td><?=$no?></td>
-				<td><a href="<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>" target="_blank"><?=$pay2['wr_link1']?></a></td>
+				<td><a href="<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1" target="_blank"><?=$pay2['wr_link1']?></a></td>
 				<td><?=$pay2['ca_name']?></td>
 				<td><?=$pay2['wr_link1']?></td>
 				<td><?=$pay2['wr_datetime']?></td>

@@ -90,10 +90,13 @@ if($pension_id) {
 	// 펜션을 선택했을 경우 펜션 객실명 검색
 	$sql_r = "SELECT r_info_id , r_info_name  from $room_info WHERE pension_id = '$pension_id' order by r_info_name, r_info_id";
 	$Re_rN = mysql_query($sql_r);
+} else {
+	$sql_r = "SELECT r_info_id , r_info_name  from $room_info order by pension_id, r_info_name";
+	$Re_rN = mysql_query($sql_r);
 }
 
 // 펜션리스트 검색
-$sql_pension = "SELECT pension_id , wr_subject  from $pension_info order by wr_num desc";
+$sql_pension = "SELECT pension_id , wr_subject  from $pension_info order by wr_subject asc";
 $Re_rNP = mysql_query($sql_pension);
 ?>
 
@@ -140,9 +143,10 @@ $Re_rNP = mysql_query($sql_pension);
 
 <!-- 날짜별검색 -->
 <TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" height="30" style="border:1px solid #AAAAAA ; background-color:#EEEEEE">
-	<FORM NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>">
-		<input type="hidden" name="url" value="<?=$url?>">
-		<input type="hidden" name="pTitle" value="<?=$pTitle?>">
+	<FORM NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>" />
+		<input type="hidden" name="url" value="<?=$url?>" />
+		<input type="hidden" name="pTitle" value="<?=$pTitle?>" />
+		<input type="hidden" name="pension_id" value="<?=$pension_id?>" />
 
 		<TR>
 			<TD align="center">
@@ -274,7 +278,7 @@ $Re_rNP = mysql_query($sql_pension);
 
 			<tr>
 				<td><?=$no?></td>
-				<td><a href="<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>" target="_blank"><?=$pay2['wr_link1']?></a></td>
+				<td><a href="<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1" target="_blank"><?=$pay2['wr_link1']?></a></td>
 				<td><?=$pay2['ca_name']?></td>
 				<td><?=$pay2['wr_link1']?></td>
 				<td><?=$pay2['wr_datetime']?></td>
@@ -322,18 +326,26 @@ $Re_rNP = mysql_query($sql_pension);
 
 </table>
 
-<?php
-include_once ("./admin.tail.php");
-?>
-
 <SCRIPT LANGUAGE="JavaScript">
 	function dateSelect(year , month , day) {
 		f = document.SearchForm ;
 		if(year) f.r_year.value=year.replace('년' , '') ;
 		if(month) f.r_month.value=month ;
-		else				f.r_month.value='All' ;
+		else f.r_month.value='All' ;
 		if(day) f.r_day.value=day ;
-		else				f.r_day.value='All' ;
+		else f.r_day.value='All' ;
 		f.submit() ;
 	}
+
+	$("#penID").change(function() {
+		//alert($(this).val());
+		//alert($(this).children("option:selected").text());
+		pId = $(this).val();
+		uri2 = "<?=$_SERVER[PHP_SELF]?>?pension_id="+pId;
+		$(location).attr('href',uri2);
+	});
 </SCRIPT>
+
+<?php
+include_once ("./admin.tail.php");
+?>
