@@ -29,7 +29,7 @@ include_once ("$board_skin_path/config.php");
 								<td class="<?=$css[tr]?>" width="100">처리상태</td>
 								<td>
 									<?php
-									if($is_admin) {
+									if( $is_admin || ($member[mb_level] > 4) ) {
 										?>
 										<SCRIPT type="text/javascript">
 											function fwrite_check(f)
@@ -179,7 +179,7 @@ include_once ("$board_skin_path/config.php");
 									if(!$ap)
 									{
 										if ($search_href) { echo "<a href=\"{$search_href}&view_mode=list\"><img src='$board_skin_path/img/searchlist.gif' border=0 alt='검색목록'></a>"; }
-										if($is_admin)
+										if( $is_admin || ($member[mb_level] > 4) )
 										{
 											echo "<a href=\"{$list_href}&view_mode=list\"><img src='$board_skin_path/img/list.gif' border=0 alt='목록'></a>";
 										} else {
@@ -191,7 +191,7 @@ include_once ("$board_skin_path/config.php");
 
 										//if ($update_href && $admin_href) { echo "<a href=\"res_modify.php?bo_table={$bo_table}&wr_id={$wr_id}&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
 										//if ($update_href && $admin_href) { echo "<a href=\"$update_href&sca=$view[ca_name]\"><img src='$board_skin_path/img/edit.gif' border=0 alt='수정'></a>"; }
-										if ($delete2_href && $admin_href) { echo "<a href=\"$delete2_href\"><img src='$board_skin_path/img/delete.gif' border=0 alt='삭제'></a>"; }
+										if ($delete2_href && ( $admin_href  || ($member[mb_level] > 4) ) ) { echo "<a href=\"$delete2_href\"><img src='$board_skin_path/img/delete.gif' border=0 alt='삭제'></a>"; }
 									} else {
 										echo "<button onClick='window.close()'> 닫기 </button>";
 									}
