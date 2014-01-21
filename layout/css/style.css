@@ -894,6 +894,7 @@
 		color: #fff;
 		background: #f02a5b;
 		font-weight: bold;
+		cursor: pointer;
 	}
 
 		.detail-gallery-area .gallery-view-btn .btn:hover {
@@ -914,15 +915,18 @@
 
 		.detail-search-area .btn1 {
 			background: #71cf97;
+			cursor: pointer;
 		}
 
 		.detail-search-area .btn2 {
 			background: #51c3ca;
+			cursor: pointer;
 		}
 
 
 		.detail-search-area a[class*="btn"]:hover {
 			background: #333;
+			cursor: pointer;
 		}
 
 
@@ -949,14 +953,17 @@
 		text-align: center;
 		text-decoration: none;
 		font-weight: bold;
+		cursor: pointer;
 	}
 
 	.detail-pension-info .pension-info-btn .cart-add .btn {
 		background: #71cf97;
+		cursor: pointer;
 	}
 
 	.detail-pension-info .pension-info-btn .fav-add .btn {
 		background: #51c3ca;
+		cursor: pointer;
 	}
 
 	.detail-pension-info .pension-info-btn .cart-add .btn:hover,
