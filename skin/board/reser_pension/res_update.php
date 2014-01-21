@@ -2,7 +2,7 @@
 include_once "_common.php";
 include_once "$g4[path]/head.sub.php";
 
-if($is_admin) {
+if( $is_admin || ($member[mb_level]  > 4) ) {
 	sql_query(" UPDATE $write_table set rResult = '$rResult' where wr_id = '$wr_id' ");
 	sql_query(" UPDATE $write_table SET rResult = '$rResult' WHERE wr_3 = '$wr_3' ");
 
@@ -30,7 +30,7 @@ if($is_admin) {
 
 		if($g4['sms']){
 			$msender = $g4['sms'];
-		}else{
+		} else {
 			$msender = "01096968112";
 		}
 
@@ -43,13 +43,13 @@ if($is_admin) {
 		if($result['result'] == 'OK')
 		{
 			echo "전송 성공";
-		}else {
+		} else {
 			echo "전송실패<br>";
 			echo "실패원인:". $result['MSG'];
 		}
 	}
 
-	alert("수정되었습니다.","$g4[bbs_path]/board.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id");
+	alert("수정되었습니다.","$g4[bbs_path]/resList.php?bo_table=$bo_table&pension_id=$pension_id&wr_id=$wr_id");
 }
 
 function GetResultFromURL($url)
