@@ -1,17 +1,17 @@
-<?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+<?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 if (!$board[bo_1])
-	$img_width = 120;
+    $img_width = 120;
 else
-	$img_width = $board[bo_1]; //alert("게시판 설정 : 여분 필드 1 에 목록에서 보여질 이미지의 가로사이즈를 설정하십시오. (예)120)"); //120
+    $img_width = $board[bo_1]; //alert("게시판 설정 : 여분 필드 1 에 목록에서 보여질 이미지의 가로사이즈를 설정하십시오. (예)120)"); //120
 if (!$board[bo_2])
-	$img_height = 90;
+    $img_height = 90;
 else
-	$img_height = $board[bo_2]; //alert("게시판 설정 : 여분 필드 2 에 목록에서 보여질 이미지의 세로사이즈를 비율로 설정하십시오. (예)150)"); //80
+    $img_height = $board[bo_2]; //alert("게시판 설정 : 여분 필드 2 에 목록에서 보여질 이미지의 세로사이즈를 비율로 설정하십시오. (예)150)"); //80
 if (!$board[bo_3])
-	$img_quality = 95;
+    $img_quality = 95;
 else
-	$img_quality = $board[bo_3]; //alert("게시판 설정 : 여분 필드 9 에 목록에서 보여질 이미지의 질(quality)을 비율로 설정하십시오. (100 이하)"); //100
+    $img_quality = $board[bo_3]; //alert("게시판 설정 : 여분 필드 9 에 목록에서 보여질 이미지의 질(quality)을 비율로 설정하십시오. (100 이하)"); //100
 if (!function_exists("imagecopyresampled")) alert("GD 2.0.1 이상 버전이 설치되어 있어야 사용할 수 있는 갤러리 게시판 입니다.");
 
 $data_path = $g4[path]."/data/file/$bo_table";
@@ -37,7 +37,7 @@ if ($is_nogood) $colspan++;
 <script type="text/javascript">
 function view_photo(img_url,wr)
 {
-	window.open("<?=$board_skin_path?>/imgOpen.php?bo_table=<?=$bo_table?>&wr_id=" + wr + "&img_url=" + img_url, "photo", "toolbar=no, location=no, directories=no,status=no, menubar=no, scrollbars=no, resizable=yes");
+    window.open("<?=$board_skin_path?>/imgOpen.php?bo_table=<?=$bo_table?>&wr_id=" + wr + "&img_url=" + img_url, "photo", "toolbar=no, location=no, directories=no,status=no, menubar=no, scrollbars=no, resizable=yes");
 }
 //onClick=\"view_photo('{$photo_view}','{$list[$i][wr_id]}');\"
 </script>
@@ -114,42 +114,42 @@ function view_photo(img_url,wr)
                 $dst = imagecreatetruecolor($img_width, $img_height);
             imagecopyresampled($dst, $src, 0, 0, 0, 0, $img_width, $height, $size[0], $size[1]);
             //imagepng($dst, $thumb_path.'/'.$list[$i][wr_id], $img_quality);
-						imagejpeg($dst, $thumb_path.'/'.$list[$i][wr_id], $img_quality);
+                        imagejpeg($dst, $thumb_path.'/'.$list[$i][wr_id], $img_quality);
             chmod($thumb_path.'/'.$list[$i][wr_id], 0606);
         }
     }
 
     if (file_exists($thumb))
         $img = "<img src='$thumb' border=0 style='border:1px solid #CCCCCC; padding:3px;'>";
-		else
-			if(preg_match("/\.(swf|wma|asf)$/i","$file") && file_exists($file))
-				{ $img = "<script>doc_write(flash_movie('$file', 'flash$i', '$img_width', '$img_height', 'transparent'));</script>"; }
+        else
+            if(preg_match("/\.(swf|wma|asf)$/i","$file") && file_exists($file))
+                { $img = "<script>doc_write(flash_movie('$file', 'flash$i', '$img_width', '$img_height', 'transparent'));</script>"; }
 ?>
 <!--<tr align=center> -->
         <?php if ($i && $i%$mod==0)
-					echo "</tr><tr align=center>";
-						
-				echo "<td width='{$td_width}%' valign=top align=center style='word-break:break-all;'>";
-				echo "<table width='98%' border='0' cellspacing='0' cellpadding='0' style='margin-top:10px;'>";
-				echo "<tr><td height='90' align='center' valign='middle'><div style='width:{$img_width}px; height:{$img_height}px; padding:4px; border:solid 1px #CCC;' align=center><a href='{$list[$i][href]}'>$img</a></div></td></tr>";
-				echo "<tr><td height='5'></td></tr>";
-				echo "<td height='20' align='center'>";
-				if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><?php }
-        if ($is_category && $list[$i][ca_name]) { 
+                    echo "</tr><tr align=center>";
+
+                echo "<td width='{$td_width}%' valign=top align=center style='word-break:break-all;'>";
+                echo "<table width='98%' border='0' cellspacing='0' cellpadding='0' style='margin-top:10px;'>";
+                echo "<tr><td height='90' align='center' valign='middle'><div style='width:{$img_width}px; height:{$img_height}px; padding:4px; border:solid 1px #CCC;' align=center><a href='{$list[$i][href]}'>$img</a></div></td></tr>";
+                echo "<tr><td height='5'></td></tr>";
+                echo "<td height='20' align='center'>";
+                if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><?php }
+        if ($is_category && $list[$i][ca_name]) {
             echo "<span class=small><font color=gray>[<a href='{$list[$i][ca_name_href]}'>{$list[$i][ca_name]}</a>]</font></span> ";
         }
         echo "<a href='{$list[$i][href]}' $style>";
         echo $list[$i][subject];
         echo "</a>";
-				echo "</td></tr></table>";
-				echo "</td>\n";
-				/*
-				echo "<div style='clear:both'>";
+                echo "</td></tr></table>";
+                echo "</td>\n";
+                /*
+                echo "<div style='clear:both'>";
         echo "<div style='padding:5px;'><a href='{$list[$i][href]}'>$img</a></div>";
-				echo "<div style='padding-top:5px; text-align:center;'>";
+                echo "<div style='padding-top:5px; text-align:center;'>";
         echo $nobr_begin;
-				if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><?php }
-        if ($is_category && $list[$i][ca_name]) { 
+                if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><?php }
+        if ($is_category && $list[$i][ca_name]) {
             echo "<span class=small><font color=gray>[<a href='{$list[$i][ca_name_href]}'>{$list[$i][ca_name]}</a>]</font></span> ";
         }
         $style = "";
@@ -159,12 +159,12 @@ function view_photo(img_url,wr)
         echo $list[$i][subject];
         echo "</a>";
 
-        if ($list[$i][comment_cnt]) 
+        if ($list[$i][comment_cnt])
             echo " <a href=\"{$list[$i][comment_href]}\"><span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>{$list[$i][comment_cnt]}</span></a>";
 
         echo $nobr_end;
-				echo "</div></div>";
-				*/
+                echo "</div></div>";
+                */
 }
 // 나머지 td
 $cnt = $i%$mod;
@@ -247,7 +247,7 @@ if ('<?=$sca?>') document.fcategory.sca.value = '<?=$sca?>';
 if ('<?=$stx?>') {
     document.fsearch.sfl.value = '<?=$sfl?>';
 
-    if ('<?=$sop?>' == 'and') 
+    if ('<?=$sop?>' == 'and')
         document.fsearch.sop[0].checked = true;
 
     if ('<?=$sop?>' == 'or')
@@ -307,7 +307,7 @@ function select_copy(sw) {
         str = "복사";
     else
         str = "이동";
-                       
+
     if (!check_confirm(str))
         return;
 
