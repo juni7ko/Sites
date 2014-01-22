@@ -24,14 +24,14 @@ if($r_year && $r_year != "All")	 {
 			$mode = "day";
 			$tday = $r_year.$r_month.$r_day."%";
 			$where = $where . " and (wr_link1 like '$tday' )" ;
-			if($r_info_name)	 $where .= " and ca_name='" . $r_info_name . "'" ;
+			if($r_info_id)	 $where .= " and r_info_id = '" . $r_info_id . "'" ;
 			$day_SQL = "SELECT * from $room_reserv $where order by wr_link1 asc ";
 			$select_DB =  mysql_query($day_SQL);
 		}else{
 			$mode = "month";
 			$tday = $r_year.$r_month."%";
 			$where = $where . " and (wr_link1 like '$tday' )" ;
-			if($r_info_name)	 $where .= " and ca_name='" . $r_info_name . "'" ;
+			if($r_info_id)	 $where .= " and r_info_id = '" . $r_info_id . "'" ;
 			$month_SQL = "SELECT * , count(*) as cnt, sum(wr_9) as tmoney from $room_reserv $where group by wr_link1 order by wr_link1 asc ";
 			$select_DB =  mysql_query($month_SQL);
 		}
@@ -39,13 +39,13 @@ if($r_year && $r_year != "All")	 {
 		$mode = "year";
 		$tday = $r_year."%";
 		$where = $where . " and (wr_link1 like '$tday' ) " ;
-		if($r_info_name) $where .= " and ca_name='" . $r_info_name . "'" ;
+		if($r_info_id) $where .= " and r_info_id = '" . $r_info_id . "'" ;
 		$year_SQL = "SELECT * from $room_reserv $where order by wr_link1 asc ";
 		$select_DB =  mysql_query($year_SQL);
 	}
 }else{
 	$mode = "all";
-	if($r_info_name)	 $where .= " and ca_name='" . $r_info_name . "'" ;
+	if($r_info_id)	 $where .= " and r_info_id = '" . $r_info_id . "'" ;
 	$all_SQL = "SELECT * from $room_reserv  $where   order by wr_link1 asc ";
 	$select_DB =  mysql_query($all_SQL);
 }
@@ -129,52 +129,37 @@ $Re_rN = mysql_query($sql_r);
 			<TD align="center">
 				<input type="button" value="이번달 " class="btn_black" onclick="dateSelect('<?=date('Y')?>','<?=date('m')?>','')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				객실별
-				<select name="r_info_name">
+				<select name="r_info_id" id="r_info_id">
 					<option value=""> 전체 </option>
 					<?php while($rN = mysql_fetch_row($Re_rN)) {?>
-					<option value="<?=$rN[1]?>" <?php if($r_info_name == $rN[1]){?>selected<?php }?>><?=$rN[1]?></option>
+					<option value="<?=$rN[0]?>"><?=$rN[1]?></option>
 					<?php }?>
 				</select>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				년도별 입금 현황 <select name="r_year" onChange="if(!this.selectedIndex) this.form.r_month.selectedIndex=0;dateSelect(this.value,'','')">
+				년도별 입금 현황 <select name="r_year" id="r_year" onChange="if(!this.selectedIndex) this.form.r_month.selectedIndex=0;dateSelect(this.value,'','')">
 				<option value="All" <?php if($r_year == "All") echo "selected";?>>전체</option>
 				<?php
 				for($Y=2013 ;$Y<(date("Y") + 2);$Y++){
-					echo "<option value='$Y'".(($Y == $r_year)?"selected":"").">$Y</option>";
+					echo "<option value='$Y'>$Y</option>";
 				}?>
 			</select>
 			년
-			<select name="r_month" onChange="if(!this.form.r_year.selectedIndex) this.selectedIndex=0;dateSelect('<?=$r_year?>',this.value,'')">
+			<select name="r_month" id="r_month" onChange="if(!this.form.r_year.selectedIndex) this.selectedIndex=0;dateSelect('<?=$r_year?>',this.value,'')">
 				<option value="All"> 전체 </option>
 				<?php
 				for($i=101;$i<=112;$i++){
-
 					$M = substr($i , -2) ;
-
-					if($M == $r_month){
-						$select="selected";
-					}else{
-						$select="";
-					}
-					echo "<option value='$M' $select>$M</option>";
+					echo "<option value='$M'>$M</option>";
 
 				}?>
 			</select>
 			월
-			<select name="r_day" onChange="if(!this.form.r_month.selectedIndex) this.selectedIndex=0;submit();">
+			<select name="r_day" id="r_day" onChange="if(!this.form.r_month.selectedIndex) this.selectedIndex=0;submit();">
 				<option value="All"> 전체 </option>
 				<?php
 				for($i=101;$i<=131;$i++){
-
 					$D = substr($i , -2) ;
-
-					if($D == $r_day){
-						$select="selected";
-					}else{
-						$select="";
-					}
-					echo "<option value='$D' $select>$D</option>";
-
+					echo "<option value='$D'>$D</option>";
 				}?>
 			</select>
 			일
@@ -308,9 +293,9 @@ include_once ("./admin.tail.php");
 		f = document.SearchForm ;
 		if(year) f.r_year.value=year.replace('년' , '') ;
 		if(month) f.r_month.value=month ;
-		else				f.r_month.value='All' ;
+		else f.r_month.value='All' ;
 		if(day) f.r_day.value=day ;
-		else				f.r_day.value='All' ;
+		else f.r_day.value='All' ;
 		f.submit() ;
 	}
 
@@ -318,4 +303,9 @@ include_once ("./admin.tail.php");
 	{
 	    win_open(url, "winStats", "left=50, top=50, width=800, height=600, scrollbars=1");
 	}
+
+	$("select#r_info_id").val('<?=$r_info_id?>').attr('selected','selected');
+	$("select#r_year").val('<?=$r_year?>').attr('selected','selected');
+	$("select#r_month").val('<?=$r_month?>').attr('selected','selected');
+	$("select#r_day").val('<?=$r_day?>').attr('selected','selected');
 </SCRIPT>
