@@ -17,7 +17,6 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 </style>
 <script src="<?=$g4[path]?>/js/support.labs.js"></script>
 <script src="<?=$g4[path]?>/js/jquery.form.js"></script>
-<form id="searchZone3" name="searchZone3" method="post" enctype="multipart/form-data" style="margin:0px;">
 <form id="searchZone1" name="searchZone1" method="post" enctype="multipart/form-data" style="margin:0px;">
 	<input type=hidden name="bo_table" value="<?=$bo_table?>" />
 	<input type=hidden name="sfl" value="area_id" />
@@ -221,7 +220,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 		<div class="container">
 			<div class="powersearch-btn-area">
 				<a id="searchBtn2" style="cursor:pointer;">펜 션 검 색</a>
-				<a id="searchBtn3" style="cursor:pointer;">조건 되돌리기</a>
+				<a id="searchBtn3" style="cursor:pointer;">빈 방 검 색</a>
 			</div>
 		</div>
 
@@ -346,6 +345,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	});
 
 	$('#searchBtn3').click(function(){
-		$('#searchZone2').resetForm();
+		//$('#searchZone2').resetForm();
+		$('#searchZone3').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
 	});
 </script>
