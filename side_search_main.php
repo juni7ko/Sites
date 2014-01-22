@@ -9,6 +9,7 @@
 					.ui-datepicker select.ui-datepicker-month,
 					.ui-datepicker select.ui-datepicker-year { width: 70px;}
 					.ui-datepicker-trigger { margin:0 0 -5px 2px; }
+					#searchBtn1 { cursor: pointer; }
 					</style>
 					<?php
 					$area_sql = "SELECT * from ci_area order by area_no desc ";
