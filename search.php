@@ -95,24 +95,10 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 		</div><!-- ./container -->
 	</div>
 	<!-- ./sub-search-bar -->
-</form>
-
-<form id="searchZone2" name="searchZone2" method="post" enctype="multipart/form-data" style="margin:0px;">
-	<input type=hidden name="bo_table" value="<?=$bo_table?>" />
-	<input type=hidden name="sfl" value="area_id" />
 	<div id="section" class="section-powersearch">
 		<div class="container">
 			<table>
-				<tr>
-					<th>지역</th>
-					<td>
-						<label><input type="radio" name="stx" class="stx" value="all" />전지역</label>
-						<?php
-						for($i=0; $i < $area_count; $i++)
-							echo "<label><input type='radio' name='stx' class='stx' value='{$navi_area['area_id'][$i]}' />{$navi_area['area_name'][$i]}</label>";
-						?>
-					</td>
-				</tr>
+
 
 				<tr class="disnone">
 					<th>인기지역</th>
@@ -240,6 +226,9 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 					<label><input type="radio" name="orderList" class="orderList" value="resCount" />예약순</label>
 					<label><input type="radio" name="orderList" class="orderList" value="wr_hit" />조회순</label>
 					<label><input type="radio" name="orderList" class="orderList" value="highPrice" />고가순</label>
+					<input type="hidden" name="sop" value="<?=$sop?>" />
+					<input type="hidden" name="sod" value="<?=$sod?>" />
+					<input type="hidden" name="sst" value="<?=$sst?>" />
 				</div>
 			</div>
 		</div>
@@ -270,9 +259,13 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 				sod = "asc";
 				break;
 			}
+			$(":input[name='sod']").val(sod);
+			$(":input[name='sst']").val(sst);
+			$(":input[name='sop']").val('and');
 			//uri = "<?=$_SERVER[PHP_SELF]?>?bo_table=pension_info&sfl=area_id&stx=<?=$stx?>&sop=and&sod="+sod+"&sst="+sst+"&page=<?=$page?>";
 			//$(location).attr('href',uri);
-			$('#searchZone2').attr('action','<?=$_SERVER[PHP_SELF]?>?sop=and&sod='+sod+'&sst='+sst+'&page=<?=$page?>').submit();
+			//$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?sop=and&sod='+sod+'&sst='+sst+'&page=<?=$page?>').submit();
+			$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?page=<?=$page?>').submit();
 		});
 
 		//$(".orderList[value=<?=$sst?>]").attr('checked',true);
@@ -286,8 +279,8 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 					echo "\$(\":input[name='{$key}']\").attr('checked', true);";
 				if( ($key == "orderList") )
 					echo "\$(\".orderList[value='{$value}']\").attr('checked', true);";
-				if( ($key == "stx") )
-					echo "\$(\".stx[value='{$value}']\").attr('checked', true);";
+				//if( ($key == "stx") )
+				//	echo "\$(\".stx[value='{$value}']\").attr('checked', true);";
 			endforeach;
 			//echo "$key = $value<br />";
 		}
@@ -336,16 +329,14 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	});
 
 	$('#searchBtn1').click(function(){
-		//$('#console').empty().text( $.toSource($('#searchZone1').formSerialize()));
 		$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
 	});
 
 	$('#searchBtn2').click(function(){
-		$('#searchZone2').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
+		$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
 	});
 
 	$('#searchBtn3').click(function(){
-		//$('#searchZone2').resetForm();
-		$('#searchZone3').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
+		$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
 	});
 </script>
