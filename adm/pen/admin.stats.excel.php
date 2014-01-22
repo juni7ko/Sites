@@ -2,7 +2,14 @@
 include_once("./_common.php");
 //include_once("./admin.head.php");
 
-$filename= $r_year."reserve_list";
+$filename = "";
+if($r_year != "All")
+	$filename .= $r_year;
+if($r_month != "All")
+	$filename .= $r_month;
+if($r_day != "All")
+	$filename .= $r_day;
+$filename .= "reserve_list";
 
 header("Content-type: application/vnd.ms-excel");
 header("Content-type: charset=utf8");
@@ -26,22 +33,34 @@ if(!$r_year && !$r_month && !$r_day) {
 	$today = $r_year."-".$r_month."-".$r_day;
 }
 
-$where =  "where  rResult = '0020' " ;
+$where =  "where  rResult = '0020' ";
+
 if($member[mb_level] >= 5)
 	$where .= " and pension_id = '$member[mb_1]' ";
 
-if($r_year) $where .= " and  wr_link1 like '$r_year%' ";
+if($r_info_id)
+	$where .= " and r_info_id = '$r_info_id' ";
+
+if($r_month == "All" or !$r_month) {
+	$searchDate = $r_year . "%";
+} else {
+	if( ($r_day == "All") or !$r_day) {
+		$searchDate = $r_year . $r_month . "%";
+	} else {
+		$searchDate = $r_year . $r_month . $r_day;
+	}
+}
+
+if($r_year != "All") {
+	//$where .= " and  wr_link1 like '$r_year%' ";
+	$where .= " and  wr_link1 like '$searchDate' ";
+}
 
 $search_SQL = "SELECT * from $room_reserv  $where  order by wr_link1 asc ";  //group by ca_name
 $search_DB =  mysql_query($search_SQL);
 $dayCnt = '0';
 ?>
-
-<link rel="stylesheet" type="text/css" href="./base.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="./style.css" media="screen" />
-
-
-<table id="listTable" border=1>
+<table border=1>
 	<tr>
 		<th>번호</th>
 		<th>입금일</th>
@@ -51,14 +70,10 @@ $dayCnt = '0';
 		<th>신청인</th>
 		<th>예약금액</th>
 		<th>입금액</th>
-		<!-- <th>미수</th> -->
 	</tr>
-
 	<?php
 	$no = '1';
-
 	$insPay = $pay2['wr_9'];
-
 	while ($pay2 = sql_fetch_array($search_DB))   {
 		$Charge += $pay2['wr_9'];
 		?>
@@ -71,22 +86,16 @@ $dayCnt = '0';
 			<td><?=$pay2['wr_name']?></td>
 			<td><?=($insedPay)?"<font style='color:#999999 ; font-size:11px'>" . number_format($pay2[wr_9]) . "</font><br />":''?><?=number_format($pay2[wr_9] - $insedPay)?></td>
 			<td><?=number_format($pay2[wr_9])?></td>
-			<!-- <td><?=number_format($pay2['wr_9'] - $insedPay - $insPay)?></td> -->
 		</tr>
-
 		<?php
 		$no++;
 	}
 	?>
-
 	<tr><td style="height:2px" colspan="8"></td></tr>
-
 	<tr style="font-weight:bold">
 		<td colspan="3" align="center"><?php if($r_year && $r_year != "All"){echo $r_year . "년";}?> <?php if($r_month && $r_month != "All"){echo $r_month . "월";}?> <?php if($r_day && $r_day != "All" && $mode == "day"){echo $r_day . "일";}?></td>
 		<td colspan="3" align="center">총 계</td>
 		<td><?=number_format($Charge)?></td>
 		<td><?=number_format($Charge)?></td>
-		<!-- <td><?=number_format($Diff)?></td> -->
 	</tr>
-
 </table>

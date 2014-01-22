@@ -88,6 +88,26 @@ while ($Data = sql_fetch_array($search_DB))   {
 // 객실명 출력
 $sql_r = "SELECT r_info_id , r_info_name  from $room_info WHERE pension_id = '$member[mb_1]' order by r_info_name, r_info_id";
 $Re_rN = mysql_query($sql_r);
+
+if($_POST) {
+	$kv = array();
+	foreach ($_POST as $key => $value) {
+		if($key != 'pension_id')
+			$kv[] = "$key=$value";
+	}
+	$excelQuery = join("&", $kv);
+	$excelQuery .= "&pension_id={$member[mb_1]}";
+} else {
+	if($r_year != "All") {
+		$excelQuery = "r_year={$r_year}";
+		$excelQuery .= "&r_month={$r_month}";
+		$excelQuery .= "&pension_id={$member[mb_1]}";
+	} else {
+		$excelQuery = "pension_id={$member[mb_1]}";
+	}
+}
+
+//echo $excelQuery;
 ?>
 
 <style type="text/css">
@@ -165,7 +185,7 @@ $Re_rN = mysql_query($sql_r);
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value=" ←뒤로 " class="btn_black" onclick="history.back()">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value=" EXCEL " class="btn_black" onclick="location.href='admin.stats.excel.php?r_year=<?=$r_year?>'">
+			<input type="button" value=" EXCEL " class="btn_black" onclick="location.href='admin.stats.excel.php?<?=$excelQuery?>'">
 
 		</TD>
 	</TR>
