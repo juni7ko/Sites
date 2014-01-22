@@ -122,9 +122,6 @@ $Re_rN = mysql_query($sql_r);
 <!-- 날짜별검색 -->
 <TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" height="30" style="border:1px solid #AAAAAA ; background-color:#EEEEEE">
 	<FORM NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>">
-		<input type="hidden" name="url" value="<?=$url?>">
-		<input type="hidden" name="pTitle" value="<?=$pTitle?>">
-
 		<TR>
 			<TD align="center">
 				<input type="button" value="이번달 " class="btn_black" onclick="dateSelect('<?=date('Y')?>','<?=date('m')?>','')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

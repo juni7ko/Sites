@@ -99,10 +99,25 @@ if($pension_id) {
 $sql_pension = "SELECT pension_id , wr_subject  from $pension_info order by wr_subject asc";
 $Re_rNP = mysql_query($sql_pension);
 
-foreach ($_POST as $key => $value) :
-	echo "$key = $value<br />";
-endforeach;
-//echo "$key = $value<br />";
+if($_POST) {
+	$kv = array();
+	foreach ($_POST as $key => $value) {
+		if($key != 'pension_id')
+			$kv[] = "$key=$value";
+	}
+	$excelQuery = join("&", $kv);
+	$excelQuery .= "&pension_id={$pension_id}";
+} else {
+	if($r_year != "All") {
+		$excelQuery = "r_year={$r_year}";
+		$excelQuery .= "&r_month={$r_month}";
+		$excelQuery .= "&pension_id={$pension_id}";
+	} else {
+		$excelQuery = "pension_id={$pension_id}";
+	}
+}
+
+//echo $excelQuery;
 ?>
 
 <style type="text/css">
@@ -146,8 +161,6 @@ endforeach;
 <!-- 날짜별검색 -->
 <TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" height="30" style="border:1px solid #AAAAAA ; background-color:#EEEEEE">
 	<FORM NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>" />
-		<input type="hidden" name="url" value="<?=$url?>" />
-		<input type="hidden" name="pTitle" value="<?=$pTitle?>" />
 		<input type="hidden" name="pension_id" value="<?=$pension_id?>" />
 
 		<TR>
@@ -193,7 +206,7 @@ endforeach;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value=" ←뒤로 " class="btn_black" onclick="history.back()">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value=" EXCEL " class="btn_black" onclick="location.href='admin.stats.excel.php?r_year=<?=$r_year?>'">
+			<input type="button" value=" EXCEL " class="btn_black" onclick="location.href='admin.stats.excel.php?<?=$excelQuery?>'">
 		</TD>
 	</TR>
 </FORM>
