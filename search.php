@@ -20,6 +20,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 <form id="searchZone1" name="searchZone1" method="post" enctype="multipart/form-data" style="margin:0px;">
 	<input type=hidden name="bo_table" value="<?=$bo_table?>" />
 	<input type=hidden name="sfl" value="area_id" />
+	<input type=hidden name="sType" value="<?=$sType?>" />
 	<div id="section" class="sub-search-bar">
 		<div class="container">
 			<table>
@@ -217,8 +218,8 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	<div id="section" class="search-list-top">
 		<div class="row">
 			<div class="container">
-				<div class="left disnone">
-					검색값 : <span id="searchValue"></span>
+				<div class="left">
+					<span id="searchValue"><?=$pType?></span>
 				</div>
 				<div class="right nowrap">
 					<label><input type="radio" name="orderList" class="orderList" value="wr_good" />추천순</label>
@@ -241,35 +242,37 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 			var sod;
 			switch(sst) {
 				case "wr_good" :
-				sod = "desc";
-				break;
-				case "lowPrice" :
-				sod = "asc";
-				break;
 				case "resCount" :
-				sod = "desc";
-				break;
 				case "wr_hit" :
-				sod = "desc";
-				break;
 				case "highPrice" :
-				sod = "desc";
-				break;
+					sod = "desc";
+					break;
+				case "lowPrice" :
 				default :
-				sod = "asc";
-				break;
+					sod = "asc";
+					break;
 			}
 			$(":input[name='sod']").val(sod);
 			$(":input[name='sst']").val(sst);
 			$(":input[name='sop']").val('and');
-			//uri = "<?=$_SERVER[PHP_SELF]?>?bo_table=pension_info&sfl=area_id&stx=<?=$stx?>&sop=and&sod="+sod+"&sst="+sst+"&page=<?=$page?>";
-			//$(location).attr('href',uri);
-			//$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?sop=and&sod='+sod+'&sst='+sst+'&page=<?=$page?>').submit();
 			$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?page=<?=$page?>').submit();
 		});
 
-		//$(".orderList[value=<?=$sst?>]").attr('checked',true);
-		//$(":radio[name='orderList']:radio[value=<?=$mod?>]").attr('checked',true);
+		$('#searchBtn1').click(function(){
+			$(":input[name='sType']").val('0');
+			$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?page=<?=$page?>').submit();
+		});
+
+		$('#searchBtn2').click(function(){
+			$(":input[name='sType']").val('0');
+			$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?page=<?=$page?>').submit();
+		});
+
+		$('#searchBtn3').click(function(){
+			$(":input[name='sType']").val('2');
+			$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?page=<?=$page?>').submit();
+		});
+
 		$(".stx[value='<?=$stx?>']").attr('checked', true); // 지역 자동 체크
 
 		<?php
@@ -326,17 +329,5 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 	        minDate: '-0d'
 	    });
 
-	});
-
-	$('#searchBtn1').click(function(){
-		$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
-	});
-
-	$('#searchBtn2').click(function(){
-		$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
-	});
-
-	$('#searchBtn3').click(function(){
-		$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>').submit();
 	});
 </script>
