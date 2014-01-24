@@ -2,6 +2,7 @@
 				<form id="searchZone1" name="searchZone1" method="post" enctype="multipart/form-data" style="margin:0px;">
 					<input type="hidden" name="bo_table" value="pension_info" />
 					<input type="hidden" name="sfl" value="area_id" />
+					<input type="hidden" name="sType" value="2" />
 					<script src="<?=$g4[path]?>/js/jquery-ui.min.js"></script>
 					<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
 					<style type="text/css">
