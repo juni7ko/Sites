@@ -21,21 +21,28 @@
                 ->setCellValue('C2', '셋')
                 ->setCellValue('D2', '넷');
 
-    $sheetIndex->SetCellValue('A4', iconv('EUC-KR','UTF-8','안녕'));
-    $sheetIndex->SetCellValue('B4', iconv('EUC-KR','UTF-8','세상은!'));
-    $sheetIndex->SetCellValue('C4', iconv('EUC-KR','UTF-8','우하하'));
-    $sheetIndex->SetCellValue('D4', iconv('EUC-KR','UTF-8','우리나라 좋은나라!'));
-
+    $sheet = iconv('UTF-8','UTF-8',$sheet);
+    $sheetIndex = iconv('UTF-8','UTF-8',$sheetIndex);
+/*
     header("Content-Type: text/html; charset=utf-8");
     header("Content-Encoding: utf-8");
-    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Type: application/vnd.ms-excel; charset=utf-8');
     header('Content-Disposition: attachment;filename=sample.xls');
     header('Cache-Control: max-age=0');
+*/
+    $filename = iconv("UTF-8", "UTF-8", "sample");
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+    header('Cache-Control: max-age=0');
+    header("Content-Transfer-Encoding:binary");
+    header("Content-charset:utf-8");
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
     $objWriter->save('php://output');
 
     exit;
+    /*
+    http://staystore.co.kr/PHPExcel/sample.php
+    http://pension/PHPExcel/sample.php
+    */
 ?>
-http://staystore.co.kr/PHPExcel/sample.php
-http://pension/PHPExcel/sample.php

@@ -1,4 +1,4 @@
-<?php //  μ—‘μ…€
+<?php //  ΏΆΌΏ
 include_once("./_common.php");
 //include_once("./admin.head.php");
 
@@ -11,14 +11,15 @@ if($r_day != "All")
 	$filename .= $r_day;
 $filename .= "reserve_list";
 
-header("Content-type: application/vnd.ms-excel");
-header("Content-type: charset=utf8");
+date_default_timezone_set("Asia/Seoul");
+header("Cache-Control: private");
+header("Content-Type: application/vnd.ms-excel");
+header("Content-Type: charset=euc-kr");
 header("Content-Disposition: attachment; filename={$filename}.xls");
-header("Content-Description: PHP3 Generated Data");
+header("Content-Description: PHP");
 header("Pragma: no-cache");
 header("Expires: 0");
 header("Cache-Control: idx-store, idx-cache, must-revalidate");
-
 
 $mode = 'day';
 
@@ -62,14 +63,14 @@ $dayCnt = '0';
 ?>
 <table border=1>
 	<tr>
-		<th>λ²νΈ</th>
-		<th>μ…κΈμΌ</th>
-		<th>κ°μ‹¤λª…</th>
-		<th>μ…μ‹¤μΌ ~ ν‡΄μ‹¤μΌ</th>
-		<th>μμ•½μΌ</th>
-		<th>μ‹ μ²­μΈ</th>
-		<th>μμ•½κΈμ•΅</th>
-		<th>μ…κΈμ•΅</th>
+		<th>ΉψΘ£</th>
+		<th>ΐΤ±έΐΟ</th>
+		<th>°΄½ΗΈν</th>
+		<th>ΐΤ½ΗΐΟ ~ Επ½ΗΐΟ</th>
+		<th>ΏΉΎΰΐΟ</th>
+		<th>½ΕΓ»ΐΞ</th>
+		<th>ΏΉΎΰ±έΎΧ</th>
+		<th>ΐΤ±έΎΧ</th>
 	</tr>
 	<?php
 	$no = '1';
@@ -79,11 +80,11 @@ $dayCnt = '0';
 		?>
 		<tr>
 			<td><?=$no?></td>
-			<td><?=$pay2['wr_link1']?></td>
-			<td><?=$pay2['ca_name']?></td>
-			<td><?=$pay2['wr_link1']?></td>
-			<td><?=$pay2['wr_datetime']?></td>
-			<td><?=$pay2['wr_name']?></td>
+			<td><?=iconv("UTF-8","EUC-KR",$pay2['wr_link1'])?></td>
+			<td><?=iconv("UTF-8","EUC-KR",$pay2['ca_name'])?></td>
+			<td><?=iconv("UTF-8","EUC-KR",$pay2['wr_link1'])?></td>
+			<td><?=iconv("UTF-8","EUC-KR",$pay2['wr_datetime'])?></td>
+			<td><?=iconv("UTF-8","EUC-KR",$pay2['wr_name'])?></td>
 			<td><?=($insedPay)?"<font style='color:#999999 ; font-size:11px'>" . number_format($pay2[wr_9]) . "</font><br />":''?><?=number_format($pay2[wr_9] - $insedPay)?></td>
 			<td><?=number_format($pay2[wr_9])?></td>
 		</tr>
@@ -93,8 +94,8 @@ $dayCnt = '0';
 	?>
 	<tr><td style="height:2px" colspan="8"></td></tr>
 	<tr style="font-weight:bold">
-		<td colspan="3" align="center"><?php if($r_year && $r_year != "All"){echo $r_year . "λ…„";}?> <?php if($r_month && $r_month != "All"){echo $r_month . "μ›”";}?> <?php if($r_day && $r_day != "All" && $mode == "day"){echo $r_day . "μΌ";}?></td>
-		<td colspan="3" align="center">μ΄ κ³„</td>
+		<td colspan="3" align="center"><?php if($r_year && $r_year != "All"){echo $r_year . "³β";}?> <?php if($r_month && $r_month != "All"){echo $r_month . "Ώω";}?> <?php if($r_day && $r_day != "All" && $mode == "day"){echo $r_day . "ΐΟ";}?></td>
+		<td colspan="3" align="center">ΓΡ °θ</td>
 		<td><?=number_format($Charge)?></td>
 		<td><?=number_format($Charge)?></td>
 	</tr>

@@ -273,7 +273,7 @@ if($_POST) {
 
 			<tr>
 				<td><?=$no?></td>
-				<td><a href="javascript:win_stats('<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1')" target="_blank"><?=$pay2['wr_link1']?></a></td>
+				<td><a onClick="win_stats('<?=$g4['path']?>/bbs/resList.php?bo_table=bbs34&wr_id=<?=$pay2['wr_id']?>&pension_id=<?=$pay2['pension_id']?>&ap=1')" style="cursor:pointer;"><?=$pay2['wr_link1']?></a></td>
 				<td><?=$pay2['ca_name']?></td>
 				<td><?=$pay2['wr_link1']?></td>
 				<td><?=$pay2['wr_datetime']?></td>
