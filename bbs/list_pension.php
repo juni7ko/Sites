@@ -1,6 +1,8 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
+$pType = "펜션 검색";
+
 if( $sfl == "area_id" and $stx == "all" ) {
 	$sfl = "";
 	$stx = "";
