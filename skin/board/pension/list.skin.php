@@ -184,25 +184,25 @@ if ($is_nogood) $colspan++;
 								$sql_cost = "select * from g4_write_bbs34_r_cost  where pension_id = '{$list[$i][pension_id]}' and  r_info_id = '$r_info3[r_info_id]' ";
 								$r_cost2 = sql_fetch($sql_cost);
 
-								$roomList['roomOrder'][$rOrder]         = $r_info3['r_info_id'];
-								$roomList['r_info_name'][$rOrder]       = $r_info3['r_info_name'];
-								$roomList['r_info_area'][$rOrder]       = $r_info3['r_info_area'];
-								$roomList['r_info_type'][$rOrder]       = $r_info3['r_info_type'];
-								$roomList['r_info_person1'][$rOrder]    = $r_info3['r_info_person1'];
-								$roomList['r_info_person2'][$rOrder]    = $r_info3['r_info_person2'];
-								$roomList['r_info_person_add'][$rOrder] = $r_info3['r_info_person_add'];
-								$roomList['minCost1'][$rOrder]          = $r_cost2['r_cost_11'];
-								$roomList['minCost2'][$rOrder]          = $r_cost2['r_cost_21'];
-								$roomList['minCost3'][$rOrder]          = $r_cost2['r_cost_31'];
+								$roomList[$i]['roomOrder'][$rOrder]         = $r_info3['r_info_id'];
+								$roomList[$i]['r_info_name'][$rOrder]       = $r_info3['r_info_name'];
+								$roomList[$i]['r_info_area'][$rOrder]       = $r_info3['r_info_area'];
+								$roomList[$i]['r_info_type'][$rOrder]       = $r_info3['r_info_type'];
+								$roomList[$i]['r_info_person1'][$rOrder]    = $r_info3['r_info_person1'];
+								$roomList[$i]['r_info_person2'][$rOrder]    = $r_info3['r_info_person2'];
+								$roomList[$i]['r_info_person_add'][$rOrder] = $r_info3['r_info_person_add'];
+								$roomList[$i]['minCost1'][$rOrder]          = $r_cost2['r_cost_11'];
+								$roomList[$i]['minCost2'][$rOrder]          = $r_cost2['r_cost_21'];
+								$roomList[$i]['minCost3'][$rOrder]          = $r_cost2['r_cost_31'];
 
 								for($mc = 1; $mc <= 5; $mc++) {
 									$diffCost1 = "r_cost_1" . $mc;
 									$diffCost2 = "r_cost_2" . $mc;
 									$diffCost3 = "r_cost_3" . $mc;
-									if($roomList['minCost3'][$rOrder] > $r_cost2[$diffCost3]) {
-										$roomList['minCost1'][$rOrder] = $r_cost2[$diffCost1];
-										$roomList['minCost2'][$rOrder] = $r_cost2[$diffCost2];
-										$roomList['minCost3'][$rOrder] = $r_cost2[$diffCost3];
+									if($roomList[$i]['minCost3'][$rOrder] > $r_cost2[$diffCost3]) {
+										$roomList[$i]['minCost1'][$rOrder] = $r_cost2[$diffCost1];
+										$roomList[$i]['minCost2'][$rOrder] = $r_cost2[$diffCost2];
+										$roomList[$i]['minCost3'][$rOrder] = $r_cost2[$diffCost3];
 									}
 								}
 
@@ -216,134 +216,115 @@ if ($is_nogood) $colspan++;
 
 									if($sst == "highPrice") {
 										if( $ba < $bb ) {
-											$roomList['roomOrder'][$aa] = $ab;
-											$roomList['roomOrder'][$ab] = $aa;
+											$roomList[$i]['roomOrder'][$aa] = $ab;
+											$roomList[$i]['roomOrder'][$ab] = $aa;
 
-											$tmp0 = $roomList['roomOrder'][$aa];
-											$tmp1 = $roomList['r_info_name'][$aa];
-											$tmp2 = $roomList['r_info_area'][$aa];
-											$tmp3 = $roomList['r_info_type'][$aa];
-											$tmp4 = $roomList['r_info_person1'][$aa];
-											$tmp5 = $roomList['r_info_person2'][$aa];
-											$tmp6 = $roomList['r_info_person_add'][$aa];
-											$tmp7 = $roomList['minCost1'][$aa];
-											$tmp8 = $roomList['minCost2'][$aa];
-											$tmp9 = $roomList['minCost3'][$aa];
+											$tmp0 = $roomList[$i]['roomOrder'][$aa];
+											$tmp1 = $roomList[$i]['r_info_name'][$aa];
+											$tmp2 = $roomList[$i]['r_info_area'][$aa];
+											$tmp3 = $roomList[$i]['r_info_type'][$aa];
+											$tmp4 = $roomList[$i]['r_info_person1'][$aa];
+											$tmp5 = $roomList[$i]['r_info_person2'][$aa];
+											$tmp6 = $roomList[$i]['r_info_person_add'][$aa];
+											$tmp7 = $roomList[$i]['minCost1'][$aa];
+											$tmp8 = $roomList[$i]['minCost2'][$aa];
+											$tmp9 = $roomList[$i]['minCost3'][$aa];
 
-											$roomList['roomOrder'][$aa]         = $roomList['roomOrder'][$ab];
-											$roomList['r_info_name'][$aa]       = $roomList['r_info_name'][$ab];
-											$roomList['r_info_area'][$aa]       = $roomList['r_info_area'][$ab];
-											$roomList['r_info_type'][$aa]       = $roomList['r_info_type'][$ab];
-											$roomList['r_info_person1'][$aa]    = $roomList['r_info_person1'][$ab];
-											$roomList['r_info_person2'][$aa]    = $roomList['r_info_person2'][$ab];
-											$roomList['r_info_person_add'][$aa] = $roomList['r_info_person_add'][$ab];
-											$roomList['minCost1'][$aa]          = $roomList['minCost1'][$ab];
-											$roomList['minCost2'][$aa]          = $roomList['minCost2'][$ab];
-											$roomList['minCost3'][$aa]          = $roomList['minCost3'][$ab];
+											$roomList[$i]['roomOrder'][$aa]         = $roomList[$i]['roomOrder'][$ab];
+											$roomList[$i]['r_info_name'][$aa]       = $roomList[$i]['r_info_name'][$ab];
+											$roomList[$i]['r_info_area'][$aa]       = $roomList[$i]['r_info_area'][$ab];
+											$roomList[$i]['r_info_type'][$aa]       = $roomList[$i]['r_info_type'][$ab];
+											$roomList[$i]['r_info_person1'][$aa]    = $roomList[$i]['r_info_person1'][$ab];
+											$roomList[$i]['r_info_person2'][$aa]    = $roomList[$i]['r_info_person2'][$ab];
+											$roomList[$i]['r_info_person_add'][$aa] = $roomList[$i]['r_info_person_add'][$ab];
+											$roomList[$i]['minCost1'][$aa]          = $roomList[$i]['minCost1'][$ab];
+											$roomList[$i]['minCost2'][$aa]          = $roomList[$i]['minCost2'][$ab];
+											$roomList[$i]['minCost3'][$aa]          = $roomList[$i]['minCost3'][$ab];
 
-											$roomList['roomOrder'][$ab]         = $tmp0;
-											$roomList['r_info_name'][$ab]       = $tmp1;
-											$roomList['r_info_area'][$ab]       = $tmp2;
-											$roomList['r_info_type'][$ab]       = $tmp3;
-											$roomList['r_info_person1'][$ab]    = $tmp4;
-											$roomList['r_info_person2'][$ab]    = $tmp5;
-											$roomList['r_info_person_add'][$ab] = $tmp6;
-											$roomList['minCost1'][$ab]          = $tmp7;
-											$roomList['minCost2'][$ab]          = $tmp8;
-											$roomList['minCost3'][$ab]          = $tmp9;
+											$roomList[$i]['roomOrder'][$ab]         = $tmp0;
+											$roomList[$i]['r_info_name'][$ab]       = $tmp1;
+											$roomList[$i]['r_info_area'][$ab]       = $tmp2;
+											$roomList[$i]['r_info_type'][$ab]       = $tmp3;
+											$roomList[$i]['r_info_person1'][$ab]    = $tmp4;
+											$roomList[$i]['r_info_person2'][$ab]    = $tmp5;
+											$roomList[$i]['r_info_person_add'][$ab] = $tmp6;
+											$roomList[$i]['minCost1'][$ab]          = $tmp7;
+											$roomList[$i]['minCost2'][$ab]          = $tmp8;
+											$roomList[$i]['minCost3'][$ab]          = $tmp9;
 										}
 									} else {
 										if( $ba > $bb ) {
-											$roomList['roomOrder'][$aa] = $ab;
-											$roomList['roomOrder'][$ab] = $aa;
+											$roomList[$i]['roomOrder'][$aa] = $ab;
+											$roomList[$i]['roomOrder'][$ab] = $aa;
 
-											$tmp0 = $roomList['roomOrder'][$aa];
-											$tmp1 = $roomList['r_info_name'][$aa];
-											$tmp2 = $roomList['r_info_area'][$aa];
-											$tmp3 = $roomList['r_info_type'][$aa];
-											$tmp4 = $roomList['r_info_person1'][$aa];
-											$tmp5 = $roomList['r_info_person2'][$aa];
-											$tmp6 = $roomList['r_info_person_add'][$aa];
-											$tmp7 = $roomList['minCost1'][$aa];
-											$tmp8 = $roomList['minCost2'][$aa];
-											$tmp9 = $roomList['minCost3'][$aa];
+											$tmp0 = $roomList[$i]['roomOrder'][$aa];
+											$tmp1 = $roomList[$i]['r_info_name'][$aa];
+											$tmp2 = $roomList[$i]['r_info_area'][$aa];
+											$tmp3 = $roomList[$i]['r_info_type'][$aa];
+											$tmp4 = $roomList[$i]['r_info_person1'][$aa];
+											$tmp5 = $roomList[$i]['r_info_person2'][$aa];
+											$tmp6 = $roomList[$i]['r_info_person_add'][$aa];
+											$tmp7 = $roomList[$i]['minCost1'][$aa];
+											$tmp8 = $roomList[$i]['minCost2'][$aa];
+											$tmp9 = $roomList[$i]['minCost3'][$aa];
 
-											$roomList['roomOrder'][$aa]         = $roomList['roomOrder'][$ab];
-											$roomList['r_info_name'][$aa]       = $roomList['r_info_name'][$ab];
-											$roomList['r_info_area'][$aa]       = $roomList['r_info_area'][$ab];
-											$roomList['r_info_type'][$aa]       = $roomList['r_info_type'][$ab];
-											$roomList['r_info_person1'][$aa]    = $roomList['r_info_person1'][$ab];
-											$roomList['r_info_person2'][$aa]    = $roomList['r_info_person2'][$ab];
-											$roomList['r_info_person_add'][$aa] = $roomList['r_info_person_add'][$ab];
-											$roomList['minCost1'][$aa]          = $roomList['minCost1'][$ab];
-											$roomList['minCost2'][$aa]          = $roomList['minCost2'][$ab];
-											$roomList['minCost3'][$aa]          = $roomList['minCost3'][$ab];
+											$roomList[$i]['roomOrder'][$aa]         = $roomList[$i]['roomOrder'][$ab];
+											$roomList[$i]['r_info_name'][$aa]       = $roomList[$i]['r_info_name'][$ab];
+											$roomList[$i]['r_info_area'][$aa]       = $roomList[$i]['r_info_area'][$ab];
+											$roomList[$i]['r_info_type'][$aa]       = $roomList[$i]['r_info_type'][$ab];
+											$roomList[$i]['r_info_person1'][$aa]    = $roomList[$i]['r_info_person1'][$ab];
+											$roomList[$i]['r_info_person2'][$aa]    = $roomList[$i]['r_info_person2'][$ab];
+											$roomList[$i]['r_info_person_add'][$aa] = $roomList[$i]['r_info_person_add'][$ab];
+											$roomList[$i]['minCost1'][$aa]          = $roomList[$i]['minCost1'][$ab];
+											$roomList[$i]['minCost2'][$aa]          = $roomList[$i]['minCost2'][$ab];
+											$roomList[$i]['minCost3'][$aa]          = $roomList[$i]['minCost3'][$ab];
 
-											$roomList['roomOrder'][$ab]         = $tmp0;
-											$roomList['r_info_name'][$ab]       = $tmp1;
-											$roomList['r_info_area'][$ab]       = $tmp2;
-											$roomList['r_info_type'][$ab]       = $tmp3;
-											$roomList['r_info_person1'][$ab]    = $tmp4;
-											$roomList['r_info_person2'][$ab]    = $tmp5;
-											$roomList['r_info_person_add'][$ab] = $tmp6;
-											$roomList['minCost1'][$ab]          = $tmp7;
-											$roomList['minCost2'][$ab]          = $tmp8;
-											$roomList['minCost3'][$ab]          = $tmp9;
+											$roomList[$i]['roomOrder'][$ab]         = $tmp0;
+											$roomList[$i]['r_info_name'][$ab]       = $tmp1;
+											$roomList[$i]['r_info_area'][$ab]       = $tmp2;
+											$roomList[$i]['r_info_type'][$ab]       = $tmp3;
+											$roomList[$i]['r_info_person1'][$ab]    = $tmp4;
+											$roomList[$i]['r_info_person2'][$ab]    = $tmp5;
+											$roomList[$i]['r_info_person_add'][$ab] = $tmp6;
+											$roomList[$i]['minCost1'][$ab]          = $tmp7;
+											$roomList[$i]['minCost2'][$ab]          = $tmp8;
+											$roomList[$i]['minCost3'][$ab]          = $tmp9;
 										}
 									}
 								}
 							}
 
-							echo $rOrder;
-
 
 							// 객실 정보 정리 끝.
-							$sql_r2 = mysql_query($sql_r);
-							while ($r_info2 = sql_fetch_array($sql_r2))
+							for($jj=0; $jj < $rOrder; $jj++)
 							{
 								?>
 								<tr onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''">
 									<td>
-										<?=$r_info2['r_info_name']?>
+										<?=$roomList[$i]['r_info_name'][$jj]?>
 									</td>
 									<td>
-										<?=$r_info2['r_info_area']?>평(<?=$r_info2['r_info_area'] * 3.3?>㎡)<br />
-										<?=$r_info2['r_info_type']?>
+										<?=$roomList[$i]['r_info_area'][$jj]?>평(<?=$roomList[$i]['r_info_area'][$jj] * 3.3?>㎡)<br />
+										<?=$roomList[$i]['r_info_type'][$jj]?>
 									</td>
 									<td>
-										기준<?=$r_info2['r_info_person1']?>명<br />
-										최대<?=$r_info2['r_info_person2']?>명
+										기준<?=$roomList[$i]['r_info_person1'][$jj]?>명<br />
+										최대<?=$roomList[$i]['r_info_person2'][$jj]?>명
 									</td>
 									<td>
-										<?=$r_info2['r_info_person1']?>명 초과시<br />
-										인원당 <?=number_format($r_info2['r_info_person_add'])?>원
+										<?=$roomList[$i]['r_info_person1'][$jj]?>명 초과시<br />
+										인원당 <?=number_format($roomList[$i]['r_info_person_add'][$jj])?>원
 									</td>
 									<td class="last">
 										<?php
-										$sql_cost = "select * from g4_write_bbs34_r_cost  where pension_id = '{$list[$i][pension_id]}' and  r_info_id = '$r_info2[r_info_id]' ";
-										$r_cost = sql_fetch($sql_cost);
-
-										$minCost1 = $r_cost['r_cost_11'];
-										$minCost2 = $r_cost['r_cost_21'];
-										$minCost3 = $r_cost['r_cost_31'];
-										for($mc = 1; $mc <= 5; $mc++) {
-											$diffCost1 = "r_cost_1" . $mc;
-											$diffCost2 = "r_cost_2" . $mc;
-											$diffCost3 = "r_cost_3" . $mc;
-											if($minCost3 > $r_cost[$diffCost3]) {
-												$minCost1 = $r_cost[$diffCost1];
-												$minCost2 = $r_cost[$diffCost2];
-												$minCost3 = $r_cost[$diffCost3];
-											}
-										}
-										if($minCost2) {
+										if($roomList[$i]['minCost2'][$jj]) {
 											?>
-											<div class='blue'>할인 <?=number_format($minCost2)?>%</div>
-											<span style="text-decoration: line-through;"><?=number_format($minCost1)?>원</span> → <span class="pink"><?=number_format($minCost3)?>원</span>
+											<div class='blue'>할인 <?=number_format($roomList[$i]['minCost2'][$jj])?>%</div>
+											<span style="text-decoration: line-through;"><?=number_format($roomList[$i]['minCost1'][$jj])?>원</span> → <span class="pink"><?=number_format($roomList[$i]['minCost3'][$jj])?>원</span>
 											<?php
 										} else {
 											?>
-											<span class="pink"><?=number_format($minCost3)?>원</span>
+											<span class="pink"><?=number_format($roomList[$i]['minCost3'][$jj])?>원</span>
 											<?php
 										}
 										?>
