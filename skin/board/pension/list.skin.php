@@ -182,6 +182,19 @@ if ($is_nogood) $colspan++;
 								$sql_cost = "select * from g4_write_bbs34_r_cost  where pension_id = '{$list[$i][pension_id]}' and  r_info_id = '$r_info3[r_info_id]' ";
 								$r_cost2 = sql_fetch($sql_cost);
 
+								$roomList[$rOrder] = array(
+								                           'r_info_id'         => $r_info3[r_info_id],
+								                           'r_info_name'       => $r_info3[r_info_name],
+								                           'r_info_area'       => $r_info3[r_info_area],
+								                           'r_info_type'       => $r_info3[r_info_type],
+								                           'r_info_person1'    => $r_info3[r_info_person1],
+								                           'r_info_person2'    => $r_info3[r_info_person2],
+								                           'r_info_person_add' => $r_info3[r_info_person_add],
+								                           'minCost1'          => $r_cost2[r_cost_11],
+								                           'minCost2'          => $r_cost2[r_cost_21],
+								                           'minCost3'          => $r_cost2[r_cost_31]
+								                           );
+/*
 								$roomList[$rOrder]['r_info_id']         = $r_info3['r_info_id'];
 								$roomList[$rOrder]['r_info_name']       = $r_info3['r_info_name'];
 								$roomList[$rOrder]['r_info_area']       = $r_info3['r_info_area'];
@@ -192,7 +205,7 @@ if ($is_nogood) $colspan++;
 								$roomList[$rOrder]['minCost1']          = $r_cost2['r_cost_11'];
 								$roomList[$rOrder]['minCost2']          = $r_cost2['r_cost_21'];
 								$roomList[$rOrder]['minCost3']          = $r_cost2['r_cost_31'];
-
+*/
 								for($mc = 1; $mc <= 5; $mc++) {
 									$diffCost1 = "r_cost_1" . $mc;
 									$diffCost2 = "r_cost_2" . $mc;
