@@ -2,6 +2,8 @@
 
 include_once('../search.php');   // 검색 include
 
+if($where) $where2 = " and " . $where;
+
 $img_width   = 220;
 $img_height  = 180;
 $img_quality = 95;
@@ -148,9 +150,13 @@ if ($is_nogood) $colspan++;
 							}
 						}
 
-						$sql_cnt = "select count(*) as cnt from g4_write_bbs34_r_info where pension_id = '{$list[$i][pension_id]}' ";
+						$sql_cnt = "select count(*) as cnt from g4_write_bbs34_r_info where pension_id = '{$list[$i][pension_id]}' $where2 ";
+
 						$r_cnt = sql_fetch($sql_cnt);
 						$cnt = $r_cnt['cnt'];
+
+						if($cnt)
+						{
 						?>
 						<tr>
 							<td rowspan="<?=$cnt+1;?>" class="gallery">
@@ -174,7 +180,7 @@ if ($is_nogood) $colspan++;
 
 							<?php
 							// 객실 정보를 배열로 정리
-							$sql_r = "select * from g4_write_bbs34_r_info where pension_id = '{$list[$i][pension_id]}' ";
+							$sql_r = "select * from g4_write_bbs34_r_info where pension_id = '{$list[$i][pension_id]}' $where2 ";
 							$resultList = sql_query($sql_r);
 
 							for ($rOrder=0; $r_info3 = sql_fetch_array($resultList); $rOrder++)
@@ -331,6 +337,7 @@ if ($is_nogood) $colspan++;
 									</td>
 								</tr>
 								<?php
+								}
 							}
 						}
 

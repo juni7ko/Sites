@@ -1,6 +1,13 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
+if($write_table == "g4_write_pension_info") {
+	$rInfo_table = "g4_write_bbs34_r_info";
+	$rCost_table = "g4_write_bbs34_r_cost";
+	$rDate_table = "g4_write_bbs34_r_date";
+	$rDateCost_table = "g4_write_bbs34_r_date_cost";
+}
+
 $pType = "빈방 검색";
 
 if( $sfl == "area_id" and $stx == "all" ) {
@@ -12,6 +19,41 @@ if( !$sop and !$sod and !$sst ) {
 	$sop = "and";
 	$sod = "asc";
 	$sst = "lowPrice";
+}
+
+// 객실수, 화장실수 체크시 검사항목 추가.
+$where = "";
+if($rCnt) {
+	if($where) $where = " and " . $where;
+	switch ($rCnt) {
+		case '1':
+		case '2':
+			$where = " r_info_rCnt = '$rCnt' " . $where;
+			break;
+		case '3':
+		case '4':
+		case '5':
+			$where = " r_info_rCnt >= '$rCnt' " . $where;
+			break;
+		default:
+			break;
+	}
+}
+if($tCnt) {
+	if($where) $where = " and " . $where;
+	switch ($tCnt) {
+		case '1':
+			$where = " r_info_tCnt = '$tCnt' " . $where;
+			break;
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+			$where = " r_info_tCnt >= '$tCnt' " . $where;
+			break;
+		default:
+			break;
+	}
 }
 
 // 검색 체크값을 쿼리에 더하기 시작
@@ -162,6 +204,23 @@ while ($row = sql_fetch_array($result))
 	$i++;
 	$k++;
 }
+
+// 검색으로 얻은 결과값으로 객실을 검색한다.
+if($where) $where2 = " and " . $where;
+
+for($q = 0; $q < $k; $q++) {
+	$sql_r = "SELECT * from $rInfo_table where pension_id = '{$list[$q][wr_id]}' $where2 ";
+	$resultList = sql_query($sql_r);
+
+	for ($rc=0; $roomArray = sql_fetch_array($resultList); $rc++)
+	{
+		// 객실 전체를 배열로 만들어 정렬을 하여 리스트로 만든다.
+		//echo $roomArray[r_info_name];
+	}
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
 
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
 
