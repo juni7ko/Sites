@@ -41,9 +41,7 @@ if ($is_nogood) $colspan++;
 			<?php
 			if ($is_category) {
 				if (!$wr_id) {
-					?>
-					<?php
-// 한줄당 분류 갯수(현재:10)
+					// 한줄당 분류 갯수(현재:10)
 					$cnt_bo_1 = $bo_1[0] ? $bo_1[0] : 10;
 					$cnt      = 1;
 					$cnt0     = 0;
@@ -51,7 +49,7 @@ if ($is_nogood) $colspan++;
 					$bb_e     = "";
 					$b_s      = "";
 					$b_e      = "";
-// 구분자가 , 로 되어 있음
+					// 구분자가 , 로 되어 있음
 					$arr = explode("|", $board[bo_category_list]);
 					$str = "&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;";
 					for ($i=0; $i<count($arr); $i++) {
@@ -63,23 +61,13 @@ if ($is_nogood) $colspan++;
 						}
 					}
 					if ($cnt0 == 0 ) { $bb_s="<b>"; $bb_e="</b>"; }
-					?>
-				</td>
-				<?php
+				}
 			}
-		}
-		?>
-		<td align="right"><span style="font-size:8pt;"><font face="Tahoma" color="#999999">Total. <?=number_format($total_count)?></font></span>
-			<?php if ($rss_href) { ?><a href='<?=$rss_href?>'><img src='<?=$board_skin_path?>/img/btn_rss.gif' border=0 align=absmiddle></a><?php }?>
-			<?php if ($admin_href) { ?><a href="<?=$admin_href?>"><img src="<?=$board_skin_path?>/img/admin_button.gif" title="관리자" border="0" align="absmiddle"></a><?php }?>
+			?>
 		</td>
+		<td align="right"><span style="font-size:8pt;"><font face="Tahoma" color="#999999">Total. <?=number_format($total_count)?></font></span></td>
 	</tr>
 </table>
-
-
-
-
-
 
 <div id="section">
 	<div class="container">
