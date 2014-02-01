@@ -476,6 +476,8 @@ function fwrite_submit(f)
 
     return true;
 }
+
+$('#variableFiles a').attr('href', 'javascript:void();');
 </script>
 
 <script type="text/javascript" src="<?="$g4[path]/js/board.js"?>"></script>
