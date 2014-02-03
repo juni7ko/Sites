@@ -46,7 +46,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 						</th>
 						<td>
 							<select name="period" id="period">
-								<option vlaue="">기간선택</option>
+								<option value="">기간선택</option>
 								<option value="1">1박2일</option>
 								<option value="2">2박3일</option>
 								<option value="3">3박4일</option>
@@ -66,7 +66,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 						</th>
 						<td>
 							<select name="rCnt" id="rCnt">
-								<option vlaue="">객실수선택</option>
+								<option value="">객실수선택</option>
 								<option value="1">1개</option>
 								<option value="2">2개</option>
 								<option value="3">3개 이상</option>
@@ -80,7 +80,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 						</th>
 						<td>
 							<select name="tCnt" id="tCnt">
-								<option vlaue="">화장실수선택</option>
+								<option value="">화장실수선택</option>
 								<option value="1">1개</option>
 								<option value="2">2개 이상</option>
 								<option value="3">3개 이상</option>
