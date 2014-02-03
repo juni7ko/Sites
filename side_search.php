@@ -135,7 +135,7 @@
 			changeYear: true,
 	        showButtonPanel: true,
 	        yearRange: 'c-99:c+99',
-	        maxDate: '+180d',
+	        maxDate: '+60d',
 	        minDate: '-0d'
 	    });
 	});
