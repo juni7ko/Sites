@@ -338,28 +338,6 @@ if ($is_nogood) $colspan++;
 			</form>
 
 			<!-- 버튼 링크 -->
-			<div style="margin:10px 0 0 0;">
-				<?php
-				if ($member['mb_level']) {
-					?>
-					<div style="float:left;">
-						<?php
-						if ($list_href) {
-							echo "<a href='{$list_href}'><img src='{$board_skin_path}/img/btn_list.gif' align='absmiddle' border='0'></a>";
-						}
-						if ($is_checkbox) {
-							echo "<a href='javascript:select_delete();'><img src='{$board_skin_path}/img/btn_select_delete.gif' align='absmiddle' border='0'></a>";
-						}
-						?>
-					</div>
-					<div style="float:right; display:none;">
-						<?php if ($write_href) { ?><a href="<?=$write_href?>"><img src="<?=$board_skin_path?>/img/btn_write.gif" border='0'></a><?php } ?>
-					</div>
-					<?php
-				}
-				?>
-
-			</div>
 			<!-- 게시판 리스트 끝 -->
 
 			<!-- 페이지 -->
