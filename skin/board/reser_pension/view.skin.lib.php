@@ -56,13 +56,13 @@ function viewDateRow($sDate, $eDate, $penID)
 
 	for($rowDate = $sDate, $i = 0; $rowDate <= $eDate; $rowDate += 86400, $i++)
 	{
-		$viewDateRow['row'][$i] = $i;
-		$viewDateRow['pDate'][$i] = $rowDate;
+		$viewDateRow['row'][$i]       = $i;
+		$viewDateRow['pDate'][$i]     = $rowDate;
 		$viewDateRow['pDateType'][$i] = pDateType($rowDate);
 
-		$viewDateRow['pDateDay'][$i] = date("m/d", $rowDate);
+		$viewDateRow['pDateDay'][$i]  = date("m/d", $rowDate);
 
-		$weekChk[$i] = date("w", $rowDate);
+		$weekChk[$i]                  = date("w", $rowDate);
 		$viewDateRow['pDateWeek'][$i] = GetDateWeek($weekChk[$i]);
 	}
 
@@ -72,11 +72,12 @@ function viewDateRow($sDate, $eDate, $penID)
 
 	for ($i=0; $roomList = sql_fetch_array($resultList); $i++)
 	{
-		$viewDateRow['rInfoIdRow'][$i] = $i;
-		$viewDateRow['rInfoId'][$i] = $roomList['r_info_id'];
-		$viewDateRow['rInfoName'][$i] = $roomList['r_info_name'];
+		$viewDateRow['rInfoIdRow'][$i]   = $i;
+		$viewDateRow['rInfoId'][$i]      = $roomList['r_info_id'];
+		$viewDateRow['rInfoName'][$i]    = $roomList['r_info_name'];
 		$viewDateRow['rInfoPerson1'][$i] = $roomList['r_info_person1'];
 		$viewDateRow['rInfoPerson2'][$i] = $roomList['r_info_person2'];
+		$viewDateRow['rInfoArea'][$i]    = $roomList['r_info_area'];
 	}
 	return $viewDateRow;
 }

@@ -93,6 +93,7 @@ $costID = $viewDateRow['rInfoId'][$j];
 			<a href="#detail" onClick="roomFrameGo(0,'<?=$viewDateRow['rInfoId'][$j]?>','<?=$pension_id?>');"><?=$viewDateRow['rInfoName'][$j]?></a>
 		</h3>
 		<span>기준<?=$viewDateRow['rInfoPerson1'][$j]?>/최대<?=$viewDateRow['rInfoPerson2'][$j]?></span>
+		<?=$viewDateRow['rInfoArea'][$j]?>평(<?=$viewDateRow['rInfoArea'][$j] * 3.3?>㎡)
 		<input type="hidden" name="rInfoId" value="<?=$costID?>" />
 	</td>
 	<?php foreach($viewDateRow['row'] as $i) : // 해당 날짜의 기본 가격 우선 출력 ?>
