@@ -17,7 +17,7 @@
 <?php include("$g4[path]/_navigation.php");?>
 		<!-- ./navigation -->
 
-		<div class="search-form-area">
+		<div class="search-form-area disnone">
 			<input type="text" value="" />
 			<input type="button" value="" />
 		</div><!-- search-form-area -->
