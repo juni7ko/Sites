@@ -219,7 +219,7 @@ if (!($board[bo_use_comment] && $cwin)) {
     if ($member[mb_level] >= $board[bo_list_level] && $board[bo_use_list_view] || empty($wr_id))
     {
     	if($bo_table == "pension_info") {  // 펜션정보를 볼때 노출여부 체크한 리스트만 가져 오도록 수정
-            if($sType == "2") {
+            if( $sType == "2" ) {
                 include_once ("./list_pension2.php");
             } else {
                 include_once ("./list_pension.php");

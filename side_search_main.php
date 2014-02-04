@@ -27,6 +27,18 @@
 						<caption>Speed Search Option</caption>
 						<tbody>
 						<tr>
+							<th><span>날짜</span></th>
+							<td>
+								<input type="text" name="schDate" id="schDate" value="<?=$schDate?>" size=8 maxlength=8 minlength=8 numeric readonly title="옆의 달력 아이콘을 클릭하여 날짜를 입력하세요." style="width:70px;" />
+								<!-- <input type="text" maxlength="8" style="width:100%;" id='searchDate' name='searchDate' /> -->
+							</td>
+							<td rowspan="5" class="tbl_banner">
+								<!-- banner width 140px , height 150px -->
+								<img src="<?=$g4['path']?>/layout/images/ex_banner.gif" alt="banner" />
+								<!-- ./banner width 140px , height 150px -->
+							</td>
+						</tr>
+						<tr>
 							<th><span>지역</span></th>
 							<td>
 								<select name="stx">
@@ -42,11 +54,6 @@
 									?>
 								</select>
 							</td>
-							<td rowspan="5" class="tbl_banner">
-								<!-- banner width 140px , height 150px -->
-								<img src="<?=$g4['path']?>/layout/images/ex_banner.gif" alt="banner" />
-								<!-- ./banner width 140px , height 150px -->
-							</td>
 						</tr>
 						<tr>
 							<th><span>기간</span></th>
@@ -58,13 +65,6 @@
 									<option value="3">3박4일</option>
 									<option value="4">4박5일</option>
 								</select>
-							</td>
-						</tr>
-						<tr>
-							<th><span>날짜</span></th>
-							<td>
-								<input type="text" name="schDate" id="schDate" value="<?=$schDate?>" size=8 maxlength=8 minlength=8 numeric readonly title="옆의 달력 아이콘을 클릭하여 날짜를 입력하세요." style="width:70px;" />
-								<!-- <input type="text" maxlength="8" style="width:100%;" id='searchDate' name='searchDate' /> -->
 							</td>
 						</tr>
 						<tr>
