@@ -1,6 +1,5 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
-echo "al;djfaldjfa;ldfj";
 include_once('../search.php');   // 검색 include
 
 if($where) $where2 = " and " . $where;

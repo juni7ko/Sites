@@ -68,11 +68,11 @@ if ($_POST) {
 	endforeach;
 	$cfSearch = join(" and ", $kv);
 }
-if($cfSearch) :
+if($cfSearch) {
 	$cfSearch2 = $cfSearch . " and mainUse = 1 ";
-else :
+} else {
 	$cfSearch2 = " mainUse = 1 ";
-endif;
+}
 
 // 검색 체크값을 쿼리에 더하기 끝
 
@@ -85,7 +85,7 @@ if ($sop != "and" && $sop != "or")
 
 // 분류 선택 또는 검색어가 있다면
 $stx = trim($stx);
-if ($sca || $stx || $cfSearch) :
+if ($sca || $stx || $cfSearch) {
 	$sql_search = get_sql_search($sca, $sfl, $stx, $sop);
 
 	// 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
@@ -96,22 +96,22 @@ if ($sca || $stx || $cfSearch) :
 	if (!$spt) $spt = $min_spt;
 
 	// stx 값 삭제로 인해 $sql_search 값으로 0이 올 경우 처리.
-	if(!$sql_search) :
+	if(!$sql_search) {
 		$sql_search = " (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
-	else :
+	} else {
 		$sql_search .= " and (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
-	endif;
+	}
 
 	$sql_search = $cfSearch2 . " and " . $sql_search;
 	// 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
 	$sql = " SELECT distinct wr_parent from $write_table where $sql_search ";
 	$result = sql_query($sql);
 	$total_count = mysql_num_rows($result);
-else :
+} else {
 	$sql_search = $cfSearch2;
 
 	$total_count = $board[bo_count_write];
-endif;
+}
 
 $total_page  = ceil($total_count / $board[bo_page_rows]);  // 전체 페이지 계산
 if (!$page) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
@@ -131,30 +131,30 @@ if ($board[bo_gallery_cols])
 // 정렬
 // 인덱스 필드가 아니면 정렬에 사용하지 않음
 //if (!$sst || ($sst && !(strstr($sst, 'wr_id') || strstr($sst, "wr_datetime")))) {
-if (!$sst) :
-	if ($board[bo_sort_field]) :
+if (!$sst) {
+	if ($board[bo_sort_field]) {
 		$sst = $board[bo_sort_field];
-	else :
+	} else {
 		$sst  = "wr_num, wr_reply";
-	endif;
+	}
 	$sod = "";
-else :
+} else {
 	// 게시물 리스트의 정렬 대상 필드가 아니라면 공백으로 (nasca 님 09.06.16)
 	// 리스트에서 다른 필드로 정렬을 하려면 아래의 코드에 해당 필드를 추가하세요.
 	// $sst = preg_match("/^(wr_subject|wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
 	$sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood|lowPrice|highPrice|resCount)$/i", $sst) ? $sst : "";
-endif;
+}
 
 if ($sst)
 	$sql_order = " order by $sst $sod ";
 
 $sql_search2 = $sql_search . " and ";
 
-if ($sca || $stx) :
+if ($sca || $stx) {
 	$sql = " SELECT distinct wr_parent from $write_table where $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
-else :
+} else {
 	$sql = " SELECT * from $write_table where $sql_search2 wr_is_comment = 0 $sql_order limit $from_record, $board[bo_page_rows] ";
-endif;
+}
 $result = sql_query($sql);
 
 // 년도 2자리
@@ -163,9 +163,9 @@ $today2 = $g4[time_ymd];
 $list = array();
 $i = 0;
 
-if ( !$sca && !$stx ) :
+if ( !$sca && !$stx ) {
 	$arr_notice = explode("\n", trim($board[bo_notice]));
-	for ( $k=0; $k<count($arr_notice); $k++ ) :
+	for ( $k=0; $k<count($arr_notice); $k++ ) {
 		if (trim($arr_notice[$k])=='') continue;
 
 		$row = sql_fetch(" SELECT * from $write_table where mainUse = 1 and wr_id = '$arr_notice[$k]' ");
@@ -176,8 +176,8 @@ if ( !$sca && !$stx ) :
 		$list[$i][is_notice] = true;
 
 		$i++;
-	endfor;
-endif;
+	}
+}
 
 $k = 0;
 
@@ -189,6 +189,7 @@ while($row = sql_fetch_array($result)) {
 	$list[$i] = get_list($row, $board, $board_skin_path, $board[bo_subject_len]);
 	if (strstr($sfl, "subject"))
 		$list[$i][subject] = search_font($stx, $list[$i][subject]);
+
 	$list[$i][is_notice] = false;
 	//$list[$i][num] = number_format($total_count - ($page - 1) * $board[bo_page_rows] - $k);
 	$list[$i][num] = $total_count - ($page - 1) * $board[bo_page_rows] - $k;
@@ -235,47 +236,47 @@ if( $schDate ) {
 
 // 검색한 갯수
 $rct = 0;
-for( $q = 0; $q < $t; $q++ ) :
+for( $q = 0; $q < $t; $q++ ) {
 	// 예약 가능 여부 체크
 	$resCheck[$q] = resCheck($list[$q]['pension_id'], $schDateTmp, $list[$q]['r_info_id']);
 	//echo "$q resCheck({$list[$q]['pension_id']}, $schDateTmp, {$list[$q][r_info_id]})<br>";
-	if( !$resCheck[$q]['rResult'] ) :
+	if( !$resCheck[$q]['rResult'] ) {
 		// 예약할수 없는 방일 경우 상태 체크 배열에 넣지 않는다.
 		$rlist[$rct] = $list[$q];
 		$rct++;
-	endif;
-endfor;
+	}
+}
 
-if($rlist) :
+if($rlist) {
 	unset($list);
 	$list = $rlist;
 	unset($rlist);
-endif;
+}
 
 // 선택된 옵션에따라 Sort
-for($aa = 0; $aa < count($list); $aa++) :
-	for($ab = $aa + 1; $ab < count($list); $ab++) :
+for($aa = 0; $aa < count($list); $aa++) {
+	for($ab = $aa + 1; $ab < count($list); $ab++) {
 		if($sst == "highPrice") {
-			if( $list[$aa]['minCost3'] <= $list[$ab]['minCost3'] ) :
+			if( $list[$aa]['minCost3'] <= $list[$ab]['minCost3'] ) {
 				$tmp = $list[$aa];
 				$tmp2 = $list[$ab];
 				$list[$aa] = $tmp2;
 				$list[$ab] = $tmp;
 				unset($tmp);
 				unset($tmp2);
-			endif;
+			}
 		} else {
-			if( $list[$aa]['minCost3'] >= $list[$ab]['minCost3'] ) :
+			if( $list[$aa]['minCost3'] >= $list[$ab]['minCost3'] ) {
 				$tmp = $list[$aa];
 				$tmp2 = $list[$ab];
 				$list[$aa] = $tmp2;
 				$list[$ab] = $tmp;
 				unset($tmp);
 				unset($tmp2);
-			endif;
+			}
 		}
-	endfor;
-endfor;
+	}
+}
 
 /////////////////////////////////////////////////////////////////////////////
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
@@ -283,7 +284,7 @@ $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.
 $list_href = '';
 $prev_part_href = '';
 $next_part_href = '';
-if ($sca || $stx) :
+if ($sca || $stx) {
 	$list_href = "./board.php?bo_table=$bo_table";
 
 	//if ($prev_spt >= $min_spt)
@@ -294,17 +295,17 @@ if ($sca || $stx) :
 	$next_spt = $spt + $config[cf_search_part];
 	if ($next_spt < 0)
 		$next_part_href = "./board.php?bo_table=$bo_table".$qstr."&spt=$next_spt&page=1";
-endif;
+}
 
 $write_href = "";
 if ($member[mb_level] >= $board[bo_write_level])
 	$write_href = "./write.php?bo_table=$bo_table";
 
 $nobr_begin = $nobr_end = "";
-if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) :
+if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) {
 	$nobr_begin = "<nobr style='display:block; overflow:hidden;'>";
 	$nobr_end   = "</nobr>";
-endif;
+}
 
 // RSS 보기 사용에 체크가 되어 있어야 RSS 보기 가능 061106
 $rss_href = "";
@@ -313,5 +314,5 @@ if ($board[bo_use_rss_view])
 
 $stx = get_text(stripslashes($stx));
 
-include_once("$board_skin_path/list2.skin.php");
+include_once("{$board_skin_path}/list2.skin.php");
 ?>
