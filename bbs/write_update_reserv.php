@@ -162,23 +162,25 @@ if ($w == "" || $w == "r")
     ## 시작
     */
     // 공통 내용 정리
-    $pension_id = $pension_id;
-    $roomCount = $res2_roomCount; // 객실 갯수
-    $wr_name = strip_tags(mysql_escape_string($_POST['res2_wr_name']));; // 예약자명
+    $pension_id  = $pension_id;
+    $roomCount   = $res2_roomCount; // 객실 갯수
+    $wr_name     = strip_tags(mysql_escape_string($_POST['res2_wr_name']));; // 예약자명
     $wr_password = sql_password($res2_wr_password); // 비밀번호
-    $wr_email = $res2_wr_email; // 이메일
-    $wr_tel1 = $wr_tel1; // 전화번호
-    $wr_tel2 = $wr_tel2; // 전화번호
-    $wr_tel3 = $wr_tel3; // 전화번호
-    $wr_2 = $wr_tel1 . "-" . $wr_tel2 . "-" . $wr_tel3; // 전화번호
-    $wr_3 = mktime() . $res2_r_info_id[0]; // 예약코드
-    $wr_5 = $wr_area; // 출발지역
-    $wr_6 = $res2_wr_password; // 비밀번호
-    $wr_7 = $payCheck; // 결제방법
-    $wr_8 = $payName; // 결제자명
-    $wr_10 = $res2_totalCost; // 총 결제금액
-    $rResult = $res2_rResult; // 진행상태
-    $wr_content = $wr_content; // 기타사항
+    $wr_email    = $res2_wr_email; // 이메일
+    $wr_tel1     = $wr_tel1; // 전화번호
+    $wr_tel2     = $wr_tel2; // 전화번호
+    $wr_tel3     = $wr_tel3; // 전화번호
+    $wr_2        = $wr_tel1 . "-" . $wr_tel2 . "-" . $wr_tel3; // 전화번호
+    //$wr_3      = mktime() . $res2_r_info_id[0]; // 예약코드
+    //$wr_3      = mktime() . "_" . $pension_id; // 예약코드
+    $wr_3        = $wr_3; // 예약코드
+    $wr_5        = $wr_area; // 출발지역
+    $wr_6        = $res2_wr_password; // 비밀번호
+    $wr_7        = $payCheck; // 결제방법
+    $wr_8        = $payName; // 결제자명
+    $wr_10       = $res2_totalCost; // 총 결제금액
+    $rResult     = $res2_rResult; // 진행상태
+    $wr_content  = $wr_content; // 기타사항
 
     if ($w == "r")
     {
@@ -186,8 +188,8 @@ if ($w == "" || $w == "r")
         if ($secret)
             $wr_password = $wr[wr_password];
 
-        $wr_id = $wr_id . $reply;
-        $wr_num = $write[wr_num];
+        $wr_id    = $wr_id . $reply;
+        $wr_num   = $write[wr_num];
         $wr_reply = $reply;
     }
     else
@@ -200,70 +202,70 @@ if ($w == "" || $w == "r")
     for($i=0; $i < $res2_roomCount; $i++)
     {
         $wr_subject[$i] = $res2_rDate[$i] . "(" . $res2_rWeek[$i] . ") " . $wr_name . " " . $res2_r_info_name[$i]; // 제목설정
-        $ca_name[$i] = $res2_r_info_name[$i]; // 객실명
-        $wr_link1[$i] = date("Ymd", $res2_rDateTmp[$i]); // 날짜 저장
-        $wr_link2[$i] = $res2_rDateTmp[$i]; // 날짜 tmp 값 저장
-        $r_info_id[$i] = $res2_r_info_id[$i]; // 객실ID
-        $person1[$i] = (int)$res2_person1[$i]; // 성인
-        $person2[$i] = (int)$res2_person2[$i]; // 아동
-        $person3[$i] = (int)$res2_person3[$i]; // 유아
-        $wr_1[$i] = (int)$person1[$i] + (int)$person2[$i] + (int)$person3[$i]; // 객실 예약인원
-        $costType[$i] = $res2_dateType[$i] . "/" .  $res2_weekType2[$i]; // 요금타입
-        $cost1[$i] = (int)$res2_typeCost1[$i]; // 기본가격
-        $cost2[$i] = (int)$res2_typeCost2[$i]; // 할인가격
-        $cost3[$i] = (int)$res2_typeCost3[$i]; // 결제가격
-        $overCount[$i] = (int)$res2_personOver[$i]; // 추가인원
-        $overCost[$i] = (int)$res2_personOverCost[$i]; // 추가가격
-        $wr_9[$i] = $cost3[$i] + $overCost[$i]; // 필드 가격.
+        $ca_name[$i]    = $res2_r_info_name[$i]; // 객실명
+        $wr_link1[$i]   = date("Ymd", $res2_rDateTmp[$i]); // 날짜 저장
+        $wr_link2[$i]   = $res2_rDateTmp[$i]; // 날짜 tmp 값 저장
+        $r_info_id[$i]  = $res2_r_info_id[$i]; // 객실ID
+        $person1[$i]    = (int)$res2_person1[$i]; // 성인
+        $person2[$i]    = (int)$res2_person2[$i]; // 아동
+        $person3[$i]    = (int)$res2_person3[$i]; // 유아
+        $wr_1[$i]       = (int)$person1[$i] + (int)$person2[$i] + (int)$person3[$i]; // 객실 예약인원
+        $costType[$i]   = $res2_dateType[$i] . "/" .  $res2_weekType2[$i]; // 요금타입
+        $cost1[$i]      = (int)$res2_typeCost1[$i]; // 기본가격
+        $cost2[$i]      = (int)$res2_typeCost2[$i]; // 할인가격
+        $cost3[$i]      = (int)$res2_typeCost3[$i]; // 결제가격
+        $overCount[$i]  = (int)$res2_personOver[$i]; // 추가인원
+        $overCost[$i]   = (int)$res2_personOverCost[$i]; // 추가가격
+        $wr_9[$i]       = $cost3[$i] + $overCost[$i]; // 필드 가격.
 
         $sql = " INSERT into $write_table
-                    set wr_num = '$wr_num',
-                        wr_reply = '$wr_reply',
-                        wr_comment = 0,
-                        ca_name = '$ca_name[$i]',
-                        wr_option = '$html,$secret,$mail',
-                        wr_subject = '$wr_subject[$i]',
-                        wr_content = '$wr_content',
-                        wr_link1 = '$wr_link1[$i]',
-                        wr_link2 = '$wr_link2[$i]',
+                    set wr_num       = '$wr_num',
+                        wr_reply     = '$wr_reply',
+                        wr_comment   = 0,
+                        ca_name      = '$ca_name[$i]',
+                        wr_option    = '$html,$secret,$mail',
+                        wr_subject   = '$wr_subject[$i]',
+                        wr_content   = '$wr_content',
+                        wr_link1     = '$wr_link1[$i]',
+                        wr_link2     = '$wr_link2[$i]',
                         wr_link1_hit = 0,
                         wr_link2_hit = 0,
 
-                        wr_hit = 0,
-                        wr_good = 0,
-                        wr_nogood = 0,
-                        mb_id = '$member[mb_id]',
-                        wr_password = '$wr_password',
-                        wr_name = '$wr_name',
-                        wr_email = '$wr_email',
-                        wr_homepage = '$wr_homepage',
-                        wr_datetime = '$g4[time_ymdhis]',
-                        wr_last = '$g4[time_ymdhis]',
-                        wr_ip = '$_SERVER[REMOTE_ADDR]',
-                        wr_1 = '$wr_1[$i]',
-                        wr_2 = '$wr_2',
-                        wr_3 = '$wr_3',
-                        wr_4 = '$wr_4',
-                        wr_5 = '$wr_5',
-                        wr_6 = '$wr_6',
-                        wr_7 = '$wr_7',
-                        wr_8 = '$wr_8',
-                        wr_9 = '$wr_9[$i]',
-                        wr_10 = '$wr_10',
-                        wr_reserv = '$wr_reserv',
+                        wr_hit       = 0,
+                        wr_good      = 0,
+                        wr_nogood    = 0,
+                        mb_id        = '$member[mb_id]',
+                        wr_password  = '$wr_password',
+                        wr_name      = '$wr_name',
+                        wr_email     = '$wr_email',
+                        wr_homepage  = '$wr_homepage',
+                        wr_datetime  = '$g4[time_ymdhis]',
+                        wr_last      = '$g4[time_ymdhis]',
+                        wr_ip        = '$_SERVER[REMOTE_ADDR]',
+                        wr_1         = '$wr_1[$i]',
+                        wr_2         = '$wr_2',
+                        wr_3         = '$wr_3',
+                        wr_4         = '$wr_4',
+                        wr_5         = '$wr_5',
+                        wr_6         = '$wr_6',
+                        wr_7         = '$wr_7',
+                        wr_8         = '$wr_8',
+                        wr_9         = '$wr_9[$i]',
+                        wr_10        = '$wr_10',
+                        wr_reserv    = '$wr_reserv',
 
-                        pension_id = '$pension_id',
-                        r_info_id = '$r_info_id[$i]',
-                        rResult = '$rResult',
-                        person1 = '$person1[$i]',
-                        person2 = '$person2[$i]',
-                        person3 = '$person3[$i]',
-                        costType = '$costType[$i]',
-                        cost1 = '$cost1[$i]',
-                        cost2 = '$cost2[$i]',
-                        cost3 = '$cost3[$i]',
-                        overCount = '$overCount[$i]',
-                        overCost = '$overCost[$i]' ; ";
+                        pension_id   = '$pension_id',
+                        r_info_id    = '$r_info_id[$i]',
+                        rResult      = '$rResult',
+                        person1      = '$person1[$i]',
+                        person2      = '$person2[$i]',
+                        person3      = '$person3[$i]',
+                        costType     = '$costType[$i]',
+                        cost1        = '$cost1[$i]',
+                        cost2        = '$cost2[$i]',
+                        cost3        = '$cost3[$i]',
+                        overCount    = '$overCount[$i]',
+                        overCost     = '$overCost[$i]' ; ";
 
         sql_query($sql);
 
@@ -341,16 +343,16 @@ else if ($w == "u")
         // 자신의 글이라면
         if ($member[mb_id] == $wr[mb_id])
         {
-            $mb_id = $member[mb_id];
-            $wr_name = $board[bo_use_name] ? $member[mb_name] : $member[mb_nick];
-            $wr_email = $member[mb_email];
+            $mb_id       = $member[mb_id];
+            $wr_name     = $board[bo_use_name] ? $member[mb_name] : $member[mb_nick];
+            $wr_email    = $member[mb_email];
             $wr_homepage = $member[mb_homepage];
         }
         else
         {
-            $mb_id = $wr[mb_id];
-            $wr_name = $wr[wr_name];
-            $wr_email = $wr[wr_email];
+            $mb_id       = $wr[mb_id];
+            $wr_name     = $wr[wr_name];
+            $wr_email    = $wr[wr_email];
             $wr_homepage = $wr[wr_homepage];
         }
     }
@@ -368,29 +370,29 @@ else if ($w == "u")
         $sql_ip = " , wr_ip = '$_SERVER[REMOTE_ADDR]' ";
 
     $sql = " UPDATE $write_table
-                set ca_name = '$ca_name',
-                    wr_option = '$html,$secret,$mail',
-                    wr_subject = '$wr_subject',
-                    wr_content = '$wr_content',
-                    wr_link1 = '$wr_link1',
-                    wr_link2 = '$wr_link2',
-                    mb_id = '$mb_id',
-                    wr_name = '$wr_name',
-                    wr_email = '$wr_email',
+                set ca_name     = '$ca_name',
+                    wr_option   = '$html,$secret,$mail',
+                    wr_subject  = '$wr_subject',
+                    wr_content  = '$wr_content',
+                    wr_link1    = '$wr_link1',
+                    wr_link2    = '$wr_link2',
+                    mb_id       = '$mb_id',
+                    wr_name     = '$wr_name',
+                    wr_email    = '$wr_email',
                     wr_homepage = '$wr_homepage',
-                    wr_1 = '$wr_1',
-                    wr_2 = '$wr_2',
-                    wr_3 = '$wr_3',
-                    wr_4 = '$wr_4',
-                    wr_5 = '$wr_5',
-                    wr_6 = '$wr_6',
-                    wr_7 = '$wr_7',
-                    wr_8 = '$wr_8',
-                    wr_9 = '$wr_9',
-                    wr_10= '$wr_10'
+                    wr_1        = '$wr_1',
+                    wr_2        = '$wr_2',
+                    wr_3        = '$wr_3',
+                    wr_4        = '$wr_4',
+                    wr_5        = '$wr_5',
+                    wr_6        = '$wr_6',
+                    wr_7        = '$wr_7',
+                    wr_8        = '$wr_8',
+                    wr_9        = '$wr_9',
+                    wr_10       = '$wr_10'
                     $sql_ip
                     $sql_password
-              where wr_id = '$wr[wr_id]' ";
+              where wr_id       = '$wr[wr_id]' ";
     sql_query($sql);
 
     // 분류가 수정되는 경우 해당되는 코멘트의 분류명도 모두 수정함
@@ -437,43 +439,43 @@ for ($i=0; $i<count($upload); $i++)
         if ($upload[$i][del_check] || $upload[$i][file])
         {
             $sql = " UPDATE $g4[board_file_table]
-                        set bf_source = '{$upload[$i][source]}',
-                            bf_file = '{$upload[$i][file]}',
-                            bf_content = '{$bf_content[$i]}',
+                        set bf_source   = '{$upload[$i][source]}',
+                            bf_file     = '{$upload[$i][file]}',
+                            bf_content  = '{$bf_content[$i]}',
                             bf_filesize = '{$upload[$i][filesize]}',
-                            bf_width = '{$upload[$i][image][0]}',
-                            bf_height = '{$upload[$i][image][1]}',
-                            bf_type = '{$upload[$i][image][2]}',
+                            bf_width    = '{$upload[$i][image][0]}',
+                            bf_height   = '{$upload[$i][image][1]}',
+                            bf_type     = '{$upload[$i][image][2]}',
                             bf_datetime = '$g4[time_ymdhis]'
-                      where bo_table = '$bo_table'
-                        and wr_id = '$wr_id'
-                        and bf_no = '$i' ";
+                      where bo_table    = '$bo_table'
+                        and wr_id       = '$wr_id'
+                        and bf_no       = '$i' ";
             sql_query($sql);
         }
         else
         {
             $sql = " UPDATE $g4[board_file_table]
                         set bf_content = '{$bf_content[$i]}'
-                      where bo_table = '$bo_table'
-                        and wr_id = '$wr_id'
-                        and bf_no = '$i' ";
+                      where bo_table   = '$bo_table'
+                        and wr_id      = '$wr_id'
+                        and bf_no      = '$i' ";
             sql_query($sql);
         }
     }
     else
     {
         $sql = " INSERT into $g4[board_file_table]
-                    set bo_table = '$bo_table',
-                        wr_id = '$wr_id',
-                        bf_no = '$i',
-                        bf_source = '{$upload[$i][source]}',
-                        bf_file = '{$upload[$i][file]}',
-                        bf_content = '{$bf_content[$i]}',
+                    set bo_table    = '$bo_table',
+                        wr_id       = '$wr_id',
+                        bf_no       = '$i',
+                        bf_source   = '{$upload[$i][source]}',
+                        bf_file     = '{$upload[$i][file]}',
+                        bf_content  = '{$bf_content[$i]}',
                         bf_download = 0,
                         bf_filesize = '{$upload[$i][filesize]}',
-                        bf_width = '{$upload[$i][image][0]}',
-                        bf_height = '{$upload[$i][image][1]}',
-                        bf_type = '{$upload[$i][image][2]}',
+                        bf_width    = '{$upload[$i][image][0]}',
+                        bf_height   = '{$upload[$i][image][1]}',
+                        bf_type     = '{$upload[$i][image][2]}',
                         bf_datetime = '$g4[time_ymdhis]' ";
         sql_query($sql);
     }

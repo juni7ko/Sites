@@ -187,7 +187,7 @@ body{font-family:'Nanum Gothic', sans-serif}
 	opacity: 1;
 }
 #my_slider .close_see_info_block_my_slider { display:block; width:23px; height:50px; overflow:hidden; position:absolute; z-index:150; top:34px; right:-23px; background:url('../images/ad_close.gif') no-repeat left bottom; }
-#my_slider .close_see_info_block_my_slider a { display:block; width:23px; height:50px; overflow:hidden;} 
+#my_slider .close_see_info_block_my_slider a { display:block; width:23px; height:50px; overflow:hidden;}
 #my_slider .close_see_info_block_my_slider.active { background:url('../images/ad_close.gif') no-repeat left top; }
 
 
@@ -537,7 +537,7 @@ table {border-collapse:collapse; border-spacing:0; font-family:'Nanum Gothic';}
 	bottom: -20px;
 	right: -20px;
 	background-image: url('../../../../js/fancybox/fancybox.png');
-	background-position: -40px -182px; 
+	background-position: -40px -182px;
 }
 
 #fancybox-bg-s {

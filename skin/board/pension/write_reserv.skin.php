@@ -222,8 +222,8 @@ endforeach;
 									<?php
 									// 펜션설정에서 체크한 결제방식 출력.
 									//if($content2[payment1]) echo "<label><input type='radio' name='payCheck' value='1' checked />무통장입금</label>&nbsp;&nbsp;&nbsp;";
-									if($content2[payment2]) echo "<label><input type='radio' name='payCheck' value='2' disabled />실시간계좌이체</label>&nbsp;&nbsp;&nbsp;";
-									if($content2[payment3]) echo "<label><input type='radio' name='payCheck' value='3' disabled />신용카드</label>&nbsp;&nbsp;&nbsp;";
+									if($content2[payment2]) echo "<label><input type='radio' name='payCheck' value='2' />실시간계좌이체</label>&nbsp;&nbsp;&nbsp;";
+									if($content2[payment3]) echo "<label><input type='radio' name='payCheck' value='3' />신용카드</label>&nbsp;&nbsp;&nbsp;";
 									?>
 								</td>
 							</tr>
