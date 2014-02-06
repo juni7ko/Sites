@@ -185,7 +185,7 @@ if($res_error){
 							<li class="title"><h2>결제금액</h2>
 								<ol>
 									<li>총 <span class="highlight-blue"><?=number_format($rList2['wr_10'])?></span> 원</li>
-									<?php if( ($rList2['wr_7'] == 2 || $rList2['wr_7'] == 3) && $rList2['rResult'] == "0010" ) : ?>
+<?php if( ($rList2['wr_7'] == 2 || $rList2['wr_7'] == 3) && $rList2['rResult'] == "0010" ) : ?>
 									<!-- 카드결제 & 예약대기 상태일때 결제모듈을 띄운다. -->
 									<div id="PGIOscreen" style="width:100%;">
 										<div class="res-footer">
@@ -194,7 +194,7 @@ if($res_error){
 											</div>
 										</div>
 									</div>
-									<?php endif; ?>
+<?php endif; ?>
 								</ol>
 							</li>
 						</ul>
@@ -357,7 +357,20 @@ if($res_error){
 		* 신용카드: CARD, 계좌이체: ACNT, 가상계좌: VCNT, 휴대폰소액결제: MCASH,  폰빌전화결제: PBILL
 		* 뱅크웰(주)에 신청된 결제수단으로만 결제가 가능합니다.
 		-->
-		<input type="hidden" name="Pay_Type" value="CARD" />
+		<?php
+		switch ( $rList2['wr_7'] ) {
+			case '2':
+				$tmpPayType = "ACNT";
+				break;
+			case '3':
+				$tmpPayType = "CARD";
+				break;
+			case '4':
+				$tmpPayType = "VCNT";
+				break;
+		}
+		?>
+		<input type="hidden" name="Pay_Type" value="<?=$tmpPayType?>" />
 		<!--상점주문번호(ordr_idxx) : 필수 -->
 		<input type="hidden" name="ordr_idxx" value="<?=$wr_3?>"/>
 		<!-- 상품명(good_name) : 필수 -->
