@@ -55,32 +55,32 @@
     * 단, 결제시 쇼핑몰에서 사용하도록 정의한 여유필드1~5에 setting한 경우 전송가능함.
     */
 
-   $BKW_RESULTCD   				= $_GET["BKW_RESULTCD"];
-	 $BKW_RESULTMSG   			= $_GET["BKW_RESULTMSG"];
-	 $BKW_TRADENO   				= $_GET["BKW_TRADENO"];
-	 $BKW_AUTHDATE   				= $_GET["BKW_AUTHDATE"];
-	 $BKW_AMOUNT   					= $_GET["BKW_AMOUNT"];
-	 $BKW_PAYTYPE   				= $_GET["BKW_PAYTYPE"];
-   $BKW_SHOP_ORDER_NO   	= $_GET["BKW_SHOP_ORDER_NO"];
-	 $BKW_SITECD   					= $_GET["BKW_SITECD"];
+	$BKW_RESULTCD      = $_GET["BKW_RESULTCD"];
+	$BKW_RESULTMSG     = $_GET["BKW_RESULTMSG"];
+	$BKW_TRADENO       = $_GET["BKW_TRADENO"];
+	$BKW_AUTHDATE      = $_GET["BKW_AUTHDATE"];
+	$BKW_AMOUNT        = $_GET["BKW_AMOUNT"];
+	$BKW_PAYTYPE       = $_GET["BKW_PAYTYPE"];
+	$BKW_SHOP_ORDER_NO = $_GET["BKW_SHOP_ORDER_NO"];
+	$BKW_SITECD        = $_GET["BKW_SITECD"];
 
-	 $BKW_BANKNM   					= $_GET["BKW_BANKNM"];
-	 $BKW_BANKACCOUNT   		= $_GET["BKW_BANKACCOUNT"];
-	 $BKW_IPKUMSTATUS   		= $_GET["BKW_IPKUMSTATUS"];
-	 $BKW_IPKUMUSERNM   		= $_GET["BKW_IPKUMUSERNM"];
+	$BKW_BANKNM        = $_GET["BKW_BANKNM"];
+	$BKW_BANKACCOUNT   = $_GET["BKW_BANKACCOUNT"];
+	$BKW_IPKUMSTATUS   = $_GET["BKW_IPKUMSTATUS"];
+	$BKW_IPKUMUSERNM   = $_GET["BKW_IPKUMUSERNM"];
 
-	 $BKW_PHONENO   				= $_GET["BKW_PHONENO"];
-	 $BKW_PHONECOMMTYPE  		= $_GET["BKW_PHONECOMMTYPE"];
+	$BKW_PHONENO       = $_GET["BKW_PHONENO"];
+	$BKW_PHONECOMMTYPE = $_GET["BKW_PHONECOMMTYPE"];
 
-	 $BKW_AUTHNO   					= $_GET["BKW_AUTHNO"];
-	 $BKW_CARDNAME   				= $_GET["BKW_CARDNAME"];
-	 $BKW_QUOTA   					= $_GET["BKW_QUOTA"];
+	$BKW_AUTHNO        = $_GET["BKW_AUTHNO"];
+	$BKW_CARDNAME      = $_GET["BKW_CARDNAME"];
+	$BKW_QUOTA         = $_GET["BKW_QUOTA"];
 
-	 $BKW_ETC1   					  = $_GET["BKW_ETC1"];
-	 $BKW_ETC2   					  = $_GET["BKW_ETC2"];
-	 $BKW_ETC3   					  = $_GET["BKW_ETC3"];
-	 $BKW_ETC4   					  = $_GET["BKW_ETC4"];
-	 $BKW_ETC5   					  = $_GET["BKW_ETC5"];
+	$BKW_ETC1          = $_GET["BKW_ETC1"];
+	$BKW_ETC2          = $_GET["BKW_ETC2"];
+	$BKW_ETC3          = $_GET["BKW_ETC3"];
+	$BKW_ETC4          = $_GET["BKW_ETC4"];
+	$BKW_ETC5          = $_GET["BKW_ETC5"];
 
    /*
     * 2. 결제성공시 DB처리
