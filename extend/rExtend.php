@@ -245,6 +245,63 @@ function get_list2($write_row, $board, $skin_path, $subject_len=40)
     return $list;
 }
 
+function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40)
+{
+    global $g4, $config;
+    global $qstr, $page;
+
+    //$t = get_microtime();
+
+    // 배열전체를 복사
+    $list = $write_row;
+    unset($write_row);
+
+    $list['r_info_id']         = $list['r_info_id'];
+    $list['r_info_name']       = $list['r_info_name'];
+    $list['r_info_area']       = $list['r_info_area'];
+    $list['r_info_cnt']        = $list['r_info_cnt'];
+    $list['r_info_type']       = $list['r_info_type'];
+    $list['r_info_over']       = $list['r_info_over'];
+    $list['r_info_multi']      = $list['r_info_multi'];
+    $list['pension_id']        = $list['pension_id'];
+    $list['r_info_rCnt']       = $list['r_info_rCnt'];
+    $list['r_info_tCnt']       = $list['r_info_tCnt'];
+    $list['r_info_content']    = $list['r_info_content'];
+    $list['r_info_person1']    = $list['r_info_person1'];
+    $list['r_info_person2']    = $list['r_info_person2'];
+    $list['r_info_person3']    = $list['r_info_person3'];
+    $list['r_info_person_add'] = $list['r_info_person_add'];
+
+    $sql_cost = " SELECT * from g4_write_bbs34_r_cost  where pension_id = '{$list['pension_id']}' and  r_info_id = '{$list['r_info_id']}' ";
+    $r_cost2 = sql_fetch($sql_cost);
+
+    $list['minCost1'] = $r_cost2['r_cost_11'];
+    $list['minCost2'] = $r_cost2['r_cost_21'];
+    $list['minCost3'] = $r_cost2['r_cost_31'];
+
+    for($mc = 1; $mc <= 5; $mc++) {
+        $diffCost1 = "r_cost_1" . $mc;
+        $diffCost2 = "r_cost_2" . $mc;
+        $diffCost3 = "r_cost_3" . $mc;
+        if( $list['minCost3'] > $r_cost2[$diffCost3] ) {
+            $list['minCost1'] = $r_cost2[$diffCost1];
+            $list['minCost2'] = $r_cost2[$diffCost2];
+            $list['minCost3'] = $r_cost2[$diffCost3];
+        }
+    }
+
+    // $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr;
+
+    // for ($i=1; $i<=$g4['link_count']; $i++)
+    // {
+    //     $list['link'][$i] = set_http(get_text($list["wr_link{$i}"]));
+    //     $list['link_href'][$i] = "$g4[bbs_path]/link.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]&no=$i" . $qstr;
+    //     $list['link_hit'][$i] = (int)$list["wr_link{$i}_hit"];
+    // }
+
+    return $list;
+}
+
 // get_list 의 alias
 function get_view2($write_row, $board, $skin_path, $subject_len=125)
 {
