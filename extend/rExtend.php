@@ -290,14 +290,26 @@ function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40)
         }
     }
 
-    // $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr;
+    $pensql = " SELECT * from g4_write_pension_info  where pension_id = '{$list['pension_id']}' LIMIT 1 ";
+    $penname = sql_fetch($pensql);
 
-    // for ($i=1; $i<=$g4['link_count']; $i++)
-    // {
-    //     $list['link'][$i] = set_http(get_text($list["wr_link{$i}"]));
-    //     $list['link_href'][$i] = "$g4[bbs_path]/link.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]&no=$i" . $qstr;
-    //     $list['link_hit'][$i] = (int)$list["wr_link{$i}_hit"];
-    // }
+    $list['wr_subject'] = $penname['wr_subject'];
+    if ($subject_len)
+        $list['subject'] = conv_subject($list['wr_subject'], $subject_len, "…");
+    else
+        $list['subject'] = conv_subject($list['wr_subject'], $board['bo_subject_len'], "…");
+
+    $list['wr_id'] = $penname['wr_id'];
+    $list['mb_addr1'] = $penname['mb_addr1'];
+    $list['mb_addr2'] = $penname['mb_addr2'];
+
+    // 가변 파일
+    $list['file'] = get_file($board['bo_table'], $list['wr_id']);
+
+    if ($list['file']['count'])
+        $list['icon_file'] = "<img src='$skin_path/img/icon_file.gif' align='absmiddle'>";
+
+    $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr;
 
     return $list;
 }

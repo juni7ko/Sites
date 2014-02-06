@@ -62,12 +62,54 @@ if ($is_nogood) $colspan++;
 				</thead>
 				<tbody>
 					<?php
-					echo count($list);
 					for ($i=0; $i < count($list); $i++) :
 						?>
 						<tr>
-							<td rowspan="<?=$cnt+1;?>" class="gallery">
+							<td class="gallery penrow_<?=$list[$i]['pension_id']?>">
 								<?php
+								$img = "<img src='$board_skin_path/img/noimage.gif' border=0 width='$img_width' height='$img_height' title='이미지 없음' align=left style='border:1 solid #cccccc; padding:0px;'>";
+								$thumb = $thumb_path.'/'.$list[$i][wr_id];
+								// 썸네일 이미지가 존재하지 않는다면
+								if (!file_exists($thumb)) {
+									$file = $list[$i][file][0][path] .'/'. $list[$i][file][0][file];
+									// 업로드된 파일이 이미지라면
+									if (preg_match("/\.(jp[e]?g|gif|png)$/i", $file) && file_exists($file)) {
+										$size = getimagesize($file);
+										if ($size[2] == 1)
+											$src = imagecreatefromgif($file);
+										else if ($size[2] == 2)
+											$src = imagecreatefromjpeg($file);
+										else if ($size[2] == 3)
+											$src = imagecreatefrompng($file);
+										else
+											break;
+
+										$rate = $img_width / $size[0];
+										$height = (int)($size[1] * $rate);
+
+										// 계산된 썸네일 이미지의 높이가 설정된 이미지의 높이보다 작다면
+										if ($height < $img_height) {
+											// 계산된 이미지 높이로 복사본 이미지 생성
+											$dst = imagecreatetruecolor($img_width, $height);
+										} else {
+											// 설정된 이미지 높이로 복사본 이미지 생성
+											$dst = imagecreatetruecolor($img_width, $img_height);
+										}
+										imagecopyresampled($dst, $src, 0, 0, 0, 0, $img_width, $height, $size[0], $size[1]);
+										imagejpeg($dst, $thumb_path.'/'.$list[$i][wr_id], $img_quality);
+										chmod($thumb_path.'/'.$list[$i][wr_id], 0606);
+									}
+								}
+
+								if (file_exists($thumb)) {
+									$img = "<img src='$thumb' border=0 align=left style='border:1px solid #CCCCCC; padding:0px;'>";
+								} else {
+									if(preg_match("/\.(swf|wma|asf)$/i","$file") && file_exists($file))
+									{
+										$img = "<script>doc_write(flash_movie('$file', 'flash$i', '$img_width', '$img_height', 'transparent'));</script>";
+									}
+								}
+
 								echo "<a href='{$list[$i][href]}' alt='{$list[$i][wr_subject]}' >";
 								echo $img;
 								echo "</a>";
@@ -84,39 +126,38 @@ if ($is_nogood) $colspan++;
 
 								<span><a href="<?=$list[$i][href]?>">미리보기</a></span>
 							</td>
-							<tr onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''">
-								<td>
-									<?=$list[$i]['r_info_name']?>
-								</td>
-								<td>
-									<?=$list[$i]['r_info_area']?>평(<?=$list[$i]['r_info_area'] * 3.3?>㎡)<br />
-									<?=$list[$i]['r_info_type']?>
-								</td>
-								<td>
-									기준<?=$list[$i]['r_info_person1']?>명<br />
-									최대<?=$list[$i]['r_info_person2']?>명
-								</td>
-								<td>
-									<?=$list[$i]['r_info_person1']?>명 초과시<br />
-									인원당 <?=number_format($list[$i]['r_info_person_add'])?>원
-								</td>
-								<td class="last">
-									<?php
-									if($list[$i]['minCost2']) :
-										?>
-										<div class='blue'>할인 <?=number_format($list[$i]['minCost2'])?>%</div>
-										<span style="text-decoration: line-through;"><?=number_format($list[$i]['minCost1'])?>원</span> → <span class="pink"><?=number_format($list[$i]['minCost3'])?>원</span>
-										<?php
-									else :
-										?>
-										<span class="pink"><?=number_format($list[$i]['minCost3'])?>원</span>
-										<?php
-									endif;
+							<!-- <tr onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''"> -->
+							<td>
+								<?=$list[$i]['r_info_name']?>
+							</td>
+							<td>
+								<?=$list[$i]['r_info_area']?>평(<?=$list[$i]['r_info_area'] * 3.3?>㎡)<br />
+								<?=$list[$i]['r_info_type']?>
+							</td>
+							<td>
+								기준<?=$list[$i]['r_info_person1']?>명<br />
+								최대<?=$list[$i]['r_info_person2']?>명
+							</td>
+							<td>
+								<?=$list[$i]['r_info_person1']?>명 초과시<br />
+								인원당 <?=number_format($list[$i]['r_info_person_add'])?>원
+							</td>
+							<td class="last">
+								<?php
+								if($list[$i]['minCost2']) :
 									?>
-								</td>
-							</tr>
-							<?php
-						endif;
+									<div class='blue'>할인 <?=number_format($list[$i]['minCost2'])?>%</div>
+									<span style="text-decoration: line-through;"><?=number_format($list[$i]['minCost1'])?>원</span> → <span class="pink"><?=number_format($list[$i]['minCost3'])?>원</span>
+									<?php
+								else :
+									?>
+									<span class="pink"><?=number_format($list[$i]['minCost3'])?>원</span>
+									<?php
+								endif;
+								?>
+							</td>
+						</tr>
+						<?php
 					endfor;
 
 					if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; }

@@ -161,6 +161,7 @@ $result = sql_query($sql);
 $today2 = $g4[time_ymd];
 
 $list = array();
+$rlist = array();
 $i = 0;
 
 if ( !$sca && !$stx ) {
@@ -209,7 +210,7 @@ for($q = 0; $q < $k; $q++) {
 	for ($rc=0; $roomArray = sql_fetch_array($resultList); $rc++) {
 		// 객실 전체를 배열로 만들어 정렬을 하여 리스트로 만든다.
 		$rlist[$t] = get_list_roomInfo($roomArray, $board, $board_skin_path, $board[bo_subject_len]);
-		echo $rlist[$t]['r_info_name'] . "<br>";
+		//echo $rlist[$t]['r_info_name'] . "<br>";
 		$t++;
 	}
 }
@@ -278,7 +279,6 @@ for($aa = 0; $aa < count($list); $aa++) {
 	}
 }
 
-/////////////////////////////////////////////////////////////////////////////
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
 
 $list_href = '';
@@ -314,5 +314,5 @@ if ($board[bo_use_rss_view])
 
 $stx = get_text(stripslashes($stx));
 
-include_once("{$board_skin_path}/list2.skin.php");
+include_once("$board_skin_path/list2.skin.php");
 ?>
