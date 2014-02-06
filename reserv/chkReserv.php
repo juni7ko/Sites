@@ -341,7 +341,7 @@ if($res_error){
 		* 공통변수 : 필수정보
 		===========================
 		-->
-		<input type="hidden" name="site_cd" value="P0430" />		<!-- 사이트코드(필수) : 뱅크웰로 부터 받은 사이트코드를 입력하세요 -->
+		<input type="hidden" name="site_cd" value="P1261" />		<!-- 사이트코드(필수) : 뱅크웰로 부터 받은 사이트코드를 입력하세요 -->
 		<input type="hidden" name="pg_type" value="PGNW" />			<!-- 결제모듈 타입(필수) : 변경하지마세요 -->
 		<input type="hidden" name="charset"  value="UTF-8"/>		<!-- 페이지charset(필수) charset이 UTF-8인 경우, 대문자(UTF-8)로 설정 부탁드립니다 -->
 		<input type="hidden" name="Result_URL" value="" />			<!-- 결제모듈(pop_Result)을 설치한 절대경로(필수)-->
