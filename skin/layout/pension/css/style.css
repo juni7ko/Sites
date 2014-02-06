@@ -309,9 +309,9 @@ table {border-collapse:collapse; border-spacing:0; font-family:'Nanum Gothic';}
 .tour-area .t-main-img10 {width:960px; height:400px; position:relative; background:url('../../../../sub/images/sub5/t_main_10.jpg') no-repeat; z-index:8;}
 .tour-area .t-main-img11 {width:960px; height:400px; position:relative; background:url('../../../../sub/images/sub5/t_main_11.jpg') no-repeat; z-index:8;}
 .tour-area .t-main-img12 {width:960px; height:400px; position:relative; background:url('../../../../sub/images/sub5/t_main_12.jpg') no-repeat; z-index:8;}
-.tour-area .btn-location {width:17px; height:21px; display:block; text-indent:-99999em; background:url('../images/location_btn.png') no-repeat; position:absolute; right:15px; bottom:15px; z-index:9;}
+.tour-area .btn-location {width:17px; height:21px; display:block; text-indent:-99999em; background:url('../images/location_btn.png') no-repeat; position:absolute; right:15px; bottom:15px; z-index:9; cursor:pointer; }
 .tour-area .btn-location:hover {background-position:0 bottom;}
-.tour-area .btn-homepage {width:22px; height:21px; display:block; text-indent:-99999em; background:url('../images/homepage_btn.png') no-repeat; position:absolute; right:12px; bottom:38px; z-index:9;}
+.tour-area .btn-homepage {width:22px; height:21px; display:block; text-indent:-99999em; background:url('../images/homepage_btn.png') no-repeat; position:absolute; right:12px; bottom:38px; z-index:9;  cursor:pointer; }
 .tour-area .btn-homepage:hover {background-position:0 bottom;}
 .tour-area .tour-content {width:940px; font-size:13px; line-height:150%; text-align:justify; margin:10px auto 0 auto;}
 .tour-area .tour-content ul {margin:15px 0;}
