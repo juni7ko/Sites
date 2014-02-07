@@ -30,6 +30,28 @@ if ($is_nogood) $colspan++;
 // 제목이 두줄로 표시되는 경우 이 코드를 사용해 보세요.
 // <nobr style='display:block; overflow:hidden; width:000px;'>제목</nobr>
 ?>
+<style type="text/css">
+span.reser_btn a {
+	width: 35px;
+	display: inline-block;
+	padding: 2px 0;
+	margin-top: 5px;
+	background: #f47a98;
+	border: 1px solid #e23660;
+	color: #fff;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration: none;
+	max-width: 50px;
+	text-align:center;
+}
+
+span.reser_btn a:hover {
+	background: #84cfd6;
+	border: 1px solid #00aebd;
+}
+</style>
+
 <!-- 게시판 목록 시작 -->
 
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
@@ -53,8 +75,8 @@ if ($is_nogood) $colspan++;
 				<thead>
 					<tr>
 						<th width="350">업소명</th>
-						<th width="150">객실</th>
-						<th width="130">구조</th>
+						<th width="180">객실</th>
+						<th width="100">구조</th>
 						<th width="80">인원</th>
 						<th width="120">추가금액</th>
 						<th width="150">요금(원)</th>
@@ -130,6 +152,7 @@ if ($is_nogood) $colspan++;
 							<!-- <tr onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''"> -->
 							<td>
 								<?=$list[$i]['r_info_name']?>
+								<span class="reser_btn"><a href="<?=$list[$i][href]?>&r_info_id=<?=$list[$i]['r_info_id']?>&sDate=<?=$schDateTmp?>">예약</a></span>
 							</td>
 							<td>
 								<?=$list[$i]['r_info_area']?>평(<?=$list[$i]['r_info_area'] * 3.3?>㎡)<br />

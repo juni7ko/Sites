@@ -127,7 +127,7 @@ $resCheck = resCheck($pension_id, $viewDateRow['pDate'][$i], $costID);
 	} else if($resCheck['tel']['r_tel_name']) { // 3차 전화예약 검사
 		echo "전화";
 	} else {
-		echo "<input type='checkbox' name='checkRoom[]' value='{$costID}_{$viewDateRow['pDate'][$i]}' />";
+		echo "<input class='r{$costID}' type='checkbox' name='checkRoom[]' value='{$costID}_{$viewDateRow['pDate'][$i]}' />";
 	}
 	?>
 	</td>
@@ -135,3 +135,9 @@ $resCheck = resCheck($pension_id, $viewDateRow['pDate'][$i], $costID);
 </tr>
 <?php endforeach; ?>
 </table>
+
+<?php if($r_info_id) : ?>
+<script type="text/javascript">
+	$('.r<?=$r_info_id?>[value=<?=$r_info_id?>_<?=$sDate?>]').attr('checked', true);
+</script>
+<?php endif; ?>

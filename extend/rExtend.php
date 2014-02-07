@@ -319,7 +319,8 @@ function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40, $pDa
     if ($list['file']['count'])
         $list['icon_file'] = "<img src='$skin_path/img/icon_file.gif' align='absmiddle'>";
 
-    $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr;
+    // $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr;
+    $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]";
 
     return $list;
 }
