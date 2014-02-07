@@ -207,7 +207,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 		<div class="container">
 			<div class="powersearch-btn-area">
 				<a id="searchBtn2" style="cursor:pointer;">펜 션 검 색</a>
-				<a id="searchBtn3" style="cursor:pointer;">빈 방 검 색</a>
+				<a id="searchBtn3" style="cursor:pointer;">객실/빈방 검색</a>
 			</div>
 		</div>
 
@@ -259,7 +259,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 		});
 
 		$('#searchBtn1').click(function(){
-			$(":input[name='sType']").val('0');
+			$(":input[name='sType']").val('2');
 			$('#searchZone1').attr('action','<?=$_SERVER[PHP_SELF]?>?page=<?=$page?>').submit();
 		});
 

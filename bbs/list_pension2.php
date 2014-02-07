@@ -9,7 +9,7 @@ if($write_table == "g4_write_pension_info") {
 	$rDateCost_table = "g4_write_bbs34_r_date_cost";
 }
 
-$pType = "빈방 검색";
+$pType = "객실/빈방 검색";
 
 if( $sfl == "area_id" and $stx == "all" ) {
 	$sfl = "";
