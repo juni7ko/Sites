@@ -245,7 +245,7 @@ function get_list2($write_row, $board, $skin_path, $subject_len=40)
     return $list;
 }
 
-function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40)
+function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40, $pDate=0)
 {
     global $g4, $config;
     global $qstr, $page;
@@ -272,21 +272,30 @@ function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40)
     $list['r_info_person3']    = $list['r_info_person3'];
     $list['r_info_person_add'] = $list['r_info_person_add'];
 
-    $sql_cost = " SELECT * from g4_write_bbs34_r_cost  where pension_id = '{$list['pension_id']}' and  r_info_id = '{$list['r_info_id']}' ";
-    $r_cost2 = sql_fetch($sql_cost);
+    // 날짜가 있을 경우 해당 날짜의 가격을 검색한다.
+    if($pDate) {
+        $viewCostRow = viewCostRow($list['r_info_id'], $list['pension_id'], pDateType($pDate), $pDate);
+        $list['minCost1'] = $viewCostRow['typeCost1'];
+        $list['minCost2'] = $viewCostRow['typeCost2'];
+        $list['minCost3'] = $viewCostRow['typeCost3'];
+    } else {
+        // 날짜가 없을 경우 최저 가격 검색
+        $sql_cost = " SELECT * from g4_write_bbs34_r_cost  where pension_id = '{$list['pension_id']}' and  r_info_id = '{$list['r_info_id']}' ";
+        $r_cost2 = sql_fetch($sql_cost);
 
-    $list['minCost1'] = $r_cost2['r_cost_11'];
-    $list['minCost2'] = $r_cost2['r_cost_21'];
-    $list['minCost3'] = $r_cost2['r_cost_31'];
+        $list['minCost1'] = $r_cost2['r_cost_11'];
+        $list['minCost2'] = $r_cost2['r_cost_21'];
+        $list['minCost3'] = $r_cost2['r_cost_31'];
 
-    for($mc = 1; $mc <= 5; $mc++) {
-        $diffCost1 = "r_cost_1" . $mc;
-        $diffCost2 = "r_cost_2" . $mc;
-        $diffCost3 = "r_cost_3" . $mc;
-        if( $list['minCost3'] > $r_cost2[$diffCost3] ) {
-            $list['minCost1'] = $r_cost2[$diffCost1];
-            $list['minCost2'] = $r_cost2[$diffCost2];
-            $list['minCost3'] = $r_cost2[$diffCost3];
+        for($mc = 1; $mc <= 5; $mc++) {
+            $diffCost1 = "r_cost_1" . $mc;
+            $diffCost2 = "r_cost_2" . $mc;
+            $diffCost3 = "r_cost_3" . $mc;
+            if( $list['minCost3'] > $r_cost2[$diffCost3] ) {
+                $list['minCost1'] = $r_cost2[$diffCost1];
+                $list['minCost2'] = $r_cost2[$diffCost2];
+                $list['minCost3'] = $r_cost2[$diffCost3];
+            }
         }
     }
 
@@ -312,6 +321,67 @@ function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40)
     $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr;
 
     return $list;
+}
+
+function resCheck2($penID, $pDate, $costID, $pDate2=0)
+{
+    global $write_table2;
+    $rc = 0;
+    // 1. 예약불가인지 전화예약인지 판별
+    //   - 1순위 : 예약불가
+    //   - 2순위 : 예약 여부 체크
+    //   - 3순위 : 전화예약
+
+    // 예약불가 체크
+    //$read_close = sql_fetch(" SELECT * FROM {$write_table2}_r_close WHERE pension_id = '$penID' AND r_info_id = '$costID' AND ('$pDate' BETWEEN r_close_date AND r_close_date2) LIMIT 1");
+    $read_close = sql_fetch(" SELECT * FROM {$write_table2}_r_close WHERE pension_id = '$penID' AND r_info_id = '$costID' AND (r_close_date BETWEEN '$pDate' AND '$pDate2') AND (r_close_date2 BETWEEN '$pDate' AND '$pDate2') LIMIT 1");
+    if($read_close)
+    {
+        $resCheck['close']['r_close_name'] = $read_close['r_close_name'];
+        $resCheck['close']['r_close_date'] = $read_close['r_close_date'];
+        $resCheck['close']['r_close_date2'] = $read_close['r_close_date2'];
+
+        $rc = 1;
+    }
+
+    // 예약 여부 체크 시작 - 예약취소가 아닌 데이터 추출.
+    //$read_complete = sql_fetch(" SELECT * FROM {$write_table2} WHERE pension_id = '$penID' AND r_info_id = '$costID' AND wr_link2 = '$pDate' AND rResult != '0030' LIMIT 1 ");
+    $read_complete = sql_fetch(" SELECT * FROM {$write_table2} WHERE pension_id = '$penID' AND r_info_id = '$costID' AND ( wr_link2 BETWEEN '$pDate' AND '$pDate2') AND rResult != '0030' LIMIT 1 ");
+    if($read_complete)
+    {
+        switch ($read_complete[rResult]) {
+            case '0020' :
+                $resCheck['rResult'] = "완료";
+                break;
+            case '0010' :
+                $resCheck['rResult'] = "대기";
+                break;
+            case '0040' :
+                $resCheck['rResult'] = "완료";
+                break;
+            //case '0030' :
+            //  $resCheck['rResult'] = "취소";
+            default:
+                $resCheck['rResult'] = NULL;
+                break;
+        }
+
+        if(!$resCheck['rResult']) $rc = 1;
+    }
+
+    // 전화예약 체크
+    //$read_tel = sql_fetch(" SELECT * FROM {$write_table2}_r_tel WHERE pension_id = '$penID' AND r_info_id = '$costID' AND ('$pDate' BETWEEN r_tel_date AND r_tel_date2) LIMIT 1");
+    $read_tel = sql_fetch(" SELECT * FROM {$write_table2}_r_tel WHERE pension_id = '$penID' AND r_info_id = '$costID' AND (r_tel_date BETWEEN '$pDate' AND '$pDate2') AND (r_tel_date2 BETWEEN '$pDate' AND '$pDate2') LIMIT 1");
+    if($read_tel)
+    {
+        $resCheck['tel']['r_tel_name'] = $read_tel['r_tel_name'];
+        $resCheck['tel']['r_tel_date'] = $read_tel['r_tel_date'];
+        $resCheck['tel']['r_tel_date2'] = $read_tel['r_tel_date2'];
+
+        $rc = 1;
+    }
+
+    return $rc;
 }
 
 // get_list 의 alias

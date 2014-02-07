@@ -22,6 +22,22 @@ if( !$sop and !$sod and !$sst ) {
 	$sst = "lowPrice";
 }
 
+if( $schDate ) {
+	$sDateY = substr($schDate, 0, 4);
+	$sDateM = substr($schDate, 4, 2);
+	$sDateD = substr($schDate, 6, 2);
+	$schDateTmp = mktime(12,0,0,$sDateM,$sDateD,$sDateY);
+} else {
+	$sDateY = date('Y');
+	$sDateM = date('m');
+	$sDateD = date('d');
+	$schDate = $sDateY . $sDateM . $sDateD;
+	$schDateTmp = mktime(12,0,0,$sDateM,$sDateD,$sDateY);
+}
+
+if( ($period > 1) and $schDate)
+	$schDateTmp2 = $schDateTmp + (86400 * $period);
+
 // 객실수, 화장실수 체크시 검사항목 추가.
 if($rCnt) {
 	switch ($rCnt) {
@@ -209,7 +225,8 @@ for($q = 0; $q < $k; $q++) {
 
 	for ($rc=0; $roomArray = sql_fetch_array($resultList); $rc++) {
 		// 객실 전체를 배열로 만들어 정렬을 하여 리스트로 만든다.
-		$rlist[$t] = get_list_roomInfo($roomArray, $board, $board_skin_path, $board[bo_subject_len]);
+		// 해당 일자의 가격을 함께 검색
+		$rlist[$t] = get_list_roomInfo($roomArray, $board, $board_skin_path, $board[bo_subject_len], $schDateTmp);
 		//echo $rlist[$t]['r_info_name'] . "<br>";
 		$t++;
 	}
@@ -219,30 +236,21 @@ if($rlist) {
 	unset($list);
 	$list = $rlist;
 	unset($rlist);
-}
-// 검색에 날짜를 포함 했을 경우 해당 일자의 예약 가능 여부를 검색
-// 해당 일자의 가격을 함께 검색
-if( $schDate ) {
-	$sDateY = substr($schDate, 0, 4);
-	$sDateM = substr($schDate, 4, 2);
-	$sDateD = substr($schDate, 6, 2);
-	$schDateTmp = mktime(12,0,0,$sDateM,$sDateD,$sDateY);
 } else {
-	$sDateY = date('Y');
-	$sDateM = date('m');
-	$sDateD = date('d');
-	$schDate = $sDateY . $sDateM . $sDateD;
-	$schDateTmp = mktime(12,0,0,$sDateM,$sDateD,$sDateY);
+	unset($list);
 }
 
+// 검색에 날짜를 포함 했을 경우 해당 일자의 예약 가능 여부를 검색
 // 검색한 갯수
 $rct = 0;
 for( $q = 0; $q < $t; $q++ ) {
 	// 예약 가능 여부 체크
-	$resCheck[$q] = resCheck($list[$q]['pension_id'], $schDateTmp, $list[$q]['r_info_id']);
-	//echo "$q resCheck({$list[$q]['pension_id']}, $schDateTmp, {$list[$q][r_info_id]})<br>";
-	if( !$resCheck[$q]['rResult'] ) {
-		// 예약할수 없는 방일 경우 상태 체크 배열에 넣지 않는다.
+	if($schDateTmp2)
+		$resCheck[$q] = resCheck2($list[$q]['pension_id'], $schDateTmp, $list[$q]['r_info_id'], $schDateTmp2);
+	else
+		$resCheck[$q] = resCheck($list[$q]['pension_id'], $schDateTmp, $list[$q]['r_info_id']);
+
+	if( !$resCheck[$q] ) {
 		$rlist[$rct] = $list[$q];
 		$rct++;
 	}
@@ -252,6 +260,8 @@ if($rlist) {
 	unset($list);
 	$list = $rlist;
 	unset($rlist);
+} else {
+	unset($list);
 }
 
 // 선택된 옵션에따라 Sort
