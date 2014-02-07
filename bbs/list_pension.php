@@ -1,5 +1,6 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+include_once("{$board_skin_path}/view.skin.lib.php");
 
 $pType = "펜션 검색";
 
@@ -12,6 +13,19 @@ if( !$sop and !$sod and !$sst ) {
 	$sop = "and";
 	$sod = "asc";
 	$sst = "lowPrice";
+}
+
+if( $schDate ) {
+	$sDateY = substr($schDate, 0, 4);
+	$sDateM = substr($schDate, 4, 2);
+	$sDateD = substr($schDate, 6, 2);
+	$schDateTmp = mktime(12,0,0,$sDateM,$sDateD,$sDateY);
+} else {
+	$sDateY = date('Y');
+	$sDateM = date('m');
+	$sDateD = date('d');
+	$schDate = $sDateY . $sDateM . $sDateD;
+	$schDateTmp = mktime(12,0,0,$sDateM,$sDateD,$sDateY);
 }
 
 // 검색 체크값을 쿼리에 더하기 시작

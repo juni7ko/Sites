@@ -52,8 +52,8 @@ if ($is_nogood) $colspan++;
 				<caption>객실정보검색</caption>
 				<thead>
 					<tr>
-						<th width="400">업소명</th>
-						<th width="100">객실</th>
+						<th width="350">업소명</th>
+						<th width="150">객실</th>
 						<th width="130">구조</th>
 						<th width="80">인원</th>
 						<th width="120">추가금액</th>
@@ -65,7 +65,8 @@ if ($is_nogood) $colspan++;
 					for ($i=0; $i < count($list); $i++) :
 						?>
 						<tr>
-							<td class="gallery penrow_<?=$list[$i]['pension_id']?>">
+							<?php if($list[$i]['rowspan']) : ?>
+							<td class="gallery" rowspan="<?=$list[$i]['rowspan']?>">
 								<?php
 								$img = "<img src='$board_skin_path/img/noimage.gif' border=0 width='$img_width' height='$img_height' title='이미지 없음' align=left style='border:1 solid #cccccc; padding:0px;'>";
 								$thumb = $thumb_path.'/'.$list[$i][wr_id];
@@ -123,9 +124,9 @@ if ($is_nogood) $colspan++;
 								echo $list[$i]['subject'];
 								echo "</a></strong> </font>";
 								?>
-
-								<span><a href="<?=$list[$i][href]?>">미리보기</a></span>
+								<div><span><a href="<?=$list[$i][href]?>">미리보기</a></span></div>
 							</td>
+							<?php endif; ?>
 							<!-- <tr onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''"> -->
 							<td>
 								<?=$list[$i]['r_info_name']?>
@@ -170,29 +171,6 @@ if ($is_nogood) $colspan++;
 
 		<!-- 버튼 링크 -->
 		<!-- 게시판 리스트 끝 -->
-
-		<!-- 페이지 -->
-		<table width="100%" cellspacing="0" cellpadding="0">
-			<tr>
-				<td width="100%"  height="36" align="center" valign="top">
-					<?php if ($prev_part_href) { echo "<a href='$prev_part_href'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
-					<?php
-// 기본으로 넘어오는 페이지를 아래와 같이 변환하여 이미지로도 출력할 수 있습니다.
-	//echo $write_pages;
-					$write_pages = str_replace("처음", "<img src='$board_skin_path/img/begin.gif' border='0' align='absmiddle' title='처음'>", $write_pages);
-					$write_pages = str_replace("이전", "<img src='$board_skin_path/img/prev.gif' border='0' align='absmiddle' title='이전'>", $write_pages);
-					$write_pages = str_replace("다음", "<img src='$board_skin_path/img/next.gif' border='0' align='absmiddle' title='다음'>", $write_pages);
-					$write_pages = str_replace("맨끝", "<img src='$board_skin_path/img/end.gif' border='0' align='absmiddle' title='맨끝'>", $write_pages);
-					$write_pages = preg_replace("/<span>([0-9]*)<\/span>/", "<b><font style=\"font-family:돋움; font-size:9pt; color:#797979\">$1</font></b>", $write_pages);
-					$write_pages = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family:돋움; font-size:9pt; color:orange;\">$1</font></b>", $write_pages);
-					?>
-					<?=$write_pages?>
-					<?php
-//if ($next_part_href) { echo "<a href='$next_part_href'><img src='$board_skin_path/img/btn_search_next.gif' border=0 align=absmiddle title='다음검색'></a>"; }
-					?>
-				</td>
-			</tr>
-		</table>
 
 		<!-- 검색 -->
 		<table cellSpacing=1 cellPadding="10" width="100%" bgColor=#dfe4e9 border=0 height="21">

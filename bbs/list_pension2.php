@@ -129,15 +129,6 @@ if ($sca || $stx || $cfSearch) {
 	$total_count = $board[bo_count_write];
 }
 
-$total_page  = ceil($total_count / $board[bo_page_rows]);  // 전체 페이지 계산
-if (!$page) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
-$from_record = ($page - 1) * $board[bo_page_rows]; // 시작 열을 구함
-
-// 관리자라면 CheckBox 보임
-$is_checkbox = false;
-if ($member[mb_id] && ($is_admin == "super" || $group[gr_admin] == $member[mb_id] || $board[bo_admin] == $member[mb_id]))
-	$is_checkbox = true;
-
 // 정렬에 사용하는 QUERY_STRING
 $qstr2 = "bo_table=$bo_table&sop=$sop";
 
@@ -167,9 +158,9 @@ if ($sst)
 $sql_search2 = $sql_search . " and ";
 
 if ($sca || $stx) {
-	$sql = " SELECT distinct wr_parent from $write_table where $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
+	$sql = " SELECT distinct wr_parent from $write_table where $sql_search $sql_order ";
 } else {
-	$sql = " SELECT * from $write_table where $sql_search2 wr_is_comment = 0 $sql_order limit $from_record, $board[bo_page_rows] ";
+	$sql = " SELECT * from $write_table where $sql_search2 wr_is_comment = 0 $sql_order ";
 }
 $result = sql_query($sql);
 
@@ -206,10 +197,6 @@ while($row = sql_fetch_array($result)) {
 	$list[$i] = get_list($row, $board, $board_skin_path, $board[bo_subject_len]);
 	if (strstr($sfl, "subject"))
 		$list[$i][subject] = search_font($stx, $list[$i][subject]);
-
-	$list[$i][is_notice] = false;
-	//$list[$i][num] = number_format($total_count - ($page - 1) * $board[bo_page_rows] - $k);
-	$list[$i][num] = $total_count - ($page - 1) * $board[bo_page_rows] - $k;
 
 	$i++;
 	$k++;
@@ -289,27 +276,25 @@ for($aa = 0; $aa < count($list); $aa++) {
 	}
 }
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
+// 같은 펜션이 연속해서 오는 경우 rowspan 지정
+for($aa = 0; $aa < count($list); $aa++) {
+	for($ab = $aa + 1; $ab < count($list); $ab++) {
+		if( $list[$aa]['pension_id'] == $list[$ab]['pension_id'] and $list[$aa]['rowspan']) {
+			$list[$aa]['rowspan']++;
+			$list[$ab]['rowspan'] = 0;
+		} else {
+			break;
+		}
+	}
+}
 
 $list_href = '';
 $prev_part_href = '';
 $next_part_href = '';
 if ($sca || $stx) {
 	$list_href = "./board.php?bo_table=$bo_table";
-
-	//if ($prev_spt >= $min_spt)
-	$prev_spt = $spt - $config[cf_search_part];
-	if (isset($min_spt) && $prev_spt >= $min_spt)
-		$prev_part_href = "./board.php?bo_table=$bo_table".$qstr."&spt=$prev_spt&page=1";
-
-	$next_spt = $spt + $config[cf_search_part];
-	if ($next_spt < 0)
-		$next_part_href = "./board.php?bo_table=$bo_table".$qstr."&spt=$next_spt&page=1";
 }
-
 $write_href = "";
-if ($member[mb_level] >= $board[bo_write_level])
-	$write_href = "./write.php?bo_table=$bo_table";
 
 $nobr_begin = $nobr_end = "";
 if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) {

@@ -219,7 +219,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 		<div class="row">
 			<div class="container">
 				<div class="left">
-					<span id="searchValue"><?=$pType?></span>
+					<span id="searchValue"><?=($schDate) ? "{$sDateY}년 {$sDateM}월 {$sDateD}일":NULL;?> <?=$pType?> 결과</span>
 				</div>
 				<div class="right nowrap">
 					<label><input type="radio" name="orderList" class="orderList" value="wr_good" />추천순</label>

@@ -271,6 +271,7 @@ function get_list_roomInfo($write_row, $board, $skin_path, $subject_len=40, $pDa
     $list['r_info_person2']    = $list['r_info_person2'];
     $list['r_info_person3']    = $list['r_info_person3'];
     $list['r_info_person_add'] = $list['r_info_person_add'];
+    $list['rowspan']           = 1;
 
     // 날짜가 있을 경우 해당 날짜의 가격을 검색한다.
     if($pDate) {
