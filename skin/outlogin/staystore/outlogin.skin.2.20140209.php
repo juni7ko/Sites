@@ -1,5 +1,4 @@
 <?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
-echo "<script type='text/javascript'> location.replace('/adm/'); </script>";
 ?>
 
 <!-- 로그인 후 외부로그인 시작 -->
