@@ -116,7 +116,7 @@ else {
 	// 게시물 리스트의 정렬 대상 필드가 아니라면 공백으로 (nasca 님 09.06.16)
 	// 리스트에서 다른 필드로 정렬을 하려면 아래의 코드에 해당 필드를 추가하세요.
 	// $sst = preg_match("/^(wr_subject|wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
-	$sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood|lowPrice|highPrice|resCount)$/i", $sst) ? $sst : "";
+	$sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood|lowPrice|discount|resCount)$/i", $sst) ? $sst : "";
 }
 
 if ($sst)
@@ -164,7 +164,7 @@ while ($row = sql_fetch_array($result))
 {
 	// 검색일 경우 wr_id만 얻었으므로 다시 한행을 얻는다
 	if ($sca || $stx)
-		$row = sql_fetch(" SELECT * from $write_table where mainUse = 1 and wr_id = '$row[wr_parent]' ");
+		$row = sql_fetch(" SELECT * from $write_table where mainUse = 1 and wr_id = '$row[wr_parent]' $sql_order ");
 
 	$list[$i] = get_list($row, $board, $board_skin_path, $board[bo_subject_len]);
 	if (strstr($sfl, "subject"))

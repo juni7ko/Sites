@@ -149,7 +149,7 @@ if (!$sst) {
 	// 게시물 리스트의 정렬 대상 필드가 아니라면 공백으로 (nasca 님 09.06.16)
 	// 리스트에서 다른 필드로 정렬을 하려면 아래의 코드에 해당 필드를 추가하세요.
 	// $sst = preg_match("/^(wr_subject|wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
-	$sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood|lowPrice|highPrice|resCount)$/i", $sst) ? $sst : "";
+	$sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood|lowPrice|discount|resCount)$/i", $sst) ? $sst : "";
 }
 
 if ($sst)
@@ -176,7 +176,7 @@ if ( !$sca && !$stx ) {
 	for ( $k=0; $k<count($arr_notice); $k++ ) {
 		if (trim($arr_notice[$k])=='') continue;
 
-		$row = sql_fetch(" SELECT * from $write_table where mainUse = 1 and wr_id = '$arr_notice[$k]' ");
+		$row = sql_fetch(" SELECT * from $write_table where mainUse = 1 and wr_id = '$arr_notice[$k]' $sql_order ");
 
 		if ( !$row[wr_id] ) continue;
 
@@ -254,8 +254,8 @@ if($rlist) {
 // 선택된 옵션에따라 Sort
 for($aa = 0; $aa < count($list); $aa++) {
 	for($ab = $aa + 1; $ab < count($list); $ab++) {
-		if($sst == "highPrice") {
-			if( $list[$aa]['minCost3'] <= $list[$ab]['minCost3'] ) {
+		if($sst == "discount") {
+			if( $list[$aa]['minCost2'] <= $list[$ab]['minCost2'] ) {
 				$tmp = $list[$aa];
 				$tmp2 = $list[$ab];
 				$list[$aa] = $tmp2;

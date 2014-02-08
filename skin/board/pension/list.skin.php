@@ -209,8 +209,8 @@ if ($is_nogood) $colspan++;
 
 							for($aa = 0; $aa < $cnt; $aa++) {
 								for($ab = $aa + 1; $ab < $cnt; $ab++) {
-									if($sst == "highPrice") {
-										if( $roomList[$aa]['minCost3'] <= $roomList[$ab]['minCost3'] ) {
+									if($sst == "discount") {
+										if( $roomList[$aa]['minCost2'] <= $roomList[$ab]['minCost2'] ) {
 											$tmp = $roomList[$aa];
 											$tmp2 = $roomList[$ab];
 											$roomList[$aa] = $tmp2;

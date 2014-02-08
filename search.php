@@ -226,7 +226,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 					<label><input type="radio" name="orderList" class="orderList" value="lowPrice" />저가순</label>
 					<label><input type="radio" name="orderList" class="orderList" value="resCount" />예약순</label>
 					<label><input type="radio" name="orderList" class="orderList" value="wr_hit" />조회순</label>
-					<label><input type="radio" name="orderList" class="orderList" value="highPrice" />고가순</label>
+					<label><input type="radio" name="orderList" class="orderList" value="discount" />할인율</label>
 					<input type="hidden" name="sop" value="<?=$sop?>" />
 					<input type="hidden" name="sod" value="<?=$sod?>" />
 					<input type="hidden" name="sst" value="<?=$sst?>" />
@@ -244,7 +244,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 				case "wr_good" :
 				case "resCount" :
 				case "wr_hit" :
-				case "highPrice" :
+				case "discount" :
 					sod = "desc";
 					break;
 				case "lowPrice" :
