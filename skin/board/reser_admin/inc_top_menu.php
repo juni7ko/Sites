@@ -10,7 +10,7 @@ if($is_admin) {
     <a href='<?=$board_skin_path?>/config_room.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>'>객실/기본요금</a> |
     <a href='<?=$board_skin_path?>/config_date.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>'>기간별요금</a> |
     <a href='<?=$board_skin_path?>/config_off.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>'>공휴일</a> |
-    <a href='<?=$board_skin_path?>/config_close.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>'>예약불가</a> |
+    <a href='<?=$board_skin_path?>/config_close.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>'>관리자예약</a> |
     <a href='<?=$board_skin_path?>/config_tel.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>'>전화예약</a> |
     <a href='<?=$board_skin_path?>/config_option.php?bo_table=<?=$bo_table?>&pension_id=<?=$pension_id?>'>추가옵션</a><!-- |
     <a href='<?=$g4[path]."/adm/";?>' title='관리자' onfocus='this.blur()' target='_blank'><img src='<?=$board_skin_path?>/img/admin.gif' border=0 align=absmiddle></a>-->

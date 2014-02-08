@@ -19,7 +19,7 @@ $qstr = "fr_date=$fr_date&to_date=$to_date";
 		<td><a href="./pen_admin.php?mode=room&pension_id=<?=$pension_id?>">객실/기본요금</a></td>
 		<td><a href="./pen_admin.php?mode=date&pension_id=<?=$pension_id?>">기간별요금</a></td>
 		<td><a href="./pen_admin.php?mode=off&pension_id=<?=$pension_id?>">공휴일</a></td>
-		<td><a href="./pen_admin.php?mode=close&pension_id=<?=$pension_id?>">예약불가</a></td>
+		<td><a href="./pen_admin.php?mode=close&pension_id=<?=$pension_id?>">관리자예약</a></td>
 		<td><a href="./pen_admin.php?mode=tel&pension_id=<?=$pension_id?>">전화예약</a></td>
 		<td><a href="./pen_admin.php?mode=option&pension_id=<?=$pension_id?>">추가옵션</a></td>
 		<?php }?>

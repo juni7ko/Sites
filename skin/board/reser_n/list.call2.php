@@ -12,7 +12,7 @@ $b_day = $today['mday'];
 $b_year = $today['year'];
 
 if ($day != "") {   $month = $month;   $day = $day;   $year = $year;}
-else if ($year < 1) {   $month = $b_mon;   $day = $b_day;   $year = $b_year;} 
+else if ($year < 1) {   $month = $b_mon;   $day = $b_day;   $year = $b_year;}
 
 
 $lastday = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
@@ -23,7 +23,7 @@ $dayoftheweek = date("w", mktime (0,0,0,$month,1,$year));
 <link rel="stylesheet" href="<?=$board_skin_path?>/mstyle.css" type="text/css">
 <script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery.js"></script>
 <script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.js"></script>
-<script language="javascript"> 
+<script language="javascript">
 function viewCallPop(url,nwidth,nheight) {
 	window.open(url, 'viewCallPop', 'width='+nwidth+', height='+nheight+', left='+(screen.width-nwidth)/2+', top='+(screen.height - nheight)/2+', fullscreen=0, channelmode=0, location=0, menubar=0, scrollbars=1, status=0, toolbar=0, resizable=0');
 }
@@ -60,7 +60,7 @@ function viewCallPop(url,nwidth,nheight) {
                                     </table>
                                     <table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
                                         <tr>
-                                            <td><img src="<?=$board_skin_path?>/img_n/wan.gif" width="11" height="11" align="absmiddle" /> 예약완료 <img src="<?=$board_skin_path?>/img_n/dae.gif" width="11" height="11" align="absmiddle" /> 입금대기 <img src="<?=$board_skin_path?>/img_n/jong.gif" width="11" height="11" align="absmiddle" /> 예약종료 <?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 예약불가<?php }?></td>
+                                            <td><img src="<?=$board_skin_path?>/img_n/wan.gif" width="11" height="11" align="absmiddle" /> 예약완료 <img src="<?=$board_skin_path?>/img_n/dae.gif" width="11" height="11" align="absmiddle" /> 입금대기 <img src="<?=$board_skin_path?>/img_n/jong.gif" width="11" height="11" align="absmiddle" /> 예약종료 <?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 관리자예약<?php }?></td>
                                             <td align="right"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&view_mode=cost">매출</a> | <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&view_mode=call">입실일</a> | <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&view_mode=call2"><strong>숙박기간</strong></a></td>
                                         </tr>
                                     </table></td>
@@ -102,24 +102,24 @@ function viewCallPop(url,nwidth,nheight) {
 	$row = mysql_fetch_array($result);
 	$catlist = explode("|",$row[bo_category_list]);
 	$default_cat = explode("|",$row[bo_category_list]); // 기본카테고리
-	
+
 	$cday = 1;
 	$sel_mon = sprintf("%02d",$month);
 	$sel_mon2 = date("Ym", mktime(0,0,0,$month,0,$year));
 	$query1 = "SELECT * FROM $write_table WHERE left(wr_link1,6) <= '$year$sel_mon'  and left(wr_link2,6) >= '$year$sel_mon' ORDER BY wr_id ASC";
 	$result1 = mysql_query($query1);
-	
+
 	// 내용을 보여주는 부분
 	while ($row1 = mysql_fetch_array($result1)) {
-	
+
 			$aaaa = substr($row1[wr_link1],0,4);
 			$aaab = substr($row1[wr_link1],4,2);
 			$aaba = substr($row1[wr_link2],0,4);
 			$aabb = substr($row1[wr_link2],4,2);
-			
+
 			$acaa = $aaaa.$aaab;
 			$acbb = $aaba.$aabb;
-			
+
 	 if( $acaa < $year.$sel_mon ) {
 		 $start_day = 1;
 		 $start_day = (int)$start_day;
@@ -127,7 +127,7 @@ function viewCallPop(url,nwidth,nheight) {
 		 $start_day = substr($row1[wr_link1],6,2);
 		 $start_day = (int)$start_day;
 	 }
-	
+
 	 if( $acbb > $year.$sel_mon ) {
 		 $end_day = $lastday[$month];
 		 $end_day = (int)$end_day;
@@ -135,8 +135,8 @@ function viewCallPop(url,nwidth,nheight) {
 		 $end_day = substr($row1[wr_link2],6,2);
 		 $end_day = (int)$end_day-1;
 	 }
-	
-	 
+
+
 		for ($i = $start_day ; $i <= $end_day;  $i++) {
 			$html_day[$i] .= "<dt><a href='$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$row1[wr_id]'> <font color=blue style='font-size:10pt;font-family:굴림'>".$row1[wr_name]."</font><font color=black style='font-size:9pt;font-family:굴림'>님 ".$row1[ca_name]." : 예약</a></dt>"."\n";
 			//if($row1[wr_comment] >= '1') {
@@ -152,13 +152,13 @@ function viewCallPop(url,nwidth,nheight) {
 			$bArray[$i] .= $row1[ca_name] . '<br>';
 		}
 	}
-	
+
 	// 달력의 틀을 보여주는 부분
 	$temp = 7- (($lastday[$month]+$dayoftheweek)%7);
-	
+
 	if ($temp == 7) $temp = 0;
 		$lastcount = $lastday[$month]+$dayoftheweek + $temp;
-	
+
 	for ($iz = 1; $iz <= $lastcount; $iz++) {
 		$bgcolor = "#FFFFFF";
 		if ($b_year==$year && $b_mon==$month && $b_day==$cday) $bgcolor = "#f3f3f3";
@@ -169,21 +169,21 @@ function viewCallPop(url,nwidth,nheight) {
 			} else {
 				 $daytext = "$cday";   // $cday 는 숫자 예> 11월달은 1~ 30일 까지//$daytext 은 셀에 써질 날짜 숫자 넣을 공간
 			}
-	
+
 			if ($iz%7 == 1) $daytext = "<span style='color:red'>$daytext</span>"; // 일요일
 			if ($iz%7 == 0) $daytext = "<span style='color:blue'>$daytext</span>"; // 토요일
-			// 여기까지 숫자와 들어갈 내용에 대한 변수들의 세팅이 끝나고 
+			// 여기까지 숫자와 들어갈 내용에 대한 변수들의 세팅이 끝나고
 			// 이제 여기 부터 직접 셀이 그려지면서 그 안에 내용이 들어 간다.
 			if (($iz%7) == 0) {
 				echo "<td width=$col_width height=$col_height bgcolor=$bgcolor align=left valign=top class='dsat'>\n";
 			} else {
 				echo "<td width=$col_width height=$col_height bgcolor=$bgcolor align=left valign=top class='day'>\n";
 			}
-		
+
 			$f_date = date("Ymd", mktime(0,0,0,$month,$cday,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
 			$f1_date = date("Ymd", mktime(0,0,0,$month,$cday+1,$year)); //글쓰기 링크에 날짜정보를 입혀서 보내자
 			echo "<div align='right'>";
-	
+
 			$py = substr($f_date,0,4);
 			$pm = substr($f_date,4,2);
 			$pd = substr($f_date,6,2);
@@ -210,12 +210,12 @@ function viewCallPop(url,nwidth,nheight) {
 			$cday++; // 날짜를 카운팅
 		} else { // 11월에서 1일부터 30일에 해당되지 않으면 그냥 회색을 칠한다.
 			if (($iz%7) == 0) {
-				echo ("<td width=$col_width height=$col_height valign=top class='dsat'>&nbsp;</td>\n"); 
+				echo ("<td width=$col_width height=$col_height valign=top class='dsat'>&nbsp;</td>\n");
 			} else {
-				echo ("<td width=$col_width height=$col_height valign=top class='day'>&nbsp;</td>\n"); 
+				echo ("<td width=$col_width height=$col_height valign=top class='day'>&nbsp;</td>\n");
 			}
 		}
-	
+
 		if (($iz%7) == 0) echo ("  </tr>\n");
 	} // 반복구문이 끝남
 	?>

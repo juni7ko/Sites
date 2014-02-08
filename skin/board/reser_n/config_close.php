@@ -1,14 +1,14 @@
-<?php include_once "_common.php"; 
-include_once("$g4[path]/head.sub.php"); 
-include_once("$board_skin_path/config.php"); 
+<?php include_once "_common.php";
+include_once("$g4[path]/head.sub.php");
+include_once("$board_skin_path/config.php");
 
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
 
-if(!$bo_table) alert("정상적인 접근이 아닙니다."); 
+if(!$bo_table) alert("정상적인 접근이 아닙니다.");
 
-if ($board[bo_include_head]) include ("../../$board[bo_include_head]"); 
-if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>"; 
-if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]); 
+if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
+if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
+if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 ?>
@@ -48,7 +48,7 @@ $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
         <td colspan="3" valign="top" style="background:#FFF; padding:10px;">
 <?php include_once("{$board_skin_path}/inc_top_menu.php");
 
-$tit = "예약불가 관리";
+$tit = "관리자 예약";
 if($u == "add") {
 	$tit .= " - 추가";
 } else if($u == "edit") {
@@ -68,7 +68,7 @@ function show_list() {
 ## 리스트 시작
 	$sql = " SELECT * FROM {$write_table}_r_close order by r_close_date ASC ";
 	$result = sql_query($sql);
-	
+
 	echo "<table width='100%' border='0' cellpadding='3' cellspacing='1' class='$css[table]'>";
 	echo "<tr class='$css[tr]'>
 			<td>No</td>
@@ -84,12 +84,12 @@ function show_list() {
 		echo "<td>" . $r_date[r_close_name] . "</td>";
 		echo "<td>" . date("Y-m-d", $r_date[r_close_date]) . "</td>";
 		echo "<td>" . date("Y-m-d", $r_date[r_close_date2]) ."</td>";
-		echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('edit',{$r_date[r_close_idx]}); return false;\"> 
+		echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('edit',{$r_date[r_close_idx]}); return false;\">
 			<input type=button class='$css[btn]' value=\"삭제\" onClick=\"Process('del',{$r_date[r_close_idx]}); return false;\"></td>";
 		echo "</tr>";
 	}
 	if ($i == 0)
-		echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
+		echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
 
 	echo "</table>";
 
@@ -139,7 +139,7 @@ function Process(u,id) {
 	$colspan = 4;
 	## 업데이트 리스트
 	$r_date = sql_fetch(" SELECT * FROM {$write_table}_r_close WHERE r_close_idx='$id' ");
-	
+
 	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
 	echo "<tr class='$css[tr]'>
 			<td>방이름</td>
@@ -151,7 +151,7 @@ function Process(u,id) {
 	echo "<td>".Get_Room_Select($pen_id,'r_close_name',$r_date[r_close_name])."</td>";
 	echo "<td><input class=m_text id=r_close_date type=text required numeric itemname=시작일 size=13 name=r_close_date value='" . date("Ymd", $r_date[r_close_date]) . "' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> <a href=\"javascript:win_calendar('r_close_date', document.getElementById('r_close_date').value, '');\"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>";
 	echo "<td><input class=m_text id=r_close_date2 type=text required numeric itemname=종료일 size=13 name=r_close_date2 value='" . date("Ymd", $r_date[r_close_date2]) . "' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> <a href=\"javascript:win_calendar('r_close_date2', document.getElementById('r_close_date2').value, '');\"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>";
-	echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('update',$id); return false;\"> 
+	echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('update',$id); return false;\">
 		<input type=button class='$css[btn]' value=\"취소\" onClick=\"history.back(-1); return false;\"></td>";
 	echo "</tr>";
 	echo "</table>";
@@ -159,37 +159,37 @@ function Process(u,id) {
 } else {
 	if($u == "del") {
 		$sql = "DELETE FROM {$write_table}_r_close WHERE r_close_idx ='$id'";
-		sql_query($sql);	
+		sql_query($sql);
 	} else if($u == "update") {
 		$sy = substr($r_close_date,0,4);
 		$sm = substr($r_close_date,4,2);
 		$sd = substr($r_close_date,6,2);
 		$sdate = mktime(12,0,0,$sm,$sd,$sy);
-		
+
 		$sy2 = substr($r_close_date2,0,4);
 		$sm2 = substr($r_close_date2,4,2);
 		$sd2 = substr($r_close_date2,6,2);
 		$sdate2 = mktime(12,0,0,$sm2,$sd2,$sy2);
-	
+
 		$sql = "UPDATE {$write_table}_r_close SET r_close_name = '$r_close_name',
 			r_close_date = '$sdate', r_close_date2 = '$sdate2' WHERE r_close_idx ='$id' LIMIT 1 ;";
-	
+
 		$result = sql_query($sql);
 	} else if($u == "insert") {
 		$sy = substr($r_close_date,0,4);
 		$sm = substr($r_close_date,4,2);
 		$sd = substr($r_close_date,6,2);
 		$sdate = mktime(12,0,0,$sm,$sd,$sy);
-		
+
 		$sy2 = substr($r_close_date2,0,4);
 		$sm2 = substr($r_close_date2,4,2);
 		$sd2 = substr($r_close_date2,6,2);
 		$sdate2 = mktime(12,0,0,$sm2,$sd2,$sy2);
-		
+
 		$sql = "INSERT INTO {$write_table}_r_close (r_close_name, r_close_date, r_close_date2) VALUES ('$r_close_name', '$sdate', '$sdate2');";
 		sql_query($sql);
 	}
-	
+
 	show_list();
 }
 ?>
@@ -202,9 +202,9 @@ function Process(u,id) {
 </table>
 <?php
 ############# 푸터
-if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]); 
-if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>"; 
-if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]"); 
+if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);
+if ($board[bo_image_tail]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_tail]' border='0'>";
+if ($board[bo_include_tail]) @include ("../../$board[bo_include_tail]");
 
-include_once("$g4[path]/tail.sub.php"); 
+include_once("$g4[path]/tail.sub.php");
 ?>

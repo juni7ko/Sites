@@ -450,7 +450,7 @@ function Get_Date_Reserv_List_Start_Pop_Rate($bo_table, $year, $month) {
 	// 예약방수 : $total_rev
 	// 전체방수 : $room_cnt
 
-	$r_print .= "<div style='text-align:left; color:#000;'>가동률 : 객실수({$room_cnt}),  예약완료({$total_rev}), 예약불가({$total_close}) = " . round($rate,2) . "%</div>";
+	$r_print .= "<div style='text-align:left; color:#000;'>가동률 : 객실수({$room_cnt}),  예약완료({$total_rev}), 관리자예약({$total_close}) = " . round($rate,2) . "%</div>";
 
 	return $r_print;
 }

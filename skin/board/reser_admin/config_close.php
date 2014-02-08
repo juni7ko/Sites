@@ -46,7 +46,7 @@ $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
         <td colspan="3" valign="top" style="background:#FFF; padding:10px;">
 <?php include_once("{$board_skin_path}/inc_top_menu.php");
 
-$tit = "예약불가 관리";
+$tit = "관리자 예약";
 if($u == "add") {
 	$tit .= " - 추가";
 } else if($u == "edit") {

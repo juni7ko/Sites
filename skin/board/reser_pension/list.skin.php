@@ -140,7 +140,7 @@ if ($view_mode == "list"){
 													<img src="<?=$board_skin_path?>/img_n/wan.gif" width="11" height="11" align="absmiddle" /> 예약완료
 													<img src="<?=$board_skin_path?>/img_n/dae.gif" width="11" height="11" align="absmiddle" /> 입금대기
 													<img src="<?=$board_skin_path?>/img_n/cancel.gif" align="absmiddle" /> 예약취소
-													<?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 예약불가<?php }?>
+													<?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 관리자예약<?php }?>
 												</td>
 											</tr>
 										</table>

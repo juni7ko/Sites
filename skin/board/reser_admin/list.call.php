@@ -79,7 +79,7 @@ window.onafferprint = afterPrint;
                                     </table>
                                     <table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
                                         <tr>
-                                            <td><img src="<?=$board_skin_path?>/img_n/wan.gif" width="11" height="11" align="absmiddle" /> 예약완료 <img src="<?=$board_skin_path?>/img_n/dae.gif" width="11" height="11" align="absmiddle" /> 입금대기 <img src="<?=$board_skin_path?>/img_n/jong.gif" width="11" height="11" align="absmiddle" /> 예약종료 <?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 예약불가<?php }?></td>
+                                            <td><img src="<?=$board_skin_path?>/img_n/wan.gif" width="11" height="11" align="absmiddle" /> 예약완료 <img src="<?=$board_skin_path?>/img_n/dae.gif" width="11" height="11" align="absmiddle" /> 입금대기 <img src="<?=$board_skin_path?>/img_n/jong.gif" width="11" height="11" align="absmiddle" /> 예약종료 <?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 관리자예약<?php }?></td>
                                             <td align="right"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&view_mode=cost">매출</a> | <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&view_mode=call"><strong>입실일</strong></a> | <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&view_mode=call2">숙박기간</a></td>
                                         </tr>
                                     </table></td>

@@ -258,7 +258,7 @@ function textarea_size(fld, size)
 										<li><a href="./index.php?mode=room">객실/기본요금</a></li>
 										<li><a href="./index.php?mode=date">기간별요금</a></li>
 										<li><a href="./index.php?mode=off">공휴일</a></li>
-										<li><a href="./index.php?mode=close">예약불가</a></li>
+										<li><a href="./index.php?mode=close">관리자예약</a></li>
 										<li><a href="./index.php?mode=tel">전화예약</a></li>
 										<li><a href="./index.php?mode=option">추가옵션</a></li>
 									</ul>
