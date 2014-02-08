@@ -282,7 +282,7 @@ if ($w == "" || $w == "r")
         sql_query("UPDATE $g4[board_table] set bo_count_write = bo_count_write + 1 where bo_table = '$bo_table'");
 
         // 예약건수 1 증가
-        sql_query("UPDATE g4_write_pension_info set resCount = resCount + 1 where pension_id = '$pensiond_id'");
+        sql_query("UPDATE g4_write_pension_info set resCount = resCount + 1 where pension_id = '$pension_id'");
 
         // 쓰기 포인트 부여
         if ($w == '')
