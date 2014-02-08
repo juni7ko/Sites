@@ -28,7 +28,7 @@ include_once('./head.index.php');
 	<div class="row">
 		<div class="container">
 			<div class="main-slide-gallery">
-<?php echo latest2("section1", pension_info, 5, 25, "AND mainPrint = 1"); ?>
+<?php echo latest2("section1", pension_info, 5, 25, ""); ?>
 			</div><!-- ./main-slide-gallery -->
 
 			<div class="main-search-area">
@@ -45,7 +45,7 @@ include_once('./head.index.php');
 <div id="section" class="section2">
 	<div class="row">
 		<div class="container">
-<?php echo latest2("section2", pension_info, 3, 25, "AND mainPrint = 2"); ?>
+<?php echo latest2("section2", pension_info, 3, 25, "AND mainPrint = 1"); ?>
 		</div><!-- ./container -->
 	</div><!-- ./row -->
 </div>
@@ -80,7 +80,7 @@ include_once('./head.index.php');
 
 			<!-- Right Pension Latest -->
 			<div class="cols2">
-<?php echo newStay("newStay", pension_info, 3, 25); ?>
+<?php echo newStay("newStay", pension_info, 3, 25, ""); ?>
 			</div><!-- ./cols2 -->
 			<!-- ./Right Pension Latest -->
 
@@ -127,7 +127,7 @@ include_once('./head.index.php');
 <div id="section" class="section5">
 	<div class="row">
 		<div class="container">
-<?php echo latest2("section2", pension_info, 3, 25, "AND mainPrint = 3"); ?>
+<?php echo latest2("section2", pension_info, 3, 25, "AND mainPrint = 2"); ?>
 		</div><!-- ./container -->
 	</div><!-- ./row -->
 </div>
@@ -142,13 +142,13 @@ include_once('./head.index.php');
 
 			<!-- Left Pension Latest -->
 			<div class="cols2">
-<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 4"); ?>
+<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 3"); ?>
 			</div><!-- ./cols2 -->
 			<!-- ./Left Pension Latest -->
 
 			<!-- Right Pension Latest -->
 			<div class="cols2">
-<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 5"); ?>
+<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 4"); ?>
 			</div><!-- ./cols2 -->
 			<!-- ./Right Pension Latest -->
 

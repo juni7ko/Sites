@@ -1106,16 +1106,11 @@ function latest2($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options=""
 
     $list = array();
 
-    $sql = " select * from $g4[board_table] where bo_table = '$bo_table'";
+    $sql = " SELECT * from $g4[board_table] where bo_table = '$bo_table'";
     $board = sql_fetch($sql);
 
     $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
-    //$sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_id desc limit 0, $rows ";
-    // 위의 코드 보다 속도가 빠름
-    if($options)
-      $sql = " select * from $tmp_write_table where wr_is_comment = 0 AND mainUse = 1 $options order by wr_num limit 0, $rows ";
-    else
-      $sql = " select * from $tmp_write_table where wr_is_comment = 0 AND mainUse = 1 order by wr_num limit 0, $rows ";
+    $sql = " SELECT * from $tmp_write_table where wr_is_comment = 0 AND mainUse = 1 $options order by rand() limit $rows ";
     //explain($sql);
     $result = sql_query($sql);
     for ($i=0; $row = sql_fetch_array($result); $i++)
@@ -1140,14 +1135,14 @@ function hotSale($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options=""
 
     $list = array();
 
-    $sql = " select * from $g4[board_table] where bo_table = '$bo_table'";
+    $sql = " SELECT * from $g4[board_table] where bo_table = '$bo_table'";
     $board = sql_fetch($sql);
 
     $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
 
     //explain($sql);
 	// 1. 할인율 최대값을 구한다.
-	$sql = " select * from $tmp_write_table where wr_is_comment = 0 AND mainUse = 1 order by discount desc limit 0, $rows ";
+	$sql = " SELECT * from $tmp_write_table where wr_is_comment = 0 AND mainUse = 1 order by discount desc limit 0, $rows ";
 
 	$result = sql_query($sql);
     for ($i=0; $row = sql_fetch_array($result); $i++)
@@ -1172,13 +1167,13 @@ function newStay($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options=""
 
     $list = array();
 
-    $sql = " select * from $g4[board_table] where bo_table = '$bo_table'";
+    $sql = " SELECT * from $g4[board_table] where bo_table = '$bo_table'";
     $board = sql_fetch($sql);
 
     $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
 
     //explain($sql);
-	$sql = " select * from $tmp_write_table where wr_is_comment = 0 AND mainUse = 1 order by wr_num limit 0, $rows ";
+	$sql = " SELECT * from $tmp_write_table where wr_is_comment = 0 AND mainUse = 1 order by wr_num limit 0, $rows ";
 
 	$result = sql_query($sql);
     for ($i=0; $row = sql_fetch_array($result); $i++)

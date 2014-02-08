@@ -131,7 +131,7 @@ echo $list[$i][cf94] ? "벽돌형. " : NULL;
 								<h2>[<?=$list[$i]['location1'] ." ". $list[$i]['location2']; ?>] <?=$list[$i]['subject'] ?></h2>
 							</div>
 							<div class="right">
-								<h1 class="price"><?=number_format($list[$i]['lowPrice'])?>원</h1>
+								<h1 class="price"><span class="pink"><?=number_format($list[$i]['lowPrice'])?>원</span></h1>
 							</div>
 						</div>
 						<img src="<?=$thumb?>" class="image" alt="<?=$list[$i]['subject']?>" />

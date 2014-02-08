@@ -72,7 +72,7 @@ $tm['tm'][$i] = $thumb;
 				<a href="<?php echo $list[$i]['href']?>"><img src="<?=$thumb?>" class="image" alt="<?=$list[$i]['subject']?>" /></a>
 				<h5><?=$list[$i]['subject']?></h5>
 				<h3>[<?=$list[$i]['location1'] ." ". $list[$i]['location2']; ?>] <?=$list[$i]['subject'] ?></h3>
-				<h4><?=number_format($list[$i]['lowPrice'])?>원</h4>
+				<h4><span class="pink"><?=number_format($list[$i]['lowPrice'])?>원</span></h4>
 			</div>
 
 <?php }    // for end
