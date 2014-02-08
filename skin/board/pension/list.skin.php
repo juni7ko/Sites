@@ -168,12 +168,12 @@ if ($is_nogood) $colspan++;
 
 							<?php
 							// 객실 정보를 배열로 정리
-							$sql_r = "select * from g4_write_bbs34_r_info where pension_id = '{$list[$i][pension_id]}' $where2 ";
+							$sql_r = " SELECT * FROM g4_write_bbs34_r_info WHERE pension_id = '{$list[$i][pension_id]}' $where2 ORDER BY r_info_order DESC ";
 							$resultList = sql_query($sql_r);
 
 							for ($rOrder=0; $r_info3 = sql_fetch_array($resultList); $rOrder++)
 							{
-									$sql_cost = "select * from g4_write_bbs34_r_cost  where pension_id = '{$list[$i][pension_id]}' and  r_info_id = '$r_info3[r_info_id]' ";
+									$sql_cost = " SELECT * FROM g4_write_bbs34_r_cost WHERE pension_id = '{$list[$i][pension_id]}' AND  r_info_id = '$r_info3[r_info_id]' ";
 									$r_cost2 = sql_fetch($sql_cost);
 
 									$roomList[$rOrder] = array(

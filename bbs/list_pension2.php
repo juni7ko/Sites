@@ -207,7 +207,7 @@ if($where) $where2 = " and " . $where;
 
 $t = 0;
 for($q = 0; $q < $k; $q++) {
-	$sql_r = "SELECT * from $rInfo_table where pension_id = '{$list[$q][wr_id]}' $where2 ";
+	$sql_r = "SELECT * from $rInfo_table where pension_id = '{$list[$q][wr_id]}' $where2 ORDER BY r_info_order DESC ";
 	$resultList = sql_query($sql_r);
 
 	for ($rc=0; $roomArray = sql_fetch_array($resultList); $rc++) {
