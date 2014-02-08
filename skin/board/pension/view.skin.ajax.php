@@ -90,7 +90,7 @@ $costID = $viewDateRow['rInfoId'][$j];
 <tr class="pay">
 	<td rowspan="2">
 		<h3 class="title">
-			<a href="#detail" onClick="roomFrameGo(0,'<?=$viewDateRow['rInfoId'][$j]?>','<?=$pension_id?>');"><?=$viewDateRow['rInfoName'][$j]?></a>
+			<a href="#detailRoom" onClick="roomFrameGo(0,'<?=$viewDateRow['rInfoId'][$j]?>','<?=$pension_id?>');"><?=$viewDateRow['rInfoName'][$j]?></a>
 		</h3>
 		<span>기준<?=$viewDateRow['rInfoPerson1'][$j]?>/최대<?=$viewDateRow['rInfoPerson2'][$j]?></span>
 		<?=$viewDateRow['rInfoArea'][$j]?>평(<?=$viewDateRow['rInfoArea'][$j] * 3.3?>㎡)
@@ -127,7 +127,7 @@ $resCheck = resCheck($pension_id, $viewDateRow['pDate'][$i], $costID);
 	} else if($resCheck['tel']['r_tel_name']) { // 3차 전화예약 검사
 		echo "전화";
 	} else {
-		echo "<input class='r{$costID}' type='checkbox' name='checkRoom[]' value='{$costID}_{$viewDateRow['pDate'][$i]}' />";
+		echo "<input type='checkbox' name='checkRoom[]' class='checkRoom' value='{$costID}_{$viewDateRow['pDate'][$i]}' />";
 	}
 	?>
 	</td>
@@ -136,8 +136,8 @@ $resCheck = resCheck($pension_id, $viewDateRow['pDate'][$i], $costID);
 <?php endforeach; ?>
 </table>
 
-<?php if($r_info_id) : ?>
+<?php if($rid) : ?>
 <script type="text/javascript">
-	$('.r<?=$r_info_id?>[value=<?=$r_info_id?>_<?=$sDate?>]').attr('checked', true);
+	$('.checkRoom:checkbox[value=<?=$rid?>_<?=$sDate?>]').attr('checked', true);
 </script>
 <?php endif; ?>

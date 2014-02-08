@@ -152,7 +152,7 @@ span.reser_btn a:hover {
 							<!-- <tr onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''"> -->
 							<td>
 								<?=$list[$i]['r_info_name']?>
-								<span class="reser_btn"><a href="<?=$list[$i][href]?>&r_info_id=<?=$list[$i]['r_info_id']?>&sDate=<?=$schDateTmp?>">예약</a></span>
+								<span class="reser_btn"><a href="<?=$list[$i][href]?>&rid=<?=$list[$i]['r_info_id']?>&sDate=<?=$schDateTmp?>">예약</a></span>
 							</td>
 							<td>
 								<?=$list[$i]['r_info_area']?>평(<?=$list[$i]['r_info_area'] * 3.3?>㎡)<br />

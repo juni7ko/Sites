@@ -323,6 +323,7 @@ endforeach;
 				<!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
 			</div>
 		</div>
+<a name="detailRoom"></a>
 		<div class="cols">
 			<div class="row title-bg">
 				<h3 class="cal-title">객실 사진 및 소개</h3>
