@@ -3,7 +3,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 /*
  * http://www.g4m.kr
  * g4m board view.skin.php
- * 
+ *
  */
 ?>
 <!-- 게시글 보기 시작 -->
@@ -132,7 +132,7 @@ $(document).ready(function() {
         ?>
         </div>
     </div>
-    <?php 
+    <?php
     if($view['link']['1'] == NULL && $view['link']['2'] == NULL){
         $vf_style="display:none";
     }

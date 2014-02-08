@@ -31,14 +31,12 @@ function resform_submit(f)
 <input type=hidden name=type value=code />
 <input type=hidden name=bo_table value='bbs34'>
 <div id="container">
-	<div class="content-title">
-		<h1>RESERVATION</h1>
-		<span>예약확인</span>
-	</div>
 	<div class="content-area">
-
 		<div class="reservation-area">
-
+			<div class="content-title">
+				<h1>RESERVATION</h1>
+				<span>예약확인</span>
+			</div>
 			<div class="res-contents">
 
 				<div class="res-comment">
