@@ -181,9 +181,9 @@ endforeach;
 									</select>
 									<!-- <input name="wr_tel1" type="text" class="text" size="4" maxlength="4"/> -->
 									-
-									<input name="wr_tel2" type="text" class="text" size="4" maxlength="4"/>
+									<input name="wr_tel2" type="text" class="text" size="4" maxlength="4" numberonly="true"/>
 									-
-									<input name="wr_tel3" type="text" class="text" size="4" maxlength="4"/>
+									<input name="wr_tel3" type="text" class="text" size="4" maxlength="4" numberonly="true"/>
 								</td>
 							</tr>
 							<tr>
@@ -342,6 +342,15 @@ endforeach;
 			return false;
 		}
 
+		if(f.wr_email.value) {
+			var re_mail = /^([\w\.-]+)@([a-z\d\.-]+)\.([a-z\.]{2,6})$/; // 이메일 검사식
+			if(re_mail.test(f.wr_email.value) != true) { // 이메일 검사
+				alert('[Email 입력 오류] 유효한 이메일 주소를 입력해 주세요.');
+				f.wr_email.focus();
+				return false;
+			}
+		}
+
 		if(!f.agree.checked) {
 			alert("유의사항과 환불기준에 동의하셔야 합니다.");
 			return false;
@@ -374,6 +383,11 @@ endforeach;
 				}
 			}
 		});
+
+		$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
+		// $("input:text[numberOnly]").keyup(function() {
+		// 	$(this).val( $(this).val().replace(/[^0-9]/gi,"") );
+		// });
 
 	});
 </script>
