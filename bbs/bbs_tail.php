@@ -2,7 +2,8 @@
 </div><!-- container -->
 
 
-<?php include("$g4[path]/sub/sub_footer.php");?>
+<?php
+//include("$g4[path]/sub/sub_footer.php");
 
-<?php include_once("../tail.php"); 
-?> 
+include_once("../tail.php");
+?>

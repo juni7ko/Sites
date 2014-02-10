@@ -14,7 +14,7 @@
 	<div class="contents clearfix">
 
 		<!-- navigation -->
-<?php include("$g4[path]/_navigation.php");?>
+<?php include_once("$g4[path]/_navigation.php");?>
 		<!-- ./navigation -->
 
 		<div class="search-form-area disnone">
