@@ -1,222 +1,258 @@
-<?php include_once "_common.php";
+<?php
+include_once "_common.php";
 include_once("$g4[path]/head.sub.php");
 include_once("$board_skin_path/config.php");
-
+include_once("$board_skin_path/view.skin.lib.php");
 if(!$bo_table) alert("정상적인 접근이 아닙니다.");
-
-$sql = "CREATE TABLE IF NOT EXISTS `{$res_table}_r_tel` (
-  `r_tel_idx` int(11) NOT NULL auto_increment,
-  `r_tel_name` varchar(20) NOT NULL default '',
-  `r_tel_date` int(11) NOT NULL default '0',
-  `r_tel_date2` int(11) NOT NULL default '0',
-  `pension_id` int(11) NOT NULL,
-  `r_info_id` int(11) NOT NULL,
-  PRIMARY KEY  (`r_tel_idx`)
-);";
-sql_query($sql);
 
 if ($board[bo_include_head]) include ("../../$board[bo_include_head]");
 if ($board[bo_image_head]) echo "<img src='$g4[path]/data/file/$bo_table/$board[bo_image_head]' border='0'>";
 if ($board[bo_content_head]) echo stripslashes($board[bo_content_head]);
 ############# 헤드
 $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
+
+function viewTelRoom($penID, $pDate)
+{
+	global $write_table2;
+	// 방 정보 수집
+	$roomListSql = sql_query(" SELECT * FROM {$write_table2}_r_info WHERE pension_id = '$penID' ORDER BY r_info_order ASC");
+
+	for($i=0; $roomList = sql_fetch_array($roomListSql); $i++) {
+		$rList[$i]['r_info_id']   = $roomList['r_info_id'];
+		$rList[$i]['r_info_name'] = $roomList['r_info_name'];
+		$closeList = sql_fetch(" SELECT * FROM {$write_table2}_r_tel WHERE r_info_id = $roomList[r_info_id] and ($pDate BETWEEN r_tel_date AND r_tel_date2) ");
+		$rList[$i]['r_tel_idx'] = $closeList['r_tel_idx'];
+	}
+	return $rList;
+}
+
+function viewTelRoomOnly($penID, $pDate)
+{
+	global $write_table2;
+	// 방 정보 수집
+    $roomListSql = " SELECT A.r_info_id, A.r_info_name, B.r_tel_idx FROM {$write_table2}_r_info AS A INNER JOIN {$write_table2}_r_tel AS B ON
+    				A.r_info_id = B.r_info_id and ($pDate BETWEEN B.r_tel_date AND B.r_tel_date2) ";
+	$resultList = sql_query($roomListSql);
+
+	for ($i=0; $roomList = sql_fetch_array($resultList); $i++)
+	{
+		$viewDateRow[$i]['r_info_id']   = $roomList['r_info_id'];
+		$viewDateRow[$i]['r_info_name'] = $roomList['r_info_name'];
+		$viewDateRow[$i]['r_tel_idx'] = $roomList['r_tel_idx'];
+	}
+	return $viewDateRow;
+}
+
+if($u) {
+	$sql1 = "SELECT r_info_name FROM g4_write_bbs34_r_info where pension_id = '$pension_id' AND r_info_id = '$ridx' LIMIT 1 ;";
+	$info = sql_fetch($sql1);
+
+	if($cidx) {
+		$sql = " DELETE FROM g4_write_bbs34_r_tel WHERE pension_id = '$pension_id' AND r_tel_idx ='$cidx' and r_info_id = '$ridx' and ($pDate BETWEEN r_tel_date AND r_tel_date2) ";
+		sql_query($sql);
+	} else {
+		$sql = "INSERT INTO g4_write_bbs34_r_tel (r_tel_name, r_tel_date, r_tel_date2, pension_id, r_info_id) VALUES ('$info[r_info_name]', '$pDate', '$pDate', '$pension_id', '$ridx' );";
+		sql_query($sql);
+	}
+}
 ?>
 <link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.css" type="text/css">
 <link rel="stylesheet" href="<?=$board_skin_path?>/mstyle.css" type="text/css">
-<script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery.js"></script>
-<script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.js"></script>
+<style type="text/css">
+	ul.resCloseUl { list-style: none; }
+	ul.resCloseUl li.resCloseLi { cursor: pointer; }
+	span.resClose1 { background-color:#5eb917; color:#FFFFFF; padding:0 1px; margin-right:2px; line-height:15px; }
+	span.resClose2 { background-color:#ff6666; color:#FFFFFF; padding:0 1px; margin-right:2px; line-height:15px; }
+</style>
 <script type="text/javascript">
-	$(function() {
-		$.datepicker.regional['ko'] = {
-			closeText: '닫기',
-			prevText: '이전달',
-			nextText: '다음달',
-			currentText: '오늘',
-			monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
-			'7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
-			monthNamesShort: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
-			'7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
-			dayNames: ['일','월','화','수','목','금','토'],
-			dayNamesShort: ['일','월','화','수','목','금','토'],
-			dayNamesMin: ['일','월','화','수','목','금','토'],
-			dateFormat: 'yymmdd', firstDay: 0,
-			changeMonth: true,
-			changeYear: true,
-			showButtonPanel: true,
-			isRTL: false};
-		$.datepicker.setDefaults($.datepicker.regional['ko']);
-		$("#r_tel_date").datepicker();
-		$("#r_tel_date2").datepicker();
-	});
+	function changeState(pDate, ridx, cidx) {
+		f = document.process;
+		f.pDate.value = pDate;
+		f.ridx.value = ridx;
+		f.cidx.value = cidx;
+		f.action = "<?=$this_page?>";
+		f.submit();
+	}
 </script>
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr><td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) left top;"></td>
-<td bgcolor="#ffffff">&nbsp;</td>
-<td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) right top;"></td></tr>
-<tr>
-        <td colspan="3" valign="top" style="background:#FFF; padding:10px;">
-<?php include_once("{$board_skin_path}/inc_top_menu.php");
-
-$tit = "전화예약 관리";
-if($u == "add") {
-	$tit .= " - 추가";
-} else if($u == "edit") {
-	$tit .= " - 수정";
-} else {
-	$tit .= "";
+<?php
+$tit = "전화 예약";
+if($u) {
+	$editDate = date("Ymd", $pDate);
+	$tit .= " : {$info[r_info_name]} [{$editDate}] ";
+	if($cidx) {
+		$tit .= " - 삭제완료";
+	} else {
+		$tit .= " - 추가완료";
+	}
 }
-$tit .=  " [".$pension_id."]";
 ?>
 <div class="ui-state-highlight ui-corner-all" style="margin: 20px 0 5px; padding: 5px .7em;">
     <span class="ui-icon ui-icon-power" style="float: left; margin-right: .3em;"></span>
     <strong><?=$tit?></strong>
 </div>
-<ul style="list-style:circle;">
-	<li>전화로만 예약받고자 할 경우 전화예약 기간을 설정한다.</li>
-    <li>전화예약기간 중 예약불가나 완료된 객실은 완료로 표시되고 나머지 기간은 전화로 표시됨.</li>
-</ul>
 <?php
-function show_list() {
-	global $g4, $write_table, $css, $pension_id;
-	$colspan = 5;
-## 리스트 시작
-	$sql = " SELECT * FROM {$write_table}_r_tel where pension_id = '$pension_id'  order by r_tel_date ASC ";
-	$result = sql_query($sql);
+	include_once("{$board_skin_path}/inc_top_menu.php");
 
-	echo "<table width='100%' border='0' cellpadding='3' cellspacing='1' class='$css[table]'>";
-	echo "<tr class='$css[tr]'>
-			<td>No</td>
-			<td>방이름</td>
-			<td>시작일</td>
-			<td>종료일</td>
-			<td width=150>관리</td>
-		</tr>";
-	for ($i=0; $r_date = sql_fetch_array($result); $i++)  {
-		$j = $i+1;
-		echo "<tr class='list$i ht center'>";
-		echo "<td>" . $j . "</td>";
-		echo "<td>" . $r_date[r_tel_name] . "</td>";
-		echo "<td>" . date("Y-m-d", $r_date[r_tel_date]) . "</td>";
-		echo "<td>" . date("Y-m-d", $r_date[r_tel_date2]) ."</td>";
-		echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('edit',{$r_date[r_tel_idx]}); return false;\">
-			<input type=button class='$css[btn]' value=\"삭제\" onClick=\"Process('del',{$r_date[r_tel_idx]}); return false;\"></td>";
-		echo "</tr>";
+	$nDate = getdate();
+	$nDateY = (int)$nDate['year'];
+	$nDateM = (int)$nDate['mon'];
+	$nDateD = (int)$nDate['mday'];
+	$nDateTmp = mktime(12,0,0,$nDateM,$nDateD,$nDateY);
+
+
+	$lastDay = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
+	if ($nDateY%4 == 0) $lastDay[2] = 29;
+	$dayoftheweek = date("w", mktime (0,0,0,$nDateM,1,$nDateY));
+
+	if(!$sDate)
+	{
+		$sDateTmp = mktime(12,0,0,$nDateM,1,$nDateY);
+		$sDate = date("Ymd", $sDateTmp);
+		$sDateY = (int)date("Y", $sDateTmp);
+		$sDateM = (int)date("m", $sDateTmp);
+
+		$eDateTmp = mktime(12,0,0,$sDateM,$lastDay[$sDateM],$sDateY);
+		$eDate = date("Ymd", $eDateTmp);
+	} else {
+		$sDateY = (int)date("Y", $sDate);
+		$sDateM = (int)date("m", $sDate);
+		$sDateTmp = mktime(12,0,0,$sDateM,1,$sDateY);
+		$sDate = date("Ymd", $sDateTmp);
+		$sDateYMD = date("Ymd", $sDateTmp);
+
+		$eDateTmp = mktime(12,0,0,$sDateM,$lastDay[$sDateM],$sDateY);
+		$eDate = date("Ymd", $eDateTmp);
 	}
-	if ($i == 0)
-		echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
 
-	echo "</table>";
+	// 이전/다음 버튼의 링크 생성 - 1개월 단위로 이동하도록 수정
+	$prevDay = $sDateTmp - (86400 * 1);
+	$nextDay = $sDateTmp + (86400 * 33);
+	$prevLink = "$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id&sDate=$prevDay";
+	$nextLink = "$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id&sDate=$nextDay";
 
-	echo "<div style='margin-top:5px; text-align:right;'><input type=button class='$css[btn]' value='추가' onClick=\"Process('add',0); return false;\"></div>";
-## 리스트 끝
-}
+	if (eregi('%', $width)) {
+		$col_width = "14%"; //표의 가로 폭이 100보다 크면 픽셀값입력
+	}else{
+		$col_width = round($width/7); //표의 가로 폭이 100보다 작거나 같으면 백분율 값을 입력
+	}
+	$col_height= 70 ;//내용 들어갈 사각공간의 세로길이를 가로 폭과 같도록
 ?>
-<script type="text/javascript">
-<!--
-function Process(u,id) {
-	f = document.process;
-	if(u == "del") {
-		var Result = confirm("자료가 영구히 삭제됩니다. 정말로 삭제하시겠습니까?");
-		if(Result)
-			f.action = "<?=$this_page?>";
-		else
-			return false;
-	}
-	f.action = "<?=$this_page?>";
-	f.u.value = u;
-	f.id.value = id;
-	f.submit();
-}
--->
-</script>
-<form name="process" method="POST" style="margin:0; padding:0;">
-<input type="hidden" name="bo_table" value="<?=$bo_table?>" />
-<input type="hidden" name="u" value="">
-<input type="hidden" name="id" value="">
-<input type="hidden" name="pension_id" value="<?=$pension_id?>">
-<?php if($u == "add") {
-	$colspan = 3;
-	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
-	echo "<tr class='$css[tr]'>
-			<td>방이름</td>
-			<td>시작일</td>
-			<td>종료일</td>
-			<td width=150>관리</td>
-		</tr>";
-	echo "<tr align=center height=30>";
-	echo "<td>".Get_Room_Select2($pen_id,'r_info_id','')."</td>";
-	echo "<td><input class=m_text id=r_tel_date type=text required numeric itemname=시작일 size=13 name=r_tel_date value='" . date("Ymd", mktime()) . "' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> <a href=\"javascript:win_calendar('r_tel_date', document.getElementById('r_tel_date').value, '');\"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>";
-	echo "<td><input class=m_text id=r_tel_date2 type=text required numeric itemname=종료일 size=13 name=r_tel_date2 value='" . date("Ymd", mktime()) . "' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> <a href=\"javascript:win_calendar('r_tel_date2', document.getElementById('r_tel_date2').value, '');\"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>";
-	echo "<td><input type=button class='btn1 ui-button ui-state-default ui-corner-all' value=\"추가\" onClick=\"Process('insert',0); return false;\"> <input type=button class='btn1 ui-button ui-state-default ui-corner-all' value=\"취소\" onClick=\"history.back(-1); return false;\"></td>";
-	echo "</tr>";
-	echo "</table>";
-} else if($u == "edit") {
-	$colspan = 4;
-	## 업데이트 리스트
-	$r_date = sql_fetch(" SELECT * FROM {$write_table}_r_tel WHERE r_tel_idx='$id' ");
+	<div style="text-align:center; margin:0 auto 10px;">
+		<span style="margin-right:20px;"><a href="<?=$prevLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/pre.gif" width="30" height="14" /></a></span>
+		<a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?>" title="오늘로" onfocus="this.blur()">
+			<span style="font-size:16px; font-weight:bold;"><?=$sDateY?>년 <?=$sDateM?>월</span>
+		</a>
+		<span style="margin-left:20px;"><a href="<?=$nextLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/next.gif" width="30" height="14" /></a></span>
+	</div>
+	<div>
+		<span class="resClose1">일</span>일반예약
+		<span class="resClose2">전</span>전화예약
+	</div>
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+		<?php $text_no = "2"; ?>
+		<tr>
+			<td class="wsun"><img src="<?=$board_skin_path?>/img_n/sunday.gif" width="70" height="7" /></td>
+			<td class="week"><img src="<?=$board_skin_path?>/img_n/monday.gif" width="70" height="7" /></td>
+			<td class="week"><img src="<?=$board_skin_path?>/img_n/tuesday.gif" width="70" height="7" /></td>
+			<td class="week"><img src="<?=$board_skin_path?>/img_n/wednesday.gif" width="70" height="7" /></td>
+			<td class="week"><img src="<?=$board_skin_path?>/img_n/tuesday.gif" width="70" height="7" /></td>
+			<td class="wfri"><img src="<?=$board_skin_path?>/img_n/friday.gif" width="70" height="7" /></td>
+			<td class="wsat"><img src="<?=$board_skin_path?>/img_n/saturday.gif" width="70" height="7" /></td>
+		</tr>
+		<tr>
+			<td height="5" colspan="7"></td>
+		</tr>
+		<tr>
+			<td height="2" colspan="7" bgcolor="#CCCCCC"></td>
+		</tr>
+		<?php
+		$cday = 1;
+		$tDate = $sDate;
+		$tDateTmp = $sDateTmp;
 
-	echo "<table width='100%' border='0' cellpadding='0' cellspacing='1' class='$css[table]'>";
-	echo "<tr class='$css[tr]'>
-			<td>방이름</td>
-			<td>시작일</td>
-			<td>종료일</td>
-			<td width=150>관리</td>
-		</tr>";
-	echo "<tr align=center height=30>";
-	echo "<td>".$r_date[r_tel_name]."</td>";
-	echo "<td><input class=m_text id=r_tel_date type=text required numeric itemname=시작일 size=13 name=r_tel_date value='" . date("Ymd", $r_date[r_tel_date]) . "' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> <a href=\"javascript:win_calendar('r_tel_date', document.getElementById('r_tel_date').value, '');\"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>";
-	echo "<td><input class=m_text id=r_tel_date2 type=text required numeric itemname=종료일 size=13 name=r_tel_date2 value='" . date("Ymd", $r_date[r_tel_date2]) . "' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'> <a href=\"javascript:win_calendar('r_tel_date2', document.getElementById('r_tel_date2').value, '');\"><img src='./img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></td>";
-	echo "<td><input type=button class='$css[btn]' value=\"수정\" onClick=\"Process('update',$id); return false;\">
-		<input type=button class='$css[btn]' value=\"취소\" onClick=\"history.back(-1); return false;\"></td>";
-	echo "</tr>";
-	echo "</table>";
-	## 업데이트 리스트 끝
-} else {
-	if($u == "del") {
-		$sql = "DELETE FROM {$write_table}_r_tel WHERE r_tel_idx ='$id'";
-		sql_query($sql);
-	} else if($u == "update") {
-		$sy = substr($r_tel_date,0,4);
-		$sm = substr($r_tel_date,4,2);
-		$sd = substr($r_tel_date,6,2);
-		$sdate = mktime(12,0,0,$sm,$sd,$sy);
+		// 달력의 틀을 보여주는 부분
+		$temp = 7- (($lastDay[$sDateM]+$dayoftheweek)%7);
 
-		$sy2 = substr($r_tel_date2,0,4);
-		$sm2 = substr($r_tel_date2,4,2);
-		$sd2 = substr($r_tel_date2,6,2);
-		$sdate2 = mktime(12,0,0,$sm2,$sd2,$sy2);
+		if ($temp == 7) $temp = 0;
+		$lastcount = $lastDay[$sDateM]+$dayoftheweek + $temp;
 
-		$sql = "UPDATE {$write_table}_r_tel SET r_tel_date = '$sdate', r_tel_date2 = '$sdate2' WHERE r_tel_idx ='$id' LIMIT 1 ;";
+		for ($iz = 1; $iz <= $lastcount; $iz++) {
+			$bgcolor = "#FFFFFF";
+			if ($nDateY==$sDateY && $nDateM==$sDateM && $nDateD==$cday)
+				$bgcolor = "#f3f3f3";
+			if (($iz%7) == 1)
+				echo ("<tr>\n"); // 주당 7개씩 한쎌씩을 쌓는다.
 
-		$result = sql_query($sql);
-	} else if($u == "insert") {
-		$sy = substr($r_tel_date,0,4);
-		$sm = substr($r_tel_date,4,2);
-		$sd = substr($r_tel_date,6,2);
-		$sdate = mktime(12,0,0,$sm,$sd,$sy);
+			if ($dayoftheweek < $iz  &&  $iz <= $lastDay[$sDateM]+$dayoftheweek) {
+				// 전체 루프안에서 숫자가 들어가는 셀들만 해당됨. 즉 11월 달에서 1일부터 30 일까지
+				$daytext = date("d", $tDateTmp);
 
-		$sy2 = substr($r_tel_date2,0,4);
-		$sm2 = substr($r_tel_date2,4,2);
-		$sd2 = substr($r_tel_date2,6,2);
-		$sdate2 = mktime(12,0,0,$sm2,$sd2,$sy2);
+				if ($iz%7 == 1) $daytext = "<span style='color:red'>$daytext</span>"; // 일요일
+				if ($iz%7 == 0) $daytext = "<span style='color:blue'>$daytext</span>"; // 토요일
+				// 여기까지 숫자와 들어갈 내용에 대한 변수들의 세팅이 끝나고
+				// 이제 여기 부터 직접 셀이 그려지면서 그 안에 내용이 들어 간다.
+				if (($iz%7) == 0) {
+					echo "<td width=$col_width height=$col_height bgcolor=$bgcolor align=left valign=top class='dsat'>\n";
+				} else {
+					echo "<td width=$col_width height=$col_height bgcolor=$bgcolor align=left valign=top class='day'>\n";
+				}
 
-		$sql1 = "SELECT r_info_name FROM {$write_table}_r_info where pension_id = '$pension_id' AND r_info_id = '$r_info_id' LIMIT 1 ;";
-		$info = sql_fetch($sql1);
+				echo "<div align='right'>";
 
-		$sql = "INSERT INTO {$write_table}_r_tel (r_tel_name, r_tel_date, r_tel_date2, pension_id, r_info_id) VALUES ('$info[r_info_name]', '$sdate', '$sdate2', '$pension_id', '$r_info_id' );";
-		sql_query($sql);
-	}
+				switch(viewDateType($pension_id, $tDateTmp)) {
+					case "비수기" :
+					$typeColor = "green";
+					break;
+					case "성수기" :
+					$typeColor = "orange";
+					break;
+					default :
+					$typeColor = "red";
+					break;
+				}
 
-	show_list();
-}
-?>
-</form>
-</td>
-    </tr>
-<tr><td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) left bottom;"></td>
-<td bgcolor="#ffffff">&nbsp;</td>
-<td width="15" height="15" style="background:url(<?=$board_skin_path?>/img/rbox_white.gif) right bottom;"></td></tr>
-</table>
+				echo "<span style='color:$typeColor; padding:2px;'>" . viewDateType($pension_id, $tDateTmp) . "<span class='cal_sdate'>".$daytext."</span>"; //날짜 출력
+				echo "</div>";
+				echo "";
+
+				// 관리자예약 출력
+				echo "<div><ul class='resCloseUl'>";
+				$rList = viewTelRoom($pension_id, $tDateTmp);
+				for($rcnt = 0; $rcnt < count($rList); $rcnt++) {
+					$resClass = ( $rList[$rcnt]['r_tel_idx'] ) ? "resClose2" : "resClose1";
+					?>
+						<li class="resCloseLi" onClick="changeState('<?=$tDateTmp?>','<?=$rList[$rcnt][r_info_id]?>','<?=$rList[$rcnt][r_tel_idx]?>')">
+							<span class="<?=$resClass?>"><?=($rList[$rcnt]['r_tel_idx'])?"전":"일";?></span><?=$rList[$rcnt]['r_info_name']?>
+						</li>
+					<?php
+				}
+				echo "</div></ul>";
+
+				echo ("</td>\n");  // 한칸을 마무리
+				$cday++; // 날짜를 카운팅
+				$tDate++;
+				$tDateTmp += 86400;
+			} else { // 11월에서 1일부터 30일에 해당되지 않으면 그냥 회색을 칠한다.
+				if (($iz%7) == 0) {
+					echo ("<td width=$col_width height=$col_height valign=top class='dsat'>&nbsp;</td>\n");
+				} else {
+					echo ("<td width=$col_width height=$col_height valign=top class='day'>&nbsp;</td>\n");
+				}
+			}
+
+			if (($iz%7) == 0) echo ("  </tr>\n");
+		} // 반복구문이 끝남
+		?>
+	</table>
+	<form name="process" method="POST" style="margin:0; padding:0;">
+	<input type="hidden" name="bo_table" value="<?=$bo_table?>" />
+	<input type="hidden" name="pension_id" value="<?=$pension_id?>">
+	<input type="hidden" name="sDate" value="<?=$sDateTmp?>" />
+	<input type="hidden" name="pDate" value="" />
+	<input type="hidden" name="ridx" value="" />
+	<input type="hidden" name="cidx" value="" />
+	<input type="hidden" name="u" value="action" />
+	</form>
 <?php
 ############# 푸터
 if ($board[bo_content_tail]) echo stripslashes($board[bo_content_tail]);

@@ -20,7 +20,6 @@ function viewCloseRoom($penID, $pDate)
 	for($i=0; $roomList = sql_fetch_array($roomListSql); $i++) {
 		$rList[$i]['r_info_id']   = $roomList['r_info_id'];
 		$rList[$i]['r_info_name'] = $roomList['r_info_name'];
-		//$rList[$i]['r_close_idx'] = $roomList['r_close_idx'];
 		$closeList = sql_fetch(" SELECT * FROM {$write_table2}_r_close WHERE r_info_id = $roomList[r_info_id] and ($pDate BETWEEN r_close_date AND r_close_date2) ");
 		$rList[$i]['r_close_idx'] = $closeList['r_close_idx'];
 	}
