@@ -12,6 +12,23 @@ if ($view_mode == "list"){
 	include_once ("$board_skin_path/list.cost.php");
 } else {
 
+	function viewCloseRoomOnly($penID, $pDate)
+	{
+		global $write_table2;
+		// 방 정보 수집
+	    $roomListSql = " SELECT A.r_info_id, A.r_info_name, B.r_close_idx FROM {$write_table2}_r_info AS A INNER JOIN {$write_table2}_r_close AS B ON
+	    				A.r_info_id = B.r_info_id and ($pDate BETWEEN B.r_close_date AND B.r_close_date2) ";
+		$resultList = sql_query($roomListSql);
+
+		for ($i=0; $roomList = sql_fetch_array($resultList); $i++)
+		{
+			$viewDateRow[$i]['r_info_id']   = $roomList['r_info_id'];
+			$viewDateRow[$i]['r_info_name'] = $roomList['r_info_name'];
+			$viewDateRow[$i]['r_close_idx'] = $roomList['r_close_idx'];
+		}
+		return $viewDateRow;
+	}
+
 	$nDate = getdate();
 	$nDateY = (int)$nDate['year'];
 	$nDateM = (int)$nDate['mon'];
@@ -60,6 +77,13 @@ if ($view_mode == "list"){
 	?>
 	<link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.css" type="text/css">
 	<link rel="stylesheet" href="<?=$board_skin_path?>/mstyle.css" type="text/css">
+	<style type="text/css">
+		span.dae { background-color:green; color:#FFFFFF; padding:0 1px; margin-right:2px; line-height:15px; }
+		span.wan { background-color:red; color:#FFFFFF; padding:0 1px; margin-right:2px; line-height:15px; }
+		span.cancel { background-color:black; color:#FFFFFF; padding:0 1px; margin-right:2px; line-height:15px; }
+		span.bool { background-color:orange; color:#FFFFFF; padding:0 1px; margin-right:2px; line-height:15px; }
+		span.ye { background-color:blue; color:#FFFFFF; padding:0 1px; margin-right:2px; line-height:15px; }
+	</style>
 	<script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery.js"></script>
 	<script type="text/javascript" src="<?=$board_skin_path?>/jQuery/jquery-ui-1.7.1.js"></script>
 	<link rel="stylesheet" href="<?=$board_skin_path?>/jQuery/jtip.css" type="text/css">
@@ -101,49 +125,20 @@ if ($view_mode == "list"){
 							<table width="100%" border=0 cellpadding="0" cellspacing="0" bgcolor='#FFFFFF'>
 								<tr>
 									<td>
-										<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
-											<tr>
-												<td width="150">&nbsp;</td>
-												<td align="center">
-													<table width="200" border="0" cellpadding="3" cellspacing="0">
-														<tr>
-															<td align="center">
-																<a href="<?=$prevLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/pre.gif" width="30" height="14" /></a>
-															</td>
-															<td align="center">
-																<a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?>" title="오늘로" onfocus="this.blur()">
-																	<span style="font-size:16px; font-weight:bold;"><?=$sDateY?>년 <?=$sDateM?>월</span>
-																</a>
-															</td>
-															<td align="center">
-																<a href="<?=$nextLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/next.gif" width="30" height="14" /></a>
-															</td>
-														</tr>
-													</table>
-												</td>
-												<td width="150" align="right">
-													<?php
-													if ($admin_href)
-														echo "<a href='{$g4[bbs_path]}/resList.php?bo_table={$bo_table}&pension_id={$pension_id}&view_mode=list'><img src='{$board_skin_path}/img_n/list.gif' border=0></a>&nbsp;";
-													if (!$member['mb_id']) {
-														echo "<a href='{$g4[bbs_path]}/login.php?url={$urlencode}'><img src='{$board_skin_path}/img_n/login.gif' border=0></a>&nbsp;";
-													} else {
-														echo "<a href='{$g4[bbs_path]}/logout.php'><img src='{$board_skin_path}/img_n/logout.gif' border=0></a>";
-													}?>
-												</td>
-											</tr>
-										</table>
-										<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
-											<tr>
-												<td>
-													<img src="<?=$board_skin_path?>/img_n/ye.gif" width="11" height="11" align="absmiddle" /> 예약가능
-													<img src="<?=$board_skin_path?>/img_n/wan.gif" width="11" height="11" align="absmiddle" /> 예약완료
-													<img src="<?=$board_skin_path?>/img_n/dae.gif" width="11" height="11" align="absmiddle" /> 입금대기
-													<img src="<?=$board_skin_path?>/img_n/cancel.gif" align="absmiddle" /> 예약취소
-													<?php if($is_admin) {?><img src="<?=$board_skin_path?>/img_n/bool.gif" width="11" height="11" align="absmiddle" /> 관리자예약<?php }?>
-												</td>
-											</tr>
-										</table>
+										<div style="text-align:center; margin:0 auto 10px;">
+											<span style="margin-right:20px;"><a href="<?=$prevLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/pre.gif" width="30" height="14" /></a></span>
+											<a href="<?="$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id"?>" title="오늘로" onfocus="this.blur()">
+												<span style="font-size:16px; font-weight:bold;"><?=$sDateY?>년 <?=$sDateM?>월</span>
+											</a>
+											<span style="margin-left:20px;"><a href="<?=$nextLink?>" target="_self" onfocus="this.blur()"><img src="<?=$board_skin_path?>/img_n/next.gif" width="30" height="14" /></a></span>
+										</div>
+										<div>
+											<!-- <span class="ye">예</span>예약가능 -->
+											<span class="wan">완</span>예약완료
+											<span class="dae">대</span>입금대기
+											<span class="cancel">취</span>예약취소
+											<span class="bool">관</span>관리자예약
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -225,27 +220,47 @@ if ($view_mode == "list"){
 													while($resData = sql_fetch_array($reserDay)) {
 														switch ($resData['rResult']) {
 															case '0010':
+																$tImgText = "dae";
+																$tImgText2 = "대";
 																$tImg = "dae.gif";
 																break;
 															case '0020':
+																$tImgText = "wan";
+																$tImgText2 = "완";
 																$tImg = "wan.gif";
 																break;
 															case '0030':
+																$tImgText = "cancel";
+																$tImgText2 = "취";
 																$tImg = "cancel.gif";
 																break;
 															case '0040':
+																$tImgText = "wan";
+																$tImgText2 = "완";
 																$tImg = "wan.gif";
 																break;
 															default:
+																$tImgText = "dae";
+																$tImgText2 = "대";
 																$tImg = "dae.gif";
 																break;
 														}
 														echo "<div><img src='{$board_skin_path}/img_n/ico_home.gif' width=10 height=10 align=absmiddle />{$resData[ca_name]}</div>";
 														echo "<div style='padding-left:3px;'>&middot; ";
+														echo "<span class='{$tImgText}'>{$tImgText2}</span>";
 														echo "<a href='$_SERVER[PHP_SELF]?bo_table=$bo_table&pension_id=$pension_id&wr_id={$resData[wr_id]}'>";
 														echo "{$resData[wr_name]}";
-														echo " <img src='{$board_skin_path}/img_n/{$tImg}' width=11 height=11 align=absmiddle />";
+														//echo " <img src='{$board_skin_path}/img_n/{$tImg}' width=11 height=11 align=absmiddle />";
 														echo "</a></div>";
+													}
+
+													$cList = viewCloseRoomOnly($pension_id, $tDateTmp);
+													for($ttm=0; $ttm < count($cList); $ttm++) {
+														echo "<div>";
+														//echo "<img src='{$board_skin_path}/img_n/ico_home.gif' width=10 height=10 align=absmiddle />";
+														echo "<span class='bool'>관</span>";
+														echo $cList[$ttm]['r_info_name'];
+														echo "</div>";
 													}
 
 													echo ("</td>\n");  // 한칸을 마무리
