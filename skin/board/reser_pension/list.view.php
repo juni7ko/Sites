@@ -113,6 +113,7 @@ $write_pages2 = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family
 							<input type=hidden name=view_mode value="list" />
 							<input type=hidden name=bo_table value="<?=$bo_table?>" />
 							<input type=hidden name=sca      value="<?=$sca?>" />
+							<input type=hidden name="pension_id" value="<?=$pension_id?>" />
 							<table width="100%" border="0" cellpadding="0" cellspacing="0">
 								<tr>
 									<td width="50%"><?php if ($list_href) { ?>
