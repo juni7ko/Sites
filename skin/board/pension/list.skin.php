@@ -23,9 +23,9 @@ $thumb_path = $data_path.'/thumb';
 $colspan = 6;
 
 //if ($is_category) $colspan++;
-if ($is_checkbox) $colspan++;
-if ($is_good) $colspan++;
-if ($is_nogood) $colspan++;
+// if ($is_checkbox) $colspan++;
+// if ($is_good) $colspan++;
+// if ($is_nogood) $colspan++;
 
 // 제목이 두줄로 표시되는 경우 이 코드를 사용해 보세요.
 // <nobr style='display:block; overflow:hidden; width:000px;'>제목</nobr>
@@ -135,6 +135,8 @@ if ($is_nogood) $colspan++;
 							if(preg_match("/\.(swf|wma|asf)$/i","$file") && file_exists($file))
 							{
 								$img = "<script>doc_write(flash_movie('$file', 'flash$i', '$img_width', '$img_height', 'transparent'));</script>";
+							} else {
+								$img = "<img src='{$board_skin_path}/body_bg.gif' border=0 align=left style='border:1px solid #CCCCCC; padding:0px;'>";
 							}
 						}
 
@@ -282,30 +284,6 @@ if ($is_nogood) $colspan++;
 
 			<!-- 버튼 링크 -->
 			<!-- 게시판 리스트 끝 -->
-
-			<!-- 페이지 -->
-			<table width="100%" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="100%" align="center" valign="top">
-						<?php if ($prev_part_href) { echo "<a href='$prev_part_href'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
-						<?php
-						// 기본으로 넘어오는 페이지를 아래와 같이 변환하여 이미지로도 출력할 수 있습니다.
-						//echo $write_pages;
-						$write_pages = str_replace("처음", "<img src='$board_skin_path/img/begin.gif' border='0' align='absmiddle' title='처음'>", $write_pages);
-						$write_pages = str_replace("이전", "<img src='$board_skin_path/img/prev.gif' border='0' align='absmiddle' title='이전'>", $write_pages);
-						$write_pages = str_replace("다음", "<img src='$board_skin_path/img/next.gif' border='0' align='absmiddle' title='다음'>", $write_pages);
-						$write_pages = str_replace("맨끝", "<img src='$board_skin_path/img/end.gif' border='0' align='absmiddle' title='맨끝'>", $write_pages);
-						$write_pages = preg_replace("/<span>([0-9]*)<\/span>/", "<b><font style=\"font-family:돋움; font-size:9pt; color:#797979\">$1</font></b>", $write_pages);
-						$write_pages = preg_replace("/<b>([0-9]*)<\/b>/", "<b><font style=\"font-family:돋움; font-size:9pt; color:orange;\">$1</font></b>", $write_pages);
-						?>
-						<?=$write_pages?>
-						<?php
-						//if ($next_part_href) { echo "<a href='$next_part_href'><img src='$board_skin_path/img/btn_search_next.gif' border=0 align=absmiddle title='다음검색'></a>"; }
-						?>
-					</td>
-				</tr>
-			</table>
-
 			<!-- 검색 -->
 			<table cellSpacing=1 cellPadding="10" width="100%" bgColor=#dfe4e9 border=0 height="21">
 				<tr>

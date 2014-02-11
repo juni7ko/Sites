@@ -20,4 +20,4 @@ $skin_dirs[] = 'latest/gyungpopension-main-gallery';
 include_once('./head.sub.php');
 include_once('./_head.php');
 ?>
-
+<div style="width:980px; margin:0 auto;">

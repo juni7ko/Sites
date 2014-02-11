@@ -23,9 +23,9 @@ $thumb_path = $data_path.'/thumb';
 $colspan = 6;
 
 //if ($is_category) $colspan++;
-if ($is_checkbox) $colspan++;
-if ($is_good) $colspan++;
-if ($is_nogood) $colspan++;
+// if ($is_checkbox) $colspan++;
+// if ($is_good) $colspan++;
+// if ($is_nogood) $colspan++;
 
 // 제목이 두줄로 표시되는 경우 이 코드를 사용해 보세요.
 // <nobr style='display:block; overflow:hidden; width:000px;'>제목</nobr>
@@ -204,11 +204,11 @@ span.reser_btn a:hover {
 						<input type="hidden" name="sca"      value="<?=$sca?>">
 						<select name="sfl" class="sel">
 							<option value="wr_subject">펜션이름</option>
-							<option value="area_id">지역</option>
+							<!-- <option value="area_id">지역</option> -->
 							<!--<option value="wr_content">지역</option>-->
-							<option value="wr_subject||wr_content">펜션+지역</option>
+							<!-- <option value="wr_subject||wr_content">펜션+지역</option> -->
 						</select>
-						<input name="stx" class="stx" maxlength="28" itemname="검색어" required value='<?=stripslashes($stx)?>'>
+						<input name="stx" class="stx" maxlength="28" itemname="검색어" required value=''>
 						<input type="image" src="<?=$board_skin_path?>/img/btn_search.gif" border='0' align="absmiddle">
 						<input type="hidden" name="sop" value="or">
 					</form>

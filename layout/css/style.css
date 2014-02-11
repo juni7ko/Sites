@@ -107,13 +107,42 @@
 
 #footer {
 	width: 100%;
-	padding: 20px 0;
-	margin: 20px 0;
+	/*padding: 20px 0;
+	margin: 20px 0;*/
 }
+
+	#footer .bot-nav {
+		width:980px;
+		margin:5px auto;
+		text-align:right;
+	}
+
+		#footer .bot-nav ul {
+			float: right;
+		}
+
+			#footer .bot-nav ul li {
+				display: inline-block;
+				margin: 0 10px;
+				font-weight: 700;
+			}
+
+			#footer .bot-nav ul a {
+				display: block;
+				/*font-size: 12px;*/
+				padding: 7px 0;
+				color: #575858;
+				text-decoration: none;
+			}
+
+				#footer .bot-nav ul a:hover,#footer .bot-nav ul .on a,#footer .bot-nav ul a.on {
+					color: #f02a5b;
+				}
+
 
 	#footer .contents {
 		width:980px;
-		margin:0 auto;
+		margin:20px auto;
 		text-align:center;
 	}
 
