@@ -286,11 +286,11 @@ if ($is_nogood) $colspan++;
 			<!-- 페이지 -->
 			<table width="100%" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="100%"  height="36" align="center" valign="top">
+					<td width="100%" align="center" valign="top">
 						<?php if ($prev_part_href) { echo "<a href='$prev_part_href'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
 						<?php
-// 기본으로 넘어오는 페이지를 아래와 같이 변환하여 이미지로도 출력할 수 있습니다.
-		//echo $write_pages;
+						// 기본으로 넘어오는 페이지를 아래와 같이 변환하여 이미지로도 출력할 수 있습니다.
+						//echo $write_pages;
 						$write_pages = str_replace("처음", "<img src='$board_skin_path/img/begin.gif' border='0' align='absmiddle' title='처음'>", $write_pages);
 						$write_pages = str_replace("이전", "<img src='$board_skin_path/img/prev.gif' border='0' align='absmiddle' title='이전'>", $write_pages);
 						$write_pages = str_replace("다음", "<img src='$board_skin_path/img/next.gif' border='0' align='absmiddle' title='다음'>", $write_pages);
@@ -300,7 +300,7 @@ if ($is_nogood) $colspan++;
 						?>
 						<?=$write_pages?>
 						<?php
-//if ($next_part_href) { echo "<a href='$next_part_href'><img src='$board_skin_path/img/btn_search_next.gif' border=0 align=absmiddle title='다음검색'></a>"; }
+						//if ($next_part_href) { echo "<a href='$next_part_href'><img src='$board_skin_path/img/btn_search_next.gif' border=0 align=absmiddle title='다음검색'></a>"; }
 						?>
 					</td>
 				</tr>
@@ -315,11 +315,11 @@ if ($is_nogood) $colspan++;
 							<input type="hidden" name="sca"      value="<?=$sca?>">
 							<select name="sfl" class="sel">
 								<option value="wr_subject">펜션이름</option>
-								<option value="area_id">지역</option>
+								<!-- <option value="area_id">지역</option> -->
 								<!--<option value="wr_content">지역</option>-->
-								<option value="wr_subject||wr_content">펜션+지역</option>
+								<!-- <option value="wr_subject||wr_content">펜션+지역</option> -->
 							</select>
-							<input name="stx" class="stx" maxlength="28" itemname="검색어" required value='<?=stripslashes($stx)?>'>
+							<input name="stx" class="stx" maxlength="28" itemname="검색어" required value=''>
 							<input type="image" src="<?=$board_skin_path?>/img/btn_search.gif" border='0' align="absmiddle">
 							<input type="hidden" name="sop" value="or">
 						</form>
