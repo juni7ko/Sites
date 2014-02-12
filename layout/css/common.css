@@ -1,11 +1,11 @@
 /*===================================================================================*/
-/*  RESET                                                                            */ 
+/*  RESET                                                                            */
 /*===================================================================================*/
 
 * { outline: 0; }
 body { line-height: 1; margin: 0; padding: 0; }
 ol, ul { list-style: none; }
-blockquote, q { quotes: none; } 
+blockquote, q { quotes: none; }
 input[type=submit] { -webkit-appearance: none; }
 table { border-collapse: separate; border-spacing: 0; }
 caption, th, td { text-align: left; font-weight: normal; }
@@ -20,7 +20,7 @@ caption, .hide {display: none;}
 
 
 /*===================================================================================*/
-/*  BASIC                                                                            */ 
+/*  BASIC                                                                            */
 /*===================================================================================*/
 
 body {
@@ -33,7 +33,7 @@ body, table, th, td, span, p, div, select, input, form {
 }
 
 /*===================================================================================*/
-/*  CLEAR                                                                            */ 
+/*  CLEAR                                                                            */
 /*===================================================================================*/
 
 .clearfix:before, .clearfix:after,
@@ -57,18 +57,18 @@ body, table, th, td, span, p, div, select, input, form {
 
 
 /*===================================================================================*/
-/*  FRAME-SIZE                                                                       */ 
+/*  FRAME-SIZE                                                                       */
 /*===================================================================================*/
 
-    .row { 
-        width: auto !important; 
-        max-width: none; 
+    .row {
+        width: auto !important;
+        max-width: none;
         min-width: 0;
     }
-    
 
-    [class*="span"] { 
-        float: left; 
+
+    [class*="span"] {
+        float: left;
         min-height: 1px;
         position: relative;
     }
@@ -101,8 +101,8 @@ body, table, th, td, span, p, div, select, input, form {
     .span100 { width: 100%; }
 
 
-    [class*="cols"] { 
-        float: left; 
+    [class*="cols"] {
+        float: left;
         min-height: 1px;
         position: relative;
     }
@@ -116,7 +116,7 @@ body, table, th, td, span, p, div, select, input, form {
 
 
 /*===================================================================================*/
-/*  TEXT COLOR                                                                       */ 
+/*  TEXT COLOR                                                                       */
 /*===================================================================================*/
 
     .pink {color: #f02a5b;}
@@ -125,9 +125,14 @@ body, table, th, td, span, p, div, select, input, form {
     .red  {color: #cc0000;}
 
 /*===================================================================================*/
-/*  TEXT ALIGN                                                                       */ 
+/*  TEXT ALIGN                                                                       */
 /*===================================================================================*/
 
 .tleft { text-align: left }
 .tcenter { text-align: center }
 .tright { text-align: right }
+
+.ui-datepicker { font:12px dotum; }
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year { width: 70px;}
+.ui-datepicker-trigger { margin:0 0 -5px 2px; }

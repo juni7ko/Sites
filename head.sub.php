@@ -164,4 +164,5 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 </head>
 
 <body topmargin="0" leftmargin="0" <?=isset($g4['body_script']) ? $g4['body_script'] : "";?>>
+<?php //if(!chkMobileBanner()) include_once("$g4[path]/side_banner.php"); ?>
 <a name="g4_head"></a>

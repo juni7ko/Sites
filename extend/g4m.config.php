@@ -14,7 +14,7 @@ $g4['thumb']                = $g4['g4m_path'] . "/thumb.php";
 /*
  모바일 하단에 PC버전 링크에 ?from=mobile 추가, 추가 하지 않으면 클릭해도 다시 모바일로 돌아온다.
  PC버전 index.php 파일에 아래 내용 추가
- PC 버전 하단에 모바일 링크 제공 <a href="<?=$g4[path]?>/m/?from=pc">모바일</a> 
+ PC 버전 하단에 모바일 링크 제공 <a href="<?=$g4[path]?>/m/?from=pc">모바일</a>
  이 링크는 frommoblie세션을 삭제해 모바일로 PC접버전 접속시 자동으로 모바일로 이동되게 한다.
 
 //모바일 index.php 상단에 아래 추가  include_once "./_common.php"; 아래에 추가할것
@@ -29,7 +29,7 @@ if($_GET['from'] == 'mobile'){
     //새션 생성 이유는 모바일기기에서 PC버전 갔을경우 index.php을 다시 접속했을때 모바일로 오지않고 pc버전 유지하기 위해서이다.
     set_session("frommoblie", "1");
 }
- 
+
 //모바일페이지로 이동,
 if($chk_mobile == true && !$_SESSION['frommoblie']){
     header("location:/{$g4['g4m_path'] }");
@@ -82,5 +82,45 @@ function chkMobile(){
     }else{
         return false;
     }
+}
+
+function chkMobileBanner(){
+    $mobile_browser = '0';
+    if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+        $mobile_browser++;
+    }
+    if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']), 'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
+        $mobile_browser++;
+    }
+    $mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+    $mobile_agents = array(
+        'w3c ', 'acs-', 'alav', 'alca', 'amoi', 'audi', 'avan', 'benq', 'bird', 'blac',
+        'blaz', 'brew', 'cell', 'cldc', 'cmd-', 'dang', 'doco', 'eric', 'hipt', 'inno',
+        'ipaq', 'java', 'jigs', 'kddi', 'keji', 'leno', 'lg-c', 'lg-d', 'lg-g', 'lge-',
+        'maui', 'maxo', 'midp', 'mits', 'mmef', 'mobi', 'mot-', 'moto', 'mwbp', 'nec-',
+        'newt', 'noki', 'oper', 'palm', 'pana', 'pant', 'phil', 'play', 'port', 'prox',
+        'qwap', 'sage', 'sams', 'sany', 'sch-', 'sec-', 'send', 'seri', 'sgh-', 'shar',
+        'sie-', 'siem', 'smal', 'smar', 'sony', 'sph-', 'symb', 't-mo', 'teli', 'tim-',
+        'tosh', 'tsm-', 'upg1', 'upsi', 'vk-v', 'voda', 'wap-', 'wapa', 'wapi', 'wapp',
+        'wapr', 'webc', 'winw', 'winw', 'xda', 'xda-');
+
+    if (in_array($mobile_ua, $mobile_agents)) {
+        $mobile_browser++;
+    }
+    if (strpos(strtolower($_SERVER['ALL_HTTP']), 'OperaMini') > 0) {
+        $mobile_browser++;
+    }
+    if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'windows') > 0) {
+        $mobile_browser = 0;
+    }
+
+
+    if ($mobile_browser > 0 && $_GET['from'] != 'mobile') {
+        $result = "1";
+    }else{
+        $result = "0";
+    }
+
+    return $result;
 }
 ?>

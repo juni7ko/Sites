@@ -284,13 +284,13 @@ $sqlx = "select * from g4_config where (1)";
 $sqlx = mysql_query($sqlx);
 $rowx = mysql_fetch_array($sqlx);
 
-$g4['bank']   = nl2br($rowx['cf_1']);  //계좌번호
-$g4['telno']   = nl2br($rowx['cf_2']);  //전화번호
-$g4['info']   = nl2br($rowx['cf_3']);    //예약종합안내
-$g4['info2']   = nl2br($rowx['cf_4']);   //유의사항
-$g4['info3']   = nl2br($rowx['cf_5']); // 환불기준
-$g4['adminmail']   = $rowx['cf_6'];
-$g4['sms']   = $rowx['cf_7'];    // SMS 발신표시번호
+$g4['bank']      = nl2br($rowx['cf_1']);  //계좌번호
+$g4['telno']     = nl2br($rowx['cf_2']);  //전화번호
+$g4['info']      = nl2br($rowx['cf_3']);    //예약종합안내
+$g4['info2']     = nl2br($rowx['cf_4']);   //유의사항
+$g4['info3']     = nl2br($rowx['cf_5']); // 환불기준
+$g4['adminmail'] = $rowx['cf_6'];
+$g4['sms']       = $rowx['cf_7'];    // SMS 발신표시번호
 // 관리자 페이지에서 입력한 계좌 전번
 
 

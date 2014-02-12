@@ -14,9 +14,9 @@ include_once("$g4[path]/lib/popular.lib.php");
 // 상단, 좌측 화면을 꾸미려면 이 파일을 수정합니다.
 
 $table_width = 960;
-?>
 
-<?php
+if(!chkMobileBanner()) include_once("$g4[path]/side_banner.php");
+
 // 해드호출
 include_once($g4['path'].'/skin/layout/'.$Layout.'/head.index.php');
 ?>
