@@ -13,7 +13,7 @@ $qstr = "fr_date=$fr_date&to_date=$to_date";
 <input type="hidden" name="pension_id" value="<?=$pension_id?>">
 <tr>
 		<?php if($pension_id){?>
-		<td style="color:#FFFF00;font-weight:bold;"><?php echo $write['wr_subject'] ? $write['wr_subject'] : '  등록  '; ?><!-- 기본정보 --></td>
+		<td style="font-weight:bold;"><a href="./pen_admin.php?pension_id=<?=$pension_id?>"><span style="color:#ffff00"><?php echo $write['wr_subject'] ? $write['wr_subject'] : '  등록  '; ?><span></a></td>
 		<td><a href="./pen_admin.php?mode=reserhome&pension_id=<?=$pension_id?>">달력</a></td>
 		<td><a href="./pen_admin.php?mode=list&pension_id=<?=$pension_id?>">리스트</a></td>
 		<td><a href="./pen_admin.php?mode=room&pension_id=<?=$pension_id?>">객실/기본요금</a></td>

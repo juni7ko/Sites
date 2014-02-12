@@ -96,6 +96,8 @@ function GetDateWeek($week)
 // 예약내용이 있는지 확인
 if($type == "code") {
 	$query = " SELECT * from $write_table WHERE wr_3 = '$wr_3' AND wr_name = '$wr_name' AND wr_password = '$wr_password' ORDER BY wr_link1 ASC ";
+} else if($type == "resrv") {
+	$query = " SELECT * from $write_table WHERE wr_3 = '$wr_3' ORDER BY wr_link1 ASC ";
 } else {
 	$res_error = 1;
 }
@@ -112,6 +114,7 @@ for ($i=0; $rList = sql_fetch_array($resultList); $i++)
 	$rList2['wr_7']     = $rList['wr_7'];
 	$rList2['rResult']  = $rList['rResult'];
 	$rList2['wr_email'] = $rList['wr_email'];
+	$pension_id = $rList['pension_id'];
 ?>
 							<tr>
 								<td class="first"><?=$rList2[$i][r_info_name]?></td>
@@ -194,6 +197,9 @@ if($res_error){
 											</div>
 										</div>
 									</div>
+<?php endif; ?>
+<?php if($BKW_TRADENO) :?>
+									<li style="text-align:right; list-style: none;"><a class="viewPayPrint" />매출전표보기</a></li>
 <?php endif; ?>
 								</ol>
 							</li>
@@ -407,7 +413,7 @@ if($res_error){
 		<input type="hidden" name="rcvr_date" value="" />		<!-- 배송 희망일-->
 		<input type="hidden" name="rqst_msgx" value="" />		<!-- 배송 코멘트-->
 		<input type="hidden" name="kindcss" value="" />			<!-- 결제창스킨(blue, green, pink, violet, yellow) -->
-		<input type="hidden" name="goodoption1"  value=""/> <!-- 여유필드(상점에서 사용가능한 여유필드) -->
+		<input type="hidden" name="goodoption1"  value="<?=$pension_id?>"/> <!-- 여유필드(상점에서 사용가능한 여유필드) -->
 		<input type="hidden" name="goodoption2"  value=""/> <!-- 여유필드(상점에서 사용가능한 여유필드) -->
 		<input type="hidden" name="goodoption3"  value=""/> <!-- 여유필드(상점에서 사용가능한 여유필드) -->
 		<input type="hidden" name="goodoption4"  value=""/> <!-- 여유필드(상점에서 사용가능한 여유필드) -->
@@ -468,7 +474,17 @@ if($res_error){
 	</form>
 </div>
 
-
+<script language='javascript'>
+// 신용카드 매출전표 보기
+function openPayPrint(url, width, height, taxOptn) {
+		var urlOpt = "scrollbars=no, resizable=no, copyhistory=no, location=no, width=" + width + ",height=" + height + ", left=0, top=0";
+		window.open(url , 'slipPop', urlOpt);
+}
+//onClick="openPayPrint('https://biz.bluepay.co.kr/Modules/Bill/ADTS_Bill_Blue.jsp?c_trade_no=<?=$BKW_TRADENO?>&trade_type=<?=$BKW_PAYTYPE?>', '400', '600');"
+$('.viewPayPrint').click(function() {
+	openPayPrint('https://biz.bluepay.co.kr/Modules/Bill/ADTS_Bill_Blue.jsp?c_trade_no=<?=$BKW_TRADENO?>&trade_type=<?=$BKW_PAYTYPE?>', '400', '600')
+});
+</script>
 <?php
 include_once("$g4[path]/tail.php");
 ?>

@@ -7,5 +7,4 @@ $nav_sql = mysql_query($area_sql);
 		<li<?=($navi_area['area_id'] == $stx) ? " class='on'" : NULL;?>><a href="<?=$g4['bbs_path']?>/board.php?bo_table=pension_info&sfl=area_id&stx=<?=$navi_area['area_id']?>"><?=$navi_area['area_name']?></a></li>
 <?php endwhile;?>
 		<li><a href="<?=$g4['path']?>/reserv/chkReservForm.php">예약확인</a></li>
-		<li><a href="<?=$g4['path']?>/login.php">펜션관리자</a></li>
 	</ul>

@@ -36,3 +36,6 @@ caption {display:none;}
 .highlight-blue {color:#2fb6bc; font-weight:700;}
 
 .title .text {width:200px; padding:2px;}
+
+a.viewPayPrint {padding:4px 16px; background:#454545; border:1px solid #333; color:#fff; font-size:12px; font-weight:bold; cursor:pointer; }
+a.viewPayPrint:hover {background:#333; border:1px solid #000; color:#2fb6bc;}

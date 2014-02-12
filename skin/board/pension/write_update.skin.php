@@ -52,17 +52,17 @@ $goto_url = $g4[path] . "/reserv/chkReserv.php?wr_3=" . $wr_3;
 		$webService = "http://webservice.tongkni.co.kr/sms.3/ServiceSMS.asmx?WSDL";
 	}
 
-//	$sms = new SMS($webService); //SMS 객체 생성
+	$sms = new SMS($webService); //SMS 객체 생성
 	/*즉시 전송으로 구성하실경우*/
-//	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number,$sms_content); // 5개의 인자로 함수를 호출합니다.
+	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number,$sms_content); // 5개의 인자로 함수를 호출합니다.
 ?>
-<form name='resform1' method='post' enctype='multipart/form-data' style='margin:0px;'>
+<form name='resform1' method='post' enctype='multipart/form-data' style='margin:0px;' accept-charset="UTF-8">
 <input type="hidden" name="wr_3" value="<?=$wr_3?>" />
 <input type="hidden" name="wr_name" value="<?=$wr_name?>" />
 <input type="hidden" name="wr_password" value="<?=$wr_6?>" />
-<input type="hidden" name=null>
-<input type="hidden" name=type value=code />
-<input type="hidden" name=bo_table value='bbs34'>
+<input type="hidden" name=null />
+<input type="hidden" name="type" value="resrv" />
+<input type="hidden" name="bo_table" value="bbs34" />
 </form>
 <script type="text/javascript">
 function resform_submit(f)

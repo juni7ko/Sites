@@ -26,10 +26,10 @@ function resform_submit(f)
 
 <link rel="stylesheet" type="text/css" href="css/reservation.css">
 
-<form name='resform1' method='post' action='javascript:resform_submit(document.resform1)' enctype='multipart/form-data' style='margin:0px;' autocomplete="off">
+<form name='resform1' method='post' action='javascript:resform_submit(document.resform1)' enctype='multipart/form-data' style='margin:0px;' autocomplete="off"  accept-charset="UTF-8">
 <input type=hidden name=null>
-<input type=hidden name=type value=code />
-<input type=hidden name=bo_table value='bbs34'>
+<input type=hidden name="type" value="code" />
+<input type=hidden name="bo_table" value="bbs34" />
 <div id="container">
 	<div class="content-area">
 		<div class="reservation-area">

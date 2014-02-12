@@ -245,7 +245,7 @@ $nav_sql = mysql_query($area_sql);
 		<span onclick="add_file();" style="cursor:pointer;"><img src="../skin/board/basic/img/btn_file_add.gif"></span>
 		<span onclick="del_file();" style="cursor:pointer;"><img src="../skin/board/basic/img/btn_file_minus.gif"></span>
 	</th>
-    <td style='padding:5 0 5 0;'><table id="variableFiles" cellpadding=0 cellspacing=0>&nbsp;&nbsp;첫번째 사진은 메인에 표시 됩니다</table><?php
+    <td style='padding:5 0 5 0;'><table id="variableFiles" cellpadding=0 cellspacing=0>&nbsp;&nbsp;첫번째 사진은 메인에 표시 됩니다. (Size:648x433)</table><?php
 // print_r2($file); ?>
         <script type="text/javascript">
         var flen = 0;
