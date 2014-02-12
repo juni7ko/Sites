@@ -149,7 +149,7 @@ if($_POST) {
     .income { color: #f00; }
 </style>
 
-<select name="pension_id" id="penID" style="float:left;">
+<select name="pension_id" id="penID">
 	<option value="" class="penSelect"> 전체 펜션 </option>
 	<?php
 	while($rNP = mysql_fetch_row($Re_rNP)) {
@@ -157,16 +157,11 @@ if($_POST) {
 	}
 	?>
 </select>
-<div style="float:right; text-align:right;">
-	<a href="<?=$g4[admin_path]?>/admin.stats.php?pension_id=<?=$pension_id?>">검색1</a>
-	/
-	<a href="<?=$g4[admin_path]?>/admin.stats2.php?pension_id=<?=$pension_id?>">검색2</a>
-</div>
-<br style="clear:both;" />
+
 <!-- 날짜별검색 -->
-<FORM id="SearchForm" NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>" />
+<FORM NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>" />
 	<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" height="30" id="formTable">
-		<input type="hidden" name="pension_id" value="<?=$pension_id?>" class="pension_id" />
+		<input type="hidden" name="pension_id" value="<?=$pension_id?>" />
 		<TR>
 			<TD align="center">
 				<input type="button" value="이번달 " class="btn_black" onclick="dateSelect('<?=date('Y')?>','<?=date('m')?>','')">
@@ -182,7 +177,7 @@ if($_POST) {
 				<select name="r_year" id="r_year" onChange="if(!this.selectedIndex) this.form.r_month.selectedIndex=0;dateSelect(this.value,'','')">
 				<option value="All" <?php if($r_year == "All") echo "selected";?>>전체</option>
 				<?php
-				for($Y=2013 ;$Y<=(date("Y"));$Y++){
+				for($Y=2013 ;$Y<(date("Y") + 2);$Y++){
 					echo "<option value='$Y'>$Y</option>";
 				}?>
 				</select>
@@ -339,19 +334,11 @@ if($_POST) {
 	}
 
 	$("#penID").change(function() {
-		// pId = $(this).val();
-		// uri2 = "<?=$_SERVER[PHP_SELF]?>?pension_id="+pId;
-		// $(location).attr('href',uri2);
-
+		//alert($(this).val());
+		//alert($(this).children("option:selected").text());
 		pId = $(this).val();
-		$('.pension_id').val(pId);
-		$('#SearchForm').submit();
-	});
-
-	$("#r_info_id").change(function() {
-		rId = $(this).val();
-		$('#r_info_id').val(rId);
-		$('#SearchForm').submit();
+		uri2 = "<?=$_SERVER[PHP_SELF]?>?pension_id="+pId;
+		$(location).attr('href',uri2);
 	});
 
 	$("select#penID").val('<?=$pension_id?>').attr('selected','selected');

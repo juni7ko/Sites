@@ -111,86 +111,89 @@ if($_POST) {
 ?>
 
 <style type="text/css">
-	@charset "euc-kr";
-	#formTable {width:100%;margin:0;padding:0;border-collapse:collapse;}
-	#formTable.box {border-top:1px solid #d8e5eb;border-bottom:2px solid #d8e5eb;}
-	#formTable td {padding-top:5px;border:1px #d8e5eb solid;height:22px; background:#FFFFFF;}
-	#formTable td.title {padding:3px 10px 0 0;height:30px;color:#3d7a99;font-weight:bold;letter-spacing:-1px;text-align:right;background:#F8FBFC;}
-	#formTable td.input {padding:0 0 0 10px;}
-	#formTable td.input input {height:18px;background:#f6f6f6;border:1px solid #cccccc;}
-	#formTable td.input textarea {background:#f6f6f6;border:1px solid #cccccc;}
+	@charset "utf-8";
+    #formTable { width: 100%; margin: 0; padding: 0; border-collapse: collapse; }
+    #formTable.box { border-top: 1px solid #d8e5eb; border-bottom: 2px solid #d8e5eb; }
+    #formTable td { padding-top: 5px; border: 1px #d8e5eb solid; height: 22px; background: #FFFFFF; line-height: 22px; }
+    #formTable td.title { padding: 3px 10px 0 0; height: 30px; color: #3d7a99; font-weight: bold; letter-spacing: -1px; text-align: right; background: #F8FBFC; }
+    #formTable td.input { padding: 0 0 0 10px; }
+    #formTable td.input input { height: 18px; background: #f6f6f6; border: 1px solid #cccccc; }
+    #formTable td.input textarea { background: #f6f6f6; border: 1px solid #cccccc; }
 
-	#listTable {width:100%;margin:0;padding:0;border-collapse:collapse;}
-	#listTable.box {border-top:1px solid #d8e5eb;border-bottom:2px solid #d8e5eb;background:#F8FBFC;}
-	#listTable td {padding-top:5px;text-align:center;border:1px #d8e5eb solid;height:22px;}
-	#listTable td a {border-bottom:1px #CC3333 dashed; }
-	#listTable td.red { color:#FF5555; }
-	#listTable td.blue { color:#1F82BC; }
-	#listTable th {border:1px #d8e5eb solid; border-top:2px #d8e5eb solid;padding:3px 0 0 0;height:25px;color:#3d7a99;font-weight:bold;letter-spacing:-1px;text-align:center;background:#F8FBFC;}
-	#listTable td.text {padding:3px 0 0 0;height:25px;border-bottom:1px solid #e7e7e7;text-align:center;}
+    #listTable { width: 100%; margin: 0; padding: 0; border-collapse: collapse; }
+    #listTable.box { border-top: 1px solid #d8e5eb; border-bottom: 2px solid #d8e5eb; background: #F8FBFC; }
+    #listTable td { padding-top: 5px; text-align: center; border: 1px #d8e5eb solid; height: 22px; }
+    #listTable td a { border-bottom: 1px #CC3333 dashed; }
+    #listTable td.red { color: #FF5555; }
+    #listTable td.blue { color: #1F82BC; }
+    #listTable th { border: 1px #d8e5eb solid; border-top: 2px #d8e5eb solid; padding: 3px 0 0 0; height: 25px; color: #3d7a99; font-weight: bold; letter-spacing: -1px; text-align: center; background: #F8FBFC; }
+    #listTable td.text { padding: 3px 0 0 0; height: 25px; border-bottom: 1px solid #e7e7e7; text-align: center; }
 
-	.btn01 { background:#FFFFFF; border-bottom:2px solid #999; border-right:2px solid #999; border-left:1px solid #cccccc; border-top:1px solid #cccccc; padding:3px 5px 0 6px; }
+    .btn01 { background: #FFFFFF; border-bottom: 2px solid #999; border-right: 2px solid #999; border-left: 1px solid #cccccc; border-top: 1px solid #cccccc; padding: 3px 5px 0 6px; }
 
-	.btn_blue , #formTable td input.btn_blue {font-family:돋움 ;font-size:11px ;border:1px solid #314E84 ;background:#257EA5 ;color:#FFFFFF ;height:17px ;padding: 1px 0 0 0 ;cursor:pointer ;}
-	.btn_red  , #formTable td input.btn_red {font-family:돋움 ;font-size:11px ;border:1px solid #72351F ;background:#C15B35 ;color:#FFFFFF ;height:17px ;padding: 1px 0 0 0 ;cursor:pointer ;}
-	.btn_grey  , #formTable td input.btn_grey {font-family:돋움 ;font-size:11px ;border:1px solid #404B4D ;background:#5C6B6D ;color:#FFFFFF ;height:17px ;padding: 1px 0 0 0 ;cursor:pointer ;}
-	.btn_green  , #formTable td input.btn_green {font-family:돋움 ;font-size:11px ;border:1px solid #2D4E27 ;background:#5C7B53 ;color:#FFFFFF ;height:17px ;padding: 1px 0 0 0 ;cursor:pointer ;}
-	.btn_black  , #formTable td input.btn_black {font-family:돋움 ;font-size:11px ;border:1px solid #777777 ;background:#FFFFFF ;color:#777777 ;height:17px ;padding: 1px 0 0 0 ;cursor:pointer ;}
-	.income {color:#f00;}
+    .btn_blue, #formTable td input.btn_blue { font-family: 돋움; font-size: 11px; border: 1px solid #314E84; background: #257EA5; color: #FFFFFF; height: 17px; padding: 1px 0 0 0; cursor: pointer; }
+    .btn_red, #formTable td input.btn_red { font-family: 돋움; font-size: 11px; border: 1px solid #72351F; background: #C15B35; color: #FFFFFF; height: 17px; padding: 1px 0 0 0; cursor: pointer; }
+    .btn_grey, #formTable td input.btn_grey { font-family: 돋움; font-size: 11px; border: 1px solid #404B4D; background: #5C6B6D; color: #FFFFFF; height: 17px; padding: 1px 0 0 0; cursor: pointer; }
+    .btn_green, #formTable td input.btn_green { font-family: 돋움; font-size: 11px; border: 1px solid #2D4E27; background: #5C7B53; color: #FFFFFF; height: 17px; padding: 1px 0 0 0; cursor: pointer; }
+    .btn_black, #formTable td input.btn_black { font-family: 돋움; font-size: 11px; border: 1px solid #777777; background: #FFFFFF; color: #777777; height: 17px; padding: 1px 0 0 0; cursor: pointer; margin:3px 10px; }
+    .income { color: #f00; }
 </style>
 
+<div style="float:right; text-align:right;">
+	<a href="<?=$g4[admin_path]?>/pen/admin.stats.php?pension_id=<?=$member[mb_1]?>">검색1</a>
+	/
+	<a href="<?=$g4[admin_path]?>/pen/admin.stats2.php?pension_id=<?=$member[mb_1]?>">검색2</a>
+</div>
+<br style="clear:both;" />
+
 <!-- 날짜별검색 -->
-<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" height="30" style="border:1px solid #AAAAAA ; background-color:#EEEEEE">
-	<FORM NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>">
+<FORM id="SearchForm" NAME="SearchForm" METHOD="post" ACTION="<?=$PHP_SELF ?>" />
+	<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" height="30" id="formTable">
 		<TR>
 			<TD align="center">
-				<input type="button" value="이번달 " class="btn_black" onclick="dateSelect('<?=date('Y')?>','<?=date('m')?>','')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="이번달 " class="btn_black" onclick="dateSelect('<?=date('Y')?>','<?=date('m')?>','')">
 				객실별
 				<select name="r_info_id" id="r_info_id">
 					<option value=""> 전체 </option>
-					<?php while($rN = mysql_fetch_row($Re_rN)) {?>
-					<option value="<?=$rN[0]?>"><?=$rN[1]?></option>
-					<?php }?>
+					<?php
+					while($rN = mysql_fetch_row($Re_rN))
+						echo "<option value='${rN[0]}'>{$rN[1]}</option>";
+					?>
 				</select>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				년도별 입금 현황 <select name="r_year" id="r_year" onChange="if(!this.selectedIndex) this.form.r_month.selectedIndex=0;dateSelect(this.value,'','')">
+				<span style='margin-left:20px;'>년도별 입금 현황</span>
+				<select name="r_year" id="r_year" onChange="if(!this.selectedIndex) this.form.r_month.selectedIndex=0;dateSelect(this.value,'','')">
 				<option value="All" <?php if($r_year == "All") echo "selected";?>>전체</option>
 				<?php
-				for($Y=2013 ;$Y<(date("Y") + 2);$Y++){
+				for($Y=2013 ;$Y<=(date("Y"));$Y++){
 					echo "<option value='$Y'>$Y</option>";
 				}?>
-			</select>
-			년
-			<select name="r_month" id="r_month" onChange="if(!this.form.r_year.selectedIndex) this.selectedIndex=0;dateSelect('<?=$r_year?>',this.value,'')">
-				<option value="All"> 전체 </option>
-				<?php
-				for($i=101;$i<=112;$i++){
-					$M = substr($i , -2) ;
-					echo "<option value='$M'>$M</option>";
-
-				}?>
-			</select>
-			월
-			<select name="r_day" id="r_day" onChange="if(!this.form.r_month.selectedIndex) this.selectedIndex=0;submit();">
-				<option value="All"> 전체 </option>
-				<?php
-				for($i=101;$i<=131;$i++){
-					$D = substr($i , -2) ;
-					echo "<option value='$D'>$D</option>";
-				}?>
-			</select>
-			일
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value=" 검 색 " class="btn_black">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value=" ←뒤로 " class="btn_black" onclick="history.back()">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value=" EXCEL " class="btn_black" onclick="location.href='admin.stats.excel.php?<?=$excelQuery?>'">
-
-		</TD>
-	</TR>
-</FORM>
-</TABLE>
+				</select>
+				년
+				<select name="r_month" id="r_month" onChange="if(!this.form.r_year.selectedIndex) this.selectedIndex=0;dateSelect('<?=$r_year?>',this.value,'')">
+					<option value="All"> 전체 </option>
+					<?php
+					for($i=101;$i<=112;$i++){
+						$M = substr($i , -2) ;
+						echo "<option value='$M'>$M</option>";
+					}?>
+				</select>
+				월
+				<select name="r_day" id="r_day" onChange="if(!this.form.r_month.selectedIndex) this.selectedIndex=0;submit();">
+					<option value="All"> 전체 </option>
+					<?php
+					for($i=101;$i<=131;$i++){
+						$D = substr($i , -2) ;
+						echo "<option value='$D'>$D</option>";
+					}?>
+				</select>
+				일
+				<input type="submit" value=" 검 색 " class="btn_black" style="margin-left:20px;">
+				<input type="button" value=" ←뒤로 " class="btn_black" onclick="history.back()">
+				<input type="button" value=" EXCEL " class="btn_black" onclick="location.href='admin.stats.excel.php?<?=$excelQuery?>'">
+			</TD>
+		</TR>
+	</table>
+</form>
 <!-- 날짜별검색 끝 -->
 <br />
 <table id="listTable">
@@ -320,6 +323,12 @@ include_once ("./admin.tail.php");
 	{
 	    win_open(url, "winStats", "left=50, top=50, width=800, height=600, scrollbars=1");
 	}
+
+	$("#r_info_id").change(function() {
+		rId = $(this).val();
+		$('#r_info_id').val(rId);
+		$('#SearchForm').submit();
+	});
 
 	$("select#r_info_id").val('<?=$r_info_id?>').attr('selected','selected');
 	$("select#r_year").val('<?=$r_year?>').attr('selected','selected');
