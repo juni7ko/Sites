@@ -1,5 +1,5 @@
 <?php if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
-if($is_admin != 'super') alert("관리자만 접근이 가능합니다."); 
+if($is_admin != 'super') alert("관리자만 접근이 가능합니다.");
 // 선택옵션으로 인해 셀합치기가 가변적으로 변함
 $colspan = 6;
 if ($is_category) $colspan++;
@@ -75,7 +75,7 @@ $c_day2 = strtotime($day2);
 
 $gap = $c_day2 - $c_day1;
 
-$sleep_day = (int)($gap / 86400); 
+$sleep_day = (int)($gap / 86400);
 $sleep_day_2 = $sleep_day++;
 ?>
                                     <td style="word-break:break-all;"><a href='<?=$list[$i][href]?>' class='m_sub'>
@@ -83,7 +83,7 @@ $sleep_day_2 = $sleep_day++;
                                         (<?=$list[$i][wr_8]."박";?>)</a></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_2]?></td>
                                     <td class="m2_name" align="center"><?=$list[$i][wr_name]?></td>
-<?
+<?php
 switch ($list[$i][wr_4]) {
 	case "예약완료" :
 		$wr4_color = "red";
@@ -91,7 +91,7 @@ switch ($list[$i][wr_4]) {
 	case "예약취소" :
 		$wr4_color = "blue";
 		break;
-	default : 
+	default :
 		$wr4_color = "green";
 		break;
 }

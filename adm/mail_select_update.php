@@ -26,12 +26,12 @@ echo "</span>";
 <?php include_once("./admin.tail.php");
 ?>
 
-<?
+<?php
 flush();
 ob_flush();
 
-$ma_id = trim($_POST[ma_id]); 
-$select_member_list = addslashes(trim($_POST[ma_list])); 
+$ma_id = trim($_POST[ma_id]);
+$select_member_list = addslashes(trim($_POST[ma_list]));
 
 //print_r2($_POST); EXIT;
 $member_list = explode("\n", $select_member_list);
@@ -43,13 +43,13 @@ $ma = sql_fetch($sql);
 $subject = $ma[ma_subject];
 
 $cnt = 0;
-for ($i=0; $i<count($member_list); $i++) 
+for ($i=0; $i<count($member_list); $i++)
 {
     list($email, $mb_id, $name, $nick, $birth, $datetime) = explode("||", trim($member_list[$i]));
 
     $sw = preg_match("/[0-9a-zA-Z_]+(\.[0-9a-zA-Z_]+)*@[0-9a-zA-Z_]+(\.[0-9a-zA-Z_]+)*/", $email);
     // 올바른 메일 주소만
-    if ($sw == true) 
+    if ($sw == true)
     {
         $cnt++;
 
@@ -80,7 +80,7 @@ for ($i=0; $i<count($member_list); $i++)
         ob_flush();
         ob_end_flush();
         usleep($sleepsec);
-        if ($cnt % $countgap == 0) 
+        if ($cnt % $countgap == 0)
         {
             echo "<script> document.all.cont.innerHTML += '<br>'; document.body.scrollTop += 1000; </script>\n";
         }

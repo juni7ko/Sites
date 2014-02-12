@@ -1,5 +1,5 @@
-<?
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+<?php
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 include_once('../search.php');   // 검색 include
 
@@ -38,29 +38,29 @@ if ($is_nogood) $colspan++;
 <table width="980" cellspacing="0" cellpadding="0" border=0 style="margin:0 auto;">
     <tr height="27">
         <td align="left">
-<? if ($is_category) { ?> 
-<? if (!$wr_id) {  ?> 
-<?   
-    $cnt_bo_1 = $bo_1[0] ? $bo_1[0] : 10; // 한줄당 분류 갯수(현재:10) 
-    $cnt = 1; 
-    $cnt0 = 0; 
-    $bb_s=""; $bb_e=""; 
-    $b_s=""; $b_e=""; 
-    $arr = explode("|", $board[bo_category_list]); // 구분자가 , 로 되어 있음 
-    $str = "&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;"; 
-    for ($i=0; $i<count($arr); $i++) 
-        if (trim($arr[$i]))  { 
-        if ($sca == $arr[$i]) { $cnt0++; $b_s="<b>"; $b_e="</b>"; } else {$b_s=""; $b_e="";} 
-            $str .= " <a href='./board.php?bo_table=$bo_table&sca=".urlencode($arr[$i])."'>$b_s$arr[$i]$b_e</a>&nbsp;&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;"; 
-    if ($cnt == $cnt_bo_1) { $cnt = 0; $str .= "<br>"; } 
-    $cnt++; 
-    } 
-    if ($cnt0 == 0 ) { $bb_s="<b>"; $bb_e="</b>"; } 
-?> 
+<? if ($is_category) { ?>
+<? if (!$wr_id) {  ?>
+<?
+    $cnt_bo_1 = $bo_1[0] ? $bo_1[0] : 10; // 한줄당 분류 갯수(현재:10)
+    $cnt = 1;
+    $cnt0 = 0;
+    $bb_s=""; $bb_e="";
+    $b_s=""; $b_e="";
+    $arr = explode("|", $board[bo_category_list]); // 구분자가 , 로 되어 있음
+    $str = "&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;";
+    for ($i=0; $i<count($arr); $i++)
+        if (trim($arr[$i]))  {
+        if ($sca == $arr[$i]) { $cnt0++; $b_s="<b>"; $b_e="</b>"; } else {$b_s=""; $b_e="";}
+            $str .= " <a href='./board.php?bo_table=$bo_table&sca=".urlencode($arr[$i])."'>$b_s$arr[$i]$b_e</a>&nbsp;&nbsp;<span style='font-size:11px; color:#D2D2D2;'>|</span>&nbsp;";
+    if ($cnt == $cnt_bo_1) { $cnt = 0; $str .= "<br>"; }
+    $cnt++;
+    }
+    if ($cnt0 == 0 ) { $bb_s="<b>"; $bb_e="</b>"; }
+?>
 </td>
-  <? } ?> 
   <? } ?>
-      <td align="right"><span style="font-size:8pt;"><font face="Tahoma" color="#999999">Total. <?=number_format($total_count)?></font></span> 
+  <? } ?>
+      <td align="right"><span style="font-size:8pt;"><font face="Tahoma" color="#999999">Total. <?=number_format($total_count)?></font></span>
        <? if ($rss_href) { ?><a href='<?=$rss_href?>'><img src='<?=$board_skin_path?>/img/btn_rss.gif' border=0 align=absmiddle></a><?}?>
           <? if ($admin_href) { ?><a href="<?=$admin_href?>"><img src="<?=$board_skin_path?>/img/admin_button.gif" title="관리자" border="0" align="absmiddle"></a><?}?></td>
     </tr>
@@ -98,9 +98,9 @@ if ($is_nogood) $colspan++;
 			<tbody>
 <!-- 목록 -->
 
-<? 
-for ($i=0; $i<count($list); $i++) 
-{ 
+<?
+for ($i=0; $i<count($list); $i++)
+{
     $img = "<img src='$board_skin_path/img/noimage.gif' border=0 width='$img_width' height='$img_height' title='이미지 없음' align=left style='border:1 solid #cccccc; padding:0px;'>";
     $thumb = $thumb_path.'/'.$list[$i][wr_id];
     // 썸네일 이미지가 존재하지 않는다면
@@ -138,7 +138,7 @@ for ($i=0; $i<count($list); $i++)
         $img = "<img src='$thumb' border=0 align=left style='border:1px solid #CCCCCC; padding:0px;'>";
 		else
         if(preg_match("/\.(swf|wma|asf)$/i","$file") && file_exists($file))
-       { $img = "<script>doc_write(flash_movie('$file', 'flash$i', '$img_width', '$img_height', 'transparent'));</script>"; }        
+       { $img = "<script>doc_write(flash_movie('$file', 'flash$i', '$img_width', '$img_height', 'transparent'));</script>"; }
 
 
 // --------------------------------------------------
@@ -157,21 +157,21 @@ $r_cost = sql_fetch($sql_cost);
 
              <tr>
 				<td rowspan="<?=$cnt?>" class="gallery">
-					     	<? 
+					     	<?
 								echo "<a href='{$list[$i][href]}' alt='{$list[$i][wr_subject]}' >";
 								echo $img;
 								echo "</a>";
-							?>		
+							?>
 					<h3><?	 echo  $list[$i]['mb_addr1'] ." ". $list[$i]['mb_addr2'];?> </h3>
 
-						<?	
+						<?
 						//	echo  $list[$i]['pension_id'];
 							$style = "";
 							 if ($list[$i]['is_notice']) $style = " style='font-weight:bold;'";
 							 echo "<font color=#777777> <a href='{$list[$i][href]}' $style><strong>";
 							 echo $list[$i]['subject'];
 							 echo "</a></strong> </font>";
-							
+
 						?>
 
 					<span><a href="<?=$list[$i][href]?>">미리보기</a></span>
@@ -179,10 +179,10 @@ $r_cost = sql_fetch($sql_cost);
 
 
 
-				<td>  
-				
+				<td>
+
 					<?=$r_info['r_info_name']?>
-					
+
 				</td>
 				<td>
 					<?=$r_info['r_info_area']?>평(<?=$r_info['r_info_area'] * 3.3?>㎡)<br />
@@ -234,7 +234,7 @@ $r_cost = sql_fetch($sql_cost);
 
 
 
-   
+
     <?}?>
 
     <? if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
@@ -272,10 +272,10 @@ $r_cost = sql_fetch($sql_cost);
 
 <!-- 페이지 -->
 <table width="100%" cellspacing="0" cellpadding="0">
-    <tr> 
+    <tr>
         <td width="100%"  height="36" align="center" valign="top">
         <? if ($prev_part_href) { echo "<a href='$prev_part_href'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
-        <?
+        <?php
         // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 이미지로도 출력할 수 있습니다.
         //echo $write_pages;
         $write_pages = str_replace("처음", "<img src='$board_skin_path/img/begin.gif' border='0' align='absmiddle' title='처음'>", $write_pages);
@@ -306,7 +306,7 @@ $r_cost = sql_fetch($sql_cost);
         <input name="stx" class="stx" maxlength="28" itemname="검색어" required value='<?=stripslashes($stx)?>'>
         <input type="image" src="<?=$board_skin_path?>/img/btn_search.gif" border='0' align="absmiddle">
         <input type="hidden" name="sop" value="or">
-        </form>		
+        </form>
 		</td>
     </tr>
 </table>
@@ -374,7 +374,7 @@ function select_copy(sw) {
         str = "복사";
     else
         str = "이동";
-                       
+
     if (!check_confirm(str))
         return;
 

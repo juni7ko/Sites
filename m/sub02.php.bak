@@ -133,7 +133,7 @@ include_once './_head.php';
 </div>
 
 
-<?
+<?php
 include_once './_tail.php';
 ?>
 

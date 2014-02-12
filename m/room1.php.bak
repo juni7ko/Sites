@@ -36,8 +36,8 @@ include_once './_head.php';
 
 
 	</div><!-- /visual -->
-	
 
-<?
+
+<?php
 include_once './_tail.php';
 ?>
