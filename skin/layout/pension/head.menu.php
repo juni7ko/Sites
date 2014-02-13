@@ -41,7 +41,7 @@ function addbookmark_top() {
 				<span>|</span>
 				<a href="/bbs/board.php?bo_table=qna">Q&A</a>
 				<span>|</span>
-				<a href="#">일대일상담</a>
+				<a href="/bbs/board.php?bo_table=memqa">일대일상담</a>
 				<span>|</span>
 				<a href="/bbs/board.php?bo_table=notice">공지사항</a>
 			</td>
@@ -53,7 +53,7 @@ function addbookmark_top() {
 				<span>|</span>
 				<a href="<?=$g4[bbs_path]?>/member_confirm.php?url=register_form.php">MyPage</a>
 			<?php else :?>
-				<a href="<?=$g4[path]?>/login.php">로그인</a>
+				<a href="<?=$g4[bbs_path]?>/login.php">로그인</a>
 				<span>|</span>
 				<a href="<?=$g4[bbs_path]?>/register.php">회원가입</a>
 			<?php endif;?>

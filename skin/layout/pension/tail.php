@@ -1,3 +1,5 @@
+</div>
+<!-- ./ContentContainer -->
 <!-- FOOTER -->
 <div id="footer">
 	<div class="contents">

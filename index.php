@@ -66,7 +66,7 @@ $chkLatest = Array();
 			</div>
 			<div class="title-img"></div>
 			<div class="tright">
-				<h3>VERY CHEEP</h3>
+				<h3>VERY CHEAP</h3>
 				<span>진정한 할인가!</span>
 			</div>
 		</div>
@@ -217,15 +217,15 @@ $chkLatest = Array();
 
 			<div class="quick-link">
 				<div class="left">
-					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_01.jpg" alt="펜션입점안내" /></a></div>
-					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_03.jpg" alt="광고및제휴" /></a></div>
+					<div class="col2"><a href="/biz.php"><img src="<?=$g4['path']?>/layout/images/quick_link_01.jpg" alt="펜션입점안내" /></a></div>
+					<div class="col2"><a href="/bbs/board.php?bo_table=biz"><img src="<?=$g4['path']?>/layout/images/quick_link_03.jpg" alt="광고및제휴" /></a></div>
 					<div class="col2"><a href="<?=$g4['path']?>/login.php?ltype=pa"><img src="<?=$g4['path']?>/layout/images/quick_link_05.jpg" alt="펜션관리하기" /></a></div>
 
 				</div>
 				<div class="right">
 					<div class="col2"><a href="/bbs/board.php?bo_table=qna"><img src="<?=$g4['path']?>/layout/images/quick_link_02.jpg" alt="질문및답변" /></a></div>
-					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_04.jpg" alt="일대일상담" /></a></div>
-					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_06.jpg" alt="펜션여행후기" /></a></div>
+					<div class="col2"><a href="/bbs/board.php?bo_table=memqa"><img src="<?=$g4['path']?>/layout/images/quick_link_04.jpg" alt="일대일상담" /></a></div>
+					<div class="col2"><a href="/bbs/board.php?bo_table=review"><img src="<?=$g4['path']?>/layout/images/quick_link_06.jpg" alt="펜션여행후기" /></a></div>
 
 				</div>
 			</div>

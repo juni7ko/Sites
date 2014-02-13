@@ -82,9 +82,9 @@ $colspan = 6;
 				<caption>펜션정보검색</caption>
 				<thead>
 					<tr>
-						<th width="400">업소명</th>
-						<th width="100">객실</th>
-						<th width="130">구조</th>
+						<th width="350">업소명</th>
+						<th width="180">객실</th>
+						<th width="100">구조</th>
 						<th width="80">인원</th>
 						<th width="120">추가금액</th>
 						<th width="150">요금(원)</th>

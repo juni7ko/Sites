@@ -31,6 +31,11 @@ $colspan = 6;
 // <nobr style='display:block; overflow:hidden; width:000px;'>제목</nobr>
 ?>
 <style type="text/css">
+span.reser_name {
+	padding:2px 0;
+	margin-top:5px;
+	float:left;
+}
 span.reser_btn a {
 	width: 35px;
 	display: inline-block;
@@ -44,6 +49,7 @@ span.reser_btn a {
 	text-decoration: none;
 	max-width: 50px;
 	text-align:center;
+	float:right;
 }
 
 span.reser_btn a:hover {
@@ -151,7 +157,7 @@ span.reser_btn a:hover {
 							<?php endif; ?>
 							<!-- <tr onmouseover="this.style.backgroundColor='#cAcAcA'" onmouseout="this.style.backgroundColor=''"> -->
 							<td>
-								<?=$list[$i]['r_info_name']?>
+								<a href="<?=$list[$i][href]?>&rid=<?=$list[$i]['r_info_id']?>&sDate=<?=$schDateTmp?>"><span class="reser_name"><?=$list[$i]['r_info_name']?></span></a>
 								<span class="reser_btn"><a href="<?=$list[$i][href]?>&rid=<?=$list[$i]['r_info_id']?>&sDate=<?=$schDateTmp?>">예약</a></span>
 							</td>
 							<td>
