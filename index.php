@@ -20,6 +20,8 @@ $skin_dirs[] = 'latest/gyungpopension-main-gallery';
 $g4['title'] = '';
 $headerbg = " class='main-header'";
 include_once('./head.index.php');
+
+$chkLatest = Array();
 ?>
 
 
@@ -74,13 +76,13 @@ include_once('./head.index.php');
 
 			<!-- Left Pension Latest -->
 			<div class="cols2">
-<?php echo hotSale("hotSale", pension_info, 3, 25, ""); ?>
+<?php echo bigSale("hotSale", pension_info, 3, 25, ""); ?>
 			</div><!-- ./cols2 -->
 			<!-- ./Left Pension Latest -->
 
 			<!-- Right Pension Latest -->
 			<div class="cols2">
-<?php echo newStay("newStay", pension_info, 3, 25, ""); ?>
+<?php echo veryCheep("newStay", pension_info, 3, 25, ""); ?>
 			</div><!-- ./cols2 -->
 			<!-- ./Right Pension Latest -->
 
@@ -213,13 +215,25 @@ include_once('./head.index.php');
 				<img src="<?=$g4['path']?>/layout/images/customer.gif" alt="customer" />
 			</div>
 
-			<div class="bank-info">
-				<h3><img src="<?=$g4['path']?>/layout/images/online_bank_title.gif" alt="공지사항" /></h3>
+			<div class="quick-link">
+				<div class="left">
+					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_01.jpg" alt="펜션입점안내" /></a></div>
+					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_03.jpg" alt="펜션입점안내" /></a></div>
+					<div class="col2"><a href="<?=$g4['path']?>/login.php"><img src="<?=$g4['path']?>/layout/images/quick_link_05.jpg" alt="펜션입점안내" /></a></div>
+
+				</div>
+				<div class="right">
+					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_02.jpg" alt="펜션입점안내" /></a></div>
+					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_04.jpg" alt="펜션입점안내" /></a></div>
+					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_06.jpg" alt="펜션입점안내" /></a></div>
+
+				</div>
 			</div>
 
 		</div><!-- ./container -->
 	</div><!-- ./row -->
 </div>
 <!-- ./CS CENTER -->
+
 <?php include_once("./_tail.php");
 ?>
