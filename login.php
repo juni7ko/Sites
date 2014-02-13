@@ -9,7 +9,7 @@ include_once("$g4[path]/lib/visit.lib.php");
 include_once("$g4[path]/lib/connect.lib.php");
 include_once("$g4[path]/lib/popular.lib.php");
 
-echo outlogin('staystore');
+echo outlogin('padmin');
 
 include_once("./tail.sub.php");
 ?>
