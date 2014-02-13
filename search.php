@@ -9,6 +9,12 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 ?>
 <script src="<?=$g4[path]?>/js/jquery-ui.min.js"></script>
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
+<style type="text/css">
+.ui-datepicker { font:12px dotum; }
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year { width: 70px;}
+.ui-datepicker-trigger { margin:0 0 -5px 2px; }
+</style>
 <script src="<?=$g4[path]?>/js/support.labs.js"></script>
 <script src="<?=$g4[path]?>/js/jquery.form.js"></script>
 <form id="searchZone1" name="searchZone1" method="post" enctype="multipart/form-data" style="margin:0px;">
@@ -319,7 +325,7 @@ for($area_count=0; $areaInfo = sql_fetch_array($nav_sql); $area_count++) {
 			changeYear: true,
 	        showButtonPanel: true,
 	        yearRange: 'c-99:c+99',
-	        maxDate: '+60d',
+	        maxDate: '+30d',
 	        minDate: '-0d'
 	    });
 
