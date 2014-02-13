@@ -28,7 +28,7 @@ body {
 }
 
 body, table, th, td, span, p, div, select, input, form {
-    color: #888888;
+    color: #333333;
     font-family: 'Nanum Gothic','나눔고딕', dotum, '돋움', sans-serif;
 }
 

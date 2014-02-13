@@ -5,4 +5,9 @@
     $phone[2] = "789";
     $rcv_number = join(",", $phone);
     echo $rcv_number;
+    echo "<br>";
+    $a = 44311;
+    $b = ceil($a / 100) * 100;
+    echo $b;
+
 ?>

@@ -59,13 +59,13 @@ include_once('./head.index.php');
 	<div class="titles">
 		<div class="container">
 			<div class="tleft">
-				<h3>HOT SALE</h3>
-				<span>이런게 바로 에누리다!</span>
+				<h3>BIG SALE</h3>
+				<span>최고의 할인율!</span>
 			</div>
 			<div class="title-img"></div>
 			<div class="tright">
-				<h3>NEW STAY</h3>
-				<span>내가 곧 대세 스테이!</span>
+				<h3>VERY CHEEP</h3>
+				<span>진정한 할인가!</span>
 			</div>
 		</div>
 	</div>
@@ -101,15 +101,15 @@ include_once('./head.index.php');
 
 			<!-- width 318px -//- height 108px -->
 			<div class="cols3">
-				<img src="<?=$g4['path']?>/layout/images/main_banner.jpg" alt="banner" />
+				<a href="http://www.baugil.org" target="_blank"><img src="<?=$g4['path']?>/layout/images/main_banner_01.jpg" alt="banner" /></a><!--  바우길 -->
 			</div>
 
 			<div class="cols3">
-				<img src="<?=$g4['path']?>/layout/images/main_banner.jpg" alt="banner" />
+				<a href="http://www.coffeefestival.net" target="_blank"><img src="<?=$g4['path']?>/layout/images/main_banner_02.jpg" alt="banner" /></a><!-- 커피축제 -->
 			</div>
 
 			<div class="cols3 last">
-				<img src="<?=$g4['path']?>/layout/images/main_banner.jpg" alt="banner" />
+				<a href="http://www.danojefestival.or.kr" target="_blank"><img src="<?=$g4['path']?>/layout/images/main_banner_03.jpg" alt="banner" /></a><!-- 단오제 -->
 			</div>
 			<!-- width 318px -//- height 108px -->
 
@@ -123,6 +123,50 @@ include_once('./head.index.php');
 
 
 
+<!-- SECTION 7 -->
+<div id="section" class="section7">
+	<div class="titles">
+		<div class="container">
+			<div class="tleft">
+				<h3>HOT</h3>
+				<span>내가 제일 잘나가!</span>
+			</div>
+			<div class="title-img"></div>
+			<div class="tright">
+				<h3>NEW</h3>
+				<span>내가 곧 대세!</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+
+			<!-- Left Pension Latest -->
+			<div class="cols2">
+<?php echo hotSale("hotSale", pension_info, 3, 25, ""); ?>
+			</div><!-- ./cols2 -->
+			<!-- ./Left Pension Latest -->
+
+			<!-- Right Pension Latest -->
+			<div class="cols2">
+<?php echo newStay("newStay", pension_info, 3, 25, ""); ?>
+			</div><!-- ./cols2 -->
+			<!-- ./Right Pension Latest -->
+
+		</div><!-- ./container -->
+	</div><!-- ./row -->
+
+</div>
+<!-- ./SECTION -->
+
+<!-- SECTION 4 -->
+<div id="section" class="section4">
+	<div class="banner-bg">
+	-------------------------- 구분선 --------------------------
+	</div>
+</div>
+<!-- ./SECTION -->
+
 <!-- SECTION 2 -->
 <div id="section" class="section5">
 	<div class="row">
@@ -135,27 +179,6 @@ include_once('./head.index.php');
 
 
 
-<!-- SECTION 6 -->
-<div id="section" class="section6">
-	<div class="row">
-		<div class="container">
-
-			<!-- Left Pension Latest -->
-			<div class="cols2">
-<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 3"); ?>
-			</div><!-- ./cols2 -->
-			<!-- ./Left Pension Latest -->
-
-			<!-- Right Pension Latest -->
-			<div class="cols2">
-<?php echo latest2("section3", pension_info, 3, 25, "AND mainPrint = 4"); ?>
-			</div><!-- ./cols2 -->
-			<!-- ./Right Pension Latest -->
-
-		</div><!-- ./container -->
-	</div><!-- ./row -->
-</div>
-<!-- ./SECTION -->
 
 
 
