@@ -118,7 +118,10 @@ $resCheck = resCheck($pension_id, $viewDateRow['pDate'][$i], $costID);
 ?>
 	<td>
 	<?php
-	if($nDateTmp > $viewDateRow['pDate'][$i]) {
+	$maxDateTmp = $nDateTmp + (86400 * 30);
+	if($viewDateRow['pDate'][$i] > $maxDateTmp) {
+		echo "불가";
+	} else if($nDateTmp > $viewDateRow['pDate'][$i]) {
 		echo "종료";
 	} else if($resCheck['close']['r_close_name']) {// 1차 예약불가 검사
 		echo "완료";
