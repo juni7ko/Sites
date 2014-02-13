@@ -257,7 +257,7 @@ function print_menu_pension2($key, $no)
 		<colgroup width=180>
 		<colgroup>
 		<tr bgcolor=#E3DCD2 height=70>
-			<td colspan=2 onmouseover="layer_view('','','','','')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='<?=$g4['admin_path']?>/'><!-- <img src='<?=$g4['admin_path']?>/img/logo.gif' border=0> --><strong>펜션할인사이트</strong></a></td>
+			<td colspan=2 onmouseover="layer_view('','','','','')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='<?=$g4['admin_path']?>/'><!-- <img src='<?=$g4['admin_path']?>/img/logo.gif' border=0> --><strong><?=$config['cf_title']?></strong></a></td>
 			<td>
 				<?php
 				if($member[mb_level] < 7) {

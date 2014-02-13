@@ -48,7 +48,7 @@ header("Pragma: no-cache"); // HTTP/1.0
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>펜션할인사이트</title>
+<title><?=$g4['title']?></title>
 <script language="javascript" type="text/javascript" src="https://pay.bluepay.co.kr/Script/BluePayAPI.js"></script>
 <!-- <script language="javascript" type="text/javascript" src="https://api.bluepay.co.kr/ajax/common/OpenPayAPI.js"></script> -->
 
