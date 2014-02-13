@@ -1,7 +1,7 @@
 <div id="wrap">
 
-<div id="top disnone">
-	<div class="contents disnone"><img src="<?=$g4['path']?>/layout/images/top_banner.png" alt="" /></div>
+<div id="top">
+	<?php include_once("$g4[path]/skin/layout/pension/head.menu.php"); ?>
 </div>
 
 <!-- HEADER -->
@@ -14,7 +14,7 @@
 	<div class="contents clearfix">
 
 		<!-- navigation -->
-<?php include("$g4[path]/_navigation.php");?>
+<?php include_once("$g4[path]/_navigation.php");?>
 		<!-- ./navigation -->
 
 		<div class="search-form-area disnone">

@@ -21,17 +21,47 @@
 
 #top {
 	width: 100%;
-	background: #eee;
-	border-bottom: 1px solid #aaa;
+	background-color: #00aebd;
+	height:23px;
+	line-height:23px;
+	text-align:center;
 }
 
-#top .contents {
-	width: 980px;
-	margin: 0 auto;
-	text-align: center;
-	padding: 2px 0;
+#top a { color:#FFFFFF; }
+#top a:hover { color:#FFFFCC; }
+
+#top span { color:#FFFFFF; margin:0 4px; }
+
+#top table.topTable {
+	width:100%;
+	margin:0 auto;
+	height:23px;
+	table-layout: fixed;
 }
 
+#top td.contents1 {
+	width:490px;
+	text-align:left;
+	height:23px;
+	line-height:23px;
+	color:#FFFFFF;
+}
+
+#top td.contents2 {
+	width:490px;
+	text-align:right;
+	height:23px;
+	line-height:23px;
+	color:#FFFFFF;
+	background-color:#f02a5b;
+}
+
+#top td.ext1 {
+	background-color:#00aebd;
+}
+#top td.ext2 {
+	background-color:#f02a5b;
+}
 
 /*===================================================================================*/
 /*  HEADER                                                                           */
@@ -804,17 +834,19 @@
 	width: 375px;
 	float: right;
 }
+	.customer .quick-link .col2 {
+	margin-bottom: 4px;
+	}
+
 
 	.customer .quick-link .left {
 	width: 185px;
 	float: left;
-	margin-bottom:4px;
 	}
 
-		.customer .quick-link .right {
+	.customer .quick-link .right{
 	width: 185px;
 	float: right;
-	margin-bottom:4px;
 	}
 
 
