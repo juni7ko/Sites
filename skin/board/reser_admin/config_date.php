@@ -391,15 +391,26 @@ $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 					$result = sql_query($sql);
 
 					for($i=0; $i < count($r_dcost_idx); $i++ ) {
-						if($r_date_cost_11[$i]) $r_date_cost_21[$i] = round( $r_date_cost_1[$i] - ($r_date_cost_1[$i] * ($r_date_cost_11[$i] * 0.01)), -2 );
+						// if($r_date_cost_11[$i]) $r_date_cost_21[$i] = round( $r_date_cost_1[$i] - ($r_date_cost_1[$i] * ($r_date_cost_11[$i] * 0.01)), -2 );
+						// else $r_date_cost_21[$i] = $r_date_cost_1[$i];
+						// if($r_date_cost_12[$i]) $r_date_cost_22[$i] = round( $r_date_cost_2[$i] - ($r_date_cost_2[$i] * ($r_date_cost_12[$i] * 0.01)), -2 );
+						// else $r_date_cost_22[$i] = $r_date_cost_2[$i];
+						// if($r_date_cost_13[$i]) $r_date_cost_23[$i] = round( $r_date_cost_3[$i] - ($r_date_cost_3[$i] * ($r_date_cost_13[$i] * 0.01)), -2 );
+						// else $r_date_cost_23[$i] = $r_date_cost_3[$i];
+						// if($r_date_cost_14[$i]) $r_date_cost_24[$i] = round( $r_date_cost_4[$i] - ($r_date_cost_4[$i] * ($r_date_cost_14[$i] * 0.01)), -2 );
+						// else $r_date_cost_24[$i] = $r_date_cost_4[$i];
+						// if($r_date_cost_15[$i]) $r_date_cost_25[$i] = round( $r_date_cost_5[$i] - ($r_date_cost_5[$i] * ($r_date_cost_15[$i] * 0.01)), -2 );
+						// else $r_date_cost_25[$i] = $r_date_cost_5[$i];
+
+						if($r_date_cost_11[$i]) $r_date_cost_21[$i] = ceil( ( $r_date_cost_1[$i] - ($r_date_cost_1[$i] * ($r_date_cost_11[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_21[$i] = $r_date_cost_1[$i];
-						if($r_date_cost_12[$i]) $r_date_cost_22[$i] = round( $r_date_cost_2[$i] - ($r_date_cost_2[$i] * ($r_date_cost_12[$i] * 0.01)), -2 );
+						if($r_date_cost_12[$i]) $r_date_cost_22[$i] = ceil( ( $r_date_cost_2[$i] - ($r_date_cost_2[$i] * ($r_date_cost_12[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_22[$i] = $r_date_cost_2[$i];
-						if($r_date_cost_13[$i]) $r_date_cost_23[$i] = round( $r_date_cost_3[$i] - ($r_date_cost_3[$i] * ($r_date_cost_13[$i] * 0.01)), -2 );
+						if($r_date_cost_13[$i]) $r_date_cost_23[$i] = ceil( ( $r_date_cost_3[$i] - ($r_date_cost_3[$i] * ($r_date_cost_13[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_23[$i] = $r_date_cost_3[$i];
-						if($r_date_cost_14[$i]) $r_date_cost_24[$i] = round( $r_date_cost_4[$i] - ($r_date_cost_4[$i] * ($r_date_cost_14[$i] * 0.01)), -2 );
+						if($r_date_cost_14[$i]) $r_date_cost_24[$i] = ceil( ( $r_date_cost_4[$i] - ($r_date_cost_4[$i] * ($r_date_cost_14[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_24[$i] = $r_date_cost_4[$i];
-						if($r_date_cost_15[$i]) $r_date_cost_25[$i] = round( $r_date_cost_5[$i] - ($r_date_cost_5[$i] * ($r_date_cost_15[$i] * 0.01)), -2 );
+						if($r_date_cost_15[$i]) $r_date_cost_25[$i] = ceil( ( $r_date_cost_5[$i] - ($r_date_cost_5[$i] * ($r_date_cost_15[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_25[$i] = $r_date_cost_5[$i];
 
 						if($r_dcost_idx[$i]) {
@@ -502,15 +513,25 @@ $this_page = "{$_SERVER['PHP_SELF']}?bo_table={$bo_table}";
 					$r_date_idx = sql_fetch($sql);
 
 					for($i=0; $i < count($r_info_id); $i++) {
-						if($r_date_cost_11[$i]) $r_date_cost_21[$i] = round( $r_date_cost_1[$i] - ($r_date_cost_1[$i] * ($r_date_cost_11[$i] * 0.01)), -2 );
+						// if($r_date_cost_11[$i]) $r_date_cost_21[$i] = round( $r_date_cost_1[$i] - ($r_date_cost_1[$i] * ($r_date_cost_11[$i] * 0.01)), -2 );
+						// else $r_date_cost_21[$i] = $r_date_cost_1[$i];
+						// if($r_date_cost_12[$i]) $r_date_cost_22[$i] = round( $r_date_cost_2[$i] - ($r_date_cost_2[$i] * ($r_date_cost_12[$i] * 0.01)), -2 );
+						// else $r_date_cost_22[$i] = $r_date_cost_2[$i];
+						// if($r_date_cost_13[$i]) $r_date_cost_23[$i] = round( $r_date_cost_3[$i] - ($r_date_cost_3[$i] * ($r_date_cost_13[$i] * 0.01)), -2 );
+						// else $r_date_cost_23[$i] = $r_date_cost_3[$i];
+						// if($r_date_cost_14[$i]) $r_date_cost_24[$i] = round( $r_date_cost_4[$i] - ($r_date_cost_4[$i] * ($r_date_cost_14[$i] * 0.01)), -2 );
+						// else $r_date_cost_24[$i] = $r_date_cost_4[$i];
+						// if($r_date_cost_15[$i]) $r_date_cost_25[$i] = round( $r_date_cost_5[$i] - ($r_date_cost_5[$i] * ($r_date_cost_15[$i] * 0.01)), -2 );
+						// else $r_date_cost_25[$i] = $r_date_cost_5[$i];
+						if($r_date_cost_11[$i]) $r_date_cost_21[$i] = ceil(( $r_date_cost_1[$i] - ($r_date_cost_1[$i] * ($r_date_cost_11[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_21[$i] = $r_date_cost_1[$i];
-						if($r_date_cost_12[$i]) $r_date_cost_22[$i] = round( $r_date_cost_2[$i] - ($r_date_cost_2[$i] * ($r_date_cost_12[$i] * 0.01)), -2 );
+						if($r_date_cost_12[$i]) $r_date_cost_22[$i] = ceil(( $r_date_cost_2[$i] - ($r_date_cost_2[$i] * ($r_date_cost_12[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_22[$i] = $r_date_cost_2[$i];
-						if($r_date_cost_13[$i]) $r_date_cost_23[$i] = round( $r_date_cost_3[$i] - ($r_date_cost_3[$i] * ($r_date_cost_13[$i] * 0.01)), -2 );
+						if($r_date_cost_13[$i]) $r_date_cost_23[$i] = ceil(( $r_date_cost_3[$i] - ($r_date_cost_3[$i] * ($r_date_cost_13[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_23[$i] = $r_date_cost_3[$i];
-						if($r_date_cost_14[$i]) $r_date_cost_24[$i] = round( $r_date_cost_4[$i] - ($r_date_cost_4[$i] * ($r_date_cost_14[$i] * 0.01)), -2 );
+						if($r_date_cost_14[$i]) $r_date_cost_24[$i] = ceil(( $r_date_cost_4[$i] - ($r_date_cost_4[$i] * ($r_date_cost_14[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_24[$i] = $r_date_cost_4[$i];
-						if($r_date_cost_15[$i]) $r_date_cost_25[$i] = round( $r_date_cost_5[$i] - ($r_date_cost_5[$i] * ($r_date_cost_15[$i] * 0.01)), -2 );
+						if($r_date_cost_15[$i]) $r_date_cost_25[$i] = ceil(( $r_date_cost_5[$i] - ($r_date_cost_5[$i] * ($r_date_cost_15[$i] * 0.01))) / 100 ) * 100;
 						else $r_date_cost_25[$i] = $r_date_cost_5[$i];
 
 						$sql = "INSERT INTO {$write_table}_r_date_cost (

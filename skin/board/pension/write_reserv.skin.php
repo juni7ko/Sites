@@ -73,7 +73,8 @@ foreach($_POST[checkRoom] as $chkData) :
 
 	$viewDateType = viewDateType($_POST[pension_id], $chkReser['rDate']);
 	$viewDateCost = viewCostRow($chkReser['r_info_id'], $_POST[pension_id], $rWeekType, $chkReser['rDate']);
-	$typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01)), -2 );
+	//$typeCost2 = round( ($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01)), -2 );
+	$typeCost2 = ceil( (($viewDateCost['typeCost1'] * ($viewDateCost['typeCost2'] * 0.01))) / 100 ) * 100;
 ?>
 								<tr>
 									<td class="first"><?=$r_info['r_info_name']?></td>

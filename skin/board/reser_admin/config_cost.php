@@ -33,15 +33,27 @@ show_list(); // 방 목록 보여주기
 $cost_info = sql_fetch(" SELECT * FROM {$write_table}_r_cost WHERE r_info_id='$id' ");
 if($u == "edit") {
 	// 할인율에 따른 객실가격 계산 : 100원이하 단위 절사
-	if($r_cost_21) $r_cost_31 = round( $r_cost_11 - ($r_cost_11 * ($r_cost_21 * 0.01)), -2 );
+	// if($r_cost_21) $r_cost_31 = round( $r_cost_11 - ($r_cost_11 * ($r_cost_21 * 0.01)), -2 );
+	// 	else $r_cost_31 = $r_cost_11;
+	// if($r_cost_22) $r_cost_32 = round( $r_cost_12 - ($r_cost_12 * ($r_cost_22 * 0.01)), -2 );
+	// 	else $r_cost_32 = $r_cost_12;
+	// if($r_cost_23) $r_cost_33 = round( $r_cost_13 - ($r_cost_13 * ($r_cost_23 * 0.01)), -2 );
+	// 	else $r_cost_33 = $r_cost_13;
+	// if($r_cost_24) $r_cost_34 = round( $r_cost_14 - ($r_cost_14 * ($r_cost_24 * 0.01)), -2 );
+	// 	else $r_cost_34 = $r_cost_14;
+	// if($r_cost_25) $r_cost_35 = round( $r_cost_15 - ($r_cost_15 * ($r_cost_25 * 0.01)), -2 );
+	// 	else $r_cost_35 = $r_cost_15;
+
+	// 할인율에 따른 객실가격 계산 : 100원이하 단위 올림
+	if($r_cost_21) $r_cost_31 = ceil( ( $r_cost_11 - ( $r_cost_11 * ( $r_cost_21 * 0.01 ) ) ) / 100 ) * 100;
 		else $r_cost_31 = $r_cost_11;
-	if($r_cost_22) $r_cost_32 = round( $r_cost_12 - ($r_cost_12 * ($r_cost_22 * 0.01)), -2 );
+	if($r_cost_22) $r_cost_32 = ceil( ( $r_cost_12 - ( $r_cost_12 * ( $r_cost_22 * 0.01 ) ) ) / 100 ) * 100;
 		else $r_cost_32 = $r_cost_12;
-	if($r_cost_23) $r_cost_33 = round( $r_cost_13 - ($r_cost_13 * ($r_cost_23 * 0.01)), -2 );
+	if($r_cost_23) $r_cost_33 = ceil( ( $r_cost_13 - ( $r_cost_13 * ( $r_cost_23 * 0.01 ) ) ) / 100 ) * 100;
 		else $r_cost_33 = $r_cost_13;
-	if($r_cost_24) $r_cost_34 = round( $r_cost_14 - ($r_cost_14 * ($r_cost_24 * 0.01)), -2 );
+	if($r_cost_24) $r_cost_34 = ceil( ( $r_cost_14 - ( $r_cost_14 * ( $r_cost_24 * 0.01 ) ) ) / 100 ) * 100;
 		else $r_cost_34 = $r_cost_14;
-	if($r_cost_25) $r_cost_35 = round( $r_cost_15 - ($r_cost_15 * ($r_cost_25 * 0.01)), -2 );
+	if($r_cost_25) $r_cost_35 = ceil( ( $r_cost_15 - ( $r_cost_15 * ( $r_cost_25 * 0.01 ) ) ) / 100 ) * 100;
 		else $r_cost_35 = $r_cost_15;
 
 	if($cost_info) {
