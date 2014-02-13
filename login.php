@@ -9,7 +9,11 @@ include_once("$g4[path]/lib/visit.lib.php");
 include_once("$g4[path]/lib/connect.lib.php");
 include_once("$g4[path]/lib/popular.lib.php");
 
-echo outlogin('padmin');
+if($ltype == "pa") {
+	echo outlogin('padmin');
+} else {
+	echo outlogin('user');
+}
 
 include_once("./tail.sub.php");
 ?>

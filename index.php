@@ -219,7 +219,7 @@ $chkLatest = Array();
 				<div class="left">
 					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_01.jpg" alt="펜션입점안내" /></a></div>
 					<div class="col2"><a href="#"><img src="<?=$g4['path']?>/layout/images/quick_link_03.jpg" alt="광고및제휴" /></a></div>
-					<div class="col2"><a href="<?=$g4['path']?>/login.php"><img src="<?=$g4['path']?>/layout/images/quick_link_05.jpg" alt="펜션관리하기" /></a></div>
+					<div class="col2"><a href="<?=$g4['path']?>/login.php?ltype=pa"><img src="<?=$g4['path']?>/layout/images/quick_link_05.jpg" alt="펜션관리하기" /></a></div>
 
 				</div>
 				<div class="right">
