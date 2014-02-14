@@ -323,7 +323,9 @@ if($_POST) {
 		<td class="income"><?=number_format( $Charge - ceil( ( ($Charge * 0.15)) / 100) * 100 )?></td>
 	</tr>
 </table>
-
+<?php
+$suip = $Charge - ($Charge - ceil( ( ($Charge * 0.15)) / 100) * 100);
+?>
 <SCRIPT LANGUAGE="JavaScript">
 	function win_stats(url)
 	{
