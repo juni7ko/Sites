@@ -19,7 +19,7 @@ $background = "class=bg-ptn1";
 				<input type=hidden name=bo_table     value="<?=$_POST[bo_table]?>" />
 				<input type=hidden name=write_table2 value="<?=$write_table2?>" />
 				<input type=hidden name=pension_id   value="<?=$pension_id?>" />
-				<?php $wr_3 = mktime() . "_" . $pension_id; // 예약코드 ?>
+				<?php $wr_3 = mktime() . $pension_id; // 예약코드 ?>
 				<input type=hidden name=wr_3		 value="<?=$wr_3?>" />
 
 
