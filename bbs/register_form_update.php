@@ -1,4 +1,5 @@
-<?php include_once("./_common.php");
+<?php
+include_once("./_common.php");
 include_once("$g4[path]/lib/mailer.lib.php");
 
 /*
@@ -93,9 +94,7 @@ if ($w == '' || $w == 'u')
                     alert("다른 이름으로 같은 주민등록번호가 이미 가입되어 있습니다.\\n\\n관리자에게 문의해 주십시오.");
             }
         }
-    }
-    else
-    {
+    } else {
         // 자바스크립트로 정보변경이 가능한 버그 수정
         // 별명수정일이 지나지 않았다면
         if ($member[mb_nick_date] > date("Y-m-d", $g4[server_time] - ($config[cf_nick_modify] * 86400)))
@@ -171,7 +170,7 @@ if ($w == "")
         alert("이미 가입한 아이디입니다.");
 
     if($utype == "padmin") {
-        $mb_level = 3;
+        $mb_level = "3";
     } else {
         $mb_level = $config[cf_register_level];
     }

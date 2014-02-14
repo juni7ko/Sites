@@ -51,7 +51,7 @@ function addbookmark_top() {
 			<?php if($member['mb_id']) :?>
 				<a href="<?=$g4[bbs_path]?>/logout.php">로그아웃</a>
 				<span>|</span>
-				<a href="<?=$g4[bbs_path]?>/member_confirm.php?url=register_form.php">MyPage</a>
+				<a href="<?=$g4[bbs_path]?>/myinfo.php">MyPage</a>
 			<?php else :?>
 				<a href="<?=$g4[bbs_path]?>/login.php">로그인</a>
 				<span>|</span>

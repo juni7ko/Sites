@@ -63,8 +63,8 @@
 					</tr>
 					<tr>
 						<td height=40>
-							&nbsp; <input type=radio value=1 name=agree3 id="agree31" />&nbsp;<label for="agree31">동의합니다.</label>
-							&nbsp; <input type=radio value=0 name=agree3 id="agree30" />&nbsp;<label for="agree30">동의하지 않습니다.</label>
+							&nbsp; <input type=radio value=1 name=pagree id="agree31" />&nbsp;<label for="agree31">동의합니다.</label>
+							&nbsp; <input type=radio value=0 name=pagree id="agree30" />&nbsp;<label for="agree30">동의하지 않습니다.</label>
 						</td>
 					</tr>
 				</table>
@@ -98,7 +98,7 @@
 
 		var utype = document.getElementsByName("utype");
 		if(utype[1].checked) {
-			var agree3 = document.getElementsByName("agree3");
+			var agree3 = document.getElementsByName("pagree");
 			if(!agree3[0].checked) {
 				alert("펜션관리자 약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
 				agree3[0].focus();

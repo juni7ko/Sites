@@ -14,11 +14,13 @@ if ($w == "") {
     // 리퍼러 체크
     referer_check();
 
-    if (!$_POST[agree])
+    if (!$_POST[agree]) {
         alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.", "./register.php");
+    }
 
-    if (!$_POST[agree2])
+    if (!$_POST[agree2]) {
         alert("개인정보취급방침의 내용에 동의하셔야 회원가입 하실 수 있습니다.", "./register.php");
+    }
 
     // 주민등록번호를 사용한다면 중복검사를 합니다.
     /*
@@ -59,10 +61,8 @@ if ($w == "") {
     $member[mb_name] = $mb_name;
 
     $g4[title] = "회원 가입";
-} 
-else if ($w == "u") 
-{
-    if ($is_admin) 
+} else if ($w == "u") {
+    if ($is_admin)
         alert("관리자의 회원정보는 관리자 화면에서 수정해 주십시오.", $g4[path]);
 
     if (!$member[mb_id])
@@ -114,8 +114,9 @@ else if ($w == "u")
     $member[mb_8]           = get_text($member[mb_8]);
     $member[mb_9]           = get_text($member[mb_9]);
     $member[mb_10]          = get_text($member[mb_10]);
-} else
+} else {
     alert("w 값이 제대로 넘어오지 않았습니다.");
+}
 
 // 회원아이콘 경로
 $mb_icon = "$g4[path]/data/member/".substr($member[mb_id],0,2)."/$member[mb_id].gif";

@@ -69,9 +69,7 @@ var member_skin_path = "<?=$member_skin_path?>";
 <script type="text/javascript" src="<?=$g4[path]?>/js/md5.js"></script>
 <script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 
-
 <div id="divRegister">
-
     <form id="fregisterform" name=fregisterform method=post onsubmit="return fregisterform_submit(this);" enctype="multipart/form-data" autocomplete="off">
     <input type=hidden name=w                value="<?=$w?>" />
     <input type=hidden name=url              value="<?=$urlencode?>" />
@@ -79,6 +77,9 @@ var member_skin_path = "<?=$member_skin_path?>";
     <input type=hidden name=mb_id_enabled    value="" id="mb_id_enabled" />
     <input type=hidden name=mb_nick_enabled  value="" id="mb_nick_enabled" />
     <input type=hidden name=mb_email_enabled value="" id="mb_email_enabled" />
+    <input type=hidden name=agree            value="<?=$agree?>" />
+    <input type=hidden name=agree2           value="<?=$agree2?>" />
+    <input type=hidden name=utype            value="<?=$utype?>" />
     <!-- <input type=hidden name=token value="<?=$token?>"> -->
 
     <table width=100% cellspacing=0 align=center>
@@ -135,20 +136,25 @@ var member_skin_path = "<?=$member_skin_path?>";
             <TR bgcolor="#FFFFFF">
                 <TD width="160" class=m_title>이름</TD>
                 <TD class=m_padding>
-                    <input name=mb_name itemname="이름" value="<?=$member[mb_name]?>" <?=$member[mb_name]?"readonly class=ed2":"class=ed";?>>
+                    <input name=mb_name itemname="이름" value="<?=$member[mb_name]?>" <?=($member[mb_name])?"readonly class=ed2":"class=ed";?>>
                     <?php if ($w=='') { echo "(공백없이 한글만 입력 가능)"; } ?>
                 </TD>
             </TR>
 
+            <?php if ($member[mb_nick_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_nick_modify] * 86400))) { // 별명수정일이 지났다면 수정가능 ?>
+            <input type=hidden name=mb_nick_default value='<?=$member[mb_nick]?>'>
+            <input type=hidden id='reg_mb_nick' name='mb_nick' maxlength=20 value='<?=$member[mb_nick]?>' onblur="reg_mb_nick_check();">
+            <span style="display:none;" id='msg_mb_nick'></span>
+            <?php } else { ?>
             <input type=hidden name="mb_nick_default" value='<?=$member[mb_nick]?>'>
             <input type=hidden name="mb_nick" value="<?=$member[mb_nick]?>">
+            <?php } ?>
 
-            <input type=hidden name='old_email' value='<?=$member[mb_email]?>'>
+            <input type=hidden name="old_email" value="<?=$member[mb_email]?>" />
             <TR bgcolor="#FFFFFF">
                 <TD class=m_title>E-mail</TD>
                 <TD class='m_padding lh'>
-                    <input class=ed type=text id='reg_mb_email' name='mb_email' size=38 maxlength=100 value='<?=$member[mb_email]?>'
-                        onblur="reg_mb_email_check()">
+                    <input class=ed type=text id='reg_mb_email' name='mb_email' size=38 maxlength=100 value='<?=$member[mb_email]?>' onblur="reg_mb_email_check()">
                     <span id='msg_mb_email'></span>
                     <?php if ($config[cf_use_email_certify]) { ?>
                         <?php if ($w=='') { echo "<br>e-mail 로 발송된 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다."; } ?>
@@ -415,23 +421,25 @@ function fregisterform_submit(f)
     }
 
     // 별명 검사
-    // if ((f.w.value == "") ||
-    //     (f.w.value == "u" && f.mb_nick.defaultValue != f.mb_nick.value)) {
+    /*
+    if ((f.w.value == "") ||
+        (f.w.value == "u" && f.mb_nick.defaultValue != f.mb_nick.value)) {
 
-    //     reg_mb_nick_check();
+        reg_mb_nick_check();
 
-    //     if (document.getElementById('mb_nick_enabled').value!='000') {
-    //         alert('별명을 입력하지 않았거나 입력에 오류가 있습니다.');
-    //         document.getElementById('reg_mb_nick').select();
-    //         return false;
-    //     }
-    // }
+        if (document.getElementById('mb_nick_enabled').value!='000') {
+            alert('별명을 입력하지 않았거나 입력에 오류가 있습니다.');
+            document.getElementById('reg_mb_nick').select();
+            return false;
+        }
+    }
+    */
 
-    <?php if($utype == "padmin") :?>
-        f.mb_nick.value = f.mb_id.value;
-    <?php else : ?>
+    <?php if($utype == "padmin") {?>
         f.mb_nick.value = f.mb_3.value;
-    <?php endif; ?>
+    <?php } else { ?>
+        f.mb_nick.value = f.mb_id.value;
+    <?php } ?>
 
     // E-mail 검사
     if ((f.w.value == "") ||
