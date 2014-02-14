@@ -295,13 +295,15 @@ if($_POST) {
 	<tr><td style="height:2px" colspan="8"></td></tr>
 
 	<tr style="font-weight:bold">
-		<td colspan="3" align="center"><?php if($r_year && $r_year != "All"){echo $r_year . "년";}?> <?php if($r_month && $r_month != "All"){echo $r_month . "월";}?> <?php if($r_day && $r_day != "All" && $mode == "day"){echo $r_day . "일";}?></td>
+		<td rowspan="2" colspan="3" align="center"><?php if($r_year && $r_year != "All"){echo $r_year . "년";}?> <?php if($r_month && $r_month != "All"){echo $r_month . "월";}?> <?php if($r_day && $r_day != "All" && $mode == "day"){echo $r_day . "일";}?></td>
 		<td colspan="3" align="center">총 계</td>
 		<td><?=number_format($Charge)?></td>
 		<td class="income"><?=number_format($Charge)?></td>
-		<!-- <td><?=number_format($Diff)?></td> -->
 	</tr>
-
+	<tr style="font-weight:bold">
+		<td colspan="4" align="center">15% 공제금액</td>
+		<td class="income"><?=number_format( $Charge - ceil( ( ($Charge * 0.15)) / 100) * 100 )?></td>
+	</tr>
 </table>
 
 <?php

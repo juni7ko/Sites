@@ -82,7 +82,7 @@ for ($i=0; $clist = sql_fetch_array($select_DB); $i++) {
 <?php endfor; ?>
 	<tr><td style="height:2px" colspan="8"></td></tr>
 	<tr style="font-weight:bold">
-		<td colspan="3" align="center">
+		<td rowspan="2" colspan="3" align="center">
 			<?=substr($sDate,0,4)?>년 <?=substr($sDate,4,2)?>월 <?=substr($sDate,6,2)?>일
 			~
 			<?=substr($eDate,0,4)?>년 <?=substr($eDate,4,2)?>월 <?=substr($eDate,6,2)?>일
@@ -90,5 +90,9 @@ for ($i=0; $clist = sql_fetch_array($select_DB); $i++) {
 		<td colspan="3" align="center">총 계</td>
 		<td><?=number_format($TotalCost)?></td>
 		<td><?=number_format($TotalCost)?></td>
+	</tr>
+	<tr style="font-weight:bold">
+		<td colspan="4" align="center">15% 공제금액</td>
+		<td class="income"><?=number_format( $TotalCost - ceil( ( ($TotalCost * 0.15)) / 100) * 100 )?></td>
 	</tr>
 </table>
