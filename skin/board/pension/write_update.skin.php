@@ -31,9 +31,9 @@ $goto_url = $g4[path] . "/reserv/chkReserv.php?wr_3=" . $wr_3;
 	}
 
 	$snd_number = get_text($config[cf_7]);		// 보내는 사람 번호를 받음
-	// $rcv_number = join(",", $phone); 				// 받는 사람 번호
-	$rcv_number1 = $phone[1];
-	$rcv_number2 = $phone[2];
+	$rcv_number = join(",", $phone); 				// 받는 사람 번호
+	$rcv_number1 = $phone[2];
+	$rcv_number2 = $phone[1];
 	$rcv_number3 = $phone[0];
 
 	//$sms_content  = "{$pen_tel[wr_subject]} 예약접수:{$wr_name} / 예약번호:{$wr_3} / {$wr_10}원 / http://staystore.co.kr";	 // 전송 내용을 받음
@@ -83,9 +83,9 @@ $goto_url = $g4[path] . "/reserv/chkReserv.php?wr_3=" . $wr_3;
 	// exit;
 	/*즉시 전송으로 구성하실경우*/
 	// $result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number,$sms_content); // 5개의 인자로 함수를 호출합니다.
-	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number1,$sms_content1); // 5개의 인자로 함수를 호출합니다.
-	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number2,$sms_content2); // 5개의 인자로 함수를 호출합니다.
-	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number3,$sms_content3); // 5개의 인자로 함수를 호출합니다.
+	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number1,$sms_content1); // 펜션
+	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number2,$sms_content2); // 회사
+	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number3,$sms_content3); // 고객
 ?>
 <form name='resform1' method='post' enctype='multipart/form-data' style='margin:0px;' accept-charset="UTF-8">
 <input type="hidden" name="wr_3" value="<?=$wr_3?>" />
