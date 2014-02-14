@@ -4,7 +4,7 @@ include_once("$g4[path]/lib/mailer.lib.php");
 /*
 // 081022 : CSRF 에서 토큰 비교는 의미 없음
 // 세션에 저장된 토큰과 폼값으로 넘어온 토큰을 비교하여 틀리면 에러
-if ($_POST["token"] && get_session("ss_token") == $_POST["token"]) 
+if ($_POST["token"] && get_session("ss_token") == $_POST["token"])
 {
     // 이전 폼 전송 바로전에 만들어진 쿠키가 없다면 에러
     //if (!get_cookie($_POST["token"])) alert_close("쿠키 에러");
@@ -12,8 +12,8 @@ if ($_POST["token"] && get_session("ss_token") == $_POST["token"])
     // 맞으면 세션과 쿠키를 지워 다시 입력폼을 통해서 들어오도록 한다.
     set_session("ss_token", "");
     set_cookie($_POST["token"], 0, 0);
-} 
-else 
+}
+else
 {
     alert_close("토큰 에러");
     exit;
@@ -23,11 +23,11 @@ else
 // 리퍼러 체크
 //referer_check();
 
-if (!($w == "" || $w == "u")) 
+if (!($w == "" || $w == "u"))
     alert("w 값이 제대로 넘어오지 않았습니다.");
 
 if ($w == "u" && $is_admin == "super") {
-    if (file_exists("$g4[path]/DEMO")) 
+    if (file_exists("$g4[path]/DEMO"))
         alert("데모 화면에서는 하실(보실) 수 없는 작업입니다.");
 }
 
@@ -47,7 +47,7 @@ $mb_nick = trim(strip_tags(mysql_escape_string($_POST[mb_nick])));
 $mb_email = trim(strip_tags(mysql_escape_string($_POST[mb_email])));
 $mb_homepage = trim(strip_tags(mysql_escape_string($_POST[mb_homepage])));
 
-if ($w == '' || $w == 'u') 
+if ($w == '' || $w == 'u')
 {
     if (!$mb_id) alert('회원아이디가 넘어오지 않았습니다.');
     if ($w == '' && !$mb_password) alert('패스워드가 넘어오지 않았습니다.');
@@ -62,7 +62,7 @@ if ($w == '' || $w == 'u')
         alert("\'$mb_nick\' 은(는) 예약어로 사용하실 수 없는 별명입니다.");
 
     // 이름은 한글만 가능
-    if (!check_string($mb_name, _G4_HANGUL_)) 
+    if (!check_string($mb_name, _G4_HANGUL_))
         alert('이름은 공백없이 한글만 입력 가능합니다.');
 
     // 별명은 한글, 영문, 숫자만 가능
@@ -125,19 +125,19 @@ $msg = "";
 
 // 아이콘 업로드
 $mb_icon = "";
-if (is_uploaded_file($_FILES[mb_icon][tmp_name])) 
+if (is_uploaded_file($_FILES[mb_icon][tmp_name]))
 {
-    if (preg_match("/(\.gif)$/i", $_FILES[mb_icon][name])) 
+    if (preg_match("/(\.gif)$/i", $_FILES[mb_icon][name]))
     {
         // 아이콘 용량이 설정값보다 이하만 업로드 가능
-        if ($_FILES[mb_icon][size] <= $config[cf_member_icon_size]) 
+        if ($_FILES[mb_icon][size] <= $config[cf_member_icon_size])
         {
             @mkdir($mb_dir, 0707);
             @chmod($mb_dir, 0707);
             $dest_path = "$mb_dir/$mb_id.gif";
             move_uploaded_file($_FILES[mb_icon][tmp_name], $dest_path);
             chmod($dest_path, 0606);
-            if (file_exists($dest_path)) 
+            if (file_exists($dest_path))
             {
                 //=================================================================\
                 // 090714
@@ -164,12 +164,17 @@ if (is_uploaded_file($_FILES[mb_icon][tmp_name]))
 $admin = get_admin('super');
 
 
-if ($w == "") 
+if ($w == "")
 {
     $mb = get_member($mb_id);
-    if ($mb[mb_id]) 
+    if ($mb[mb_id])
         alert("이미 가입한 아이디입니다.");
 
+    if($utype == "padmin") {
+        $mb_level = 3;
+    } else {
+        $mb_level = $config[cf_register_level];
+    }
     $sql = " insert into $g4[member_table]
                 set mb_id = '$mb_id',
                     mb_password = '".sql_password($mb_password)."',
@@ -194,7 +199,7 @@ if ($w == "")
                     mb_today_login = '$g4[time_ymdhis]',
                     mb_datetime = '$g4[time_ymdhis]',
                     mb_ip = '$_SERVER[REMOTE_ADDR]',
-                    mb_level = '$config[cf_register_level]',
+                    mb_level = '$mb_level',
                     mb_recommend = '$mb_recommend',
                     mb_login_ip = '$_SERVER[REMOTE_ADDR]',
                     mb_mailling = '$mb_mailling',
@@ -224,26 +229,26 @@ if ($w == "")
         insert_point($mb_recommend, $config[cf_recommend_point], "{$mb_id}의 추천인", '@member', $mb_recommend, "{$mb_id} 추천");
 
     // 회원님께 메일 발송
-    if ($config[cf_email_mb_member]) 
+    if ($config[cf_email_mb_member])
     {
         $subject = "회원가입을 축하드립니다.";
 
         $mb_md5 = md5($mb_id.$mb_email.$g4[time_ymdhis]);
         $certify_href = "$g4[url]/$g4[bbs]/email_certify.php?mb_id=$mb_id&mb_md5=$mb_md5";
-        
+
         ob_start();
         include_once ("./register_form_update_mail1.php");
         $content = ob_get_contents();
         ob_end_clean();
-        
+
         mailer($admin[mb_nick], $admin[mb_email], $mb_email, $subject, $content, 1);
     }
 
     // 최고관리자님께 메일 발송
-    if ($config[cf_email_mb_super_admin]) 
+    if ($config[cf_email_mb_super_admin])
     {
         $subject = $mb_nick . " 님께서 회원으로 가입하셨습니다.";
-        
+
         ob_start();
         include_once ("./register_form_update_mail2.php");
         $content = ob_get_contents();
@@ -253,12 +258,12 @@ if ($w == "")
     }
 
     // 메일인증 사용하지 않는 경우에만 로그인
-    if (!$config[cf_use_email_certify]) 
+    if (!$config[cf_use_email_certify])
         set_session("ss_mb_id", $mb_id);
 
     set_session("ss_mb_reg", $mb_id);
-} 
-else if ($w == "u") 
+}
+else if ($w == "u")
 {
     if (!trim($_SESSION["ss_mb_id"]))
         alert("로그인 되어 있지 않습니다.");
@@ -319,8 +324,8 @@ else if ($w == "u")
                     mb_8            = '$mb_8',
                     mb_9            = '$mb_9',
                     mb_10           = '$mb_10'
-                    $sql_password 
-                    $sql_icon 
+                    $sql_password
+                    $sql_icon
                     $sql_nick_date
                     $sql_open_date
                     $sql_sex
@@ -335,12 +340,12 @@ else if ($w == "u")
 
         $mb_md5 = md5($mb_id.$mb_email.$member[mb_datetime]);
         $certify_href = "$g4[url]/$g4[bbs]/email_certify.php?mb_id=$mb_id&mb_md5=$mb_md5";
-        
+
         ob_start();
         include_once ("./register_form_update_mail3.php");
         $content = ob_get_contents();
         ob_end_clean();
-        
+
         mailer($admin[mb_nick], $admin[mb_email], $mb_email, $subject, $content, 1);
     }
 }
@@ -350,7 +355,7 @@ else if ($w == "u")
 @include_once ("$g4[path]/skin/member/$config[cf_member_skin]/register_update.skin.php");
 
 
-if ($msg) 
+if ($msg)
     echo "<script type='text/javascript'>alert('{$msg}');</script>";
 
 /*
@@ -374,7 +379,7 @@ if ($w == "") {
         alert("회원 정보가 수정 되었습니다.\\n\\nE-mail 주소가 변경되었으므로 다시 인증하셔야 합니다.", $g4[path]);
     } else {
         echo "
-        <html><title>회원정보수정</title><meta http-equiv='Content-Type' content='text/html; charset=$g4[charset]'></html><body> 
+        <html><title>회원정보수정</title><meta http-equiv='Content-Type' content='text/html; charset=$g4[charset]'></html><body>
         <form name='fregisterupdate' method='post' action='{$https_url}/register_form.php'>
         <input type='hidden' name='w' value='u'>
         <input type='hidden' name='mb_id' value='{$mb_id}'>

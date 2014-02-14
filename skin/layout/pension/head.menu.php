@@ -37,7 +37,7 @@ function addbookmark_top() {
 		<tr>
 			<td class="ext1">&nbsp;</td>
 			<td class="contents1">
-				<a href="/reserv/chkReservForm.php">예약확인/취소</a>
+				<a href="/reserv/chkReservForm.php">예약확인</a>
 				<span>|</span>
 				<a href="/bbs/board.php?bo_table=qna">Q&A</a>
 				<span>|</span>
