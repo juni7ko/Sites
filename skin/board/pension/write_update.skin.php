@@ -54,7 +54,7 @@ $goto_url = $g4[path] . "/reserv/chkReserv.php?wr_3=" . $wr_3;
 		//무통장 입금
 		$sms_content1  = "StayStore 예약대기중/{$rName}/{$smsDate}($cntR)/{$wr_name}/{$wr_1[0]}명/{$resCost}원";	 // 펜션용
 		$sms_content2  = $sms_content1;	 // 회사용
-		$sms_content3  = "StayStore 계좌:{$bankNum}/입금액:{$resCost}원/{$wr_3}";	 // 고객용
+		$sms_content3  = "StayStore 계좌:{$bankNum}/입금액:{$resCost}원/예약번호:{$wr_3}";	 // 고객용
 	}
 	$reserve_date = "";			// 예약 일자를 받음
 	$reserve_time = "";			// 예약 시간을 받음
@@ -77,6 +77,10 @@ $goto_url = $g4[path] . "/reserv/chkReserv.php?wr_3=" . $wr_3;
 
 	$sms = new SMS($webService); //SMS 객체 생성
 
+	// echo "$rcv_number1,$sms_content1<br>";
+	// echo "$rcv_number2,$sms_content2<br>";
+	// echo "$rcv_number3,$sms_content3";
+	// exit;
 	/*즉시 전송으로 구성하실경우*/
 	// $result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number,$sms_content); // 5개의 인자로 함수를 호출합니다.
 	$result=$sms->SendSMS($sms_id,$sms_pwd,$snd_number,$rcv_number1,$sms_content1); // 5개의 인자로 함수를 호출합니다.
