@@ -1,3 +1,11 @@
+<script type="text/javascript">
+$('img').lazyload({
+	thresold : 50,
+	//placeholder : 'img/loading_spinner.gif',
+	//event : 'mouseover',
+	effect : 'fadeIn'
+});
+</script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/wrest.js"></script>
 
 <!-- 새창 대신 사용하는 iframe -->

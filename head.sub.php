@@ -161,6 +161,17 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 	<link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/layout/css/style.css" />
 	<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="<?=$g4['path']?>/layout/css/ie.css" media="all" /><![endif]-->
 
+	<script type="text/javascript" src="<?=$g4['path']?>/js/jquery.lazyload.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48109755-1', 'staystore.co.kr');
+  ga('send', 'pageview');
+
+</script>
 </head>
 
 <body topmargin="0" leftmargin="0" <?=isset($g4['body_script']) ? $g4['body_script'] : "";?>>
