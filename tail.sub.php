@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $('img').lazyload({
-	thresold : 50,
-	//placeholder : 'img/loading_spinner.gif',
+	thresold : 100,
+	placeholder : '<?=$g4['path']?>/img/gray.gif',
 	//event : 'mouseover',
 	effect : 'fadeIn'
 });
