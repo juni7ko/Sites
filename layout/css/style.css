@@ -415,12 +415,14 @@
 /*===================================================================================*/
 
 .section3 {
-	margin-top: 50px;
+	margin:50px auto 0;
+	width:980px;
 }
 
 .section3 .row {
 	padding-top: 10px;
 	background: url('../images/row_dot.gif') 50% 50% repeat-y;
+	width:980px;
 }
 
 .section3 .titles {
@@ -551,12 +553,14 @@
 /*===================================================================================*/
 
 .section7 {
-	margin-top: 50px;
+	margin:50px auto 0;
+	width:980px;
 }
 
 .section7 .row {
 	padding-top: 10px;
 	background: url('../images/row_dot1.gif') 50% 50% repeat-y;
+	width:980px;
 }
 
 .section7 .titles {

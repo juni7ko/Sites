@@ -1,6 +1,9 @@
 <style type="text/css">
 	#sideZone { margin:0 auto; width:980px; position:relative; height:0px;}
-	#STATICMENU { margin:0pt; padding: 0pt; position: absolute; left:985px; top: 0px; width:70px; z-index: 999; }
+	#STATICMENU { margin:0pt; padding: 0pt; position: absolute; left:985px; top: 0px; width:70px; z-index: 999; background-color:#00aebd; table-layout: fixed; }
+	#STATICMENU h1 { width:70px; height:26px; background:url(/layout/images/right_banner_01.jpg) no-repeat; }
+	#STATICMENU .zone1 { width:70px; height:60px; }
+	#STATICMENU .zone2 { width:70px; height:109px; background:url(/layout/images/right_banner_03.jpg) no-repeat; }
 </style>
 <script type="text/javascript">
 var stmnLEFT = 10; // 오른쪽 여백
@@ -37,8 +40,9 @@ $(function(){
 <div id="sideZone">
 	<div id="STATICMENU">
 		<div>
-			<h1>이벤트</h1>
-			<a href="#"><span>무료등록</span></a>
+			<h1></h1>
+			<div class="zone1"><a href="/bbs/board.php?bo_table=notice&wr_id=2"><img src="/layout/images/right_banner_02.jpg"></a></div>
+			<div class="zone2"></div>
 		</div>
 	</div>
 </div>

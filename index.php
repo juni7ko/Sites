@@ -62,12 +62,12 @@ $chkLatest = Array();
 		<div class="container">
 			<div class="tleft">
 				<h3>BIG SALE</h3>
-				<span>최고의 할인율!</span>
+				<span>최고 할인율 도전!</span>
 			</div>
 			<div class="title-img"></div>
 			<div class="tright">
 				<h3>VERY CHEAP</h3>
-				<span>진정한 할인가!</span>
+				<span>전국 최저가 도전!</span>
 			</div>
 		</div>
 	</div>
@@ -130,13 +130,13 @@ $chkLatest = Array();
 	<div class="titles">
 		<div class="container">
 			<div class="tleft">
-				<h3>HOT</h3>
-				<span>내가 제일 잘나가!</span>
+				<h3>HOT STAY</h3>
+				<span>팔려도 너~무 잘 팔린다!</span>
 			</div>
 			<div class="title-img"></div>
 			<div class="tright">
-				<h3>NEW</h3>
-				<span>내가 곧 대세!</span>
+				<h3>TREND STAY</h3>
+				<span>뜨거운 관심을 한몸에!</span>
 			</div>
 		</div>
 	</div>
